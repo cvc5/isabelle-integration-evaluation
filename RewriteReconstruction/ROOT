@@ -1,0 +1,7 @@
+session EvaluateRewrites in thys = "HOL-CVC" +
+options [quick_and_dirty]
+sessions
+  "HOL-Library"
+  "Word_Lib"
+theories
+  TestRewrites
