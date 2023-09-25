@@ -1,11 +1,17 @@
 #!/bin/bash
 
-ISABELLE_HOME=~/Sources/isabelle-git/isabelle-emacs/
-AFP_HOME=~/Sources/afp-2022-02-21/thys/Word_Lib
-BASE_DIR=~/Sources/isabelle-evaluation-reconstruction/RewriteReconstruction
 
+
+ export USER_HOME=/barrett/scratch/lachnitt
+ISABELLE_HOME=/barrett/scratch/lachnitt/Sources/isabelle-emacs/
+AFP_HOME=/barrett/scratch/lachnitt/Sources/afp-2023-09-13/thys/Word_Lib
+BASE_DIR=/barrett/scratch/lachnitt/Sources/isabelle-integration-evaluation/RewriteReconstruction
 
 #TODO: File paths in line 30 and 36 are hardcoded...
+
+
+while [ ! -z "$(ls -A ./Benchmark)" ]
+do
 
 ISABELLE=$ISABELLE_HOME"bin/isabelle"
 echo "init ..."
@@ -34,14 +40,14 @@ rm ./AletheProofs/*
 #Run Isabelle for the first time
 echo "run Isabelle with rewrite lemmas ..."
 sed -i '95s/.*/(SMT_Config.verbose_msg ctxt (pretty ("Found rewrite rule " ^ rewrite_name)) []; dsl_tac_initialize rewrite_name args ctxt t th)|/' $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
-sed -i '45s/.*/check_smt_dir_stats "~\/Sources\/isabelle-evaluation-reconstruction\/RewriteReconstruction\/GeneratedProblems\/" "~\/Sources\/isabelle-evaluation-reconstruction\/RewriteReconstruction\/Results\/ResultsWithRewrites.txt"/' ./thys/TestRewrites.thy
+sed -i '45s/.*/check_smt_dir_stats "\/barrett\/scratch\/lachnitt\/Sources\/isabelle-integration-evaluation\/RewriteReconstruction\/GeneratedProblems\/" "\/barrett\/scratch\/lachnitt\/Sources\/isabelle-integration-evaluation\/RewriteReconstruction\/Results\/ResultsWithRewrites.txt"/' ./thys/TestRewrites.thy
 $ISABELLE build -d $AFP_HOME -d. EvaluateRewrites
 sed -i '1s/^/file_name,timeWithLemmas\n/' ./Results/ResultsWithRewrites.txt
 
 #Run Isabelle for the second time
 echo "run Isabelle without rewrite lemmas ..."
-sed -i '95s/.*/(SMT_Config.verbose_msg ctxt (pretty ("Found evaluate, try to simplify")) []; try_simp ctxt t)|/' ~/Sources/isabelle-git/isabelle-emacs/src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML
-sed -i '45s/.*/check_smt_dir_stats "~\/Sources\/isabelle-evaluation-reconstruction\/RewriteReconstruction\/GeneratedProblems\/" "~\/Sources\/isabelle-evaluation-reconstruction\/RewriteReconstruction\/Results\/ResultsWithoutRewrites.txt"/' ./thys/TestRewrites.thy
+sed -i '95s/.*/(SMT_Config.verbose_msg ctxt (pretty ("Found evaluate, try to simplify")) []; try_simp ctxt t)|/' $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
+sed -i '45s/.*/check_smt_dir_stats "\/barrett\/scratch\/lachnitt\/Sources\/isabelle-integration-evaluation\/RewriteReconstruction\/GeneratedProblems\/" "\/barrett\/scratch\/lachnitt\/Sources\/isabelle-integration-evaluation\/RewriteReconstruction\/Results\/ResultsWithoutRewrites.txt"/' ./thys/TestRewrites.thy
 $ISABELLE build -d $AFP_HOME -d. EvaluateRewrites
 sed -i '1s/^/file_name,timeWithoutLemmas\n/' ./Results/ResultsWithoutRewrites.txt
 
@@ -67,3 +73,4 @@ echo "clean up ..."
 > ./Results/ResultsWithRewrites.txt
 
 echo "done!"
+done
