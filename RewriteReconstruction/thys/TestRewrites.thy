@@ -42,7 +42,7 @@ val _ = Outer_Syntax.local_theory \<^command_keyword>\<open>check_smt_dir_stats\
 
 
 
-check_smt_dir_stats "/barrett/scratch/lachnitt/Sources/isabelle-integration-evaluation/RewriteReconstruction/GeneratedProblems/" "/barrett/scratch/lachnitt/Sources/isabelle-integration-evaluation/RewriteReconstruction/Results/ResultsWithRewrites.txt"
+check_smt_dir_stats "${GEN_PROB}" "${RESULTS_WITH}"
 
 
 
