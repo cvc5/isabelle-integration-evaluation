@@ -1,0 +1,6 @@
+# isabelle-integration-evaluation
+Tests to evaluate the reconstruction of cvc5 proofs in the proof assistant Isabelle
+
+Tests available:
+1. Test the impact of reconstructing rewrites with the use of custom lemmas that correspond to rewrite rules instead of merely simplifying.
+   -> See RewriteReconstruction/README for more information
