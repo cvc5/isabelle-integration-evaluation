@@ -24,7 +24,7 @@ RESULTS_WITH=$BASE_DIR2"\/Results\/ResultsWithRewrites.txt"
 echo $GEN_PROB
 
 echo "get Alethe proofs ..."
-./Scripts/runAlethe.sh 1 #Get proofs for 100 smt2 benchmarks at a time
+./Scripts/runAlethe.sh 100 #Get proofs for 100 smt2 benchmarks at a time
 echo "generate Benchmarks from Alethe proofs ..."
 ./Scripts/generateBenchmarks.sh 1 #Split up proofs into one problem and proof per rewrite, delete original problem
 
@@ -37,15 +37,15 @@ rm ./AletheProofs/*
 
 #Run Isabelle for the first time
 echo "run Isabelle with rewrite lemmas ..."
-sed -i '95s/.*/(dsl_tac_initialize rewrite_name args ctxt t th)|/' $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
-sed -i '45s/.*/check_smt_dir_stats "${GEN_PROB}" "${RESULTS_WITH}"/' ./thys/TestRewrites.thy
+sed -i "98s/.*/(dsl_tac_initialize rewrite_name args ctxt t th)|/" $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
+sed -i "45s/.*/check_smt_dir_stats \"${GEN_PROB}\" \"${RESULTS_WITH}\"/" ./thys/TestRewrites.thy
 $ISABELLE build -d $AFP_HOME -d. EvaluateRewrites
 sed -i '1s/^/file_name,timeWithLemmas\n/' ./Results/ResultsWithRewrites.txt
 
 #Run Isabelle for the second time
 echo "run Isabelle without rewrite lemmas ..."
-sed -i '95s/.*/(try_auto_simp ctxt t)|/' $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
-sed -i '45s/.*/check_smt_dir_stats "${GEN_PROB}" "${RESULTS_WITHOUT}"' ./thys/TestRewrites.thy
+sed -i "98s/.*/(try_auto_solo ctxt t)|/" $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
+sed -i "45s/.*/check_smt_dir_stats \"$GEN_PROB\" \"${RESULTS_WITHOUT}\"/" ./thys/TestRewrites.thy
 $ISABELLE build -d $AFP_HOME -d. EvaluateRewrites
 sed -i '1s/^/file_name,timeWithoutLemmas\n/' ./Results/ResultsWithoutRewrites.txt
 
@@ -71,6 +71,5 @@ echo "clean up ..."
 > ./Results/ResultsWithRewrites.txt
 
 echo "done!"
-sed -i '95s/.*/(dsl_tac_initialize rewrite_name args ctxt t th)|/' $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
 done
 exit
