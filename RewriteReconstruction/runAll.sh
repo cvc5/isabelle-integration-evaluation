@@ -1,10 +1,6 @@
 #!/bin/bash
 
-export USER_HOME=/barrett/scratch/lachnitt
-ISABELLE_HOME=/barrett/scratch/lachnitt/Sources/isabelle-emacs/
-AFP_HOME=/barrett/scratch/lachnitt/Sources/afp-2023-09-13/thys/Word_Lib
-BASE_DIR=/barrett/scratch/lachnitt/Sources/isabelle-integration-evaluation/RewriteReconstruction
-
+source config
 
 while [ ! -z "$(ls -A ./Benchmark)" ]
 do
