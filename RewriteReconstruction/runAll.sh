@@ -33,14 +33,14 @@ rm ./AletheProofs/*
 
 #Run Isabelle for the first time
 echo "run Isabelle with rewrite lemmas ..."
-sed -i "98s/.*/(dsl_tac_initialize rewrite_name args ctxt t th)|/" $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
+sed -i "109s/.*/(dsl_tac_initialize rewrite_name args ctxt t th)|/" $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
 sed -i "45s/.*/check_smt_dir_stats \"${GEN_PROB}\" \"${RESULTS_WITH}\"/" ./thys/TestRewrites.thy
 $ISABELLE build -d $AFP_HOME -d. EvaluateRewrites
 sed -i '1s/^/file_name,timeWithLemmas\n/' ./Results/ResultsWithRewrites.txt
 
 #Run Isabelle for the second time
 echo "run Isabelle without rewrite lemmas ..."
-sed -i "98s/.*/(try_auto_solo ctxt t)|/" $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
+sed -i "109s/.*/(try_auto_solo ctxt t)|/" $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
 sed -i "45s/.*/check_smt_dir_stats \"$GEN_PROB\" \"${RESULTS_WITHOUT}\"/" ./thys/TestRewrites.thy
 $ISABELLE build -d $AFP_HOME -d. EvaluateRewrites
 sed -i '1s/^/file_name,timeWithoutLemmas\n/' ./Results/ResultsWithoutRewrites.txt
