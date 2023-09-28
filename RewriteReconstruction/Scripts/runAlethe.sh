@@ -2,8 +2,7 @@
 
 BENCHMARK_HOME=./Benchmark
 PROOF_HOME=./AletheProofs
-CVC5_HOME=/barrett/scratch/lachnitt/Sources/cvc5/build/bin/cvc5
-
+source config
 
 if [ $# -ne 0 ]
   then
