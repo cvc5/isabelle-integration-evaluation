@@ -6,11 +6,13 @@ import matplotlib.pyplot as plt
 import numpy as np 
 import csv
 from collections import defaultdict
+from pprint import pprint
   
 file_name = []
 rule = []
 time_with_rewrites = []
 time_without_rewrites = []
+errors=[]
 
 # By chatgpt
 def calculate_average_by_strings(strings, integers,name):
@@ -35,14 +37,18 @@ with open(res_file,'r') as csvfile:
     lines = csv.reader(csvfile, delimiter=',')
     for row in lines:
       #file_name.append(row[0]), not needed so far
-      rule.append(row[1])
-      time_with_rewrites.append(row[2])
-      time_without_rewrites.append(row[3])
+      if (row[2]==' error' or row[3]==' error'):
+        errors.append(row)
+      else:
+       rule.append(row[1])
+       time_with_rewrites.append(row[2])
+       time_without_rewrites.append(row[3])
 
 time_with_rewrites.pop(0)
 time_without_rewrites.pop(0)
 rule.pop(0)
 
+pprint(errors)
 #Make list with average time for each rewrite rule
 result_time_with_rewrites = calculate_average_by_strings(rule, time_with_rewrites,"withR")
 result_time_without_rewrites = calculate_average_by_strings(rule, time_without_rewrites,"withoutR")
