@@ -5,8 +5,7 @@ b) Reconstruction by Isabelle's simplifier
 
 The workflow is as follows (run on cluster if possible):
 
-0. Set CVC5_HOME in Scripts/runAlethe.sh
-   Set ISABELLE_HOME and AFP_HOME in runAll.sh
+0. Set CVC5_HOME, ISABELLE_HOME and AFP_HOME in config
 
 1. Identify a set of benchmarks and put it into the Benchmark folder.
    Note: For memory reasons (the script will generate a new problem and proof for every rewrite) only a small batch of benchmarks is processed in one round
