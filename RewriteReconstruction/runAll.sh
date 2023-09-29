@@ -1,6 +1,12 @@
 #!/bin/bash
 
 source config
+line_nr_replace=109
+
+
+nr_files=$(find "./Benchmark/" -maxdepth 1 -type f | wc -l)
+echo "Number of SMT-LIB problems found: $nr_files"
+nr_rewrites=0
 
 while [ ! -z "$(ls -A ./Benchmark)" ]
 do
@@ -20,9 +26,14 @@ RESULTS_WITH=$BASE_DIR2"\/Results\/ResultsWithRewrites.txt"
 echo $GEN_PROB
 
 echo "get Alethe proofs ..."
-./Scripts/runAlethe.sh 100 #Get proofs for 100 smt2 benchmarks at a time
+./Scripts/runAlethe.sh 1 #Get proofs for 100 smt2 benchmarks at a time
 echo "generate Benchmarks from Alethe proofs ..."
 ./Scripts/generateBenchmarks.sh 1 #Split up proofs into one problem and proof per rewrite, delete original problem
+nr_curr_rewrites=$(find "./GeneratedProblems/" -maxdepth 1 -type f | wc -l)
+
+if [ $nr_curr_rewrites -ne 0 ]
+then 
+nr_rewrites=$(($nr_rewrites + $nr_curr_rewrites))
 
 #Delete Alethe proofs
 rm ./AletheProofs/*
@@ -33,20 +44,20 @@ rm ./AletheProofs/*
 
 #Run Isabelle for the first time
 echo "run Isabelle with rewrite lemmas ..."
-sed -i "98s/.*/(dsl_tac_initialize rewrite_name args ctxt t th)|/" $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
+sed -i "${line_nr_replace}s/.*/(dsl_tac_initialize rewrite_name args ctxt t th)|/" $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
 sed -i "45s/.*/check_smt_dir_stats \"${GEN_PROB}\" \"${RESULTS_WITH}\"/" ./thys/TestRewrites.thy
 $ISABELLE build -d $AFP_HOME -d. EvaluateRewrites
 sed -i '1s/^/file_name,timeWithLemmas\n/' ./Results/ResultsWithRewrites.txt
 
 #Run Isabelle for the second time
 echo "run Isabelle without rewrite lemmas ..."
-sed -i "98s/.*/(try_auto_solo ctxt t)|/" $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
+sed -i "${line_nr_replace}s/.*/(try_auto_solo ctxt t)|/" $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
 sed -i "45s/.*/check_smt_dir_stats \"$GEN_PROB\" \"${RESULTS_WITHOUT}\"/" ./thys/TestRewrites.thy
 $ISABELLE build -d $AFP_HOME -d. EvaluateRewrites
 sed -i '1s/^/file_name,timeWithoutLemmas\n/' ./Results/ResultsWithoutRewrites.txt
 
 #Delete content of GeneratedProblems
-rm ./GeneratedProblems/*
+#rm ./GeneratedProblems/*
 
 echo "connect all data ..."
 python3 ./Scripts/connectStats.py
@@ -67,5 +78,7 @@ echo "clean up ..."
 > ./Results/ResultsWithRewrites.txt
 
 echo "done!"
+echo "Checked a total of $nr_rewrites rewrites"
+fi
 done
 exit
