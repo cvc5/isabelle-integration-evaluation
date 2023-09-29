@@ -10,8 +10,8 @@ from pprint import pprint
   
 file_name = []
 rule = []
-time_with_rewrites = []
-time_without_rewrites = []
+time_with_lemmas = []
+time_without_lemmas = []
 errors=[]
 
 # By chatgpt
@@ -41,21 +41,21 @@ with open(res_file,'r') as csvfile:
         errors.append(row)
       else:
        rule.append(row[1])
-       time_with_rewrites.append(row[2])
-       time_without_rewrites.append(row[3])
+       time_with_lemmas.append(row[2])
+       time_without_lemmas.append(row[3])
 
-time_with_rewrites.pop(0)
-time_without_rewrites.pop(0)
+time_with_lemmas.pop(0)
+time_without_lemmas.pop(0)
 rule.pop(0)
 
 pprint(errors)
 #Make list with average time for each rewrite rule
-result_time_with_rewrites = calculate_average_by_strings(rule, time_with_rewrites,"withR")
-result_time_without_rewrites = calculate_average_by_strings(rule, time_without_rewrites,"withoutR")
+result_time_with_lemmas = calculate_average_by_strings(rule, time_with_lemmas,"withR")
+result_time_without_lemmas = calculate_average_by_strings(rule, time_without_lemmas,"withoutR")
 
 totalTime=[]
 d = defaultdict(dict)
-for l in (result_time_with_rewrites, result_time_without_rewrites):
+for l in (result_time_with_lemmas, result_time_without_lemmas):
     for elem in l:
         d[elem['rule']].update(elem)
         

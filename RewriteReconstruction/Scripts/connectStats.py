@@ -12,14 +12,14 @@ with open('Results/FileToRewrite.txt','r') as csvfile:
   
 with open('Results/ResultsWithRewrites.txt','r') as csvfile:
   dict_reader = DictReader(csvfile)
-  filename_time_with_rewrites = list(dict_reader)
+  filename_time_with_lemmas = list(dict_reader)
   
 with open('Results/ResultsWithoutRewrites.txt','r') as csvfile:
   dict_reader = DictReader(csvfile)
-  filename_time_without_rewrites = list(dict_reader)
+  filename_time_without_lemmas = list(dict_reader)
  
 d = defaultdict(dict)
-for l in (filename_rewrite, filename_time_with_rewrites):
+for l in (filename_rewrite, filename_time_with_lemmas):
     for elem in l:
         d[elem['file_name']].update(elem)
 
@@ -27,7 +27,7 @@ l3 = d.values()
 
 
 d2 = defaultdict(dict)
-for l in (l3, filename_time_without_rewrites):
+for l in (l3, filename_time_without_lemmas):
     for elem in l:
         d2[elem['file_name']].update(elem)
 
