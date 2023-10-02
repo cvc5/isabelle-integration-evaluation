@@ -37,7 +37,7 @@ with open(res_file,'r') as csvfile:
     lines = csv.reader(csvfile, delimiter=',')
     for row in lines:
       #file_name.append(row[0]), not needed so far
-      if (row[2]==' error' or row[3]==' error'):
+      if (row[2]==' error' or row[3]==' error' or row[2]==None or row[3]==None):
         errors.append(row)
       else:
        rule.append(row[1])
