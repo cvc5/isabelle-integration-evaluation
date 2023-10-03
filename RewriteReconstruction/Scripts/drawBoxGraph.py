@@ -24,7 +24,7 @@ for filename in os.listdir(directory):
     lines = csv.reader(csvfile, delimiter=',')
     next(lines)
     for row in lines:
-      if (row[2]==' error' or row[3]==' error' or row[2]==None or row[3]==None):
+      if (row[2]==' error' or row[3]==' error' or row[2]==None or row[3]==None or row[2]==''  or row[3]=='' ):
         errors.append(row)
       elif (row[1]==' evaluate))' or row[1]==' none'):
         pass
@@ -37,6 +37,16 @@ for filename in os.listdir(directory):
          time_without_lemmas_per_rule[row[1]].append(int(row[3])/1000)
        else:
          time_without_lemmas_per_rule[row[1]] = [int(row[3])/1000]
+
+error_only_with_lemma=0
+error_only_without_lemma=0
+for error_line in errors:
+  if(row[2]==" error" and row[3]!=" error"):
+    error_only_with_lemma+= 1
+  elif(row[3]==" error" and row[2]!=" error"):
+    error_only_without_lemma+= 1
+
+print("There were %2d benchmarks that only had errors when replayed with lemmas.\n and %3d that had errors when replayed without lemmas but not with." % (error_only_with_lemma, error_only_without_lemma))   # print integer value
   
 #TODO: chatgpt wrote this  
 resultList = list(time_with_lemmas_per_rule.items())
@@ -72,6 +82,5 @@ ax.set_xlabel('Rules')
 ax.set_ylabel('Time')
 ax.set_title('Time to Reconstruct Rewrite Steps')
 ax.legend(['With Lemmas', 'Without Lemmas'])
-
 plt.show()
 

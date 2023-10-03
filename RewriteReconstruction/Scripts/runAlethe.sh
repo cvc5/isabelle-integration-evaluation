@@ -11,11 +11,11 @@ if [ $# -ne 0 ]
 fi
 
 
-for file in "$BENCHMARK_HOME"/*.smt2 ; do
-
-  cvc5=$(timeout 12 $CVC5_HOME --proof-format-mode=alethe --dump-proofs --produce-proofs --proof-granularity=dsl-rewrite --simplification=none --lang=smt2 --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2 --dag-thres=0 $file) 2> /dev/null
+for file in "$BENCHMARK_HOME"*.smt2 ; do
+echo $file
+  cvc5=$(timeout 12 $CVC5_HOME --proof-format-mode=alethe --dump-proofs --produce-proofs --proof-granularity=dsl-rewrite --simplification=none --lang=smt2 --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2 --dag-thres=0 $file) 
   if [ $? = 124 ] ; then
-    rm $file
+    rm -f $file
   elif [ `echo $cvc5 | grep -c "unsat" ` -gt 0 ] && [ $(echo "$cvc5" | wc -l) -ge 2 ]
   then
     new_file="${file##*/}"  
@@ -24,7 +24,7 @@ for file in "$BENCHMARK_HOME"/*.smt2 ; do
     touch $resultFile
     echo "$cvc5">$resultFile;
   else
-    rm $file
+    rm -f $file
   fi
   
   if [ $# -ne 0 ]

@@ -1,13 +1,16 @@
 #!/bin/bash
 
 source config
-line_nr_replace=109
+line_nr_replace=123
 
 
 nr_files=$(find "./Benchmark/" -maxdepth 1 -type f | wc -l)
-echo "Number of SMT-LIB problems found: $nr_files"
 nr_rewrites=0
+nr_used=0
 
+echo "benhcmark how many"
+ls ./Benchmark
+ 
 while [ ! -z "$(ls -A ./Benchmark)" ]
 do
 
@@ -23,24 +26,22 @@ BASE_DIR2="${BASE_DIR//\//\\\/}"
 GEN_PROB=$BASE_DIR2"\/GeneratedProblems\/"
 RESULTS_WITHOUT=$BASE_DIR2"\/Results\/ResultsWithoutRewrites.txt"
 RESULTS_WITH=$BASE_DIR2"\/Results\/ResultsWithRewrites.txt"
-echo $GEN_PROB
 
 echo "get Alethe proofs ..."
-./Scripts/runAlethe.sh 1 #Get proofs for 100 smt2 benchmarks at a time
+./Scripts/runAlethe.sh 100 #Get proofs for 100 smt2 benchmarks at a time
+
+nr_used=$(($nr_used + $(find "./AletheProofs/" -maxdepth 1 -type f | wc -l)))
+
 echo "generate Benchmarks from Alethe proofs ..."
 ./Scripts/generateBenchmarks.sh 1 #Split up proofs into one problem and proof per rewrite, delete original problem
 nr_curr_rewrites=$(find "./GeneratedProblems/" -maxdepth 1 -type f | wc -l)
 
-if [ $nr_curr_rewrites -ne 0 ]
+if [ $nr_curr_rewrites -ne 0 ] #No rewrites in any proof
 then 
 nr_rewrites=$(($nr_rewrites + $nr_curr_rewrites))
 
 #Delete Alethe proofs
-rm ./AletheProofs/*
-
-#Consolidate results
-#echo "file_name,timeWithoutLemmas" >> ./Results/ResultsWithoutRewrites.txt
-#echo "file_name,timeWithLemmas" >> ./Results/ResultsWithRewrites.txt
+rm -f ./AletheProofs/*
 
 #Run Isabelle for the first time
 echo "run Isabelle with rewrite lemmas ..."
@@ -57,7 +58,7 @@ $ISABELLE build -d $AFP_HOME -d. EvaluateRewrites
 sed -i '1s/^/file_name,timeWithoutLemmas\n/' ./Results/ResultsWithoutRewrites.txt
 
 #Delete content of GeneratedProblems
-#rm ./GeneratedProblems/*
+#rm -f ./GeneratedProblems/*
 
 echo "connect all data ..."
 python3 ./Scripts/connectStats.py
@@ -73,12 +74,23 @@ touch ./Results/Results.csv
 echo "clean up ..."
 
 #Delete content of all results files
-> ./Results/FileToRewrite.txt
-> ./Results/ResultsWithoutRewrites.txt
-> ./Results/ResultsWithRewrites.txt
+#> ./Results/FileToRewrite.txt
+#> ./Results/ResultsWithoutRewrites.txt
+#> ./Results/ResultsWithRewrites.txt
 
 echo "done!"
-echo "Checked a total of $nr_rewrites rewrites"
+else
+ rm -f ./Benchmark/*
 fi
 done
+
+sed -i "${line_nr_replace}s/.*/(dsl_tac_initialize rewrite_name args ctxt t th)|/" $ISABELLE_HOME"src/HOL/CVC/ML/lethe_replay_all_simplify_methods.ML"
+
+echo "------------------------------------------------"
+echo "------------------------------------------------"
+echo "------------------------------------------------"
+echo "Number of SMT-LIB problems found: $nr_files"
+echo "Of these $nr_used could be used (e.g., timeouts)"
+echo "Checked a total of $nr_rewrites rewrites"
+
 exit
