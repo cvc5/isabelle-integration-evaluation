@@ -10,8 +10,11 @@ echo "file_name,rule" >> $STATS
      
 delete_files=$1
 
-for proof_file in "$PROOF_HOME"/*.alethe ; do
+nr_curr_proofs=$(find "./AletheProofs/" -maxdepth 1 -type f | wc -l)
+if [ $nr_curr_proofs -ne 0 ]
+then
 
+for proof_file in "$PROOF_HOME/"*.alethe ; do
   problem_file_name=`basename $proof_file ".alethe"`
   problem_file="$PROBLEM_HOME/""${problem_file_name%.*}"".smt2"
 
@@ -21,7 +24,7 @@ for proof_file in "$PROOF_HOME"/*.alethe ; do
      
   #asserts can go over several lines :( So this is not possible
   #sed -i '/assert/d' $new_problem
-  temp=$(<$problem_file)
+  temp=$(<"$problem_file")
   #FIXME: Just give python script the file or only have python script for this whole workflow...
   newProblemContent="$(python3 Scripts/deleteAsserts.py "$temp" 2>&1)"
 
@@ -65,5 +68,7 @@ for proof_file in "$PROOF_HOME"/*.alethe ; do
    then
      rm $problem_file #Delete original problem
    fi
-
 done
+else
+  rm -f ./GeneratedProblems/*
+fi
