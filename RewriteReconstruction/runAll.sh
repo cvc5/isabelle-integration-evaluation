@@ -8,7 +8,6 @@ nr_files=$(find "./Benchmark/" -maxdepth 1 -type f | wc -l)
 nr_rewrites=0
 nr_used=0
 
-echo "benhcmark how many"
 ls ./Benchmark
  
 while [ ! -z "$(ls -A ./Benchmark)" ]
