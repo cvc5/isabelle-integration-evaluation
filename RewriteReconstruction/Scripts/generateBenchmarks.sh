@@ -69,6 +69,4 @@ for proof_file in "$PROOF_HOME/"*.alethe ; do
      rm $problem_file #Delete original problem
    fi
 done
-else
-  rm -f ./GeneratedProblems/*
 fi
