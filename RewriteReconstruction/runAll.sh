@@ -7,8 +7,6 @@ line_nr_replace=123
 nr_files=$(find "./Benchmark/" -maxdepth 1 -type f | wc -l)
 nr_rewrites=0
 nr_used=0
-
-ls ./Benchmark
  
 while [ ! -z "$(ls -A ./Benchmark)" ]
 do
