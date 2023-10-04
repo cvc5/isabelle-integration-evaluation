@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BENCHMARK_HOME=./Benchmark
+BENCHMARK_HOME=./Benchmark/
 PROOF_HOME=./AletheProofs
 source config
 
