@@ -1,0 +1,19 @@
+
+# User input
+
+ISABELLE_HOME=~/Sources/isabelle-git/isabelle-emacs
+AFP_HOME=~/Sources/afp-2022-02*-21/thys/Word_Lib
+CVC5_HOME=~/Sources/cvc5/build/bin/cvc5
+
+
+# Internal
+
+BASE_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+BENCHMARK_HOME=$BASE_DIR/Benchmark
+INPUT_BENCHMARK_HOME="$BENCHMARK_HOME/Input/"
+PREPROC_BENCHMARK_HOME="$BENCHMARK_HOME/Preprocessed/"
+Result_BENCHMARK_HOME="$BENCHMARK_HOME/Result/"
+EVAL_RES=$BASE_DIR/Result/
+PROBLEM_LOG=$BENCHMARK_HOME/logRun.txt
+
