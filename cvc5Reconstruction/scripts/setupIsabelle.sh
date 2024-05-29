@@ -43,7 +43,7 @@ write_theory()
 
   echo "declare [[smt_statistics_file=\"$solver_config\"]]" >> $theory_file
   echo "declare [[smt_verbose=false,smt_trace=false,smt_debug_verit=false,smt_timeout=1.0,smt_reconstruction_step_timeout=1.0]]" >> $theory_file
-  echo "declare[[smt_rec_evaluation]]"
+  echo "declare[[smt_rec_evaluation]]" >> $theory_file
   echo "check_smt_dir (\"$solver\") \"/home/lachnitt/Sources/isabelle-integration-evaluation/cvc5Reconstruction/data/benchmarks/$solver_config/\"" >> $theory_file
 
   echo "end" >> $theory_file

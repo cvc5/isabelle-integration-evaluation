@@ -23,6 +23,7 @@ stats_dir=misc
 
 more_stats=false
 
+save_errors=false
 
 usage() {
  echo "Usage: $0 [OPTIONS]"
@@ -49,7 +50,8 @@ usage() {
  echo " -i  <dir> | --use_stored_bench <dir> Use specific image for benchmarks <dir>"
  echo " -r  | --del_timeout delete benchmarks for which at least one solver times out from preprocessed folder (helpful for having the next run without preprocessing)"
  echo " -y  <nr> | --stop <nr> stop after n iterations iterations"
- echo " -w  | --word if you want to check bv problems (deactivated by default since it takes forever to load SMT_CVC_Word). You'll also have to run the script that writes the theories again"
+ echo " -w  | --word if you want to check bv problems (deactivated by default since it takes forever to load SMT_CVC_Word)."
+ echo " -q  | --save_errors"
 }
 
 handle_options() {
@@ -76,12 +78,13 @@ for arg in "$@"; do
     '--del_timeout') set -- "$@" '-r'   ;;     
     '--stop') set -- "$@" '-y'   ;;         
     '--word') set -- "$@" '-w'   ;;
+    '--save_errors') set -- "$@" '-w'   ;;
     # Other arguments
     *)          set -- "$@" "$arg" ;;
   esac
 done
 
-while getopts "hvl:s:d:atpc:b:i:ry:w" flag; do
+while getopts "hvl:s:d:atpc:b:i:ry:wq" flag; do
  case $flag in
    h)
    usage
@@ -136,6 +139,9 @@ while getopts "hvl:s:d:atpc:b:i:ry:w" flag; do
    r)
    delete_timeouts_str="-r";
    ;;
+   q)
+   save_errors=true;
+   ;; 
    w)
    word_str="-b";
    ;;
@@ -210,11 +216,22 @@ while [ -s $PROBLEM_LOG ] && [ "$continue_iterate" = "true" ] ; do
       # Create an array to hold all arguments
       args=($solvers)
       if $verbose ; then echo "Running solvers"; fi
+      echo "run all"
+      echo $delete_timeouts_str
       (eval "$SCRIPTS_HOME/getProof.sh -d $stats_dir -l $benchmark_limit $solvers $delete_timeouts_str $save_bench_dir_str $more_stats_str")
     fi;
  
     if $verbose ; then echo "Running checkers"; fi 
     (eval "$SCRIPTS_HOME/runIsabelle.sh -d $stats_dir $solvers $verbose_str")
+    
+    if $save_errors ; then 
+     > $ERROR_LOG
+     echo $solvers
+     if $cvc5_without_rewrite; then python3 $SCRIPTS_HOME/saveErrors.py "cvc5_without_rewrite"; fi
+     if $cvc5_with_rewrite; then python3 $SCRIPTS_HOME/saveErrors.py "cvc5_without_rewrite"; fi
+     if $verit; then python3 $SCRIPTS_HOME/saveErrors.py "cvc5_without_rewrite"; fi
+     $SCRIPTS_HOME/saveErrors.sh
+    fi;
     
     if $verbose ; then echo "Delete already tested benchmarks"; fi
 
@@ -222,7 +239,8 @@ while [ -s $PROBLEM_LOG ] && [ "$continue_iterate" = "true" ] ; do
     rm -r $dir2/
     rm -r $dir3/
     
-
+    echo $iterations
+    echo $iterations_on
     if $iterations_on ;
     then
      ((iterations=iterations-1))

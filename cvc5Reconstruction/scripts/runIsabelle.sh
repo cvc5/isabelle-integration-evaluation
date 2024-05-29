@@ -70,21 +70,30 @@ for solver in "${solvers[@]}"; do
   
   # Run Isabelle on theory
   timeout 500s "$ISABELLE_BIN" build -c -d "$ISABELLE_BASE/ReconstructionEvaluation$solver/" "EvaluateReconstruction$solver"
-  if [ $? = 124 ] ; 
-  then echo "Isabelle was interrupted. Increase time limit.";
+  res=$?
+  cp $ISABELLE_USER_HOME/$solver $curr_res_file
+  echo "Isabelle"
+  echo "$res"
+
+  if [ $res = 124 ] ; 
+  then 
+    echo "Isabelle was interrupted. Increase time limit."
+    sed -i '$ d' $curr_res_file
   fi;
   #Copy result vom Isabelle run to Result directory
 
-  cp $ISABELLE_USER_HOME/$solver $curr_res_file
 
+  
   sed -i '1s/^/[\n/' $curr_res_file
   #Delete the last comma
   if [ $(wc -l < $curr_res_file) -gt 1 ]; then
     sed -i '$s/.$//' "$curr_res_file"
   fi
 
-  echo ']'>> $curr_res_file
+  sed -i -e '$a\'$'\n'']' $curr_res_file
+  echo "in isabellerun"
 
+  cp $curr_res_file "$BENCHMARK_HOME/curr_check_$solver.txt"
   #TODO: Remove the file?
   rm -f $ISABELLE_USER_HOME/$solver
 done

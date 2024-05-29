@@ -2,20 +2,21 @@
 
 source config
 
-timeout_sec=1
+timeout_sec=2
 run_verit=true
 delete_lets=true
 verbose_mode=false
 save_pre_image=false
 limit_amount=false
 delete_bench=false
+small_proofs=true
 
 usage() {
  echo "Usage: $0 [OPTIONS]"
  echo "Options:"
  echo " -h       | --help            Display this help message"
  echo " -v       | --verbose         Enable verbose mode"
- echo " -t <nr>  | --timeout <nr>    Change timeout limit (default: 1s)"
+ echo " -t <nr>  | --timeout <nr>    Change timeout limit (default: 2s)"
  echo " -l <nr>  | --limit <nr>      Only preprocess <nr> benchmarks and then stop (default: all are run). Note that already preprocessed benchmarks are not deleted!"
  echo " -d       | --delete_bench    This deletes preprocessed benchmarks from /input. Default: false"
  echo " -s       | --no_verit        Don't run verit (default: false, i.e. veriT is run)"
@@ -80,16 +81,70 @@ while getopts "hvsl:t:c:nd" flag; do
 done
 }
 
-write_problem() {
-  if $1;
-  then
-    output_file="$PREPROC_BENCHMARK_HOME$(basename "$file")"
-    cvc5_new_problem=$(timeout $timeout_sec $CVC5_HOME -o raw-benchmark --parse-only --dag-thresh=0 "$file" > "$output_file")
+test_proof()
+{
+
+  file=$1
+  
+  verbose_msg "Run cvc5 with proofs enabled"
+  cvc5="$(timeout 4 $CVC5_HOME --proof-format-mode=alethe --dump-proofs --dag-thres=0 --produce-proofs --proof-granularity=dsl-rewrite --proof-define-skolems --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2 $file 2>&1)"
+  return_value=$?
+  max_nr_lines=1500
+
+  if [[ $return_value = 124 ]] ; 
+  then 
+    echo "Timeout $file"
+    return 124
+  elif [[ $return_value = 1 ]] ;
+  then 
+    echo "cvc5 could not solve problem in time limit when producing proofs!"
+    return -1
+  elif [[ $cvc5 == *"error "* ]] ;
+    then 
+    echo "cvc5 could not solve problem! Some error occurred"
+    return -1
+  elif [[ $cvc5 == *"unknown"* ]] ;
+    then 
+    echo "cvc5 could not solve problem! Unkown result"
+    return -1 
+  elif [[ $(echo "$cvc5" | wc -l) -ge $max_nr_lines ]] ;
+    then 
+    echo "Proof is too big."
+    return 3
   else
-    cp $file $PREPROC_BENCHMARK_HOME
-  fi
+    echo "Proof could be generated, copy benchmark"
+    return 0
+  fi;
+ }
+ 
+write_problem() {
+  if $small_proofs ;
+  then
+    test_proof "$file"
+    if [ $? -ne 0 ] ;
+    then too_big=true ;
+    else too_big=false ;
+    fi;
+  else
+    too_big=false
+  fi;
+  
+  echo $file
+  
+  if ! $too_big ;
+  then
+   if $1 ;
+   then
+     output_file="$PREPROC_BENCHMARK_HOME$(basename "$file")"
+     cvc5_new_problem=$(timeout $timeout_sec $CVC5_HOME -o raw-benchmark --parse-only --dag-thresh=0 "$file" > "$output_file")
+   else
+     cp $file $PREPROC_BENCHMARK_HOME ;
+   fi;
+ fi;
 }
 
+
+ 
 verbose_msg() {
   if [ "$verbose_mode" = true ] ; then echo $1; fi
 }
@@ -105,7 +160,8 @@ find "$INPUT_BENCHMARK_HOME" -type f -name "*.smt2" | while read -r file; do
   if ! grep -q "(set-info :status sat)" "$file";
   then cvc5=$(timeout $timeout_sec $CVC5_HOME --no-stats --sat-random-seed=1 --lang=smt2 $file 2>/dev/null)
     if [ $? -ne 124 ] ;
-    then write_problem $delete_lets
+    then
+      write_problem $delete_lets
       if $verbose_mode ; then nr_processed=$(($nr_processed+1)); fi;
     else
       if $run_verit ;
@@ -117,6 +173,8 @@ find "$INPUT_BENCHMARK_HOME" -type f -name "*.smt2" | while read -r file; do
 	  write_problem $delete_lets
           if $verbose_mode ; then nr_processed=$(($nr_processed+1)); fi;
         fi;
+      else
+      	if $verbose_mode ; then nr_processed=$(($nr_processed+1)); fi;
       fi;
     fi;
   fi;

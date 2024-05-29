@@ -22,10 +22,8 @@ for filename in os.listdir(checker_directory):
     # Iterate over each line
     for entry in data:
       benchmark_name = entry['benchmark_name']
-      print("benchmark",benchmark_name)
       # Check if the benchmark_name already exists in the merged_entries dictionary
       if benchmark_name in merged_entries:
-        print("already exists")
         # Merge the 'solving' lists but only for entries that do not exist yet
         new_entries=[]
         for checkingEntry in entry['checking']:

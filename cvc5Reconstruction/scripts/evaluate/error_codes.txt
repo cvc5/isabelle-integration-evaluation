@@ -1,0 +1,7 @@
+-1 Some error
+-2 unknown SMT type
+-3 unknown SMT term
+-4 error parsing SMT-LIB
+-5 error parsing SMTLIB into tree
+-6 Failure to replay
+

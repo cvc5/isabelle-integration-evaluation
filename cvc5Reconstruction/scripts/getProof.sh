@@ -11,6 +11,8 @@ stats_dir=misc
 more_stats=false
 delete_timeouts=false
 save_pre_image=false
+max_proof_steps=false
+limit_steps=1500
 
 usage() {
  echo "Usage: $0 [OPTIONS]"
@@ -30,6 +32,7 @@ usage() {
  echo " -t   collect additional statistics"
  echo " -r   delete benchmarks for which at least one solver times out from preprocessed folder"
  echo " -c   compress and store preprocessed benchmarks in directory"
+ echo " -k   delete benchmarks that have more than 1500 steps"
  echo ""
 }
 
@@ -50,7 +53,7 @@ for arg in "$@"; do
   esac
 done
 
-while getopts "hvl:s:d:atrc:" flag; do
+while getopts "hvl:s:d:atrc:k" flag; do
  case $flag in
    h)
    usage
@@ -61,6 +64,9 @@ while getopts "hvl:s:d:atrc:" flag; do
    ;;
    l)
    benchmark_limit=${OPTARG}
+   ;;
+   k)
+   max_proof_steps=${OPTARG}
    ;;
    a)
    solvers="all solvers: cvc5_with_rewrite, cvc5_without_rewrite, verit"
@@ -129,10 +135,20 @@ write_result()
     echo "Solver $solver_name$ could not solve problem!"
     write_json $new_file $solver_name "-2" "$stats"
     return -1
+  elif [[ $output == *"unknown"* ]] ;
+    then 
+    echo "Solver $solver_name$ could not solve problem! Unkown result"
+    write_json $new_file $solver_name "-1" "$stats"
+    return -1  
   elif [[ $output == *"(error "* ]] ;
     then 
     echo "Solver $solver_name$ could not solve problem! Some error occurred"
     write_json $new_file $solver_name "-3" "$stats"
+    return -1
+  elif [[ $max_proof_steps ]] && [[ $(echo "$output" | wc -l) -ge $limit_steps ]] ;
+    then 
+    echo "Solver $solver_name$: proof is too big"
+    write_json $new_file $solver_name "-4" "$stats"
     return -1
   else
     # Make proof file
@@ -186,7 +202,7 @@ call_veriT()
 }
 
 handle_options "$@"
-
+delete_timeouts=true
 if [ -z "$solvers" ]; then
     echo "No solvers set"
     exit -1
@@ -247,7 +263,8 @@ head -n $benchmark_limit "$PROBLEM_LOG" | while IFS= read -r filename; do
     if [ $retval == 124 ]; then timeout=true; fi;
     if [ $retval == 255 ]; then error=true; fi;
   fi
-
+   echo "delete_time"
+   echo $delete_timeouts
   if $delete_timeouts 
   then
     if $timeout || $error ; 
