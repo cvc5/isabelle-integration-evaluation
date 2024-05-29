@@ -84,9 +84,11 @@ test_result()
   delete_lets=$3
   if $delete_lets;
   then
+    verbose_msg "Delete lets using cvc5"
     cvc5_new_problem=$(timeout $timeout_sec $CVC5_HOME -o raw-benchmark --parse-only --dag-thresh=0 "$file" | sponge "$file")
   fi
   
+  verbose_msg "Run verit"
   verit="$($VERIT_SOLVER --proof-prune --proof-merge --proof-with-sharing --proof-define-skolems --disable-banner --proof=- -s  $file 2>&1)"
   return_value=$?
   max_nr_lines=1500
@@ -131,19 +133,26 @@ handle_options "$@"
 
 if $verbose_mode ; then nr_files=$(find "$INPUT_BENCHMARK_HOME" -type f -name "*.smt2" | wc -l); nr_processed=0; fi;
 
+#Carcara sometimes generates benchmarks with .lia_smt2 extension
+#for file in $INPUT_BENCHMARK_HOME/*.lia_smt2; do
+#    mv -- "$file" "${file%.lia_smt2}.smt2"
+#done
 
 # Find all .smt2 files recursively in the given directory
 find $INPUT_BENCHMARK_HOME -type f -name "*.smt2" | while read -r file; do
+  if $verbose_mode ; then echo "Preprocessing: $file"; fi;
   # Run a command on each file and store the output in Preprocessed/ folder
   output_file="$PREPROC_BENCHMARK_HOME/$(basename "$file")"
   res=0
-echo $file
+
   # Check if the file contains the string "(set-info :status sat)"
   if ! grep -q "(set-info :status sat)" "$file";
   then
-    verit=$(timeout $timeout_sec $VERIT_HOME $file)
+    verbose_msg "Run verit without proofs"
+    verit=$(timeout $timeout_sec $VERIT_SOLVER $file 2>&1)
+    
     if [ $? -ne 124 ] ;
-    then 
+    then
       test_result $file $output_file $delete_lets
       res=$?
       if [ $res = 3 ] ;

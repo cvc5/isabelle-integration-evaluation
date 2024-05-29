@@ -2,10 +2,11 @@
 
 source config
 
-benchmark_limit=50
+benchmark_limit=20
 verbose_mode=false
 stats_dir=misc
 more_stats=false
+delete_timeouts=false
 
 usage() {
  echo "Usage: $0 [OPTIONS]"
@@ -73,7 +74,7 @@ write_result()
   new_file="${file##*/}"
 
   start_time=$(date +%s%N)
-  output=$(eval "timeout 10 $solver_command")
+  output=$(eval "timeout 20 $solver_command" 2>&1)
   local return_value=$?
   end_time=$(date +%s%N)
 
@@ -87,9 +88,14 @@ write_result()
     echo "Solver $solver_name$ could not solve problem!"
     write_json $new_file $solver_name "-2" "$stats"
     return -1
-  elif [[ $output == *"(error "* ]] ;
+  elif [[ $output == *"error"* ]] ;
     then 
-    echo "Solver $solver_name$ could not solve problem! Some error occurred"
+    echo "Solver $solver_name could not solve problem! Some error occurred"
+    write_json $new_file $solver_name "-3" "$stats"
+    return -1
+  elif [[ $output == *"WARN"* ]] ;
+    then 
+    echo "Solver $solver_name gave warning"
     write_json $new_file $solver_name "-3" "$stats"
     return -1
   elif [[ $output == *"unknown"* ]] ;
@@ -99,14 +105,16 @@ write_result()
     write_json $new_file $solver_name "-1" "$stats"
     return -1 
   else
+  echo "I sould not be in here $new_file"
     # Make proof file
     new_file="${new_file%.*}"  
-    resultFile="$BENCHMARK_HOME/$new_file.alethe";
+    resultFile="$BENCHMARK_HOME/$new_file""_elaborated.alethe";
     touch $resultFile
-    echo "$output">$resultFile;
+    echo "unsat" >$resultFile;
+    echo "$output">>$resultFile;
 
-    # Copy problem file
-    new_problem_file="$BENCHMARK_HOME/$new_file.smt2"
+    # Duplicate problem file
+    new_problem_file="$BENCHMARK_HOME/$new_file""_elaborated.smt2"
     cp $file $new_problem_file
 
     elapsed_time=$((end_time - start_time))
@@ -128,8 +136,11 @@ write_result()
 call_carcara()
 {
   problem_file=$1
-  proof_file=$2
-  local carcara="$CARCARA_HOME $problem_file $proof_file"
+  new_file="${problem_file%.*}"  
+  proof_file="$new_file.alethe";
+
+  local carcara="$CARCARA_HOME elaborate $proof_file $problem_file --lia-solver cvc5 --ignore-unknown-rules --no-print-with-sharing --lia-solver-args \"--tlimit=10000 --lang=smt2 --proof-format-mode=alethe --proof-alethe-res-pivots --dag-thres=0 --proof-elim-subtypes --print-arith-lit-token\"" 
+
   write_result "carcara" "$carcara" "_elaborated" $problem_file;
   return $?
 }
@@ -153,7 +164,7 @@ touch $curr_res_file
 echo '['>> $curr_res_file
  
  
-find $INPUT_BENCHMARK_HOME -type f -name "*.smt2" | while read -r file; do
+find $BENCHMARK_HOME -type f -name "*.smt2" | while read -r file; do
 
   if $verbose_mode ; then echo "Elaborating: $file"; fi;
 

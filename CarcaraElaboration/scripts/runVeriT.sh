@@ -2,7 +2,7 @@
 
 source config
 
-benchmark_limit=50
+benchmark_limit=20
 verbose_mode=false
 stats_dir=misc
 more_stats=false
@@ -147,7 +147,8 @@ write_result()
 call_veriT()
 {
   file=$1
-  local verit="$VERIT_SOLVER --proof-prune --proof-merge --proof-with-sharing --proof-define-skolems --disable-banner --proof=- -s  $file"
+  local verit="$VERIT_SOLVER --proof-prune --proof-merge --proof-define-skolems --disable-banner --proof=- -s  $file"
+  #--proof-with-sharing 
   write_result "verit" "$verit" "_verit" $file;
   return $?
 }
