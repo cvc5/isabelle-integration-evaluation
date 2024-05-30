@@ -47,7 +47,20 @@ categories_verit = {
     'Timeout' : 0
 }
 
-
+# Colors 
+colors = {
+    'success': "#87bc45",
+    'unknown error': "#f46a9b",
+    'unknown SMT type': "#ea5545",
+    'unknown SMT term': "#ef9b20",
+    'error parsing SMT-LIB': "#edbf33",
+    'error parsing outer SMT-LIB': "#ede15b",
+    'Failure to replay': "red",
+    'not solved' : "#27aeef",
+    'Timeout' : "#b33dc6",
+}    
+     
+     
 cvc5_with_rewrite=False
 cvc5_without_rewrite=False
 verit=False
@@ -107,9 +120,8 @@ for entry in data:
       categories_without_rewrite['not solved'] += 1      
       
       
-      
-# Colors 
-colors = ["#87bc45", "#f46a9b","#ea5545", "#ef9b20", "#edbf33", "#ede15b", "#bdcf32",  "#27aeef", "#b33dc6"]  
+ 
+
 
 
 # Filter out categories_without_rewrite with 0%
@@ -120,7 +132,7 @@ for category, value in categories_without_rewrite.items():
     print(value)
     print("")
     if value != 0:
-        colors_without_rewrite.append(colors.pop(0))
+        colors_without_rewrite.append(colors[category])
         categories_without_rewrite2[category] = value
         
 total_categories_without_rewrite = sum(categories_without_rewrite2.values())
@@ -134,8 +146,9 @@ for category, value in categories_with_rewrite.items():
     print(value)
     print("")
     if value != 0:
-        colors_with_rewrite.append(colors.pop(0))
+        colors_with_rewrite.append(colors[category])
         categories_with_rewrite2[category] = value
+      
         
 total_categories_with_rewrite = sum(categories_with_rewrite2.values())
 categories_with_rewrite2 = {key: (value / total_categories_with_rewrite * 100) for key, value in categories_with_rewrite2.items()}

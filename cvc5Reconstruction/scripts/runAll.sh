@@ -25,6 +25,9 @@ more_stats=false
 
 save_errors=false
 
+run_veriT_prep=true
+if $run_veriT_prep ; then run_veriT_prep_str="-s"; else run_veriT_prep_str=""; fi;
+
 usage() {
  echo "Usage: $0 [OPTIONS]"
  
@@ -156,8 +159,9 @@ done
 
 handle_options "$@" 
 
+printf "\nSet-up\n"
 echo "Make sure the base directory is set correctly!"
-echo $BASE_DIR
+echo " $BASE_DIR"
 
 if [ -z "$solvers" ] && [ "$use_pre_image" = false ] ; then echo "No solver set!"; exit -1; fi;
 
@@ -169,14 +173,15 @@ rm -f "$Result_BENCHMARK_HOME"'verit/*'
 
 echo "Set-up isabelle"
 (eval "$SCRIPTS_HOME/setupIsabelle.sh $word_str")
-    
+
     
 if $skip_pre ; 
 then
-  echo "Skipped pre-processing"; 
+  printf "\nSkipped pre-processing\n"; 
 else
-  echo "Run pre-processing"
-  (eval "$SCRIPTS_HOME/preproc.sh $verbose_str $save_pre_dir")
+  printf "\n\nRun pre-processing\n"
+  (eval "$SCRIPTS_HOME/preproc.sh $verbose_str $save_pre_dir $run_veriT_prep_str")
+  printf "Finished pre-processing\n\n"
 fi
 
     
@@ -191,6 +196,12 @@ fi;
 dir1="$Result_BENCHMARK_HOME"cvc5_with_rewrite
 dir2="$Result_BENCHMARK_HOME"cvc5_without_rewrite 
 dir3="$Result_BENCHMARK_HOME"verit
+mkdir -p $EVAL_RES$stats_dir/ #Make even if no benchmarks available
+
+if [ ! -s $PROBLEM_LOG ]; then
+  echo "Preprocessing has deleted all files. There is nothing for me to do on this benchmark set."
+  exit
+fi
 
 while [ -s $PROBLEM_LOG ] && [ "$continue_iterate" = "true" ] ; do
     lines=$(wc -l < $PROBLEM_LOG)
@@ -217,7 +228,7 @@ while [ -s $PROBLEM_LOG ] && [ "$continue_iterate" = "true" ] ; do
       args=($solvers)
       if $verbose ; then echo "Running solvers"; fi
       echo "run all"
-      echo $delete_timeouts_str
+      echo $delete_timeouts_strstats_dir
       (eval "$SCRIPTS_HOME/getProof.sh -d $stats_dir -l $benchmark_limit $solvers $delete_timeouts_str $save_bench_dir_str $more_stats_str")
     fi;
  
@@ -227,10 +238,22 @@ while [ -s $PROBLEM_LOG ] && [ "$continue_iterate" = "true" ] ; do
     if $save_errors ; then 
      > $ERROR_LOG
      echo $solvers
-     if $cvc5_without_rewrite; then python3 $SCRIPTS_HOME/saveErrors.py "cvc5_without_rewrite"; fi
-     if $cvc5_with_rewrite; then python3 $SCRIPTS_HOME/saveErrors.py "cvc5_without_rewrite"; fi
-     if $verit; then python3 $SCRIPTS_HOME/saveErrors.py "cvc5_without_rewrite"; fi
-     $SCRIPTS_HOME/saveErrors.sh
+     if $cvc5_without_rewrite;
+     then
+       python3 $SCRIPTS_HOME/saveErrors.py "cvc5_without_rewrite";
+       (eval "$SCRIPTS_HOME/saveErrors.sh \"cvc5_without_rewrite\" $stats_dir");
+     fi
+     if $cvc5_with_rewrite;
+     then 
+      python3 $SCRIPTS_HOME/saveErrors.py "cvc5_with_rewrite";
+      (eval "$SCRIPTS_HOME/saveErrors.sh cvc5_with_rewrite $stats_dir");
+     fi
+     if $verit; 
+     then
+      python3 $SCRIPTS_HOME/saveErrors.py "cvc5_without_rewrite";
+      (eval "$SCRIPTS_HOME/saveErrors.sh verit $stats_dir");
+     fi
+
     fi;
     
     if $verbose ; then echo "Delete already tested benchmarks"; fi

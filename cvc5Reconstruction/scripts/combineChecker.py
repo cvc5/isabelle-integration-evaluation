@@ -5,6 +5,9 @@ import sys
 
 directory = '/home/lachnitt/Sources/isabelle-integration-evaluation/cvc5Reconstruction/result/'
 checker_directory = directory + sys.argv[1] + '/Checker/'
+if not os.path.exists(checker_directory):
+ print("Checker directory does not exist, nothing to combine")
+ sys.exit()
 output_file = directory + sys.argv[1] + '/all_checking.json'
 
 

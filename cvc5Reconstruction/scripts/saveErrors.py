@@ -28,11 +28,7 @@ for entry in data:
       if solver_config == solver:
         if checking_time is not None:
           if checking_time < 0:
-           print("move")
-           print(entry['benchmark_name'])
            output.write(solver + '/' + entry['benchmark_name'] + '\n')
           if checking_time > 0:
-           print("remove")
-           print(entry['benchmark_name'])
            os.remove("/home/lachnitt/Sources/isabelle-integration-evaluation/cvc5Reconstruction/data/preprocessed/" + entry['benchmark_name'])
 

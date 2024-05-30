@@ -10,6 +10,9 @@ save_pre_image=false
 limit_amount=false
 delete_bench=false
 small_proofs=true
+nr_too_big=0
+
+debug=true
 
 usage() {
  echo "Usage: $0 [OPTIONS]"
@@ -81,38 +84,46 @@ while getopts "hvsl:t:c:nd" flag; do
 done
 }
 
+verbose_msg() {
+  if [ "$verbose_mode" = true ] ; then echo $1; fi
+}
+
+debug_msg() {
+  if [ "$debug" = true ] ; then echo $1; fi
+}
+
 test_proof()
 {
 
   file=$1
   
-  verbose_msg "Run cvc5 with proofs enabled"
+  debug_msg "Run cvc5 with proofs enabled"
   cvc5="$(timeout 4 $CVC5_HOME --proof-format-mode=alethe --dump-proofs --dag-thres=0 --produce-proofs --proof-granularity=dsl-rewrite --proof-define-skolems --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2 $file 2>&1)"
   return_value=$?
   max_nr_lines=1500
 
   if [[ $return_value = 124 ]] ; 
   then 
-    echo "Timeout $file"
+    debug_msg "Timeout $file"
     return 124
   elif [[ $return_value = 1 ]] ;
   then 
-    echo "cvc5 could not solve problem in time limit when producing proofs!"
+    debug_msg "cvc5 could not solve problem in time limit when producing proofs! $file"
     return -1
   elif [[ $cvc5 == *"error "* ]] ;
     then 
-    echo "cvc5 could not solve problem! Some error occurred"
+    debug_msg "cvc5 could not solve problem! Some error occurred $file"
     return -1
   elif [[ $cvc5 == *"unknown"* ]] ;
     then 
-    echo "cvc5 could not solve problem! Unkown result"
+    debug_msg "cvc5 could not solve problem! Unkown result on $file"
     return -1 
   elif [[ $(echo "$cvc5" | wc -l) -ge $max_nr_lines ]] ;
     then 
-    echo "Proof is too big."
+    debug_msg "Proof is too big. $file"
     return 3
   else
-    echo "Proof could be generated, copy benchmark"
+    debug_msg "Proof could be generated, copy benchmark $file"
     return 0
   fi;
  }
@@ -122,17 +133,16 @@ write_problem() {
   then
     test_proof "$file"
     if [ $? -ne 0 ] ;
-    then too_big=true ;
+    then too_big=true ; nr_too_big=$(($nr_too_big+1)); echo "$file" >> $PROOF_BIG_LOG;
     else too_big=false ;
     fi;
   else
     too_big=false
   fi;
   
-  echo $file
-  
   if ! $too_big ;
   then
+   echo "$file" >> $PROOF_OKAY_LOG;
    if $1 ;
    then
      output_file="$PREPROC_BENCHMARK_HOME$(basename "$file")"
@@ -145,16 +155,13 @@ write_problem() {
 
 
  
-verbose_msg() {
-  if [ "$verbose_mode" = true ] ; then echo $1; fi
-}
+
 
 handle_options "$@" 
 
 if $verbose_mode ; then nr_files=$(find "$INPUT_BENCHMARK_HOME" -type f -name "*.smt2" | wc -l); nr_processed=0; fi;
 
-echo $INPUT_BENCHMARK_HOME
-find "$INPUT_BENCHMARK_HOME" -type f -name "*.smt2" | while read -r file; do
+while read -r file; do
 
   # Check if the file contains the string "(set-info :status sat)"
   if ! grep -q "(set-info :status sat)" "$file";
@@ -167,14 +174,13 @@ find "$INPUT_BENCHMARK_HOME" -type f -name "*.smt2" | while read -r file; do
       if $run_verit ;
       then
         #In case cvc5 times out we still want to run veriT in case it can solve the goal to be fair
+        echo "Run veriT..."
         verit=$(timeout $timeout_sec $VERIT_HOME --disable-banner $file)
         if [ $? -ne 124 ] ;
         then
 	  write_problem $delete_lets
           if $verbose_mode ; then nr_processed=$(($nr_processed+1)); fi;
         fi;
-      else
-      	if $verbose_mode ; then nr_processed=$(($nr_processed+1)); fi;
       fi;
     fi;
   fi;
@@ -192,24 +198,32 @@ find "$INPUT_BENCHMARK_HOME" -type f -name "*.smt2" | while read -r file; do
       verbose_msg "Finished pre-processing."
       verbose_msg "Found $nr_files files. "
       verbose_msg "I preprocessed $limit files."
-      verbose_msg "Of these, "$nr_processed" files remain after preprocessing."; 
+      verbose_msg "Of these, "$nr_processed" files remain after preprocessing.";
+      if $small_proofs ; then verbose_msg "Of these $nr_processed,  $nr_too_big were deleted because they were too large.";  fi;
       break;
     fi;
   fi;
-done
-  
+done <<< $(find "$INPUT_BENCHMARK_HOME" -type f -name "*.smt2")
+
 
 if [ "$limit_amount" = false ] ;
 then 
   verbose_msg "Finished pre-processing."
   verbose_msg "Found $nr_files files. "
   verbose_msg "I processed all of these. Of these "$nr_processed" files remain after preprocessing."; 
+  if $small_proofs ; then verbose_msg "Of these $nr_processed, $nr_too_big were deleted because they were too large.";  fi;
 fi
 
 if $delete_bench 
 then verbose_msg "I deleted all files I preprocessed"; 
 else verbose_msg "I did not delete the files I preprocessed"; 
 fi;
-      
+
+if $run_verit 
+then verbose_msg "I ran veriT in case cvc5 timed out"; 
+else verbose_msg "I did not run veriT in case cvc5 timed out"; 
+fi;
+    
+        
 #Very brittle: Make better
 if $save_pre_image ; then cd $PREPROC_BENCHMARK_HOME; tar -cvf "$PREPROC_IMAGE_BENCHMARK_HOME$pre_image_name.tar" "preprocessed/"; cd $BASE_DIR; fi

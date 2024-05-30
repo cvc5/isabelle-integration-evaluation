@@ -5,6 +5,10 @@ import sys
 
 directory = '/home/lachnitt/Sources/isabelle-integration-evaluation/cvc5Reconstruction/result/'
 solver_directory = directory + sys.argv[1] + '/Solver/'
+if not os.path.exists(solver_directory):
+ print("Solver directory does not exist, nothing to combine")
+ sys.exit()
+ 
 output_file = directory + sys.argv[1] + '/all_solving.json'
 
 # Dictionary to store merged entries

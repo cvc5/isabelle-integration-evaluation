@@ -263,8 +263,7 @@ head -n $benchmark_limit "$PROBLEM_LOG" | while IFS= read -r filename; do
     if [ $retval == 124 ]; then timeout=true; fi;
     if [ $retval == 255 ]; then error=true; fi;
   fi
-   echo "delete_time"
-   echo $delete_timeouts
+
   if $delete_timeouts 
   then
     if $timeout || $error ; 
