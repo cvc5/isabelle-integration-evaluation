@@ -2,18 +2,35 @@
 # User input
 
 ISABELLE_HOME=~/Sources/isabelle-git/isabelle-emacs
+ISABELLE_USER_HOME=/home/lachnitt/.isabelle
 AFP_HOME=~/Sources/afp-2022-02*-21/thys/Word_Lib
 CVC5_HOME=~/Sources/cvc5/build/bin/cvc5
+VERIT_HOME=/usr/local/bin/veriT
+
 
 
 # Internal
 
 BASE_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-BENCHMARK_HOME=$BASE_DIR/Benchmark
-INPUT_BENCHMARK_HOME="$BENCHMARK_HOME/Input/"
-PREPROC_BENCHMARK_HOME="$BENCHMARK_HOME/Preprocessed/"
-Result_BENCHMARK_HOME="$BENCHMARK_HOME/Result/"
-EVAL_RES=$BASE_DIR/Result/
-PROBLEM_LOG=$BENCHMARK_HOME/logRun.txt
+BENCHMARK_HOME=$BASE_DIR/data
+INPUT_BENCHMARK_HOME="$BASE_DIR/input/"
+SCRIPTS_HOME="$BASE_DIR/scripts"
+EVAL_RES=$BASE_DIR/result/
 
+PROBLEM_LOG=$BENCHMARK_HOME/logRun.txt
+PREPROC_BENCHMARK_HOME="$BENCHMARK_HOME/preprocessed/"
+PREPROC_IMAGE_BENCHMARK_HOME="$BENCHMARK_HOME/preprocessed_images/"
+Result_BENCHMARK_HOME="$BENCHMARK_HOME/benchmarks/"
+BENCHMARK_IMAGE_BENCHMARK_HOME="$BENCHMARK_HOME/benchmark_images/"
+
+ISABELLE_BASE=$BASE_DIR/isabelle
+ISABELLE_BIN=$ISABELLE_HOME/bin/isabelle
+ISABELLE_THEORY_BASE=$ISABELLE_BASE
+ISABELLE_spy=$ISABELLE_USER_HOME/isabelle_test
+
+ERROR_LOG=$BENCHMARK_HOME/errors.txt
+ERROR_HOME=$BENCHMARK_HOME/errors/
+
+PROOF_BIG_LOG=$BENCHMARK_HOME/proof_too_large.txt
+PROOF_OKAY_LOG=$BENCHMARK_HOME/viable_benchmarks.txt
