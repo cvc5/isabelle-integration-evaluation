@@ -16,7 +16,8 @@ merged_entries = {}
 
 for filename in os.listdir(checker_directory):
     filepath = os.path.join(checker_directory, filename)
-
+    print(filepath)
+    
     with open(filepath, 'r') as file:
       json_data = file.read()
       

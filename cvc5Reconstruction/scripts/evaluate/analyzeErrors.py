@@ -1,6 +1,7 @@
 import json
 import matplotlib.pyplot as plt
 import sys
+import numpy as np
 
 directory = '/home/lachnitt/Sources/isabelle-integration-evaluation/cvc5Reconstruction/result/'
 input_file = directory + sys.argv[1] + '/all_checking.json'
@@ -120,7 +121,12 @@ for entry in data:
       categories_without_rewrite['not solved'] += 1      
       
       
- 
+def func(pct, nr_total):
+    print(nr_total)
+    print(pct)
+    absolute = round (pct / 100.*(nr_total))
+    print(absolute)
+    return "{:.1f}%\n({:d})".format(pct, int(absolute))
 
 
 
@@ -173,13 +179,15 @@ plt.subplots_adjust(left=-0.005)
 
 if cvc5_without_rewrite == 1 :
   ax1 = fig.add_subplot(121)
-  ax1.pie(sizes_without_rewrite, labels=labels_without_rewrite, colors=colors_without_rewrite, autopct='%1.1f%%', startangle=140, textprops={'fontsize': 25})
+  ax1.pie(sizes_without_rewrite, labels=labels_without_rewrite, colors=colors_without_rewrite,                                   autopct=lambda pct: func(pct, total_categories_without_rewrite),
+   startangle=140, textprops={'fontsize': 25})
   ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
   ax1.set_title('cvc5 without rewrites', size=25, y=1.1,loc='center')
 
 if cvc5_with_rewrite == 1 :
  ax2 = fig.add_subplot(122)
- ax2.pie(sizes_with_rewrite, labels=labels_with_rewrite, colors=["#2ca02c","#d62728","#ff7f0e", "#1f77b4"], autopct='%1.1f%%', startangle=160, textprops={'fontsize': 25})
+ ax2.pie(sizes_with_rewrite, labels=labels_with_rewrite, colors=["#2ca02c","#d62728","#ff7f0e", "#1f77b4"],                                   autopct=lambda pct: func(pct, total_categories_without_rewrite),
+ startangle=160, textprops={'fontsize': 25})
  ax2.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
  ax2.set_title('cvc5 with rewrites', size=25, y=1.1,loc='center')
 
@@ -264,7 +272,7 @@ sizes_verit = rec_timeout_without_rewrite.values()
 
 fig = plt.figure(figsize=(23,10),dpi=144)
 fig.tight_layout(pad=15)
-plt.suptitle('Distribution of Replay errors', fontsize=16)
+plt.suptitle('Distribution of Timeout errors', fontsize=16)
 plt.subplots_adjust(wspace=0.5)
 plt.subplots_adjust(left=-0.005)
 

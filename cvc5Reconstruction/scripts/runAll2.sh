@@ -1,0 +1,88 @@
+#!/bin/bash
+source config
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <output directory>"
+    exit 1
+fi
+
+if [ $1 = "-h" ]; then
+    echo "Usage: $0 <output directory>"
+    exit 1
+fi
+
+rm -f "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"*;
+
+echo "prepare isabelle"
+$ISABELLE_BIN build -d $ISABELLE_HOME/src/HOL/ HOL-CVC ;
+
+echo "Process benchmarks"
+
+stats_name=$1
+stats_dir=$EVAL_RES/$stats_name
+mkdir -p $stats_dir
+mkdir -p "$stats_dir/Checker"
+
+mkdir -p "$stats_dir/Bench"
+bench_general_file="$stats_dir/Bench/all_bench.json"
+batch=0
+
+
+process_benchmark()
+{
+  current_time=$(date "+%Y.%m.%d-%H.%M.%S")
+  curr_res_file=$stats_dir/"Checker"/$current_time".json"
+  echo "Save results to $curr_res_file";
+
+  # Run Isabelle on theory
+  rm -f $ISABELLE_USER_HOME/"cvc5_without_rewrite/"
+  
+  res=$(timeout 300s $ISABELLE_BIN build -c -d "$ISABELLE_BASE/ReconstructionEvaluationcvc5_without_rewrite/" "EvaluateReconstructioncvc5_without_rewrite" 2>&1)
+  error_code=$?
+  echo $res
+  #Copy result vom Isabelle run to Result directory
+  cp $ISABELLE_USER_HOME/"cvc5_without_rewrite" $curr_res_file
+    
+  sed -i '1s/^/[\n/' $curr_res_file
+  #Delete the last comma
+  if [ $(wc -l < $curr_res_file) -gt 1 ]; then
+    sed -i '$s/.$//' "$curr_res_file"
+  fi
+  sed -i -e '$a\'$'\n'']' $curr_res_file
+     
+  rm -f "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"*;
+}   
+
+
+while read -r problem_file; do
+
+    batch=$(($batch+1))
+    file_without_extension="${problem_file%.*}"
+    echo "Processing $(basename $file_without_extension)"
+    file_with_alethe=$file_without_extension".alethe"
+
+    cp $problem_file "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"
+    cp $file_with_alethe "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"
+    $SCRIPTS_HOME/writeGeneralBenchInfoToJson.sh $bench_general_file $(basename $file_without_extension) $problem_file true
+    
+    if [ $batch = 5 ];
+    then
+     process_benchmark
+     batch=0
+    fi;
+
+    
+done <<< $(find "$INPUT_BENCHMARK_HOME" -type f -name "*.smt2")
+
+if [ $batch -ne 0 ];
+then
+  process_benchmark
+fi;
+
+python3 $SCRIPTS_HOME/combineChecker.py $stats_name
+
+echo "Done with all benchmarks"
+echo "Delete all files"
+rm -f "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"*;
+
+> $PROBLEM_LOG

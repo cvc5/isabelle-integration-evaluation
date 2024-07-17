@@ -28,11 +28,11 @@ usage() {
  echo " -a          | --all              Run all available solvers"
  echo ""
  
- echo " -d  <dir>   | --out_dir <dir>    name of the directory you want to save the statistic files to (default: saved in misc)"
- echo " -t   collect additional statistics"
- echo " -r   delete benchmarks for which at least one solver times out from preprocessed folder"
- echo " -c   compress and store preprocessed benchmarks in directory"
- echo " -k   delete benchmarks that have more than 1500 steps"
+ echo " -o  <dir>   | --out_dir <dir>    name of the directory you want to save the statistic files to (default: saved in misc)"
+ echo " -t          | --more_stats       collect additional statistics"
+ echo " -r   	    | --delete_timeouts  delete benchmarks for which at least one solver times out from preprocessed folder"
+ #echo " -c   compress and store preprocessed benchmarks in directory"
+ #echo " -k   delete benchmarks that have more than 1500 steps"
  echo ""
 }
 
@@ -44,16 +44,19 @@ for arg in "$@"; do
   case "$arg" in
     '--help')   set -- "$@" '-h'   ;;
     '--verbose')   set -- "$@" '-v'   ;;
-    '--timeout')   set -- "$@" '-t'   ;;
-    '--no_verit')   set -- "$@" '-s'   ;;    
-    '--no_let')   set -- "$@" '-n'   ;;
-    '--compress')   set -- "$@" '-c'   ;;  
-    '--limit')   set -- "$@" '-l'   ;;
+    '--batch_size')   set -- "$@" '-l'   ;;
+    
+    '--solver')   set -- "$@" '-s'   ;;
+    '--all')   set -- "$@" '-a'   ;;
+    
+    '--out_dir')   set -- "$@" '-o'   ;;
+    '--more_stats')   set -- "$@" '-t'   ;;
+    '--delete_timeouts')   set -- "$@" '-r'   ;;
     *)          set -- "$@" "$arg" ;;
   esac
 done
 
-while getopts "hvl:s:d:atrc:k" flag; do
+while getopts "hvl:s:ao:tr" flag; do
  case $flag in
    h)
    usage
@@ -65,9 +68,9 @@ while getopts "hvl:s:d:atrc:k" flag; do
    l)
    benchmark_limit=${OPTARG}
    ;;
-   k)
-   max_proof_steps=${OPTARG}
-   ;;
+   #k)
+   #max_proof_steps=${OPTARG}
+   #;;
    a)
    solvers="all solvers: cvc5_with_rewrite, cvc5_without_rewrite, verit"
    cvc5_without_rewrite=true;
@@ -81,7 +84,7 @@ while getopts "hvl:s:d:atrc:k" flag; do
    elif [ $OPTARG = "verit" ]; then verit=true;
    else echo "Unsupported Solver! Use one of these: verit, cvc5_without_rewrite, cvc5_with_rewrite."; exit -1; fi
    ;;
-   d)
+   o)
    stats_dir=("$OPTARG")
    ;;
    t)
@@ -90,10 +93,10 @@ while getopts "hvl:s:d:atrc:k" flag; do
    r)
    delete_timeouts=true;
    ;;
-   c)
-   save_pre_image=true
-   pre_image_name=${OPTARG}
-   ;;
+   #c)
+   #save_pre_image=true
+   #pre_image_name=${OPTARG}
+   #;;
    \?)
    usage
    exit -1
@@ -145,11 +148,11 @@ write_result()
     echo "Solver $solver_name$ could not solve problem! Some error occurred"
     write_json $new_file $solver_name "-3" "$stats"
     return -1
-  elif [[ $max_proof_steps ]] && [[ $(echo "$output" | wc -l) -ge $limit_steps ]] ;
-    then 
-    echo "Solver $solver_name$: proof is too big"
-    write_json $new_file $solver_name "-4" "$stats"
-    return -1
+  #elif [[ $max_proof_steps ]] && [[ $(echo "$output" | wc -l) -ge $limit_steps ]] ;
+  #  then 
+  #  echo "Solver $solver_name$: proof is too big"
+  #  write_json $new_file $solver_name "-4" "$stats"
+  #  return -1
   else
     # Make proof file
     new_file="${new_file%.*}"  
