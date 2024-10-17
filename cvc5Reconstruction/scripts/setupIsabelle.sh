@@ -31,19 +31,21 @@ done
 write_theory()
 {
   solver_config=$1
-  if [ "$solver_config"="cvc_with_rewrite" ] || [ "$solver_config"="cvc5_without_rewrite" ] ; then solver="cvc5"; else solver="verit"; fi
+  if [ "$solver_config"="cvc_with_rewrite" ] || [ "$solver_config"="cvc5_without_rewrite" ] ; then solver="cvc5_proof"; else solver="verit"; fi
   theory_file=$ISABELLE_THEORY_BASE/"ReconstructionEvaluation$solver_config/thys/ReconstructionEvaluation$solver_config.thy"
   echo "theory ReconstructionEvaluation$solver_config" > $theory_file
   
   if $words;
-  then echo "  imports \"HOL-CVC.SMT_CVC_Word\"" >> $theory_file;
-  else echo "  imports \"HOL-CVC.SMT_CVC\"" >> $theory_file; fi
+  then echo "  imports \"HOL-CVC.SMT_CVC_Word\" \"HOL.Real\"" >> $theory_file;
+  else echo "  imports \"HOL-CVC.SMT_CVC\" \"HOL.Real\"" >> $theory_file; fi
   
   echo $'begin\n' >> $theory_file
 
+  echo "declare [[smt_oracle]]" >> $theory_file
   echo "declare [[smt_statistics_file=\"$solver_config\"]]" >> $theory_file
-  echo "declare [[smt_verbose=false,smt_trace=false,smt_debug_verit=false,smt_timeout=1.0,smt_reconstruction_step_timeout=1.0]]" >> $theory_file
+  echo "declare [[smt_verbose=false,smt_trace=false,smt_debug_verit=false,smt_timeout=10.0,smt_reconstruction_step_timeout=5.0]]" >> $theory_file
   echo "declare[[smt_rec_evaluation]]" >> $theory_file
+  echo "declare[[smt_alethe_no_assumption=true]]" >> $theory_file
   echo "check_smt_dir (\"$solver\") \"/home/lachnitt/Sources/isabelle-integration-evaluation/cvc5Reconstruction/data/benchmarks/$solver_config/\"" >> $theory_file
 
   echo "end" >> $theory_file

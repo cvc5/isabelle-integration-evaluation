@@ -3,9 +3,12 @@ import json
 from collections import defaultdict
 import sys
 
+import errorCodeToDict
+
+
 directory = '/home/lachnitt/Sources/isabelle-integration-evaluation/cvc5Reconstruction/result/'
 checker_file = directory + sys.argv[1] + '/all_checking.json'
-error_file = directory + sys.argv[1] + '/error_checking.json'
+error_file = directory + sys.argv[1] + '/error_checking.txt'
 solver_config = "cvc5_without_rewrite"
 
 all_errors=True
@@ -40,5 +43,9 @@ with open(checker_file, 'r') as file:
 with open(error_file, 'w') as file:
     file.truncate(0)
     file.write('[\n')
-    file.write('\n'.join(errors_entries)[:-1])
+    for benchname,entry in errors_entries.items():
+      file.write(benchname)
+      file.write(': ')
+      file.write(str(errorCodeToDict.error_codes_to_str(entry['checking_time'])))
+      file.write('\n')
     file.write('\n]')

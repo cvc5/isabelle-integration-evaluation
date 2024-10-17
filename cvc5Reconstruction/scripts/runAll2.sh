@@ -14,6 +14,8 @@ fi
 rm -f "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"*;
 
 echo "prepare isabelle"
+word_str=""
+(eval "$SCRIPTS_HOME/setupIsabelle.sh $word_str")
 $ISABELLE_BIN build -d $ISABELLE_HOME/src/HOL/ HOL-CVC ;
 
 echo "Process benchmarks"
@@ -53,25 +55,26 @@ process_benchmark()
   rm -f "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"*;
 }   
 
-
 while read -r problem_file; do
 
-    batch=$(($batch+1))
-    file_without_extension="${problem_file%.*}"
-    echo "Processing $(basename $file_without_extension)"
-    file_with_alethe=$file_without_extension".alethe"
+  batch=$(($batch+1))
+  file_without_extension="${problem_file%.*}"
+  echo "Processing $(basename $file_without_extension)"
+  file_with_alethe=$file_without_extension".alethe"
 
+  if [ -e $file_with_alethe ]
+  then
     cp $problem_file "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"
     cp $file_with_alethe "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"
-    $SCRIPTS_HOME/writeGeneralBenchInfoToJson.sh $bench_general_file $(basename $file_without_extension) $problem_file true
-    
-    if [ $batch = 5 ];
-    then
-     process_benchmark
-     batch=0
-    fi;
+    $SCRIPTS_HOME/writeGeneralBenchInfoToJson.sh $bench_general_file $(basename $file_without_extension)".smt2" $problem_file true
 
-    
+  fi  
+      
+  if [ $batch = 5 ];
+  then
+    process_benchmark
+    batch=0
+  fi; 
 done <<< $(find "$INPUT_BENCHMARK_HOME" -type f -name "*.smt2")
 
 if [ $batch -ne 0 ];
@@ -79,7 +82,20 @@ then
   process_benchmark
 fi;
 
-python3 $SCRIPTS_HOME/combineChecker.py $stats_name
+echo "last char $(tail -c 1 $bench_general_file)"
+if [ "$(tail -c 1 $bench_general_file)" = "," ]; then
+    truncate -s -1 filename.txt
+fi
+
+sed -i '1s/^/[\n/' $bench_general_file
+#Delete the last comma
+if [ $(wc -l < $bench_general_file) -gt 1 ]; then
+  sed -i '$s/.$//' "$bench_general_file"
+fi
+sed -i -e '$a\'$'\n'']' $bench_general_file
+
+
+python3 $SCRIPTS_HOME/py/combineChecker.py $stats_name
 
 echo "Done with all benchmarks"
 echo "Delete all files"

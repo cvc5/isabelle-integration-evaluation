@@ -19,4 +19,4 @@ then
 fi;
 
 
-echo '{"benchmark_name" : "'$benchmark_name'", "path": "'$filepath'"' $details_str '}'>> $output_file
+echo '{"benchmark_name" : "'$benchmark_name'", "path": "'$filepath'"' $details_str '},'>> $output_file
