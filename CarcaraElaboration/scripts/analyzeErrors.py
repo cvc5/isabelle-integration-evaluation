@@ -100,7 +100,6 @@ rec_timeout_rules_elab_verit = {}
 
 # Count the entries in each category
 for entry in data:
-  print(entry['benchmark_name'])
   if entry['benchmark_name'].endswith("_elaborated.smt2"):
     for checking_entry in entry['checking']:
       verit_elab_benchs.append(entry['benchmark_name'].removesuffix("_elaborated.smt2"))
@@ -126,7 +125,7 @@ for vb in verit_elab_benchs:
   print(vb)
 
 print("-------------------------------------")                              
-print("For non-elaborated benchmarks:")             
+print("For non-elaborated benchmarks:",len (verit_benchs))             
 print("Failure distribution: ") 
 print(verit_res)
 print("Reasons for replay error:")              
@@ -134,7 +133,7 @@ print(failed_rules_verit)
 print("Reasons for timeout error:")              
 print(rec_timeout_rules_verit)  
 print("-------------------------------------")                              
-print("For elaborated benchmarks:")             
+print("For elaborated benchmarks:",len (verit_elab_benchs))             
 print("Failure distribution: ") 
 print(verit_elab_res)
 print("Reasons for replay error:")              
@@ -155,7 +154,7 @@ for category, value in verit_res.items():
         verit_res2[category] = value
     # Filter out verit_res that timed out
 
-print(verit_res2)   
+
 total_verit_res = sum(verit_res2.values())
 verit_res2 = {key: (value / total_verit_res * 100) for key, value in verit_res2.items()}
 
@@ -168,7 +167,7 @@ for category, value in verit_elab_res.items():
         verit_elab_res2[category] = value
     # Filter out verit_elab_res that timed out
 
-print(verit_elab_res2)   
+
 total_verit_elab_res = sum(verit_elab_res2.values())
 verit_elab_res2 = {key: (value / total_verit_elab_res * 100) for key, value in verit_elab_res2.items()}
 
@@ -201,47 +200,6 @@ ax2.set_title('verit elaborated', size=25, y=1.1,loc='center')
 plt.show()
 
 
-
-
-# Count the failed rules for entries with checking_time equal to -6
-for entry in data:
- if entry['benchmark_name'].endswith("_elaborated.smt2"):
-  for checking_entry in entry['checking']:
-    solver_config = checking_entry.get('solver_config', None)
-    checking_time = checking_entry.get('checking_time', None)
-    if solver_config == 'carcara':
-      if checking_time == -6:
-        failed_rule = checking_entry.get('failed_rule', None)
-        if failed_rule:
-            if failed_rule in failed_rules_elab_verit:
-                failed_rules_elab_verit[failed_rule] += 1
-            else:
-                failed_rules_elab_verit[failed_rule] = 1
-      if checking_time == -7:
-        failed_rule = checking_entry.get('failed_rule', None)
-        if failed_rule:
-            if failed_rule in rec_timeout_rules_elab_verit:
-                rec_timeout_rules_elab_verit[failed_rule] += 1
-            else:
-                rec_timeout_rules_elab_verit[failed_rule] = 1   
- else:          
-    solver_config = checking_entry.get('solver_config', None)
-    checking_time = checking_entry.get('checking_time', None)
-    if solver_config == 'carcara':
-      if checking_time == -6:
-        failed_rule = checking_entry.get('failed_rule', None)
-        if failed_rule:
-            if failed_rule in failed_rules_verit:
-                failed_rules_verit[failed_rule] += 1
-            else:
-                failed_rules_verit[failed_rule] = 1
-      if checking_time == -7:
-        failed_rule = checking_entry.get('failed_rule', None)
-        if failed_rule:
-            if failed_rule in rec_timeout_rules_verit:
-                rec_timeout_rules_verit[failed_rule] += 1
-            else:
-                rec_timeout_rules_verit[failed_rule] = 1 
 
 print("Timeout reasons verit proofs")                
 print(rec_timeout_rules_verit)
@@ -294,7 +252,7 @@ ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 ax1.set_title('verit reconstruction timeouts', size=25, y=1.1,loc='center')
 
 ax2 = fig.add_subplot(122)
-ax2.pie(sizes_elab_verit, labels=labels_elab_verit, colors=["#2ca02c","#d62728","#ff7f0e", "#1f77b4"], autopct='%1.1f%%', startangle=140, textprops={'fontsize': 25})
+ax2.pie(sizes_elab_verit, labels=labels_elab_verit, colors=["#ff7f0e","#1f77b4","#d62728", "#2ca02c"], autopct='%1.1f%%', startangle=140, textprops={'fontsize': 25})
 ax2.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 ax2.set_title('verit elaborated reconstruction timeouts', size=25, y=1.1,loc='center')
 
