@@ -117,7 +117,7 @@ verit_present = any(
 )
 
 subplotNrs = {cvc5_without_rewrite: 0, cvc5_with_rewrite: 0, verit: 0}
-
+print("here")
 if cvc5_without_rewrite_present and cvc5_with_rewrite_present and verit_present :
  nr_present=3
  subplotNrs = {cvc5_without_rewrite: 121, cvc5_with_rewrite: 122, verit: 123}
@@ -201,7 +201,7 @@ if cvc5_with_rewrite_present:
   
 if verit_present:
   print("verit")
-  categories_verit_sanitized=sanitize(categories_with_rewrite)
+  categories_verit_sanitized=sanitize(categories_verit)
   print(errorCodeUtil.print_error_dict(categories_verit_sanitized))
   print_devider()
   ax_verit = mk_ax(fig_success_rate,subplotNrs[verit],categories_verit_sanitized,'verit')

@@ -20,7 +20,7 @@ nr_out_files=$2
 # Read the input file and select 100 random lines
 selected_files=($(shuf -n $nr_out_files "$input_file"))
 
-# Copy the selected files to the output directory
+# Output Names
 for filename in "${selected_files[@]}"; do
   echo $filename
 done

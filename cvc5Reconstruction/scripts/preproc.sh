@@ -3,6 +3,7 @@
 source config
 
 timeout_sec=1
+timeout_proof_sec=5
 run_verit=false
 delete_lets=true
 verbose_mode=false
@@ -10,13 +11,19 @@ save_pre_image=false
 limit_amount=false
 delete_bench=false
 small_proofs=true
-nr_too_big=0
+nr_too_big_cvc5=0
 benchmark_folder=$INPUT_BENCHMARK_HOME
 output_folder=$INPUT_BENCHMARK_HOME
 output_file_bench_list=$output_folder/bench.txt
 output_file_results=$output_folder/bench.txt
 
-debug=true
+cvc5_proof_options="--proof-format-mode=alethe --dump-proofs --produce-proofs --proof-alethe-define-skolems --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2"
+cvc5_options="--no-stats --sat-random-seed=1 --lang=smt2"
+verit_options="--disable-banner -s" #TODO: How to disable proofs?
+verit_proof_options="--proof-prune --proof-merge --proof-define-skolems --disable-banner -s"
+
+
+debug=false
 
 usage() {
  echo "Usage: $0 [OPTIONS]"
@@ -108,7 +115,7 @@ debug_msg() {
 
 delete_file(){
   file=$1
-  if $delete_bench ;
+  if [ $delete_bench ] && [ -f "$file" ] ;
   then
     rm $file;
   fi;
@@ -119,13 +126,22 @@ declare -A solverResults
 init_Result_Array() {
   solverResults=$1
   solverResults[nr_viable]=0
-  solverResults[nr_too_big]=0
+  solverResults[nr_unsupp]=0
   solverResults[nr_delete_let]=0
   solverResults[nr_sat]=0
-  solverResults[nr_unknown]=0
-  solverResults[nr_error]=0
-  solverResults[nr_unsupp]=0
-  solverResults[nr_proof_error]=0
+  
+  solverResults[nr_unknown_cvc5]=0
+  solverResults[nr_error_cvc5]=0
+  solverResults[nr_proof_error_cvc5]=0
+  solverResults[nr_too_big_cvc5]=0
+  solverResults[nr_carcara_error_cvc5]=0
+  
+  solverResults[nr_unknown_verit]=0
+  solverResults[nr_error_verit]=0
+  solverResults[nr_proof_error_verit]=0
+  solverResults[nr_too_big_verit]=0
+  solverResults[nr_carcara_error_verit]=0
+
   solverResults[curr_nr_files]=0
 }
 
@@ -144,18 +160,33 @@ res_text=""
 mk_result_str() {
  dir=$1
  nr_files=$2
- 
- res_text="Directory: $dir
-  -------------------------
-  Nr files found $nr_files
-  Nr sat ${solverResults[nr_sat]}
-  Nr with unsupported SMT-LIB command ${solverResults[nr_unsupported]}
-  Nr lets cannot be deleted ${solverResults[nr_let]}
-  Nr solver error ${solverResults[nr_error]}
-  Nr proof error/timeout ${solverResults[nr_proof_error]}
-  Proof too big: ${solverResults[nr_too_big]}
-  -------------------------
-  Remaining: ${solverResults[nr_viable]}"
+ remaining1=$(($nr_files-${solverResults[nr_sat]}-${solverResults[nr_unsupp]}-${solverResults[nr_delete_let]}));
+ remaining_cvc5=$(($remaining1-${solverResults[nr_error_cvc5]}-${solverResults[nr_proof_error_cvc5]}-${solverResults[nr_too_big_cvc5]}-${solverResults[nr_carcara_error_cvc5]}));
+ remaining_verit=$(($remaining1-${solverResults[nr_error_verit]}-${solverResults[nr_proof_error_verit]}-${solverResults[nr_too_big_verit]}-${solverResults[nr_carcara_error_verit]}));
+ res_text="
+Directory: $dir
+
+
+files found                    $nr_files
+------------------------------------
+sat                          - ${solverResults[nr_sat]}
+unsupported SMT-LIB command  - ${solverResults[nr_unsupp]}
+lets cannot be deleted       - ${solverResults[nr_delete_let]}
+------------------------------------
+remaining 		       $remaining1
+
+
+                          cvc5               veriT
+total	 		  $remaining1            $remaining1
+-------------------------------------------
+solver error            - ${solverResults[nr_error_cvc5]}  		- ${solverResults[nr_error_verit]}
+proof error/timeout     - ${solverResults[nr_proof_error_cvc5]}		- ${solverResults[nr_proof_error_verit]}
+proof too big:          - ${solverResults[nr_too_big_cvc5]}     	- ${solverResults[nr_too_big_verit]}
+carcara error:          - ${solverResults[nr_carcara_error_cvc5]}     	- ${solverResults[nr_carcara_error_verit]}
+-------------------------------------------
+remaining                 $remaining_cvc5            $remaining_verit
+
+total viable  ${solverResults[nr_viable]}"
 
 }
 
@@ -169,66 +200,106 @@ write_result_to_file() {
   echo "$res_text" >> "$INPUT_BENCHMARK_HOME/Result.txt"
 }
 
-test_proof()
-{
-
-  file=$1
-  
-  cvc5="$(timeout 5 $CVC5_HOME --proof-format-mode=alethe --dump-proofs --dag-thres=0 --produce-proofs --proof-granularity=dsl-rewrite --proof-define-skolems --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2 $file 2>&1)"
-  return_value=$?
-  max_nr_lines=1500
-
-  if [[ $return_value = 124 ]] ; 
-  then 
-    debug_msg "Proof timeout"
-    return 124
-  elif [[ $return_value = 1 ]] ;
-  then 
-    debug_msg "cvc5 could not solve problem in time limit when producing proofs!"
-    return 1
-  elif [[ $cvc5 == *"error "* ]] ; #I guess this could backfire if variables have error in their name
-    then 
-    debug_msg "cvc5 could not solve problem! Some error occurred"
-    return 2
-  elif [[ $(echo "$cvc5" | wc -l) -ge $max_nr_lines ]] ;
-    then 
-    debug_msg "Proof is too big."
-    return 3 
-  fi;
-  return 0;
+check_with_carcara() {
+problem=$1
+proof=$2
+($CARCARA_HOME "check" "--ignore-unknown-rules" "$proof" "$problem" 1>/dev/null)
+return $?
 }
 
- 
-write_problem() {
-  file=$1
-  error=false
-  if $small_proofs ;
+
+runVeriT() {
+  problem=$1
+  proof="${problem%.*}".alethe
+  verit=$(timeout $timeout_proof_sec $VERIT_HOME $verit_options "--proof=-" "-s" "$problem")
+  if [[ $? -ne 124 ]] ;
   then
-    test_proof "$file"
-    proof_res=$?
-    if [ $proof_res = 3 ] ;
-    then too_big=true ; echo "$file" >> $PROOF_BIG_LOG;
-    elif [ $proof_res -ne 0 ] ; 
-    then error=true;too_big=false;
-    else error=false;too_big=false;
+
+    if [[ $cvc5 = "sat"* ]] ;
+    then
+      increase_Result "nr_sat"
+      delete_file $file
+    elif [[ $verit = "unsat"* ]] ;
+    then
+      if [[ $small_proofs ]] && [[ $(echo "$verit" | wc -l) -ge $max_nr_lines ]] ;
+      then
+        increase_Result "nr_too_big_verit"
+      else
+      	echo "$verit" > $file"_verit.alethe"
+      	sed -i -e "1d" $file"_verit.alethe"
+      	check_with_carcara $file $file"_verit.alethe"
+      	if [[ $? -ne 0 ]]
+      	then
+      	  rm $file"_verit.alethe"
+	  increase_Result "nr_carcara_error_verit"
+	else
+      	  rm $file"_verit.alethe"
+          return 0
+        fi;
+      fi;
+    else
+      increase_Result "nr_error_verit"
     fi;
   else
-    error=false;too_big=false;
+    increase_Result "nr_error_verit"
   fi;
-  
-  if $error ;
-  then return 1;
-  elif $too_big ;
+  return 2
+}
+
+run_cvc5()
+{
+  file=$1
+  cvc5=$(timeout $timeout_sec $CVC5_HOME $cvc5_options $cvc5_new_problem 2>/dev/null)
+  if [[ $? -ne 124 ]] ;
   then
-   return 2;
+    if [[ $cvc5 = "unkown"* ]] ;
+    then
+      increase_Result "nr_unknown_cvc5"
+    elif [[ $cvc5 = "sat"* ]] ;
+    then
+      increase_Result "nr_sat"
+      delete_file $file
+      return 1
+    else
+      cvc5_proof="$(timeout $timeout_proof_sec $CVC5_HOME $cvc5_proof_options $file 2>&1)"
+      return_value=$?
+      max_nr_lines=1500
+      if [[ $return_value = 124 ]] ; 
+      then 
+        debug_msg "Proof timeout"
+        increase_Result "nr_proof_error_cvc5"
+      elif [[ $return_value = 1 ]] ;
+      then 
+        debug_msg "cvc5 could not solve problem in time limit when producing proofs!"
+        increase_Result "nr_proof_error_cvc5"
+      elif [[ $cvc5_proof == *"error "* ]] ; #I guess this could backfire if variables have error in their name
+      then 
+        debug_msg "cvc5 could not solve problem! Some error occurred"
+        increase_Result "nr_proof_error_cvc5"
+      elif [[ $small_proofs ]] && [[ $(echo "$cvc5" | wc -l) -ge $max_nr_lines ]] ;
+      then
+        increase_Result "nr_too_big_cvc5"
+      else
+      	echo "$cvc5_proof" > $file"_cvc5.alethe"
+      	sed -i -e "1d" $file"_cvc5.alethe"
+      	check_with_carcara $file $file"_cvc5.alethe"
+      	if [[ $? -ne 0 ]]
+      	then
+	  rm $file"_cvc5.alethe"
+	  increase_Result "nr_carcara_error_cvc5"
+	else
+	  rm $file"_cvc5.alethe"
+          return 0
+        fi;
+      fi;
+    fi;
   else
-   echo "$file" >> $PROOF_OKAY_LOG;
-   cp $file $PREPROC_BENCHMARK_HOME ;
+    increase_Result "nr_error_cvc5"
   fi;
+  return 2
 }
 
 
- 
 
 
 # Main
@@ -238,7 +309,7 @@ handle_options "$@"
 benchmark_set_name=()
 benchmark_nr_successfull=()
 benchmark_nr=()
-benchmark_nr_too_big=()
+benchmark_nr_too_big_cvc5=()
 echo "" > $output_file_bench_list
 echo "" > $output_file_results
 
@@ -256,11 +327,11 @@ for current_dir_path in $benchmark_folder/*/ ; do
   while read -r file; do
 
     diff=$(($nr_files - $curr_nr_files))
-    echo "Nr files left: $diff"
+    verbose_msg "Nr files left: $diff"
     curr_nr_files=$(($curr_nr_files + 1));
     debug_msg "Preprocess file: $file"
-    $SCRIPTS_HOME/util/writeGeneralBenchInfoToJson.sh $output_file_bench_list $(basename $file) $file false
-
+    viable_str="viable: false" 
+	  
     if grep -q "(set-info :status sat)" "$file"  ;
     then
       debug_msg "benchmark has info that it is sat"
@@ -272,40 +343,51 @@ for current_dir_path in $benchmark_folder/*/ ; do
       delete_file $file
       increase_Result "nr_unsupp"
     else
-      cvc5_new_problem=$(timeout $timeout_sec $CVC5_HOME -o raw-benchmark --parse-only "$file" 2>/dev/null)
-      if [[ $? = 124 ]];
+      cvc5_new_problem=$(timeout $timeout_sec $CVC5_HOME -o raw-benchmark --parse-only --dag-thres=0 "$file" 2>/dev/null)
+      ret=$?
+      if [[ $ret = 124 ]]
       then
-        debug_msg "lets could not be deleted from proof"
+        debug_msg "lets could not be deleted from proof (timeout)"
         increase_Result "nr_delete_let"
+        delete_file $file
+      elif [[ $ret = 1 ]]
+      then
+        debug_msg "lets could not be deleted from proof (error)"
+        increase_Result "nr_delete_let"
+        delete_file $file
       else
-        cvc5=$(timeout $timeout_sec $CVC5_HOME --no-stats --sat-random-seed=1 --lang=smt2 $cvc5_new_problem 2>/dev/null)
-        if [[ $? -ne 124 ]] ;
+        echo "$cvc5_new_problem" > "$file"
+        run_cvc5 "$file"
+        ret=$?
+        viable=false
+        
+        if [[ $ret = 0 ]]
         then
-          if [[ $cvc5 = "unkown"* ]] ;
-          then
-	    increase_Result "nr_unknown"
-          elif [[ $cvc5 = "sat"* ]] ;
-	  then
-	    increase_Result "nr_sat"
-     	    delete_file $file
-          else
-	    echo "$cvc5_new_problem" > "$file"	
-	    write_problem $file
-	    res=$?
-	    if [[ $res = 1 ]] ;
-	    then 
-	      increase_Result "nr_proof_error"
-	    elif [[ $res = 2 ]]
-	    then
-	      increase_Result "nr_too_big"
-	    else
-	      increase_Result "nr_viable"
-	    fi;
-          fi;
-        else
-	  increase_Result "nr_errors"
+          viable=true
+        fi;
+
+        if [[ $ret -ne 1 ]] #benchmark is sat
+      	then
+          if ! $run_verit 
+  	  then 
+  	    runVeriT $file
+	    if [[ $? = 0 ]]
+            then
+              viable=true
+            fi;
+  	  fi;
+  	fi;
+
+        if $viable
+        then
+	  increase_Result "nr_viable"
+	  echo "$file" >> $PROOF_OKAY_LOG
+	  viable_str="viable: true"
+	else
+	  delete_file $file #TODO: Separate option?
         fi;
       fi;
+      $SCRIPTS_HOME/util/writeGeneralBenchInfoToJson.sh 	    $output_file_bench_list $(basename $file) $file false "$viable_str"
     fi;
 
   if $limit_amount ; 
@@ -329,7 +411,7 @@ for current_dir_path in $benchmark_folder/*/ ; do
   fi;
 
  benchmark_nr_successfull+=("$nr_viable")
- benchmark_nr_too_big+=("$nr_too_big")
+ benchmark_nr_too_big_cvc5+=("$nr_too_big_cvc5")
  benchmark_nr+=("$nr_files")
  echo ""
  write_result $current_dir $nr_files 
@@ -350,7 +432,7 @@ do
    echo "Directory: $dir" >> "$INPUT_BENCHMARK_HOME/Result.txt"
    echo "Nr files found: ${benchmark_nr[$i]}" >> "$INPUT_BENCHMARK_HOME/Result.txt" 
    echo "Nr files viable: ${benchmark_nr_successfull[$i]}" >> "$INPUT_BENCHMARK_HOME/Result.txt"
-   echo "Nr of these files too big proof: ${benchmark_nr_too_big[$i]}" >> "$INPUT_BENCHMARK_HOME/Result.txt"
+   echo "Nr of these files too big proof: ${benchmark_nr_too_big_cvc5[$i]}" >> "$INPUT_BENCHMARK_HOME/Result.txt"
    echo ""
    i=$(($i+1));
 done

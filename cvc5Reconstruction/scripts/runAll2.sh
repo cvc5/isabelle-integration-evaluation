@@ -2,7 +2,7 @@
 source config
 
 if [ $# -eq 0 ]; then
-    echo "Usage: $0 <output directory>"
+    echo "Usage: $0 <output directory> (<solver_mode>)"
     exit 1
 fi
 
@@ -15,7 +15,7 @@ rm -f "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"*;
 
 echo "prepare isabelle"
 word_str=""
-(eval "$SCRIPTS_HOME/setupIsabelle.sh $word_str")
+(eval "$SCRIPTS_HOME/util/setupIsabelle.sh $word_str")
 $ISABELLE_BIN build -d $ISABELLE_HOME/src/HOL/ HOL-CVC ;
 
 echo "Process benchmarks"
@@ -27,6 +27,7 @@ mkdir -p "$stats_dir/Checker"
 
 mkdir -p "$stats_dir/Bench"
 bench_general_file="$stats_dir/Bench/all_bench.json"
+echo "" > $bench_general_file
 batch=0
 
 
@@ -61,12 +62,13 @@ while read -r problem_file; do
   file_without_extension="${problem_file%.*}"
   echo "Processing $(basename $file_without_extension)"
   file_with_alethe=$file_without_extension".alethe"
-
+  echo "file_with_alethe $file_with_alethe"
   if [ -e $file_with_alethe ]
   then
+
     cp $problem_file "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"
     cp $file_with_alethe "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"
-    $SCRIPTS_HOME/writeGeneralBenchInfoToJson.sh $bench_general_file $(basename $file_without_extension)".smt2" $problem_file true
+    $SCRIPTS_HOME/util/writeGeneralBenchInfoToJson.sh $bench_general_file $(basename $file_without_extension)".smt2" $problem_file true ""
 
   fi  
       
