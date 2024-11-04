@@ -1,0 +1,7 @@
+session EvaluateReconstructioncvc5_without_rewrite in thys = "HOL-CVC" +
+options [quick_and_dirty]
+sessions
+  "HOL-Library"
+theories
+  ReconstructionEvaluationcvc5_without_rewrite
+

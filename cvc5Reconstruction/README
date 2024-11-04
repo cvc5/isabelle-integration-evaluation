@@ -1,0 +1,42 @@
+This is the set-up to test the reconstruction of cvc5 proofs in Isabelle.
+
+Instructions:
+
+0. Update file paths in config if necessary 
+
+1. Copy all benchmarks into Benchmark/Input
+   The directory can contain subfolders
+
+3. Run ./scripts/preproc.sh
+   This will sort out all benchmarks that have '(set-info :status unsat)'. Then, it runs cvc5 on them without proof production and a timeout of 1s. If cvc5 times out the benchmark will also be deleted.
+
+To avoid using two much memory (and overwhelming Isabelle) steps 5 & 6 can be run on batches. If you want to do so you'll have to fill the file in step 4
+
+4. ls Benchmark/Preprocessed > Benchmark/logRun.txt
+   That's where the script documents which benchmark it still needs to process
+
+5. Run ./scripts/getProof.sh 50
+   This will run cvc5 on 50 of the preprocessed benchmarks and create proofs for them. Proofs and problems will be stored in Benchmark/Result
+
+   a. For each problem.smt2 two files called problem_rewrite.smt2 and problem_rewrite.alethe will be generated.
+      The proof has fine-grained rewrite steps
+
+   b. For each problem.smt2 two files called problem_without_rewrite.smt2 and problem_without_rewrite.alethe will be generated.
+      The proof has fine-grained rewrite steps
+
+   c. veriT proof (turned off by default)
+      For each problem.smt2 two files called problem_verit.smt2 and problem_verit.alethe will be generated.
+
+5. Run ./scripts/checkProof.sh
+   This will use Isabelle to check the proofs
+
+You can run several tests:
+
+ 
+
+
+ 
+
+
+
+
