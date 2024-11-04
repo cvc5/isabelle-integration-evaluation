@@ -6,7 +6,7 @@ ISABELLE_USER_HOME=/home/lachnitt/.isabelle
 AFP_HOME=~/Sources/afp-2022-02*-21/thys/Word_Lib
 CVC5_HOME=~/Sources/cvc5/build/bin/cvc5
 VERIT_HOME=/usr/local/bin/veriT
-
+CARCARA_HOME=~/Sources/carcara/target/release-lto/carcara
 
 
 # Internal
