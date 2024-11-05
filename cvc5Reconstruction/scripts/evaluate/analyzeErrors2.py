@@ -97,11 +97,16 @@ error_categories = {
 }    
 
 # Read the JSON files
-with open(checking_input_file, 'r') as checking_input:
-    checking_input_data = json.load(checking_input)
 with open(bench_input_file, 'r') as bench_input:
     bench_input_data = json.load(bench_input)
-    
+
+if len(bench_input_data) == 0:
+  print("No benchmarks found")
+  exit()
+  
+with open(checking_input_file, 'r') as checking_input:
+    checking_input_data = json.load(checking_input)
+
     
 cvc5_without_rewrite_present = any(
   cvc5_without_rewrite in [check.get('solver_config') for check in benchmark.get('checking', [])]
