@@ -20,6 +20,7 @@ new_data = []
 # Iterate over the keys in `data` and add them to `new_data`, omitting "details"
 for entry in data:
   new_entry={}
+  print(entry['benchmark_name'])
   for key in entry:
     if key == "checking":
       new_checking_entry=[]
@@ -34,8 +35,7 @@ for entry in data:
       new_entry[key]=new_checking_entry
     else:
       new_entry[key]=entry[key]
-    print(new_entry)
-    new_data.append(new_entry)
+  new_data.append(new_entry)
 
 with open(out_checking_file, 'w') as out_file:
     json.dump(new_data, out_file, indent=1)
