@@ -1,0 +1,2 @@
+declare -a qf_uf_dir_names=("20170829-Rodin" "2018-Goel-hwbench" "20190906-CLEARSY" "eq_diamond" "NEQ" "PEQ" "QG-classification/qg7" "QG-classification/qg5" "QG-classification/qg6" "QG-classification/loops6" "SEQ" "TypeSafe")
+

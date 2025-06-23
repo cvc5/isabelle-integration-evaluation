@@ -1,49 +1,46 @@
 #!/bin/bash
 
-input_file=$2
-dir=$1
-echo "Input file $input_file"
-echo "Dir with Alethe Files $dir"
+config=$1
+base_dir=$2
+input_file=$3
 
-BASE_DIR=/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/cvc5Reconstruction/slurm/
-TEMP_DIR=$BASE_DIR
-TMP_DIR=$BASE_DIR
-raw_name="${input_file%.*}"
-echo "Raw_name $raw_name"
-
-alethe_proof_file=$dir/$raw_name".alethe"
-echo "Alethe path $alethe_proof_file"
-
-problem_file=$dir/$raw_name".smt2"
-echo "Problem path $problem_file"
+rare_mode=0
 
 
+  echo "input_file: $input_file"
+  echo "config: $config"
+  echo "base_dir: $base_dir"
+if [[ "$input_file" = ".smt2/" ]]
+then
+ echo "ERROR: smt2 file instead of alethe file given"
+ exit -1
+else
+  SLURM_DIR=/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/cvc5Reconstruction/slurm/
+  raw_name="${input_file%.*}"
+  raw_filename="$(basename $raw_name)"
+  echo $raw_name
+  proof_file=$base_dir/$raw_name".alethe"
+  problem_file=$base_dir/$raw_name".smt2"
+  echo "proof_file: $proof_file"
+  echo "problem_path: $problem_file"
+  echo "bench_name: $raw_filename"
 
-dir=$(pwd)
+  cp $problem_file .
+  echo "copied problem file"
+  cp $proof_file .
+  echo "copied Alethe file"
 
-#export HOME=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/
+  echo "current dir? ${PWD}"
+  dir=${PWD}
+  nr=$(cksum <<< $raw_name$config | cut -f 1 -d ' ')
+  echo $nr
+  proof_file_is="../../"$raw_filename".alethe"
+  problem_file_is="../../"$raw_filename".smt2"
+  $SLURM_DIR/scripts/writeIsabelleTheory.sh $dir $problem_file_is $proof_file_is  $config $nr $rare_mode
 
-#HOME=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/
+  echo "Finished writing theory, now run"
+  /barrett/scratch/lachnitt/Binaries/isabelle-emacs/bin/isabelle build -v -d ./Isabelle/ -c CheckFile$nr
+   echo "Finished, now output log"
+  /barrett/scratch/lachnitt/Binaries/isabelle-emacs/bin/isabelle build_log -v CheckFile$nr
 
-HOME=$dir
-export HOME=$dir
-
-
-cp $problem_file $dir
-echo "copied problem file"
-cp $alethe_proof_file $dir
-echo "copied Alethe file"
-
-nr=$(cksum <<< "$raw_name" | cut -f 1 -d ' ')
-
-echo "nr is: $nr"
-$BASE_DIR/scripts/writeIsabelleTheory.sh $dir "../../"$raw_name".smt2" "../../"$raw_name".alethe" "$dir/outputIsabelleHi" "$nr"
-
-echo "home: $HOME"
-
-/barrett/scratch/lachnitt/Binaries/isabelle-emacs/bin/isabelle build -v -d ./Isabelle/ -c CheckFile$nr
-
-/barrett/scratch/lachnitt/Binaries/isabelle-emacs/bin/isabelle build_log -v CheckFile$nr
-
-rm "$raw_name.smt2"
-rm "$raw_name.alethe"
+fi

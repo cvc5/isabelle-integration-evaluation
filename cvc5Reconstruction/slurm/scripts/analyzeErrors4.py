@@ -33,7 +33,7 @@ for i,d in data.iterrows():
     #path=pathlib.PurePath(path) 
     #set_name=path.parent.name
     head,tail = os.path.split(os.path.normpath(path))
-    set_name = head.split('/')[1]
+    set_name = d['library_name']
     if set_name not in total_benchs_per_set:
       total_benchs_per_set[set_name] = 0
     total_benchs_per_set[set_name] += 1
@@ -55,6 +55,8 @@ for i,d in data.iterrows():
          times_per_set_per_benchmark[set_name][path]={}
 
       if time > 0:
+         if time > 150000:
+             print("ALERT",time)
          results_per_set[config][set_name][0] += 1
          times_per_set_per_benchmark[set_name][path][config]=time
       else:
@@ -62,7 +64,7 @@ for i,d in data.iterrows():
         if c['checking_time']!= -7:
           errors_list.append(path)
 
-      if 'failed_rule' in c.keys() and c['failed_rule'] != "":
+      if 'failed_rule' in c.keys():
         failed_rule_list.append(path)
 
         if config not in failed_rule_per_set.keys():
@@ -106,22 +108,12 @@ print()
 
 print("Total: ", len(data))
 #print("Found the following configurations:", found_configs)
-print("Solved by config:")
+print("Successfully reconstructed by config:")
 for config in results_per_config:
     print(" ",config,": ", results_per_config[config][0])
 
 
 #print(results_per_set)
-print()
-print("--------------------------------------------------------------")
-print("------------------ Reconstruction Success --------------------")
-print("--------------------------------------------------------------")
-print()
-
-
-print("The Number Reconstructed shows the real number of reconstructed benchmarks. Average Reconstruction Time the total average time to reconstruct. Sanitized Time is the average taking the best and worst 5% of benchmarks out.")
-
-
 collect_sets=[]
 configs=[]
 for s in success_per_set:
@@ -160,6 +152,8 @@ data2.append(configs2)
 data2.append(configs2b)
 data2.append(SEPARATING_LINE)
 
+nr_solved_by_all=0
+nr_solved_by_none=0
 for bench_set in collect_sets:
   data_entry=[bench_set,total_benchs_per_set[bench_set]]
 
@@ -177,15 +171,18 @@ for bench_set in collect_sets:
   for bench_path in times_per_set_per_benchmark[bench_set]:
         if len(times_per_set_per_benchmark[bench_set][bench_path]) == nr_configs:
             nr_all_solved += 1
+            nr_solved_by_all+=1
             for config in times_per_set_per_benchmark[bench_set][bench_path]:
               time_all_solved[config].append(times_per_set_per_benchmark[bench_set][bench_path][config])
+        if len(times_per_set_per_benchmark[bench_set][bench_path]) == 0:
+            nr_solved_by_none+=1
   for c2 in found_configs:
     if nr_all_solved == 0:
       data_entry.append('-')
     else:  
       data_entry.append(int(sum(time_all_solved[c2])/nr_all_solved))
       total_time[c2]+=sum(time_all_solved[c2])
-
+ 
   data2.append(data_entry)
 
 total_per_config=list(total_success_per_config.values())
@@ -200,6 +197,22 @@ data2.append(SEPARATING_LINE)
 data2.append(total_per_config)
 for config in found_configs:
   configs.insert(0,str(config))
+
+print("break-down:")
+for config in results_per_config:
+    print("  Reconstructed only by ",config,": ", results_per_config[config][0]-nr_solved_by_all)
+print("  Reconstructed proofs of all:",nr_solved_by_all)
+print("  Reconstructed of none:",nr_solved_by_none)
+print()
+print("--------------------------------------------------------------")
+print("------------------ Reconstruction Success --------------------")
+print("--------------------------------------------------------------")
+print()
+
+
+print("The Number Reconstructed shows the real number of reconstructed benchmarks. Average Reconstruction Time the total average time to reconstruct. Sanitized Time is the average taking the best and worst 5% of benchmarks out.")
+
+
 
 print(tabulate(data2))
 
