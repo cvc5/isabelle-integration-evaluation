@@ -11,7 +11,6 @@ if [ -z "$6" ]; then
 else
   rewrite=$6;
 fi
-rewrite="0";
 
 
 if [ $config = "cvc5_with_rewrite" ]

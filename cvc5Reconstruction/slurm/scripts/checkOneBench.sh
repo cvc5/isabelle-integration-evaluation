@@ -4,7 +4,7 @@ config=$1
 base_dir=$2
 input_file=$3
 
-rare_mode=0
+rare_mode=2
 
 
   echo "input_file: $input_file"

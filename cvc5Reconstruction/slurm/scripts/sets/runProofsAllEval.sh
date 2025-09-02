@@ -20,7 +20,7 @@ do
 done
 
 saved_dir=saved_results_$set_kind/
-python3 $SCRIPT_DIR/combineCheckerOutput.py $saved_dir/"$bench_set"_cvc5_with_rewrite.json $saved_dir/"$bench_set"_verit.json $saved_dir/"$bench_set"_all.json
+/barrett/scratch/lachnitt/Binaries/my-venv/bin/python3 $SCRIPT_DIR/combineCheckerOutput.py $saved_dir/"$bench_set"_cvc5_with_rewrite.json $saved_dir/"$bench_set"_verit.json $saved_dir/"$bench_set"_all.json
 
 
 

@@ -20,5 +20,5 @@ echo "Output will be written to: $out_dir"
 
 rm -rf $out_dir
 base_bench_path=/barrett/scratch/lachnitt/non-incremental/"$set_kind"_sets/"$bench_set"_"$set_kind"/rewrites/
-$SCRIPT_DIR/runSet.sh "$base_bench_path/list_viable_rewrites_sample.txt" "$base_bench_path/rewrites_selection/" "$config" "$out_name"
+$SCRIPT_DIR/runSet.sh "$base_bench_path/list_viable_rewrites_sample.txt" "$base_bench_path/$bench_set""_rewrites/" "$config" "$out_name"
 

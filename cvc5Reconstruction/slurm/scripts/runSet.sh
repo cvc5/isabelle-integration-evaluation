@@ -35,5 +35,5 @@ cat $input_file > $bench_file
 i=$(cat "$input_file"  | wc -l)
 echo "Found $i benchmarks"
 
-/barrett/scratch/local/bin/submit-job.sh -t $timeout -p quad -b $bench_name -d "$cur_out_dir/out/" --overlay-dir /home --full-access-dir /barrett/scratch/lachnitt/Binaries/IsabelleSetUp/.isabelle/ -o "$config $base_path" $base_dir/scripts/checkOneBench.sh
+/barrett/scratch/local/bin/submit-job.sh -t $timeout -p quad -b $bench_name -d "$cur_out_dir/out/" --full-access-dir /barrett/scratch/lachnitt/Binaries/IsabelleSetUp/.isabelle/ -o "$config $base_path" $base_dir/scripts/checkOneBench.sh
 
