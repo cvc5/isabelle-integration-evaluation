@@ -13,7 +13,8 @@ for current_dir_path in $input_dir/*/ ; do
   # find benchmarks
   current_dir=$(basename "$current_dir_path")
   echo "Current directory $current_dir"
-  current_checking_file=$current_dir"/all_checking.json"
+  current_checking_file=$current_dir_path"/all_checking.json"
+  echo $current_checking_file
   if [ -e $current_checking_file ]
   then
     echo "Found"

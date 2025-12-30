@@ -5,14 +5,15 @@ import numpy as np
 import errorCodeUtil
 
 #Set-up
-directory = '/home/lachnitt/Sources/isabelle-integration-evaluation/cvc5Reconstruction/result/'
-checking_input_file = directory + sys.argv[1] + '/all_checking.json'
-bench_input_file = directory + sys.argv[1] + '/Bench/all_bench.json'
+#directory = '/home/lachnitt/Sources/isabelle-integration-evaluation/cvc5Reconstruction/'
+checking_input_file = sys.argv[1] + '/all_checking.json'
+bench_input_file = sys.argv[1] + '/Bench/all_bench.json'
 
 if ((len (sys.argv)) > 2) :
   name = sys.argv[2]
 else :
   name = ""
+
 
 #Utils
 def count_occurences(checking_entry,collect_res):
@@ -80,7 +81,7 @@ def sanitize(category_dict):
 
 ### Main functionality
 
-
+print("sdf")
 # Initialize counters for different configurations:
 categories_without_rewrite = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: {'amount':0,'rules':{'unknown':0}}, 7: {'amount':0,'rules':{'unknown':0}}}
 categories_with_rewrite = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: {'amount':0,'rules':{'unknown':0}}, 7: {'amount':0,'rules':{'unknown':0}}}
@@ -98,8 +99,8 @@ error_categories = {
 
 # Read the JSON files
 with open(bench_input_file, 'r') as bench_input:
-    bench_input_data = json.load(bench_input)
-
+  bench_input_data = json.load(bench_input)
+  
 if len(bench_input_data) == 0:
   print("No benchmarks found")
   exit()
@@ -195,7 +196,9 @@ if cvc5_without_rewrite_present:
   print(categories_without_rewrite[7]['rules'])
   print_devider()
   ax_cvc5_without_rewrite = mk_ax(fig_success_rate,subplotNrs[cvc5_without_rewrite],categories_without_rewrite_sanitized,'cvc5 without rewrites')
-
+  print("Median time")
+  
+  
   
 if cvc5_with_rewrite_present:
   print("cvc5 with rewrites")

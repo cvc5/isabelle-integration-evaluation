@@ -2,14 +2,20 @@
 source config
 
 if [ $# -eq 0 ]; then
-    echo "Usage: $0 <output directory> (<solver_mode>)"
+    echo "Usage: $0 <output directory> (<input_dir(default is /input)>)"
     exit 1
 fi
 
 if [ $1 = "-h" ]; then
-    echo "Usage: $0 <output directory>"
+    echo "Usage: $0 <output directory> (<input_dir(default is /input)>)"
     exit 1
 fi
+
+input_dir=$INPUT_BENCHMARK_HOME
+if [ $# -eq 2 ]; then
+  input_dir=$2
+fi
+
 
 rm -f "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"*;
 
@@ -29,6 +35,7 @@ mkdir -p "$stats_dir/Bench"
 bench_general_file="$stats_dir/Bench/all_bench.json"
 echo "" > $bench_general_file
 batch=0
+
 
 
 process_benchmark()
@@ -58,26 +65,25 @@ process_benchmark()
 
 while read -r problem_file; do
 
-  batch=$(($batch+1))
   file_without_extension="${problem_file%.*}"
   echo "Processing $(basename $file_without_extension)"
   file_with_alethe=$file_without_extension".alethe"
   echo "file_with_alethe $file_with_alethe"
   if [ -e $file_with_alethe ]
   then
-
+    batch=$(($batch+1))
     cp $problem_file "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"
     cp $file_with_alethe "$Result_BENCHMARK_HOME/cvc5_without_rewrite/"
     $SCRIPTS_HOME/util/writeGeneralBenchInfoToJson.sh $bench_general_file $(basename $file_without_extension)".smt2" $problem_file true ""
 
   fi  
       
-  if [ $batch = 5 ];
+  if [ $batch = 30 ];
   then
     process_benchmark
     batch=0
   fi; 
-done <<< $(find "$INPUT_BENCHMARK_HOME" -type f -name "*.smt2")
+done <<< $(find "$input_dir" -type f -name "*.smt2")
 
 if [ $batch -ne 0 ];
 then
