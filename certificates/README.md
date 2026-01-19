@@ -4,7 +4,10 @@
 
 Preprocessing a benchmark set <name> in <inputDir>:
 
+The script ./runAllPreproc.sh will run all the below steps automatically.
+However, it requires you to wait for slurm.
 
+-----------------------------------------------------------------
 
 The first three steps run locally and don't delete any benchmarks. They could be combined but even with large sets I had no performance problems so far and preferred the modularity.
 
@@ -27,7 +30,7 @@ Now benchmarks are deleted:
 
 4. Delete unsupported benchmarks with Slurm
 
-./preproc/findUnsupWrapper.sh <input_dir>
+./preproc/slurmWrapper <input_dir> findUnsup.sh
 
 
 
