@@ -1,6 +1,6 @@
 # l4v-analysis
 
-High-level overview of L4.verified source code and related documentation (taken from [`L4.verified repo`]([docs/](https://github.com/seL4/l4v)))
+High-level view of L4.verified source code and related documentation (taken from [`L4.verified repo`]([docs/](https://github.com/seL4/l4v)))
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
 The repository is organised as follows.

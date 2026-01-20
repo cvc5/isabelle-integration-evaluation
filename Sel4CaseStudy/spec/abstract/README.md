@@ -18,6 +18,16 @@ Concepts covered
     - Typed pointers
   - Uses high-level data-structures: sets, lists, trees, functions, and records.
   - Makes use of nondeterminism in order to leave implementation choices to lower levels.
+  
+- From [`An Overview of the Verification of the seL4 Microkernel`](https://www.semanticscholar.org/paper/An-Overview-of-the-Verification-of-the-seL-4-Stevens/40d5704de14461c6e0372354aacb164b5d8a9d32):
+  - "Fixes the kernel’s API by predefining the argument formats of system calls up 
+    to their binary encoding as well as their error encodings"
+  - "To simplify verification, the use of data types with unrestricted size, for 
+    example natural numbers, is kept to a minimum."
+  - "the specification primarily uses finite machine words, e.g. 32-bit integers. 
+    Memory and pointers are also modelled explicitly." 
+  - "Kernel data structures on the other hand are kept abstract in order to keep 
+    the implementation as unrestricted as possible"
 
 Entry Points
 ------------
