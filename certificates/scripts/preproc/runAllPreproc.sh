@@ -19,6 +19,7 @@ fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 cd $OUTPUT_DIR
+mkdir -p preproc_logs
 
 echo "------------------------------"
 
@@ -38,17 +39,29 @@ echo "Found $nr_bench benchmarks"
 
 echo "Find unsupported benchmarks"
 output=$($SCRIPT_DIR/slurmWrapper.sh -w $INPUT_DIR findUnsup.sh)
+echo $output >> preproc_logs/log.out
 
 echo "Evaluate unsupported benchmarks"
-$SCRIPT_DIR/slurmWrapperEvaluate.sh output_findUnsup_temp unsup.csv
+$SCRIPT_DIR/slurmWrapperEvaluate.sh output_findUnsup_temp preproc_logs/unsup.csv
 rm -rf benchmark_set_findUnsup_temp output_findUnsup_temp
+$SCRIPT_DIR/deleteFromCsv.sh preproc_logs/unsup.csv
 
 echo "Find SAT benchmarks"
 output=$($SCRIPT_DIR/slurmWrapper.sh -w $INPUT_DIR findSAT.sh)
+echo $output >> preproc_logs/log.out
 
 echo "Evaluate SAT benchmarks"
-$SCRIPT_DIR/slurmWrapperEvaluate.sh output_findSAT_temp sat.csv
+$SCRIPT_DIR/slurmWrapperEvaluate.sh output_findSAT_temp preproc_logs/sat.csv
 rm -rf benchmark_set_findSAT_temp output_findSAT_temp
+$SCRIPT_DIR/deleteFromCsv.sh preproc_logs/sat.csv
 
 
+echo "Delete Lets from problem"
+output=$($SCRIPT_DIR/slurmWrapper.sh -w $INPUT_DIR findLet.sh)
+echo $output >> preproc_logs/log.out
+
+echo "Copy benchmark without lets and delete those where lets could not be deleted"
+$SCRIPT_DIR/slurmWrapperEvaluate.sh output_findLet_temp "preproc_logs/let.csv"
+$SCRIPT_DIR/deleteLetFromCsv.sh "preproc_logs/let.csv" $INPUT_DIR
+rm -rf benchmark_set_findLet_temp output_findLet_temp
 
