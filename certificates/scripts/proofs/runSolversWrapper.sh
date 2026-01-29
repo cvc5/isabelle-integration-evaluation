@@ -12,7 +12,7 @@ if ! [ $# -ge 4 ]; then
 fi
 
 timeout=350
-partition=quad
+partition=octa
 
 Help()
 {
