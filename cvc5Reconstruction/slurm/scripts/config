@@ -1,8 +1,0 @@
-
-SLURM_DIR=/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/cvc5Reconstruction/slurm/
-ISABELLE_PATH=/barrett/scratch/lachnitt/Binaries/isabelle-emacs/bin/isabelle
-HOME=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/
-SCRIPT_DIR=$SLURM_DIR/scripts/
-RECONSTRUCT_DIR=$SCRIPT_DIR/reconstruct/
-
-partition=quad
