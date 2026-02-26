@@ -18,6 +18,6 @@ done <<< $(find "$input_dir" -type f -name "output.log")
 
 total=$(cat $output_file | wc -l)
 echo "Total: $total "
-awk -F',' '{count[$2]++} END {for (v in count) print v, count[v]}' $output_file
+#awk -F',' '{count[$2]++} END {for (v in count) print v, count[v]}' $output_file
 
 

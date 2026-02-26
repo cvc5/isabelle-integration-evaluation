@@ -4,7 +4,6 @@ trap "cd \"${PWD}\"" EXIT
 
 input_file=$1
 
-SCRIPT_DIR=/barrett/scratch/lachnitt/non-incremental/scripts/
 if ! [[ $# -eq 1 ]]; then
   echo "Usage: $0 <input csv file>"
   echo "Excepts a csv list with entries: path, status"

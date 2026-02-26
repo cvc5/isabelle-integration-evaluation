@@ -1,7 +1,11 @@
 #!/bin/bash
 trap "cd \"${PWD}\"" EXIT
 
-#Defaults for options
+#------------------------------------------------------------------------------------
+#-------------------------------------Read Input-------------------------------------
+#------------------------------------------------------------------------------------
+
+#Default values for options
 timeout=350
 partition=amd
 wait_active=""
@@ -11,6 +15,7 @@ Help()
    # Display Help
    echo "Run a script on a benchmark set"
    echo "Usage: $0 <input directory ABSOLUTE path> <script name (needs to be in preproc dir)>"
+   echo "Available scripts are: findUnsup.sh,findLet.sh,findSat.sh(superseeded by catalog)"
    echo
    echo "options:"
    echo "t     Set timeout for solving and producing proof"
@@ -35,14 +40,17 @@ while getopts ":hp:t:w" option; do
 done
 shift $((OPTIND - 1))
 
+INPUT_DIR=$1
+script_name=$2
+
 if [[ "$#" -ne 2 ]]; then
   echo "Usage: $0 [options] <input directory ABSOLUTE path> <script name (needs to be in preproc dir)>"
   exit 1
 fi
-
-INPUT_DIR=$1
-script_name=$2
-
+if ! [[ "$INPUT_DIR" =~ ^/ ]]; then
+  echo "abolute path needed! $INPUT_DIR";
+  exit 1
+fi
 
 
 echo ""
@@ -53,18 +61,13 @@ echo "wait is: $wait_active (if empty string then off)"
 echo ""
 
 
-if ! [[ "$INPUT_DIR" =~ ^/ ]]; then
-  echo "abolute path needed! $INPUT_DIR";
-  exit 1
-fi
-
-
 name="${script_name%.sh}"
 
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 SUBMIT_JOB_HOME=/barrett/scratch/local/bin/
-partition=amd
+
+
 cd $INPUT_DIR/..
 
 echo "Output will be written to ${PWD}"

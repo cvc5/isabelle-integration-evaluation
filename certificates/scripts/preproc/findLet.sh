@@ -19,10 +19,10 @@ echo -n "res: $input_file,"
   ret=$?
     if [[ $ret = 1 ]]
     then
-      res_str="let_error" 
+      res_str="error"
     elif [[ $ret = 124 ]]
     then
-      res_str="let_timeout" 
+      res_str="timeout"
     else
       res_str="okay"
       echo "$cvc5_new_problem" > $(basename $input_file)

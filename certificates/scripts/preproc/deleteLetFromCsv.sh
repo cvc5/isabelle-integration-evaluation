@@ -26,7 +26,15 @@ do
   then
     nr_unsupp=$((nr_unsupp + 1))
     rm $field1
+  elif [[ $(echo $field3 | grep -c "error") -gt 0 ]] ;
+  then
+    nr_unsupp=$((nr_unsupp + 1))
+    rm $field1
   elif [[ $(echo $field3 | grep -c "let_timeout") -gt 0 ]] || [[ $filed3 == "" ]] ;
+  then
+    nr_unsupp=$((nr_unsupp + 1))
+    rm $field1
+  elif [[ $(echo $field3 | grep -c "timeout") -gt 0 ]] || [[ $filed3 == "" ]] ;
   then
     nr_unsupp=$((nr_unsupp + 1))
     rm $field1
