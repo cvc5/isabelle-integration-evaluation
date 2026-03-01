@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if ! [ $# -eq 4 ]; then
-    echo "Usage: $0 <solver_config (cvc5_with_rewrite or cvc5_without_rewrite or verit)> <benchmark library name> <base_dir> <input_file>"
+if ! [ $# -ge 4 ]; then
+    echo "Usage: $0 <solver_config (cpc, cvc5, cvc5_without_rewrite, or verit)> <benchmark library name> <base_dir> <input_file> <optional: timeout>"
     exit 1
 fi
 
@@ -10,16 +10,10 @@ CVC5_HOME=/barrett/scratch/lachnitt/Binaries/cvc5bin
 VERIT_HOME=/barrett/scratch/lachnitt/Binaries/verit/veriT
 remove=false
 
-solver_config=$1
-bench_lib=$2
-base_dir=$3
-input_file=$4
-
-
 Help()
 {
    # Display Help
-   echo "Run a solver (cvc5_with_rewrite, cvc5_without_rewrite or verit) on a benchmark"
+   echo "Run a solver (cpc, cvc5, cvc5_without_rewrite or verit) on a benchmark"
    echo
    echo "options:"
    echo "t     Set timeout for solving and producing proof"
@@ -32,13 +26,34 @@ while getopts ":ht:" option; do
       h) # display Help
          Help
          exit;;
-      t) timeout=$OPTARG;;
+      t) timeout_sec=$OPTARG;;
      \?) # Invalid option
          echo "Error: Invalid option"
          exit;;
    esac
 done
 
+
+#Read positional arguments
+shift $((OPTIND - 1))
+
+solver_config=$1
+bench_lib=$2
+base_dir=$3
+
+
+if [ $# -eq 5 ]; then
+  timeout_sec=$4
+  input_file=$5
+  echo "timeout $timeout_sec"
+else
+  input_file=$4
+fi
+
+
+
+
+echo "Nr args $#"
 
 #echo "Input_file $input_file"
 
@@ -63,7 +78,7 @@ echo -n $str
 
 
 #Run solvers
-if [ $solver_config = "cvc5_with_rewrite" ];
+if [ $solver_config = "cvc5" ];
 then
   start_time=$(date +%s%N)
   exec 4>temp
@@ -72,8 +87,8 @@ then
   elapsed_time=$(cat temp)
   exec 4>&-
   end_time=$(date +%s%N)
-  solver_name="cvc5_with_rewrite"
-  solver_config="cvc5_with_rewrite"
+  solver_name="cvc5"
+  solver_config="cvc5"
 elif [ $solver_config = "cpc" ];
 then
   start_time=$(date +%s%N)
@@ -105,6 +120,9 @@ else echo "\"invalid solver config\"}]}"; exit -1; fi;
   if ! [ $return_value = 0 ] ; 
   then 
     ret=-1
+  elif [ -z "$output" ] ;
+  then
+    ret=-1
   elif [[ $output == *"unknown"* ]]
   then 
     ret=-3
@@ -123,10 +141,9 @@ else echo "\"invalid solver config\"}]}"; exit -1; fi;
 
     #elapsed_time_old=$((end_time - start_time))
     #elapsed_time_old=$(awk -v var1=$elapsed_time_old -v var2=1000000000 'BEGIN { print  ( var1 / var2 ) }')
- #   elapsed_time=${elapsed_time%"elapsed"}
+    elapsed_time=${elapsed_time%"elapsed"}
     ret=0
     out_dir=$(basename $base_dir)
-  ret=0
     nr_of_lines=$(cat $result_file_proof | grep -c -E "^\((assume|step|anchor)") # ignore define-fun
 
     more=", \"nr_of_lines\": $nr_of_lines, \"solving_time\": \"$elapsed_time\","

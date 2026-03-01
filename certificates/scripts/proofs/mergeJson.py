@@ -1,8 +1,33 @@
 import json
 import sys
 import os
+import shutil
 
 def merge_files(file1, file2, outfile):
+ 
+    # ensure output directory exists (if any)
+    outdir = os.path.dirname(outfile)
+    if outdir:
+        os.makedirs(outdir, exist_ok=True)
+
+    if not os.path.exists(file1) and not os.path.exists(file2):
+      print("None of the input files was found")
+      sys.exit(1)
+    elif not os.path.exists(file1):
+      if not os.path.exists(outfile):
+        with open(outfile, 'w') as file:
+          file.write("")
+      shutil.copy2(file2, outfile)
+      sys.exit(0)
+    elif not os.path.exists(file2):
+      if not os.path.exists(outfile):
+        with open(outfile, 'w') as file:
+          file.write("")
+      shutil.copy2(file1, outfile)
+      sys.exit(0)
+
+
+
     with open(file1) as f:
         data1 = json.load(f)
 
@@ -25,11 +50,6 @@ def merge_files(file1, file2, outfile):
             for k, v in entry.items():
                 if k not in merged[key]:
                     merged[key][k] = v
-
-    # ensure output directory exists (if any)
-    outdir = os.path.dirname(outfile)
-    if outdir:
-        os.makedirs(outdir, exist_ok=True)
 
     # create / overwrite output file
     with open(outfile, "w") as f:

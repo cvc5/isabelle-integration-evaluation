@@ -1,10 +1,6 @@
 #!/bin/bash
 trap "cd \"${PWD}\"" EXIT
 
-input_dir=$1
-output_dir=$2
-lib_name=$3
-config=$4
 
 if ! [ $# -ge 4 ]; then
   echo "Usage: $0 <input_dir ABSOLUTE PATH> <output_dir> <library_name> <config>"
@@ -12,12 +8,12 @@ if ! [ $# -ge 4 ]; then
 fi
 
 timeout=350
-partition=octa
+partition="quad"
 
 Help()
 {
    # Display Help
-   echo "Run a solver (cvc5_with_rewrite, cvc5_without_rewrite or verit) on a benchmark set"
+   echo "Run a solver (cpc, cvc5, cvc5_without_rewrite or verit) on a benchmark set"
    echo
    echo "options:"
    echo "t     Set timeout for solving and producing proof"
@@ -39,6 +35,15 @@ while getopts ":hp:t:" option; do
    esac
 done
 
+
+#Read positional arguments
+shift $((OPTIND - 1))
+
+input_dir=$1
+output_dir=$2
+lib_name=$3
+config=$4
+
 #set slurm timout
 slurm_timeout=$((timeout + 100))
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
@@ -50,20 +55,29 @@ cd "$output_dir"
 mkdir -p "Results/"
 
 for current_dir_path in $input_dir/*/ ; do
-  echo $current_dir_path  
+  echo "Processing: $current_dir_path"
   dir_name=$(basename "$current_dir_path")
-  echo $dir_name 
   bench_file="benchmark_set_$dir_name"
-  touch $bench_file
-  echo "Created $bench_file"
   nr_benchs=$(find $current_dir_path -type f -name "*.smt2" | wc -l)
-  find $current_dir_path -type f -name "*.smt2" > $bench_file
-  
-  TEMP_OUT="Results/$dir_name"
-  name="runSolver_""$config""_""$lib_name""_""$dir_name"
   if [[ $nr_benchs -ne 0 ]]
   then
-    /barrett/scratch/local/bin/submit-job.sh --partition "$partition" --full-access-dir $current_dir_path -t $slurm_timeout -n "$name" -b "$dir_name" -d $TEMP_OUT -o "$config $lib_name $input_dir" $SCRIPT_DIR/runSolvers.sh
+    echo "  Found benchmarks in $dir_name"
+    find $current_dir_path -type f -name "*.smt2" > $bench_file
+    touch $bench_file
+    echo "  Created $bench_file"
+    TEMP_OUT="Results/$dir_name"
+    name="runSolver_""$config""_""$lib_name""_""$dir_name"
+    timeout_str="${config} ${lib_name} ${input_dir} -t $timeout"
+    output=$(/barrett/scratch/local/bin/submit-job.sh --partition "$partition" --full-access-dir $current_dir_path -t $slurm_timeout -n "$name" -b "$dir_name" -d $TEMP_OUT -o "${config} ${lib_name} ${input_dir} $timeout" $SCRIPT_DIR/runSolvers.sh)
+    if [[ $? -ne 0 ]]
+    then
+      echo "ERROR: Slurm could not be called on benchmarks in $dir_name"
+      exit -1
+    else
+      echo "  Send to slurm"
+    fi
+  else
+    echo "  No benchmarks found in $dir_name. Skip this folder."	
   fi
 done
 
