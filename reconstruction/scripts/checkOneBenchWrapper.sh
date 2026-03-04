@@ -34,22 +34,24 @@ while getopts ":ht:c:l:" option; do
 done
 shift $((OPTIND - 1))
 
-if [[ "$#" -ne 3 ]]; then
-  Help
-  exit 1
-fi
-
 input_problem_dir=$1
 input_proof_dir=$2
 input_file=$3
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-# "${input_problem_dir} ${input_proof_dir} ${config} ${lib_name} $timeout"
+#if [[ "$#" -ne 3 ]]; then
+#  Help
+#  echo $#
+#  exit 1
+#fi
+
+#SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+SCRIPT_DIR=/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/reconstruction/scripts/
 
 relative_proof_path="${input_file#$input_proof_dir}"
 relative_path="${relative_proof_path%.alethe}"
 relative_problem_path="$relative_path".smt2
 problem_path=$input_problem_dir/$relative_problem_path
 
-
+echo "(\"PROOF_FILE\",\"$input_file\")"
+echo "(\"PROBLEM_FILE\",\"$problem_path\")"
 $SCRIPT_DIR/checkOneBench.sh $problem_path $input_file 
