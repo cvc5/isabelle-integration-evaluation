@@ -58,8 +58,8 @@ def analyze(file_path, output_csv=None):
             f"{'nr benchmarks solved':>21} | "
             f"{'avg nr_of_lines':>16} | "
             f"{'avg lines (common)':>20} | "
-            f"{'avg user time (s)':>18} | "
-            f"{'avg time (common)':>18}"
+            f"{'total user time (s)':>18} | "
+            f"{'total time (common)':>18}"
         )
         print("-" * (18 + 3 + 21 + 3 + 16 + 3 + 20 + 3 + 18 + 3 + 18))
 
@@ -77,7 +77,8 @@ def analyze(file_path, output_csv=None):
             lines = line_stats[library][solver]
             avg_lines = sum(lines) / len(lines) if lines else None
             times = time_stats[library][solver]
-            avg_time = sum(times) / len(times) if times else None
+            #avg_time = sum(times) / len(times) if times else None
+            total_time = sum(times)
 
             common_lines = [
                 lines_per_benchmark[library][solver][b]
@@ -91,20 +92,27 @@ def analyze(file_path, output_csv=None):
                 for b in common
                 if b in time_per_benchmark[library][solver]
             ]
-            avg_common_time = sum(common_times) / len(common_times) if common_times else None
+            total_common_time = sum(common_times) if common_times else None
+            #avg_common_time = sum(common_times) / len(common_times) if common_times else None
 
             avg_lines_str = f"{avg_lines:.2f}" if avg_lines is not None else "N/A"
             avg_common_lines_str = f"{avg_common_lines:.2f}" if avg_common_lines is not None else "N/A"
-            avg_time_str = f"{avg_time:.2f}" if avg_time is not None else "N/A"
-            avg_common_time_str = f"{avg_common_time:.2f}" if avg_common_time is not None else "N/A"
+            #avg_time_str = f"{avg_time:.2f}" if avg_time is not None else "N/A"
+            #avg_common_time_str = f"{avg_common_time:.2f}" if avg_common_time is not None else "N/A"
+            total_time_str = f"{total_time:.2f}" if total_time is not None else "N/A"
+            total_common_time_str = f"{total_common_time:.2f}" if total_common_time is not None else "N/A"
 
+            time_per_line = 1000*total_common_time/sum(common_lines) if common_lines and total_common_time else None
+            time_per_line_str = f"{time_per_line:.2f}" if time_per_line is not None else "N/A"
             print(
                 f"{solver:<18} | "
                 f"{solved_count:>21} | "
                 f"{avg_lines_str:>16} | "
                 f"{avg_common_lines_str:>20} | "
-                f"{avg_time_str:>18} | "
-                f"{avg_common_time_str:>18}"
+                #f"{avg_time_str:>18} | "
+                f"{total_time_str:>18} | "
+                #f"{avg_common_time_str:>18}"
+                f"{total_common_time_str:>18}"
             )
 
             if output_csv:
@@ -114,8 +122,11 @@ def analyze(file_path, output_csv=None):
                     "nr_benchmarks_solved": solved_count,
                     "avg_nr_of_lines": avg_lines_str,
                     "avg_lines_common": avg_common_lines_str,
-                    "avg_user_time_s": avg_time_str,
-                    "avg_time_common": avg_common_time_str,
+                    "total_user_time_s": total_time_str,
+                    #"avg_user_time_s": avg_time_str,
+                    "total_time_common": total_common_time_str,
+                    #"avg_time_common": avg_common_time_str,
+                    "time_per_line": time_per_line_str,
                 })
 
         print()
@@ -123,7 +134,7 @@ def analyze(file_path, output_csv=None):
         if output_csv and csv_rows:
          with open(output_csv, "a", newline="") as f:
             fieldnames = ["library", "solver_config", "nr_benchmarks_solved",
-                      "avg_nr_of_lines", "avg_lines_common", "avg_user_time_s", "avg_time_common"]
+                      "avg_nr_of_lines", "avg_lines_common", "total_user_time_s", "total_time_common","time_per_line"] #"avg_user_time_s", "avg_time_common"]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             if not os.path.exists(output_csv): #TODO: Not working
               writer.writeheader()
