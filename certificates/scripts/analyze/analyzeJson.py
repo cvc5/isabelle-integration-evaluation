@@ -34,13 +34,12 @@ def analyze(file_path, output_csv=None, summary=False):
     checking_counts = defaultdict(lambda: defaultdict(int))
 
     all_benchmarks = defaultdict(set)
-
     for entry in data:
         library = entry.get("library_name")
         benchmark = entry.get("benchmark_path")
         if library and benchmark:
             all_benchmarks[library].add(benchmark)
-        for s in entry.get("solving", []):
+        for s in entry.get("solving",[]):
             solver = s.get("solver_config")
             outcome = s.get("solving_outcome")
             if outcome is not None and outcome >= 0:
@@ -97,14 +96,13 @@ def analyze(file_path, output_csv=None, summary=False):
         ("checked ok",           ">", 12, lambda: checked_ok),
     ]
 
+    columns1 = [col[:3] for col in columns]
+
     def select_columns(names):
-        lookup = {col[0]: col for col in columns}
+        lookup = {col[0]: col for col in columns1}
         return [lookup[name] for name in names]
 
-    def get_values(cols):
-        return [(*col[:3], col[3]()) for col in cols]
-
-    columns_both     = [col[:3] for col in columns]
+    columns_both     = columns1
     columns_solving  = select_columns(["solver config", "nr benchmarks solved", "avg nr_of_lines", "avg lines (common)", "total user time (s)", "total time (common)"])
     columns_checking = select_columns(["solver config", "checked ok"])
 
@@ -230,11 +228,21 @@ def analyze(file_path, output_csv=None, summary=False):
             print(f"Results written to {output_csv}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Analyze solved benchmarks per library.")
-    parser.add_argument("file", help="Path to merged JSON file")
-    parser.add_argument("-o", nargs="?", const="result.csv", default=None,
-                        help="Write results to a CSV file (default: result.csv)")
-    parser.add_argument("-s", action="store_true",
-                        help="Use alternative summary printing")
-    args = parser.parse_args()
-    analyze(args.file, output_csv=args.o, summary=args.s)
+    if len(sys.argv) < 2:
+        print("Usage: python analyze.py file.json [-o output.csv] [-s] [-v]")
+        sys.exit(1)
+    file       = sys.argv[1]
+    output_csv = sys.argv[sys.argv.index("-o") + 1] if "-o" in sys.argv else None
+    summary    = "-s" in sys.argv
+    verbose    = "-v" in sys.argv
+    analyze(file, output_csv=output_csv, summary=summary)
+
+#if __name__ == "__main__":
+#    parser = argparse.ArgumentParser(description="Analyze solved benchmarks per library.")
+#    parser.add_argument("file", help="Path to merged JSON file")
+#    parser.add_argument("-o", nargs="?", const="result.csv", default=None,
+#                        help="Write results to a CSV file (default: result.csv)")
+#    parser.add_argument("-s", action="store_true",
+#                        help="Use alternative summary printing")
+#    args = parser.parse_args()
+#    analyze(args.file, output_csv=args.o, summary=args.s)

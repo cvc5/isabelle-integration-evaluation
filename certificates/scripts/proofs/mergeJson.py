@@ -73,22 +73,22 @@ def merge_files(file1, file2, outfile):
             # merge solving arrays
             if "solving" in merged[key].keys():
               solving_entries=[s["solver_config"] for s in merged[key]["solving"]]
-              for s1_entry in entry.get("solving", []):
+              for id_s1,s1_entry in enumerate(entry.get("solving", [])):
                 c = s1_entry["solver_config"]
                 if c not in solving_entries:
                     merged[key]["solving"].extend(s1_entry)
                 else:
-                    merged[key]["solving"] = s1_entry #Prefer new entry
+                    merged[key]["solving"][id_s1] = s1_entry #Prefer new entry
 
             # merge checking arrays
             if "checking" in merged[key].keys():
               checking_entries=[s["solver_config"] for s in merged[key]["checking"]]
-              for s1_entry in entry.get("checking", []):
+              for id_s1,s1_entry in enumerate(entry.get("checking", [])):
                 c = s1_entry["solver_config"]
                 if c not in checking_entries:
                     merged[key]["checking"].extend(s1_entry)
                 else:
-                    merged[key]["checking"] = s1_entry #Prefer new entry
+                    merged[key]["checking"][id_s1] = s1_entry #Prefer new entry
 
 
 
