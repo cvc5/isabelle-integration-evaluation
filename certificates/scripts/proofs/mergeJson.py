@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import json
 import sys
 import os
@@ -38,18 +40,21 @@ def merge_files(file1, file2, outfile):
 
     for entry in data1 + data2:
         key = entry["benchmark_path"]
-
         if key not in merged:
             merged[key] = entry
         else:
             # merge solving arrays
-            merged[key].setdefault("solving", [])
             merged[key]["solving"].extend(entry.get("solving", []))
+            # merge checking arrays
+            merged[key].setdefault("checking", [])
+            merged[key]["checking"].extend(entry.get("checking", []))
+
 
             # keep missing fields if any
             for k, v in entry.items():
                 if k not in merged[key]:
                     merged[key][k] = v
+
 
     # create / overwrite output file
     with open(outfile, "w") as f:

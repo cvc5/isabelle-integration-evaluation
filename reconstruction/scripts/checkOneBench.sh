@@ -36,9 +36,12 @@ fi
 input_problem_file=$1
 input_proof_file=$2
 
-ISABELLE_PATH=/barrett/scratch/lachnitt/Binaries/dist-Isabelle_24-Feb-2026/Isabelle_24-Feb-2026/bin/
+ISABELLE_VERSION=Isabelle_06-Mar-2026
+ISABELLE_PATH=/barrett/scratch/lachnitt/Binaries/dist-$ISABELLE_VERSION/$ISABELLE_VERSION/bin/
 export USER_HOME=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/
 
-$ISABELLE_PATH/isabelle smt_check -i $input_problem_file -p $input_proof_file
+output=$($ISABELLE_PATH/isabelle smt_check -i $input_problem_file -p $input_proof_file)
+echo "$output" | sed  -E "/^(Warning|###|$)/d"
 
+$ISABELLE_PATH/isabelle build_log
 
