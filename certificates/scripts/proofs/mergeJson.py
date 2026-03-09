@@ -1,40 +1,67 @@
 #!/usr/bin/env python3
 
+#Mix of self written and AI
+
 import json
 import sys
 import os
 import shutil
 
+verbose = False
+
+def verbose_print(*args, **kwargs):
+    if verbose:
+        print(*args, **kwargs)
+
+def load_json_file(filepath):
+    try:
+        with open(filepath) as f:
+            data = json.load(f)
+        return data
+    except FileNotFoundError:
+        verbose_print(f"Error: The file '{filepath}' was not found.")
+        return None
+    except json.JSONDecodeError as e:
+        verbose_print(f"Error: Could not decode JSON from the file.\nDetails: {e}")
+        return None
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return None
+
+def copy_file(source,destination):
+    try:
+        shutil.copy2(source, destination)
+    except shutil.SameFileError:
+       verbose_print("Source and destination represent the same file.")
+    except PermissionError:
+       print("Permission denied.")
+       sys.exit(1)
+    except Exception as e:
+      print(f"An error occurred: {e}")
+      sys.exit(1)
+
 def merge_files(file1, file2, outfile):
- 
-    # ensure output directory exists (if any)
     outdir = os.path.dirname(outfile)
     if outdir:
         os.makedirs(outdir, exist_ok=True)
 
-    if not os.path.exists(file1) and not os.path.exists(file2):
-      print("None of the input files was found")
-      sys.exit(1)
-    elif not os.path.exists(file1):
-      if not os.path.exists(outfile):
-        with open(outfile, 'w') as file:
-          file.write("")
-      shutil.copy2(file2, outfile)
-      sys.exit(0)
-    elif not os.path.exists(file2):
-      if not os.path.exists(outfile):
-        with open(outfile, 'w') as file:
-          file.write("")
-      shutil.copy2(file1, outfile)
-      sys.exit(0)
+    exists1, exists2 = os.path.exists(file1), os.path.exists(file2)
 
+    if not exists1 and not exists2:
+        print("None of the input files was found")
+        sys.exit(1)
+    elif not exists1 or not exists2:
+        copy_file(file2 if not exists1 else file1, outfile)
+        sys.exit(0)
 
+    data1, data2 = load_json_file(file1), load_json_file(file2)
 
-    with open(file1) as f:
-        data1 = json.load(f)
-
-    with open(file2) as f:
-        data2 = json.load(f)
+    if data1 is None and data2 is None:
+        print("Both files empty.")
+        sys.exit(1)
+    elif data1 is None or data2 is None:
+        copy_file(file2 if data1 is None else file1, outfile)
+        sys.exit(0)
 
     merged = {}
 
@@ -44,10 +71,25 @@ def merge_files(file1, file2, outfile):
             merged[key] = entry
         else:
             # merge solving arrays
-            merged[key]["solving"].extend(entry.get("solving", []))
+            if "solving" in merged[key].keys():
+              solving_entries=[s["solver_config"] for s in merged[key]["solving"]]
+              for s1_entry in entry.get("solving", []):
+                c = s1_entry["solver_config"]
+                if c not in solving_entries:
+                    merged[key]["solving"].extend(s1_entry)
+                else:
+                    merged[key]["solving"] = s1_entry #Prefer new entry
+
             # merge checking arrays
-            merged[key].setdefault("checking", [])
-            merged[key]["checking"].extend(entry.get("checking", []))
+            if "checking" in merged[key].keys():
+              checking_entries=[s["solver_config"] for s in merged[key]["checking"]]
+              for s1_entry in entry.get("checking", []):
+                c = s1_entry["solver_config"]
+                if c not in checking_entries:
+                    merged[key]["checking"].extend(s1_entry)
+                else:
+                    merged[key]["checking"] = s1_entry #Prefer new entry
+
 
 
             # keep missing fields if any
@@ -61,9 +103,22 @@ def merge_files(file1, file2, outfile):
         json.dump(list(merged.values()), f, indent=2)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print("Usage: python merge_json.py file1.json file2.json output.json")
+    if len(sys.argv) < 3:
+        print("Usage: python merge_json.py file1.json file2.json output.json [-v]")
         sys.exit(1)
+    input_file1 = sys.argv[1]
+    input_file2 = sys.argv[2]
+    output_file = sys.argv[3]
+    verbose     = "-v" in sys.argv
+    verbose_print(f"Merging {input_file1} and {input_file2} into {output_file}")
+    merge_files(input_file1, input_file2, output_file)
 
-    merge_files(sys.argv[1], sys.argv[2], sys.argv[3])
+#if __name__ == "__main__":
+#    parser = argparse.ArgumentParser(description="Merge two .json files containing benchmark information. Supports checking and solving information")
+#    parser.add_argument("input_file1", help="Path to first input file")
+#    parser.add_argument("input_file2", help="Path to second input file")
+#    parser.add_argument("output_file", help="Path to merged JSON file")  # no dots in argument names
+#    parser.add_argument("-v", action="store_true", help="verbose mode")
+#    args = parser.parse_args()
+#    merge_files(args.input_file1, args.input_file2, args.output_file)
 

@@ -5,7 +5,7 @@ SCRIPT_ANALYZE_DIR="/barrett/scratch/lachnitt/Binaries/isabelle-integration-eval
 BENCH_PATH="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/SMTLIB/"
 cd $BENCH_PATH
 
-declare -a logics=("LIA" "LRA" "QF_IDL" "QF_LIA" "QF_LRA" "QF_LRA" "QF_RDL" "QF_UF" "QF_UFIDL" "QF_UFLIA" "QF_UFLRA" "UF" "UFIDL" "UFLIA" "UFLRA")
+declare -a logics=("LIA" "LRA" "QF_IDL" "QF_LIA" "QF_LRA" "QF_RDL" "QF_UF" "QF_UFIDL" "QF_UFLIA" "QF_UFLRA" "UF" "UFIDL" "UFLIA" "UFLRA")
 declare -a configs=("verit" "cvc5")
 
 
@@ -34,6 +34,19 @@ Help()
    echo "h     Print this Help."
    echo
 }
+
+# Convert long options to short equivalents
+args=()
+for arg in "$@"; do
+  case "$arg" in
+    --help)    args+=(-h) ;;
+    --logic)   args+=(-l) ;;
+    --config)  args+=(-c) ;;
+    --analyze) args+=(-a) ;;
+    *)         args+=("$arg") ;;
+  esac
+done
+set -- "${args[@]}"
 
 while getopts ":hl:c:a" option; do
    case $option in
@@ -67,8 +80,7 @@ done
 
 mkdir -p ${BENCH_PATH}/logs
 log_file=${BENCH_PATH}/logs/"$(date +%Y-%m-%d_%H-%M-%S).json"
-touch $log_file
-rm -rf result.csv
+rm -rf all.json
 
 for l in "${logics[@]}"
 do
@@ -84,10 +96,10 @@ do
      if [ "$no_evaluate" = false ]; then
        ${SCRIPT_DIR}/slurmWrapperEvaluate.sh $CURRENT_PROOF_DIR ${c}_alethe ${c}_alethe
      fi
-     #python3 ${SCRIPT_DIR}/mergeJson.py $log_file "${CURRENT_DIR}/${c}_alethe.json" $log_file
      python3 ${SCRIPT_DIR}/mergeJson.py "${CURRENT_DIR}/${c}_alethe.json" "${CURRENT_DIR}/all.json" "${CURRENT_DIR}/all.json"
    done
-   python3 ${SCRIPT_ANALYZE_DIR}/analyzeJson.py "${CURRENT_DIR}/all.json" -o ${BENCH_PATH}/result.csv
+   python3 ${SCRIPT_DIR}/mergeJson.py "${CURRENT_DIR}/${c}_alethe.json" "${CURRENT_DIR}/all.json" "${CURRENT_DIR}/all.json"
+   python3 ${SCRIPT_DIR}/mergeJson.py "${CURRENT_DIR}/all.json" ${BENCH_PATH}/all.json ${BENCH_PATH}/all.json
 done
 
-
+cat ${BENCH_PATH}/all.json > $log_file
