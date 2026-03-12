@@ -80,7 +80,7 @@ done
 
 mkdir -p ${BENCH_PATH}/logs
 log_file=${BENCH_PATH}/logs/"$(date +%Y-%m-%d_%H-%M-%S).json"
-rm -rf all.json
+rm -rf ${BENCH_PATH}/all.json
 
 for l in "${logics[@]}"
 do
