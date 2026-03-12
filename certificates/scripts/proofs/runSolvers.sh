@@ -55,7 +55,7 @@ fi
 
 echo "Nr args $#"
 
-#echo "Input_file $input_file"
+echo "Input_file $input_file"
 
 
 filename_raw=$(basename -- "$input_file")
@@ -63,7 +63,6 @@ new_file="${filename_raw%.*}"
 result_file_proof="$new_file.alethe"
 #result_file_problem="$new_file.smt2"
 base_dir="${base_dir%/}"
-input_file="${input_file%/}"
 path=$(echo "$input_file" | sed "s|^$base_dir||")
 path="${path#//}"
 set_name="${path%/*}"
@@ -72,7 +71,7 @@ echo "problem_path: $base_dir/$path"
 temp="${path%/*}"
 echo "relative_benchmark_path: $temp/"
 echo "proof_name: $result_file_proof"
-str="json: {\"benchmark_name\": \"$(basename $input_file)\", \"benchmark_path\": \"/$input_file\", \"relative_benchmark_path\":\"/$path\",\"library_name\": \"$bench_lib\", \"set_name\": \"$set_name\", \"solving\": [{\"solver_config\": \"$solver_config\" ,\"solving_outcome\": "
+str="json: {\"benchmark_name\": \"$(basename $input_file)\", \"benchmark_path\": \"$input_file\", \"relative_benchmark_path\":\"/$path\",\"library_name\": \"$bench_lib\", \"set_name\": \"$set_name\", \"solving\": [{\"solver_config\": \"$solver_config\" ,\"solving_outcome\": "
 echo -n $str
 
 
@@ -81,34 +80,26 @@ echo -n $str
 if [ $solver_config = "cvc5" ];
 then
   start_time=$(date +%s%N)
-  exec 4>temp
-  output=$(/usr/bin/time  timeout $timeout_sec $CVC5_HOME --proof-prune-input --proof-mode=full-proof-strict --proof-format-mode=alethe --dump-proofs --produce-proofs --proof-granularity=dsl-rewrite --proof-alethe-define-skolems --proof-elim-subtypes --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2  $input_file 2>&4)
+  output=$(timeout $timeout_sec $CVC5_HOME --proof-prune-input --proof-mode=full-proof-strict --proof-format-mode=alethe --dump-proofs --produce-proofs --proof-granularity=dsl-rewrite --proof-alethe-define-skolems --proof-elim-subtypes --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2  $input_file 2>&1 )
   return_value=$?
-  elapsed_time=$(cat temp)
-  exec 4>&-
   end_time=$(date +%s%N)
   solver_name="cvc5"
   solver_config="cvc5"
 elif [ $solver_config = "cpc" ];
 then
   start_time=$(date +%s%N)
-  exec 4>temp
-  output=$(/usr/bin/time timeout $timeout_sec $CVC5_HOME --proof-prune-input --proof-mode=full-proof-strict --proof-format-mode=cpc --dump-proofs --produce-proofs --proof-granularity=dsl-rewrite --proof-elim-subtypes --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2  $input_file 2>&4)
+  output=$(/usr/bin/time timeout $timeout_sec $CVC5_HOME --proof-prune-input --proof-mode=full-proof-strict --proof-format-mode=cpc --dump-proofs --produce-proofs --proof-granularity=dsl-rewrite --proof-elim-subtypes --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2  $input_file)
   return_value=$?
-  elapsed_time=$(cat temp)
-  exec 4>&-
   end_time=$(date +%s%N)
   solver_name="cpc"
   solver_config="cpc"
 elif [ $solver_config = "verit" ];
 then
-  #start_time=$(date +%s%N)
-  exec 4>temp
-  output=$(/usr/bin/time  timeout $timeout_sec $VERIT_HOME '--print-cvc5-numbers' '--proof=-' '--proof-prune' '--proof-merge' '--proof-define-skolems' '--disable-banner' '--proof-with-sharing' '-s' $input_file 2>&4)
+  start_time=$(date +%s%N)
+  output=$(/usr/bin/time  timeout $timeout_sec $VERIT_HOME '--print-cvc5-numbers' '--proof=-' '--proof-prune' '--proof-merge' '--proof-define-skolems' '--disable-banner' '--proof-with-sharing' '-s' $input_file)
   return_value=$?
-  elapsed_time=$(cat temp)
   exec 4>&-
-  #end_time=$(date +%s%N)
+  end_time=$(date +%s%N)
   solver_name="verit"
   solver_config="verit"
 else echo "\"invalid solver config\"}]}"; exit -1; fi;
@@ -139,17 +130,15 @@ else echo "\"invalid solver config\"}]}"; exit -1; fi;
     echo "$output">$result_file_proof
     #cat "$input_file">$result_file_problem
 
-    #elapsed_time_old=$((end_time - start_time))
-    #elapsed_time_old=$(awk -v var1=$elapsed_time_old -v var2=1000000000 'BEGIN { print  ( var1 / var2 ) }')
-    elapsed_time=${elapsed_time%"elapsed"}
+    elapsed_time_old=$((end_time - start_time))
+
     ret=0
     out_dir=$(basename $base_dir)
     nr_of_lines=$(cat $result_file_proof | grep -c -E "^\((assume|step|anchor)") # ignore define-fun
 
-    more=", \"nr_of_lines\": $nr_of_lines, \"solving_time\": \"$elapsed_time\","
-    #more=$more" \"old_solving_time\": \"$elapsed_time_old\","
+    more=", \"nr_of_lines\": $nr_of_lines, \"solving_time\": \"$elapsed_time_old\","
     more=$more" \"proof_path\": \"$filename_raw.alethe\""
   fi
   
-  echo $ret$more"}]}" 
+  echo " "$ret$more"}]}" 
   echo "outcome: $ret"

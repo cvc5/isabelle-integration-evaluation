@@ -66,6 +66,7 @@ def merge_files(file1, file2, outfile):
     merged = {}
 
     for entry in data1 + data2:
+
         key = entry["benchmark_path"]
         if key not in merged:
             merged[key] = entry
@@ -73,24 +74,27 @@ def merge_files(file1, file2, outfile):
             # merge solving arrays
             if "solving" in merged[key].keys():
               solving_entries=[s["solver_config"] for s in merged[key]["solving"]]
-              for id_s1,s1_entry in enumerate(entry.get("solving", [])):
-                c = s1_entry["solver_config"]
+              solving = entry.get("solving",[])
+              for s1_id, s1_entry in enumerate(entry.get("solving", [])):
+                c = s1_entry.get("solver_config")
                 if c not in solving_entries:
-                    merged[key]["solving"].extend(s1_entry)
+                    merged[key]["solving"].append(s1_entry)
                 else:
-                    merged[key]["solving"][id_s1] = s1_entry #Prefer new entry
+                    merged[key]["solving"][s1_id] = s1_entry #Prefer new entry
 
             # merge checking arrays
             if "checking" in merged[key].keys():
               checking_entries=[s["solver_config"] for s in merged[key]["checking"]]
-              for id_s1,s1_entry in enumerate(entry.get("checking", [])):
-                c = s1_entry["solver_config"]
+              checking = entry.get("checking",[])
+              for s1_id, s1_entry in enumerate(entry.get("checking", [])):
+                c = s1_entry.get("solver_config")
                 if c not in checking_entries:
-                    merged[key]["checking"].extend(s1_entry)
+                    merged[key]["checking"].append(s1_entry)
                 else:
-                    merged[key]["checking"][id_s1] = s1_entry #Prefer new entry
+                    merged[key]["checking"][s1_id] = s1_entry #Prefer new entry
 
 
+        
 
             # keep missing fields if any
             for k, v in entry.items():

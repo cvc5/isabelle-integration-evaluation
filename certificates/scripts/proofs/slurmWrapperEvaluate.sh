@@ -1,15 +1,44 @@
 #!/bin/bash
+trap "cd \"${PWD}\"" EXIT
+
+#Defaults for options
+delete=0
+
+Help()
+{
+   # Display Help
+   echo "Evaluate the result of running a solver on a dataset with runSolversWrapper.sh"
+   echo "Usage: $0 <input dir> <output dir> <output file base name>"
+   echo "proof will be stored in output dir. Log data will be stored in output_file_base_name.json and
+         output_file_base_name.csv in the output dir"
+   echo
+   echo "options:"
+   echo "d     Remove benchmark from tmp directory"
+   echo "h     Print this Help."
+   echo
+}
+
+while getopts ":hd" option; do
+   case $option in
+      h) # display Help
+         Help
+         exit;;
+      d) delete=1;;
+     \?) # Invalid option
+         echo "Error: Invalid option"
+         exit;;
+   esac
+done
+shift $((OPTIND - 1))
+
+if [[ "$#" -ne 3 ]]; then
+  Help
+  exit 1
+fi
 
 input_dir=$1
 output_dir=$2
 output_file=$3
-
-if ! [[ $# -eq 3 ]]; then
-    echo "Usage: $0 <input dir> <output dir> <output file base name>"
-    echo "proof will be stored in output dir. Log data will be stored in output_file_base_name.json and
-    output_file_base_name.csv in the current directory"
-    exit 1
-fi
 
 if ! [[ "$output_dir" =~ ^/ ]]; then
   output_dir=$(pwd)"/"$output_dir
@@ -21,6 +50,10 @@ if [[ $nr_proofs = "0" ]]; then
   echo "No proofs found. Stopped evaluation run. Did not delete any files."
   exit -1
 fi
+
+#Remove double slashes in file path
+input_dir="${input_dir//\/\//\/}"
+
 
 rm -rf $output_dir
 
@@ -67,7 +100,12 @@ while read -r output_log; do
     directory=$(dirname "$output_log")
     if [[ -e "$directory/$proof_name" ]]
     then
-      cp $directory/$proof_name $output_dir/$rel_path/
+      if [[ $delete -eq 0 ]]
+      then
+        cp $directory/$proof_name $output_dir/$rel_path/
+      else
+        mv $directory/$proof_name $output_dir/$rel_path/
+      fi
       echo "$problem_path,$output_dir/$rel_path/$proof_name" >> $output_file_csv
       echo $json"," >> $output_file_json
     else

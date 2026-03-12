@@ -48,6 +48,9 @@ config=$4
 slurm_timeout=$((timeout + 100))
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
+#Delete double slashes from file paths
+input_dir="${input_dir//\/\//\/}"
+output_dir="${output_dir//\/\//\/}"
 
 rm -rf $output_dir/*
 mkdir -p "$output_dir"
@@ -55,6 +58,7 @@ cd "$output_dir"
 mkdir -p "Results/"
 
 for current_dir_path in $input_dir/*/ ; do
+  current_dir_path="${current_dir_path//\/\//\/}"
   echo "Processing: $current_dir_path"
   dir_name=$(basename "$current_dir_path")
   bench_file="benchmark_set_$dir_name"

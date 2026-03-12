@@ -7,8 +7,10 @@ import os
 from argparse import ArgumentParser
 import shutil
 
-#written by ChatGpt, modified by Claude
+#written by ChatGpt, modified by Claude and me
 
+
+#In case the time is given as "0.01user 0.00system 0:00.02elapsed 86%CPU (0avgtext+0avgdata 25472maxresident)k 8inputs+0outputs (0major+1472minor)pagefaults 0swaps" this function extracts the user time
 def extract_user_time(solving_time):
     try:
         for part in solving_time.split():
@@ -59,30 +61,63 @@ def analyze(file_path, output_csv=None, summary=False):
             if checking_outcome is not None and str(checking_outcome) == "0":
                 checking_counts[library][solver] += 1
 
-    if summary:
-        all_libraries = sorted(solved_benchmarks.keys() | checking_counts.keys())
-        all_solvers = sorted(
+    all_libraries = sorted(solved_benchmarks.keys() | checking_counts.keys())
+    all_solvers = sorted(
             {s for lib in all_libraries for s in (solved_benchmarks[lib].keys() | checking_counts[lib].keys())}
         )
 
+    # Determine which cases are present across all solvers for this library
+    has_solving  = any(len(solved_benchmarks[l][s]) > 0 for s in all_solvers for l in all_libraries)
+    has_checking = any(checking_counts[l][s] > 0 for s in all_solvers for l in all_libraries)
+
+    #Measure difference in line numbers between cvc5 and verit
+    line_nr_cvc5_verit_flag=True
+    if line_nr_cvc5_verit_flag:
+      threshold=10000
+      lines_cvc5_verit_diff = defaultdict(lambda: defaultdict(dict))
+      for library in all_libraries:
+          l_per_b_cvc5 = lines_per_benchmark[library].get("cvc5")
+          l_per_b_verit = lines_per_benchmark[library].get("verit")
+
+          if l_per_b_cvc5 is not None and l_per_b_verit is not None:
+              for b in l_per_b_cvc5:
+                nr_lines_cvc5 = l_per_b_cvc5.get(b)
+                nr_lines_verit = l_per_b_verit.get(b)
+                if nr_lines_cvc5 is not None and nr_lines_verit is not None:
+                  #lines_cvc5_verit_diff[library][b] = abs(nr_lines_cvc5 - nr_lines_verit)
+                  if abs(nr_lines_cvc5 - nr_lines_verit) >= threshold and nr_lines_verit < 100 :
+                      print(b)
+
+
+     # for library in all_libraries:
+     #    temp=(lines_cvc5_verit_diff[library].values())
+     #    if len(temp) >0:
+     #      largest_diffs=[t for t in temp if t > threshold]
+     #      print(largest_diffs)
+
+    if summary:
         col_width = 20
-        header_parts = [f"{'Library':<20}", f"{'Total':>{col_width}}"]
+        header_parts = [f"{'Library':<{col_width}}", f"{'Total':>{col_width}}"]
         for solver in all_solvers:
-            header_parts.append(f"{'Nr solved ' + solver:>{col_width}}")
-            header_parts.append(f"{'Nr checked ' + solver:>{col_width}}")
+            if has_solving:
+                header_parts.append(f"{'Nr solved ' + solver:>{col_width}}")
+            if has_checking:
+                header_parts.append(f"{'Nr checked ' + solver:>{col_width}}")
         header = " | ".join(header_parts)
         print(header)
         print("-" * len(header))
 
         for library in all_libraries:
-            row_parts = [f"{library:<20}"]
+            row_parts = [f"{library:<{col_width}}"]
             total = len(all_benchmarks[library])
             row_parts.append(f"{total:>{col_width}}")
             for solver in all_solvers:
-                solved_count = len(solved_benchmarks[library][solver])
-                checked_ok   = checking_counts[library][solver]
-                row_parts.append(f"{solved_count:>{col_width}}")
-                row_parts.append(f"{checked_ok:>{col_width}}")
+                if has_solving:
+                    solved_count = len(solved_benchmarks[library][solver])
+                    row_parts.append(f"{solved_count:>{col_width}}")
+                if has_checking:
+                    checked_ok   = checking_counts[library][solver]
+                    row_parts.append(f"{checked_ok:>{col_width}}")
             print(" | ".join(row_parts))
         return
 
@@ -97,14 +132,19 @@ def analyze(file_path, output_csv=None, summary=False):
     ]
 
     columns1 = [col[:3] for col in columns]
+    columns2 = [col[1:4] for col in columns]
 
-    def select_columns(names):
+    def select_columns1(names):
         lookup = {col[0]: col for col in columns1}
         return [lookup[name] for name in names]
 
+    def select_columns2(names):
+        lookup = {col[0]: col for col in columns2}
+        return [lookup[name] for name in names]
+
     columns_both     = columns1
-    columns_solving  = select_columns(["solver config", "nr benchmarks solved", "avg nr_of_lines", "avg lines (common)", "total user time (s)", "total time (common)"])
-    columns_checking = select_columns(["solver config", "checked ok"])
+    columns_solving  = select_columns1(["solver config", "nr benchmarks solved", "avg nr_of_lines", "avg lines (common)", "total user time (s)", "total time (common)"])
+    columns_checking = select_columns1(["solver config", "checked ok"])
 
     csv_rows = []
 
@@ -120,9 +160,6 @@ def analyze(file_path, output_csv=None, summary=False):
         else:
             common = set()
 
-        # Determine which cases are present across all solvers for this library
-        has_solving  = any(len(solved_benchmarks[library][s]) > 0 for s in solvers)
-        has_checking = any(checking_counts[library][s] > 0 for s in solvers)
 
         if has_solving and has_checking:
             columns = columns_both
@@ -169,7 +206,10 @@ def analyze(file_path, output_csv=None, summary=False):
             time_per_line = 1000*total_common_time/sum(common_lines) if common_lines and total_common_time else None
             time_per_line_str = f"{time_per_line:.2f}" if time_per_line is not None else "N/A"
 
-            if has_solving and has_checking:
+            library_has_solving  = any(len(solved_benchmarks[library][s]) > 0 for s in solvers)
+            library_has_checking = any(checking_counts[library][s] > 0 for s in solvers)
+
+            if library_has_solving and library_has_checking:
                 if solved_count == 0 and checked_ok == 0:
                     continue
                 values = [
@@ -181,7 +221,7 @@ def analyze(file_path, output_csv=None, summary=False):
                     (total_common_time_str, ">", 18),
                     (checked_ok,            ">", 12),
                 ]
-            elif has_solving:
+            elif library_has_solving:
                 if solved_count == 0:
                     continue
                 values = [
