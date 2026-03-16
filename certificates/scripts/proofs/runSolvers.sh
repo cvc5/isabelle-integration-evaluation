@@ -71,7 +71,7 @@ echo "problem_path: $base_dir/$path"
 temp="${path%/*}"
 echo "relative_benchmark_path: $temp/"
 echo "proof_name: $result_file_proof"
-str="json: {\"benchmark_name\": \"$(basename $input_file)\", \"benchmark_path\": \"$input_file\", \"relative_benchmark_path\":\"/$path\",\"library_name\": \"$bench_lib\", \"set_name\": \"$set_name\", \"solving\": [{\"solver_config\": \"$solver_config\" ,\"solving_outcome\": "
+str="json: {\"benchmark_name\": \"$(basename $input_file)\", \"benchmark_path\": \"$input_file\", \"relative_benchmark_path\":\"$path\",\"library_name\": \"$bench_lib\", \"set_name\": \"$set_name\", \"solving\": [{\"solver_config\": \"$solver_config\" ,\"solving_outcome\": "
 echo -n $str
 
 

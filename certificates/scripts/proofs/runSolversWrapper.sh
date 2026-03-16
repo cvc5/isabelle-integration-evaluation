@@ -9,6 +9,7 @@ fi
 
 timeout=350
 partition="quad"
+prev_solved=0
 
 Help()
 {
@@ -18,17 +19,20 @@ Help()
    echo "options:"
    echo "t     Set timeout for solving and producing proof"
    echo "p     Override partition in config"
+   echo "i     Only run on files in <input_file.txt>"
    echo "h     Print this Help."
    echo
 }
 
-while getopts ":hp:t:" option; do
+while getopts ":hp:t:i:" option; do
    case $option in
       h) # display Help
          Help
          exit;;
       p) partition=$OPTARG;;
       t) timeout=$OPTARG;;
+      i) prev_solved_file=$OPTARG
+         prev_solved=1;;
      \?) # Invalid option
          echo "Error: Invalid option"
          exit;;
@@ -57,6 +61,7 @@ mkdir -p "$output_dir"
 cd "$output_dir"
 mkdir -p "Results/"
 
+echo "prev_solved $prev_solved"
 for current_dir_path in $input_dir/*/ ; do
   current_dir_path="${current_dir_path//\/\//\/}"
   echo "Processing: $current_dir_path"
@@ -66,8 +71,15 @@ for current_dir_path in $input_dir/*/ ; do
   if [[ $nr_benchs -ne 0 ]]
   then
     echo "  Found benchmarks in $dir_name"
-    find $current_dir_path -type f -name "*.smt2" > $bench_file
     touch $bench_file
+    if [[ $prev_solved -ne 0 ]]
+    then
+      find $current_dir_path -type f -name "*.smt2" > $bench_file"_tmp"
+      grep -vFf $prev_solved_file $bench_file"_tmp" > $bench_file
+      #rm $bench_file"_tmp"
+    else
+      find $current_dir_path -type f -name "*.smt2" > $bench_file
+    fi 
     echo "  Created $bench_file"
     TEMP_OUT="Results/$dir_name"
     name="runSolver_""$config""_""$lib_name""_""$dir_name"

@@ -69,8 +69,13 @@ find "$input_dir" -type f -name "output.log" | while read -r output_log; do
             problem_file=$(echo "$line" | grep -oP '"[^"]+"' | tail -1 | tr -d '"')
             ;;
     esac
+    if [[ "$line" == *"Error replaying step"* ]]; then
+      tmp="${line#*Error replaying step }"
+      error_reason="${tmp%%[,)\"[:space:]]*}"
+      error_reason=", \"error\":\""$error_reason\"
+    fi
   done < "$output_log"
-  echo "{\"benchmark_path\": \"$problem_file\", \"library_name\": \"$logic\", \"checking\":[{\"solver_config\": \"$config\", \"checking_outcome\": \"$result_code\"}]}," >> $output_file_json
+  echo "{\"benchmark_path\": \"$problem_file\", \"library_name\": \"$logic\", \"checking\":[{\"solver_config\": \"$config\", \"checking_outcome\": \"$result_code\"$error_reason}]}," >> $output_file_json
 
 done
 

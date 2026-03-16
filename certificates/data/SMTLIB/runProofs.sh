@@ -4,7 +4,7 @@ SCRIPT_DIR="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/c
 BENCH_PATH="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/SMTLIB/"
 cd $BENCH_PATH
 
-declare -a logics=("LIA" "LRA" "QF_IDL" "QF_LIA" "QF_LRA" "QF_LRA" "QF_RDL" "QF_UF" "QF_UFIDL" "QF_UFLIA" "QF_UFLRA" "UF" "UFIDL" "UFLIA" "UFLRA")
+declare -a logics=("LIA" "LRA" "QF_IDL" "QF_LIA" "QF_LRA" "QF_LRA" "QF_RDL" "QF_UF" "QF_UFIDL" "QF_UFLIA" "QF_UFLRA" "UF" "UFIDL" "UFLIA" "UFLRA" "QF_BV" "NIA")
 declare -a configs=("verit" "cvc5")
 
 

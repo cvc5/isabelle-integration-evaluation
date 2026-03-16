@@ -45,6 +45,9 @@ def merge_files(file1, file2, outfile):
     if outdir:
         os.makedirs(outdir, exist_ok=True)
 
+
+    # Check if the input files exist and if json data can be loaded
+
     exists1, exists2 = os.path.exists(file1), os.path.exists(file2)
 
     if not exists1 and not exists2:
@@ -63,10 +66,13 @@ def merge_files(file1, file2, outfile):
         copy_file(file2 if data1 is None else file1, outfile)
         sys.exit(0)
 
+
+
+    # If both files contained data merge
+
     merged = {}
 
     for entry in data1 + data2:
-
         key = entry["benchmark_path"]
         if key not in merged:
             merged[key] = entry
@@ -92,9 +98,6 @@ def merge_files(file1, file2, outfile):
                     merged[key]["checking"].append(s1_entry)
                 else:
                     merged[key]["checking"][s1_id] = s1_entry #Prefer new entry
-
-
-        
 
             # keep missing fields if any
             for k, v in entry.items():
