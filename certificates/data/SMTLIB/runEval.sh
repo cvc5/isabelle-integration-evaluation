@@ -1,6 +1,7 @@
 #!/bin/bash
 
-SCRIPT_DIR="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/scripts/proofs/"
+PROOFS_SCRIPT_DIR="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/scripts/proofs/"
+SCRIPT_DIR="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/scripts/"
 SCRIPT_ANALYZE_DIR="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/scripts/analyze/"
 BENCH_PATH="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/SMTLIB/"
 cd $BENCH_PATH
@@ -94,7 +95,7 @@ do
      CURRENT_PROOF_DIR="${CURRENT_DIR}/${c}_alethe_tmp/"
      cd $CURRENT_DIR
      if [ "$no_evaluate" = false ]; then
-       ${SCRIPT_DIR}/slurmWrapperEvaluate.sh $CURRENT_PROOF_DIR ${c}_alethe ${c}_alethe
+       ${PROOFS_SCRIPT_DIR}/slurmWrapperEvaluate.sh $CURRENT_PROOF_DIR ${c}_alethe ${c}_alethe
      fi
      python3 ${SCRIPT_DIR}/mergeJson.py "${CURRENT_DIR}/${c}_alethe.json" "${CURRENT_DIR}/all.json" "${CURRENT_DIR}/all.json"
    done
