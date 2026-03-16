@@ -61,7 +61,6 @@ mkdir -p "$output_dir"
 cd "$output_dir"
 mkdir -p "Results/"
 
-echo "prev_solved $prev_solved"
 for current_dir_path in $input_dir/*/ ; do
   current_dir_path="${current_dir_path//\/\//\/}"
   echo "Processing: $current_dir_path"
@@ -75,7 +74,7 @@ for current_dir_path in $input_dir/*/ ; do
     if [[ $prev_solved -ne 0 ]]
     then
       find $current_dir_path -type f -name "*.smt2" > $bench_file"_tmp"
-      grep -vFf $prev_solved_file $bench_file"_tmp" > $bench_file
+      grep -Ff $prev_solved_file $bench_file"_tmp" > $bench_file
       #rm $bench_file"_tmp"
     else
       find $current_dir_path -type f -name "*.smt2" > $bench_file

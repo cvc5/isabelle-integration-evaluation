@@ -55,6 +55,8 @@ echo "[" > $output_file_json
 output_file_csv=$output_dir/$output_file".csv"
 rm -f $output_file_csv
 
+#default
+result_code=1
 
 find "$input_dir" -type f -name "output.log" | while read -r output_log; do
   while IFS= read -r line; do

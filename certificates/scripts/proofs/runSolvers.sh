@@ -13,7 +13,7 @@ remove=false
 Help()
 {
    # Display Help
-   echo "Run a solver (cpc, cvc5, cvc5_without_rewrite or verit) on a benchmark"
+   echo "Run a solver (cpc, cvc5, or verit) on a benchmark"
    echo
    echo "options:"
    echo "t     Set timeout for solving and producing proof"
@@ -60,7 +60,15 @@ echo "Input_file $input_file"
 
 filename_raw=$(basename -- "$input_file")
 new_file="${filename_raw%.*}"
-result_file_proof="$new_file.alethe"
+
+
+if [[ $solver_config = "cvc5" ||  $solver_config = "verit" ]];
+then
+  result_file_proof="$new_file.alethe"
+else
+  result_file_proof="$new_file.proof"
+fi
+
 #result_file_problem="$new_file.smt2"
 base_dir="${base_dir%/}"
 path=$(echo "$input_file" | sed "s|^$base_dir||")
@@ -137,7 +145,7 @@ else echo "\"invalid solver config\"}]}"; exit -1; fi;
     nr_of_lines=$(cat $result_file_proof | grep -c -E "^\((assume|step|anchor)") # ignore define-fun
 
     more=", \"nr_of_lines\": $nr_of_lines, \"solving_time\": \"$elapsed_time_old\","
-    more=$more" \"proof_path\": \"$filename_raw.alethe\""
+    more=$more" \"proof_path\": \"$result_file_proof\""
   fi
   
   echo " "$ret$more"}]}" 

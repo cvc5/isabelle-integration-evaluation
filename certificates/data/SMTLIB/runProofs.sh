@@ -45,6 +45,10 @@ while getopts ":hp:t:l:c:" option; do
         logics=()
         override_logics=true
       fi
+      if [ -z "$OPTARG" ]; then
+        echo "Error: -l requires a non-empty argument"
+        exit 1
+      fi
       logics+=("$OPTARG")
       ;;
       c)
@@ -53,11 +57,26 @@ while getopts ":hp:t:l:c:" option; do
         configs=()
         override_configs=true
       fi
+      if [ -z "$OPTARG" ]; then
+        echo "Error: -c requires a non-empty argument"
+        exit 1
+      fi
       configs+=("$OPTARG")
       ;;
 
-      p) partition=$OPTARG;;
-      t) timeout=$OPTARG;;
+      p)
+        if [ -z "$OPTARG" ]; then
+          echo "Error: -p requires a non-empty argument"
+          exit 1
+        fi
+	partition=$OPTARG
+       	;;
+      t) 
+	if [ -z "$OPTARG" ]; then
+          echo "Error: -t requires a non-empty argument"
+          exit 1
+        fi
+	timeout=$OPTARG;;
      \?) # Invalid option
          echo "Error: Invalid option"
          exit;;
