@@ -119,9 +119,11 @@ else echo "\"invalid solver config\"}]}"; exit -1; fi;
   if ! [ $return_value = 0 ] ; 
   then 
     ret=-1
+    echo "output $output"
   elif [ -z "$output" ] ;
   then
     ret=-1
+    echo "output empty"
   elif [[ $output == *"unknown"* ]]
   then 
     ret=-3

@@ -36,7 +36,7 @@ fi
 input_problem_file=$1
 input_proof_file=$2
 
-ISABELLE_VERSION=Isabelle_13-Mar-2026
+ISABELLE_VERSION=Isabelle_24-Mar-2026
 ISABELLE_PATH=/barrett/scratch/lachnitt/Binaries/dist-$ISABELLE_VERSION/$ISABELLE_VERSION/bin/
 export USER_HOME=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/
 

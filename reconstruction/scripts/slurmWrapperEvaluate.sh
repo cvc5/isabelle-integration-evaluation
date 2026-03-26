@@ -55,10 +55,10 @@ echo "[" > $output_file_json
 output_file_csv=$output_dir/$output_file".csv"
 rm -f $output_file_csv
 
-#default
-result_code=1
 
 find "$input_dir" -type f -name "output.log" | while read -r output_log; do
+#default
+result_code=10
   while IFS= read -r line; do
      case "$line" in
         '("RESULT_CODE"'*)
@@ -70,13 +70,17 @@ find "$input_dir" -type f -name "output.log" | while read -r output_log; do
         '("PROBLEM_FILE"'*)
             problem_file=$(echo "$line" | grep -oP '"[^"]+"' | tail -1 | tr -d '"')
             ;;
+	 *) #echo "line $line" 
+	 if [[ "$line" == *"Error replaying step"* ]]; then
+     	   echo "Found"
+           tmp="${line#*Error replaying step }"
+      	   error_reason="${tmp%%[,)\"[:space:]]*}"
+     	   error_reason=", \"error\":\""$error_reason\"
+         fi
+
     esac
-    if [[ "$line" == *"Error replaying step"* ]]; then
-      tmp="${line#*Error replaying step }"
-      error_reason="${tmp%%[,)\"[:space:]]*}"
-      error_reason=", \"error\":\""$error_reason\"
-    fi
-  done < "$output_log"
+     done < "$output_log"
+  logic="${logic##+([[:space:]])}"   
   echo "{\"benchmark_path\": \"$problem_file\", \"library_name\": \"$logic\", \"checking\":[{\"solver_config\": \"$config\", \"checking_outcome\": \"$result_code\"$error_reason}]}," >> $output_file_json
 
 done

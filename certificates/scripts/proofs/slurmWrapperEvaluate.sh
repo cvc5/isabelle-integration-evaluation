@@ -107,7 +107,9 @@ while read -r output_log; do
         mv $directory/$proof_name $output_dir/$rel_path/
       fi
       echo "$problem_path,$output_dir/$rel_path/$proof_name" >> $output_file_csv
-      echo $json"," >> $output_file_json
+      prefix=$output_dir/$rel_path/
+      result=$(echo "$json" | jq --arg p "$prefix" '.solving[0].proof_path = $p + .solving[0].proof_path')
+      echo $result"," >> $output_file_json
     else
       echo "Could not copy $directory/$proof_name"
     fi
