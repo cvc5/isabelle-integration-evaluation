@@ -71,9 +71,10 @@ def merge_files(file1, file2, outfile):
     # If both files contained data merge
 
     merged = {}
-
+    verbose_print("Both files contain data")
     for entry in data1 + data2:
         key = entry["benchmark_path"]
+        key = os.path.normpath(key)
         if key not in merged:
             merged[key] = entry
         else:
@@ -110,15 +111,19 @@ def merge_files(file1, file2, outfile):
         json.dump(list(merged.values()), f, indent=2)
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
+    args = [a for a in sys.argv[1:] if a != "-v"]
+    verbose = "-v" in sys.argv
+
+    if len(args) < 3:
         print("Usage: python merge_json.py file1.json file2.json output.json [-v]")
         sys.exit(1)
-    input_file1 = sys.argv[1]
-    input_file2 = sys.argv[2]
-    output_file = sys.argv[3]
-    verbose     = "-v" in sys.argv
+
+    input_file1 = args[0]
+    input_file2 = args[1]
+    output_file = args[2]
     verbose_print(f"Merging {input_file1} and {input_file2} into {output_file}")
     merge_files(input_file1, input_file2, output_file)
+
 
 #if __name__ == "__main__":
 #    parser = argparse.ArgumentParser(description="Merge two .json files containing benchmark information. Supports checking and solving information")
