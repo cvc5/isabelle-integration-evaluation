@@ -80,7 +80,9 @@ result_code=10
 
     esac
      done < "$output_log"
-  logic="${logic##+([[:space:]])}"   
+  #Remove leading/trailing whitespace just in case
+  logic=$(echo $logic | xargs)
+  config=$(echo $config | xargs)
   echo "{\"benchmark_path\": \"$problem_file\", \"library_name\": \"$logic\", \"checking\":[{\"solver_config\": \"$config\", \"checking_outcome\": \"$result_code\"$error_reason}]}," >> $output_file_json
 
 done
@@ -89,3 +91,4 @@ done
 sed -i '$s/,$//' "$output_file_json"
 echo "]" >> $output_file_json
 
+#delete all proof files

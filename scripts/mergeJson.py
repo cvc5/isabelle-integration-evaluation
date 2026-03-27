@@ -80,10 +80,10 @@ def merge_files(file1, file2, outfile):
         else:
             # merge solving arrays
             if "solving" in merged[key].keys():
-              solving_entries=[s["solver_config"] for s in merged[key]["solving"]]
+              solving_entries=[s["solver_config"].lstrip() for s in merged[key]["solving"]]
               solving = entry.get("solving",[])
               for s1_id, s1_entry in enumerate(entry.get("solving", [])):
-                c = s1_entry.get("solver_config")
+                c = s1_entry.get("solver_config").lstrip()
                 if c not in solving_entries:
                     merged[key]["solving"].append(s1_entry)
                 else:
@@ -91,10 +91,10 @@ def merge_files(file1, file2, outfile):
 
             # merge checking arrays
             if "checking" in merged[key].keys():
-              checking_entries=[s["solver_config"] for s in merged[key]["checking"]]
+              checking_entries=[s["solver_config"].lstrip() for s in merged[key]["checking"]]
               checking = entry.get("checking",[])
               for s1_id, s1_entry in enumerate(entry.get("checking", [])):
-                c = s1_entry.get("solver_config")
+                c = s1_entry.get("solver_config").lstrip()
                 if c not in checking_entries:
                     merged[key]["checking"].append(s1_entry)
                 else:

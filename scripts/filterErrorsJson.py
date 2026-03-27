@@ -27,6 +27,15 @@ def main():
         "-o", "--output-dir", default=None,
         help="Directory to copy benchmark and proof files into. Must exist."
     )
+    parser.add_argument(
+         "-l", "--library", default=None,
+         help="Only include entries whose library_name matches this string."
+    )
+    parser.add_argument(
+         "-e", "--error", default=None,
+         help="Only include entries whose error_code matches this argument."
+    )
+ 
     args = parser.parse_args()
 
     if args.output_dir and not os.path.isdir(args.output_dir):
@@ -35,6 +44,7 @@ def main():
 
     with open(args.input_file, "r") as f:
         data = json.load(f)
+
 
     filtered = []
     for entry in data:
@@ -55,6 +65,16 @@ def main():
 
         # Keep entry only if at least one relevant checking outcome is NOT 0
         if all(str(c.get("checking_outcome", "")).strip() == "0" for c in relevant):
+            continue
+
+        #Optional skip if not the right error code
+        if args.error is not None:
+            if all(str(c.get("checking_outcome", "")).strip() != args.error for c in relevant):
+                continue;
+
+
+        # Optional filter by library
+        if args.library is not None and entry.get("library_name", "").strip() != args.library.strip():
             continue
 
         # Optionally filter by max nr_of_lines in solving

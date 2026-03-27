@@ -35,9 +35,9 @@ fi
 
 input_problem_file=$1
 input_proof_file=$2
-
-ISABELLE_VERSION=Isabelle_24-Mar-2026
-ISABELLE_PATH=/barrett/scratch/lachnitt/Binaries/dist-$ISABELLE_VERSION/$ISABELLE_VERSION/bin/
+ISABELLE_VERSION=Isabelle_27-Mar-2026
+#ISABELLE_PATH=/barrett/scratch/lachnitt/Binaries/dist-$ISABELLE_VERSION/$ISABELLE_VERSION/bin/
+ISABELLE_PATH=/barrett/scratch/lachnitt/Binaries/$ISABELLE_VERSION/bin/
 export USER_HOME=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/
 
 output=$($ISABELLE_PATH/isabelle smt_check -i $input_problem_file -p $input_proof_file)
