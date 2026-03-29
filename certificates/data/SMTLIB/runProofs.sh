@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 SCRIPT_DIR="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/scripts/proofs/"
 BENCH_PATH="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/SMTLIB/"
 cd $BENCH_PATH
@@ -83,6 +84,14 @@ while getopts ":hp:t:l:c:" option; do
    esac
 done
 
+read -p "Do you want to run on all benchmarks (a) or just on the already proven ones (p)? " check
+if [[ $check -ne "a" && $check -ne "p" ]]
+then
+  echo "no input read"
+  exit
+fi
+
+prev_solved_str=""
 for l in "${logics[@]}"
 do
    echo "$l"
@@ -91,7 +100,11 @@ do
    cd $CURRENT_DIR
    for c in "${configs[@]}"
    do
-	   output=$(${SCRIPT_DIR}/runSolversWrapper.sh -p $partition -t $timeout $CURRENT_PROBLEM_DIR proofs/"$c"_alethe_tmp $l $c)
+     if [[ $check == "p" ]]
+     then
+       prev_solved_str="-i ${CURRENT_DIR}/${c}_prev_solved.txt"
+     fi
+     output=$(${SCRIPT_DIR}/runSolversWrapper.sh -p $partition -t $timeout $prev_solved_str $CURRENT_PROBLEM_DIR proofs/"$c"_alethe_tmp $l $c)
    done
 done
 

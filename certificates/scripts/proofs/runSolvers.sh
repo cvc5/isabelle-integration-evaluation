@@ -88,7 +88,7 @@ echo -n $str
 if [ $solver_config = "cvc5" ];
 then
   start_time=$(date +%s%N)
-  output=$(timeout $timeout_sec $CVC5_HOME --proof-prune-input --proof-mode=full-proof-strict --proof-format-mode=alethe --dump-proofs --produce-proofs --proof-granularity=dsl-rewrite --proof-alethe-define-skolems --proof-elim-subtypes --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2  $input_file 2>&1 )
+  output=$(timeout $timeout_sec $CVC5_HOME --proof-prune-input --proof-mode=full-proof-strict --proof-format-mode=alethe --dump-proofs --produce-proofs --proof-granularity=dsl-rewrite --proof-alethe-define-skolems --proof-elim-subtypes --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2  $input_file 2>&1)
   return_value=$?
   end_time=$(date +%s%N)
   solver_name="cvc5"
@@ -96,7 +96,7 @@ then
 elif [ $solver_config = "cpc" ];
 then
   start_time=$(date +%s%N)
-  output=$(/usr/bin/time timeout $timeout_sec $CVC5_HOME --proof-prune-input --proof-mode=full-proof-strict --proof-format-mode=cpc --dump-proofs --produce-proofs --proof-granularity=dsl-rewrite --proof-elim-subtypes --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2  $input_file)
+  output=$(/usr/bin/time timeout $timeout_sec $CVC5_HOME --proof-prune-input --proof-mode=full-proof-strict --proof-format-mode=cpc --dump-proofs --produce-proofs --proof-granularity=dsl-rewrite --proof-elim-subtypes --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2  $input_file 2>&1) 
   return_value=$?
   end_time=$(date +%s%N)
   solver_name="cpc"
@@ -104,26 +104,24 @@ then
 elif [ $solver_config = "verit" ];
 then
   start_time=$(date +%s%N)
-  output=$(/usr/bin/time  timeout $timeout_sec $VERIT_HOME '--print-cvc5-numbers' '--proof=-' '--proof-prune' '--proof-merge' '--proof-define-skolems' '--disable-banner' '--proof-with-sharing' '-s' $input_file)
+  output=$(/usr/bin/time  timeout $timeout_sec $VERIT_HOME '--print-cvc5-numbers' '--proof=-' '--proof-prune' '--proof-merge' '--proof-define-skolems' '--disable-banner' '--proof-with-sharing' '-s' $input_file 2>&1)
   return_value=$?
-  exec 4>&-
   end_time=$(date +%s%N)
+  #TODO: This should be removed eventually. I could not reproduce why verit prints the timing
+  output=$(echo "$output" | head -n -2)
   solver_name="verit"
   solver_config="verit"
 else echo "\"invalid solver config\"}]}"; exit -1; fi;
     
 
-#echo "output $output"
 #Write output
-
-  if ! [ $return_value = 0 ] ; 
+  ret=-1
+  if ! [ $return_value -eq 0 ] ; 
   then 
     ret=-1
-    echo "output $output"
   elif [ -z "$output" ] ;
   then
     ret=-1
-    echo "output empty"
   elif [[ $output == *"unknown"* ]]
   then 
     ret=-3
@@ -152,3 +150,4 @@ else echo "\"invalid solver config\"}]}"; exit -1; fi;
   
   echo " "$ret$more"}]}" 
   echo "outcome: $ret"
+  echo "Return_value: $return_value"

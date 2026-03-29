@@ -13,17 +13,17 @@ Help()
          output_file_base_name.csv in the output dir"
    echo
    echo "options:"
-   echo "d     Remove benchmark from tmp directory"
+   echo "r     Remove benchmark from tmp directory"
    echo "h     Print this Help."
    echo
 }
 
-while getopts ":hd" option; do
+while getopts ":hr" option; do
    case $option in
       h) # display Help
          Help
          exit;;
-      d) delete=1;;
+      r) delete=1;;
      \?) # Invalid option
          echo "Error: Invalid option"
          exit;;
@@ -64,7 +64,9 @@ rm -f $output_file_csv
 
 
 while read -r output_log; do
-  while IFS= read -r line; do
+  json=""
+  outcome=""
+  while IFS= read -r line || [[ -n "$line" ]]; do
   case "$line" in
     *:*)
       key=${line%%:*}   # part before first colon
@@ -87,7 +89,7 @@ while read -r output_log; do
 	  json=$value
           ;;
         *)
-          #echo "Unknown key: $key → $value"
+  #        echo "Unknown key: $key → $value"
           ;;
       esac
       ;;
@@ -106,13 +108,24 @@ while read -r output_log; do
       else
         mv $directory/$proof_name $output_dir/$rel_path/
       fi
-      echo "$problem_path,$output_dir/$rel_path/$proof_name" >> $output_file_csv
+      if [ -f $output_dir/$rel_path/$proof_name ]; then
+        echo "$problem_path,$output_dir/$rel_path/$proof_name" >> $output_file_csv
+      fi
       prefix=$output_dir/$rel_path/
+      echo $json
       result=$(echo "$json" | jq --arg p "$prefix" '.solving[0].proof_path = $p + .solving[0].proof_path')
       echo $result"," >> $output_file_json
     else
       echo "Could not copy $directory/$proof_name"
+      echo "$json"
     fi
+  else
+      if [[ "$json" == *":" ]]; then
+        #echo "WHAT HAPPENS HERE $rel_path/$proof_name"
+        echo "${json}-1}]}," >> $output_file_json
+      else
+        echo "$json," >> $output_file_json
+      fi
   fi
 done <<< $(find "$input_dir" -type f -name "output.log")
 

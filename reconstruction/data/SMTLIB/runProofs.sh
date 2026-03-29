@@ -15,11 +15,12 @@ declare -a configs=("verit" "cvc5")
 
 #Default values for options
 timeout=350
-partition=quad
+partition=amd
 
 # Flag to detect if -l or -c was used
 override_logics=false
-config="N/A"
+override_logics=false
+override_configs=false
 
 Help()
 {

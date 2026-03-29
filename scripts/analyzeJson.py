@@ -112,7 +112,8 @@ def _collect_solving(entry: dict, library: str, benchmark: str, bd: BenchmarkDat
             bd.lines_per_benchmark[library][solver][benchmark] = lines
 
         if "solving_time" in s:
-            user_time = extract_user_time(s["solving_time"])
+            #user_time = extract_user_time(s["solving_time"])
+            user_time = float(s["solving_time"])/1000000000
             if user_time is not None:
                 bd.time_stats[library][solver].append(user_time)
                 bd.time_per_benchmark[library][solver][benchmark] = user_time
@@ -138,10 +139,16 @@ def _collect_checking(entry: dict, library: str, bd: BenchmarkData):
 # ---------------------------------------------------------------------------
 
 def all_libraries_and_solvers(bd: BenchmarkData):
-    libraries = sorted(bd.solved_benchmarks.keys() | bd.checking_counts.keys())
+    libraries = sorted(
+        bd.solved_benchmarks.keys()
+        | bd.checking_counts.keys()
+        | bd.checking_outcome_counts.keys()
+    )
     solvers = sorted(
         {s for lib in libraries
-         for s in (bd.solved_benchmarks[lib].keys() | bd.checking_counts[lib].keys())}
+         for s in (bd.solved_benchmarks[lib].keys()
+                   | bd.checking_counts[lib].keys()
+                   | bd.checking_outcome_counts[lib].keys())}
     )
     return libraries, solvers
 
@@ -155,7 +162,7 @@ def has_any_solving(bd: BenchmarkData, libraries, solvers) -> bool:
 
 def has_any_checking(bd: BenchmarkData, libraries, solvers) -> bool:
     return any(
-        bd.checking_counts[lib][s] > 0
+        bd.checking_outcome_counts[lib][s]
         for lib in libraries for s in solvers
     )
 
@@ -277,6 +284,7 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None):
 
     solving_headers = [
         ("solver config",        "<", 18),
+        ("total benchmarks",     ">", 18),
         ("nr benchmarks solved", ">", 21),
         ("avg nr_of_lines",      ">", 16),
         ("avg lines (common)",   ">", 20),
@@ -284,7 +292,7 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None):
         ("total time (common)",  ">", 18),
     ]
     # Build checking headers from the outcome mapping
-    checking_headers = [("solver config", "<", 18)]
+    checking_headers = [("solver config", "<", 18), ("total benchmarks", ">", 18)]
     outcome_codes = sorted(CHECKING_OUTCOMES.keys())
     for code in outcome_codes:
         label = CHECKING_OUTCOMES[code]
@@ -323,7 +331,7 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None):
                 if ss.solved_count == 0:
                     continue
                 solving_rows.append([
-                    ss.solver, ss.solved_count, _fmt(ss.avg_lines),
+                    ss.solver, total, ss.solved_count, _fmt(ss.avg_lines),
                     _fmt(ss.avg_common_lines), _fmt(ss.total_time),
                     _fmt(ss.total_common_time),
                 ])
@@ -334,10 +342,9 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None):
         if lib_checking:
             checking_rows = []
             for ss in all_stats:
-                print("test",ss.outcome_counts.get(c,0))
                 if not any(ss.outcome_counts.get(c, 0) > 0 for c in outcome_codes):
                     continue
-                row = [ss.solver]
+                row = [ss.solver, total]
                 for code in outcome_codes:
                     row.append(ss.outcome_counts.get(code, 0))
                 checking_rows.append(row)
@@ -347,7 +354,8 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None):
         if output_csv:
             for ss in all_stats:
                 if ss.solved_count > 0 or ss.checked_ok > 0:
-                    csv_rows.append(_csv_dict(library, ss, total, lib_solving, lib_checking))
+                   csv_rows.append(_csv_dict(library, ss, total, lib_solving, lib_checking))
+
 
     if output_csv and csv_rows:
         _write_csv(output_csv, csv_rows)

@@ -6,7 +6,7 @@ SCRIPT_ANALYZE_DIR="/barrett/scratch/lachnitt/Binaries/isabelle-integration-eval
 BENCH_PATH="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/SMTLIB/"
 cd $BENCH_PATH
 
-declare -a logics=("LIA" "LRA" "QF_IDL" "QF_LIA" "QF_LRA" "QF_LRA" "QF_RDL" "QF_UF" "QF_UFIDL" "QF_UFLIA" "QF_UFLRA" "UF" "UFIDL" "UFLIA" "UFLRA" "QF_BV" "NIA")
+declare -a logics=("LIA" "LRA" "QF_IDL" "QF_LIA" "QF_LRA" "QF_LRA" "QF_RDL" "QF_UF" "QF_UFIDL" "QF_UFLIA" "QF_UFLRA" "UF" "UFIDL" "UFLIA" "UFLRA") #"QF_BV" "NIA")
 declare -a configs=("verit" "cvc5")
 
 
@@ -96,6 +96,7 @@ do
      cd $CURRENT_DIR
      if [ "$no_evaluate" = false ]; then
        ${PROOFS_SCRIPT_DIR}/slurmWrapperEvaluate.sh $CURRENT_PROOF_DIR ${c}_alethe ${c}_alethe
+      # rm -rf $CURRENT_PROOF_DIR
      fi
      python3 ${SCRIPT_DIR}/mergeJson.py "${CURRENT_DIR}/${c}_alethe.json" "${CURRENT_DIR}/all.json" "${CURRENT_DIR}/all.json"
    done
