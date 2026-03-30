@@ -44,11 +44,32 @@ if ! [[ "$output_dir" =~ ^/ ]]; then
   output_dir=$(pwd)"/"$output_dir
 fi
 
-nr_proofs=$(find "$input_dir" -type f -name "*.alethe" | wc -l)
 
-if [[ $nr_proofs = "0" ]]; then
-  echo "No proofs found. Stopped evaluation run. Did not delete any files."
-  exit -1
+check_solver() {
+  local var="$1"
+  case "$var" in
+    cvc5|cpc|verit)
+      echo "base"
+      ;;
+    cvc5_solving|verit_solving)
+      echo "solving"
+      ;;
+    *)
+      echo "unknown"
+      ;;
+  esac
+}
+
+
+solver_category=$(check_solver "$solver")
+if [[ "$solver_category" == "base" ]]
+then
+   nr_proofs=$(find "$input_dir" -type f -name "*.alethe" | wc -l)
+
+   if [[ $nr_proofs = "0" ]]; then
+    echo "No proofs found. Stopped evaluation run. Did not delete any files."
+    exit -1
+  fi
 fi
 
 #Remove double slashes in file path
@@ -88,6 +109,9 @@ while read -r output_log; do
         json)
 	  json=$value
           ;;
+	solver_config)
+	  solver_config=$value
+          ;; 
         *)
   #        echo "Unknown key: $key → $value"
           ;;
@@ -96,7 +120,9 @@ while read -r output_log; do
   esac
   done < $output_log
 
-  if [[ $outcome = "0" ]]
+
+
+  if [[ $outcome = "0" ]] && [[ "$solver_config" == "base" ]]
   then
     mkdir -p $output_dir/$rel_path
     directory=$(dirname "$output_log")
@@ -112,7 +138,6 @@ while read -r output_log; do
         echo "$problem_path,$output_dir/$rel_path/$proof_name" >> $output_file_csv
       fi
       prefix=$output_dir/$rel_path/
-      echo $json
       result=$(echo "$json" | jq --arg p "$prefix" '.solving[0].proof_path = $p + .solving[0].proof_path')
       echo $result"," >> $output_file_json
     else

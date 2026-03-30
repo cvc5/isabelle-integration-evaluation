@@ -13,7 +13,7 @@ remove=false
 Help()
 {
    # Display Help
-   echo "Run a solver (cpc, cvc5, or verit) on a benchmark"
+   echo "Run a solver (cpc, cvc5, or verit, cvc5_solving, verit_solving) on a benchmark"
    echo
    echo "options:"
    echo "t     Set timeout for solving and producing proof"
@@ -41,7 +41,7 @@ solver_config=$1
 bench_lib=$2
 base_dir=$3
 
-
+#TODO: Now that it can be given as an argument this might not be needed anymore
 if [ $# -eq 5 ]; then
   timeout_sec=$4
   input_file=$5
@@ -49,8 +49,6 @@ if [ $# -eq 5 ]; then
 else
   input_file=$4
 fi
-
-
 
 
 echo "Nr args $#"
@@ -61,15 +59,17 @@ echo "Input_file $input_file"
 filename_raw=$(basename -- "$input_file")
 new_file="${filename_raw%.*}"
 
-
+proof_producing=0
 if [[ $solver_config = "cvc5" ||  $solver_config = "verit" ]];
 then
   result_file_proof="$new_file.alethe"
-else
+  proof_producing=1
+elif [[ $solver_config = "cpc" ]];
+then
   result_file_proof="$new_file.proof"
+  proof_producing=1
 fi
 
-#result_file_problem="$new_file.smt2"
 base_dir="${base_dir%/}"
 path=$(echo "$input_file" | sed "s|^$base_dir||")
 path="${path#//}"
@@ -111,43 +111,51 @@ then
   output=$(echo "$output" | head -n -2)
   solver_name="verit"
   solver_config="verit"
+elif [ $solver_config = "cvc5_solving" ];
+then
+  start_time=$(date +%s%N)
+  output=$(/usr/bin/time timeout $timeout_sec $CVC5_HOME --full-saturate-quant --no-stats --sat-random-seed=1 --lang=smt2  $input_file 2>&1) 
+  return_value=$?
+  end_time=$(date +%s%N)
+  solver_name="cvc5_solving"
+  solver_config="cvc5_solving"
 else echo "\"invalid solver config\"}]}"; exit -1; fi;
     
 
 #Write output
-  ret=-1
-  if ! [ $return_value -eq 0 ] ; 
-  then 
+ret=-1
+if ! [ $return_value -eq 0 ] ; 
+then 
     ret=-1
-  elif [ -z "$output" ] ;
-  then
+elif [ -z "$output" ] ;
+then
     ret=-1
-  elif [[ $output == *"unknown"* ]]
-  then 
+elif [[ $output == *"unknown"* ]]
+then 
     ret=-3
-  elif [[ $output == *"(error "* ]] ;
-  then
+elif [[ $output == *"(error "* ]] ;
+then
     ret=-4
-  elif [[ $output == "sat"* ]] ;
-  then
+elif [[ $output == "sat"* ]] ;
+then
     ret=-2
-  else
-
-    touch $result_file_proof
-    #touch $result_file_problem
-    echo "$output">$result_file_proof
-    #cat "$input_file">$result_file_problem
+else
+    if [[ proof_producing -eq 1 ]]
+    then
+      touch $result_file_proof
+      echo "$output" > $result_file_proof
+      nr_of_lines=$(cat $result_file_proof | grep -c -E "^\((assume|step|anchor)") # ignore define-fun
+      more=",\"nr_of_lines\": $nr_of_lines, \"proof_path\": \"$result_file_proof\""
+     fi
 
     elapsed_time_old=$((end_time - start_time))
 
     ret=0
     out_dir=$(basename $base_dir)
-    nr_of_lines=$(cat $result_file_proof | grep -c -E "^\((assume|step|anchor)") # ignore define-fun
+    more=", \"solving_time\": \"$elapsed_time_old\"$more"
+ fi
 
-    more=", \"nr_of_lines\": $nr_of_lines, \"solving_time\": \"$elapsed_time_old\","
-    more=$more" \"proof_path\": \"$result_file_proof\""
-  fi
-  
-  echo " "$ret$more"}]}" 
-  echo "outcome: $ret"
-  echo "Return_value: $return_value"
+echo " "$ret$more"}]}" 
+echo "outcome: $ret"
+echo "solver_config: $solver_config"
+echo "Return_value: $return_value"
