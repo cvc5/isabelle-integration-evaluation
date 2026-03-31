@@ -10,6 +10,7 @@ import csv
 import json
 import os
 import sys
+import math
 from argparse import ArgumentParser
 from collections import defaultdict
 from dataclasses import dataclass, field
@@ -67,6 +68,8 @@ class BenchmarkData:
     checking_outcome_counts: dict = field(
         default_factory=lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
     )  # library -> solver -> outcome_code -> count
+    checking_time_stats: dict = field(default_factory=lambda: defaultdict(lambda: defaultdict(list)))
+    checking_time_per_benchmark: dict = field(default_factory=lambda: defaultdict(lambda: defaultdict(dict)))
     all_benchmarks: dict = field(default_factory=lambda: defaultdict(set))
 
 
@@ -92,7 +95,7 @@ def collect_statistics(entries: list[dict]) -> BenchmarkData:
             bd.all_benchmarks[library].add(benchmark)
 
         _collect_solving(entry, library, benchmark, bd)
-        _collect_checking(entry, library, bd)
+        _collect_checking(entry, library, benchmark, bd)
 
     return bd
 
@@ -113,13 +116,16 @@ def _collect_solving(entry: dict, library: str, benchmark: str, bd: BenchmarkDat
 
         if "solving_time" in s:
             #user_time = extract_user_time(s["solving_time"])
-            user_time = float(s["solving_time"])/1000000000
+            try:
+             user_time = float(s["solving_time"])/1000000000
+            except Exception:
+             user_time = extract_user_time(s["solving_time"])
             if user_time is not None:
                 bd.time_stats[library][solver].append(user_time)
                 bd.time_per_benchmark[library][solver][benchmark] = user_time
 
 
-def _collect_checking(entry: dict, library: str, bd: BenchmarkData):
+def _collect_checking(entry: dict, library: str, benchmark: str, bd: BenchmarkData):
     for c in entry.get("checking", []):
         solver = c.get("solver_config")
         outcome = c.get("checking_outcome")
@@ -131,6 +137,14 @@ def _collect_checking(entry: dict, library: str, bd: BenchmarkData):
             continue
         if code == 0:
             bd.checking_counts[library][solver] += 1
+
+        if "checking_time" in c:
+            checking_time = float(c["checking_time"])/100000000
+            if checking_time is not None:
+                bd.checking_time_stats[library][solver].append(checking_time)
+                bd.checking_time_per_benchmark[library][solver][benchmark] = checking_time
+
+
         bd.checking_outcome_counts[library][solver][code] += 1
 
 
@@ -166,7 +180,6 @@ def has_any_checking(bd: BenchmarkData, libraries, solvers) -> bool:
         for lib in libraries for s in solvers
     )
 
-
 def common_benchmarks(bd: BenchmarkData, library: str, solvers: list[str]) -> set:
     """Benchmarks solved by *all* solvers for a given library."""
     non_empty = [bd.solved_benchmarks[library][s] for s in solvers
@@ -175,6 +188,52 @@ def common_benchmarks(bd: BenchmarkData, library: str, solvers: list[str]) -> se
         return set.intersection(*non_empty)
     return set()
 
+def unique_solved_benchmarks(bd: BenchmarkData, library: str, solvers: list[str]) -> dict:
+    """Benchmarks solved by *only one* solver for a given library.
+ 
+    Returns a dict mapping solver name -> set of benchmarks that only that
+    solver solved (no other solver in *solvers* solved them).
+    """
+    result: dict[str, set] = {}
+    for solver in solvers:
+        own = bd.solved_benchmarks[library][solver]
+        others = set()
+        for other_solver in solvers:
+            if other_solver != solver:
+                others |= bd.solved_benchmarks[library][other_solver]
+        result[solver] = own - others
+    return result
+ 
+def unique_checked_benchmarks(bd: BenchmarkData, library: str, solvers: list[str]) -> dict:
+    """Benchmarks solved by all solvers but checked by *only one* solver for a given library.
+ 
+    Returns a dict mapping solver name -> set of benchmarks where:
+      1. Every solver in *solvers* solved the benchmark (i.e. it is in the common set).
+      2. Only this solver had a successful check (checking_outcome == 0) for it.
+    """
+    common = common_benchmarks(bd, library, solvers)
+    if not common:
+        return {s: set() for s in solvers}
+ 
+    # Build per-solver sets of benchmarks with successful checks among the common ones
+    checked_by: dict[str, set] = {}
+    for solver in solvers:
+        checked = set()
+        for b in common:
+            outcomes = bd.checking_outcome_counts[library][solver]
+            if b in outcomes:
+                checked.add(b)
+        checked_by[solver] = checked
+ 
+    result: dict[str, set] = {}
+    for solver in solvers:
+        own = checked_by[solver]
+        others = set()
+        for other_solver in solvers:
+            if other_solver != solver:
+                others |= checked_by[other_solver]
+        result[solver] = own - others
+    return result
 
 # ---------------------------------------------------------------------------
 # Solver-level statistics (one row in the detailed table)
@@ -188,10 +247,11 @@ class SolverStats:
     avg_lines: Optional[float] = None
     avg_common_lines: Optional[float] = None
     total_time: float = 0.0
+    total_checking_time: float = 0.0
     total_common_time: Optional[float] = None
+    total_common_checking_time: Optional[float] = None
     time_per_line: Optional[float] = None
     outcome_counts: dict = field(default_factory=dict)  # outcome_code -> count
-
 
 def compute_solver_stats(
     bd: BenchmarkData, library: str, solver: str, common: set
@@ -205,8 +265,11 @@ def compute_solver_stats(
     if lines:
         ss.avg_lines = sum(lines) / len(lines)
 
-    times = bd.time_stats[library][solver]
-    ss.total_time = sum(times)
+    solving_times = bd.time_stats[library][solver]
+    ss.total_time = sum(solving_times)
+
+    checking_times = bd.checking_time_stats[library][solver]
+    ss.total_checking_time = sum(checking_times)
 
     common_lines = [
         bd.lines_per_benchmark[library][solver][b]
@@ -215,12 +278,19 @@ def compute_solver_stats(
     if common_lines:
         ss.avg_common_lines = sum(common_lines) / len(common_lines)
 
-    common_times = [
+    common_solving_times = [
         bd.time_per_benchmark[library][solver][b]
         for b in common if b in bd.time_per_benchmark[library][solver]
     ]
-    if common_times:
-        ss.total_common_time = sum(common_times)
+    if common_solving_times:
+        ss.total_common_time = sum(common_solving_times)
+
+    common_checking_times = [
+        bd.checking_time_per_benchmark[library][solver][b]
+        for b in common if b in bd.checking_time_per_benchmark[library][solver]
+    ]
+    if common_checking_times:
+        ss.total_common_checking_time = sum(common_checking_times)
 
     if common_lines and ss.total_common_time:
         ss.time_per_line = 1000 * ss.total_common_time / sum(common_lines)
@@ -255,31 +325,82 @@ def print_summary(bd: BenchmarkData):
     libraries, solvers = all_libraries_and_solvers(bd)
     solving = has_any_solving(bd, libraries, solvers)
     checking = has_any_checking(bd, libraries, solvers)
-    cw = 20
+    cw = 13
 
     # Build header
+    header0 =  ' ' * (cw + 2) * 2  + '|'
     headers = [("Library", "<", cw), ("Total", ">", cw)]
     for s in solvers:
+        offset=0
         if solving:
-            headers.append((f"Nr solved {s}", ">", cw))
+            headers.append((f"Nr solved", ">", cw))
+            offset+=1
         if checking:
-            headers.append((f"Nr checked {s}", ">", cw))
-
+            headers.append((f"Nr checked", ">", cw))
+            headers.append((f"Nr unique", ">", cw))
+            offset+=2
+        if solving and checking:
+            headers.append((f"Total Time", ">", cw))
+            offset+=1
+        if offset == 1:
+          j = 0
+        else:
+          j = offset - 2
+        total_space=(cw + 2) * offset + j
+        available_space=total_space-len(s)
+        part_length=(math.floor(available_space/2))
+        space=' ' * part_length
+        pad='' if (available_space) % 2 == 0 else ' '
+        header0 = header0 + space + s + space  + pad + '|'
+    print(header0)
+   
     rows = []
     for lib in libraries:
+        common = common_benchmarks(bd, lib, solvers)
+        unique = unique_checked_benchmarks(bd,lib,solvers)
+
         row = [lib, len(bd.all_benchmarks[lib])]
         for s in solvers:
+            #TODO: duplicate code, should be solidified
+            common_solving_times = [
+             bd.time_per_benchmark[lib][s][b]
+             for b in common if b in bd.time_per_benchmark[lib][s]
+            ]
+            if common_solving_times:
+              total_common_time = sum(common_solving_times)
+
+            common_checking_times = [
+               bd.checking_time_per_benchmark[lib][s][b]
+               for b in common if b in bd.checking_time_per_benchmark[lib][s]
+            ]
+            if common_checking_times:
+              total_common_checking_time = sum(common_checking_times)
+
+
             if solving:
                 row.append(len(bd.solved_benchmarks[lib][s]))
             if checking:
                 row.append(bd.checking_counts[lib][s])
+                row.append(len(unique[s]))
+            if solving and checking:
+                if common_solving_times:
+                  row.append(int(total_common_time+total_common_checking_time))
+
         rows.append(row)
 
     print_table(headers, rows)
+    print()
+    print("Total Time is the time to produce the proof and check it on benchmark both solvers produced a proof for (common) in seconds")
+    print()
 
-
-def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None):
+def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None, library_filter: Optional[str] = None):
     libraries, _ = all_libraries_and_solvers(bd)
+    csv_rows: list[dict] = []
+    if library_filter:
+        libraries = [lib for lib in libraries if lib == library_filter]
+        if not libraries:
+            print(f"No data found for library: {library_filter}")
+            return
     csv_rows: list[dict] = []
 
     solving_headers = [
@@ -291,8 +412,9 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None):
         ("total user time (s)",  ">", 18),
         ("total time (common)",  ">", 18),
     ]
-    # Build checking headers from the outcome mapping
-    checking_headers = [("solver config", "<", 18), ("total benchmarks", ">", 18)]
+    # Build checking headers 
+    checking_headers1 = [("solver config", "<", 18), ("total benchmarks", ">", 18), ("nr_checked", ">", 18), ("total checking time",">",18), ("total checking time (common)",">",20)]
+    checking_headers2 = [("solver config", "<", 18), ("total benchmarks", ">", 18)]
     outcome_codes = sorted(CHECKING_OUTCOMES.keys())
     for code in outcome_codes:
         label = CHECKING_OUTCOMES[code]
@@ -301,7 +423,7 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None):
             width = 21
         else:
             width = max(len(label), 8) + 2
-        checking_headers.append((label, ">", width))
+        checking_headers2.append((label, ">", width))
 
     for library in libraries:
         total = len(bd.all_benchmarks[library])
@@ -338,7 +460,17 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None):
             print_table(solving_headers, solving_rows)
             print()
 
-        # Table 2: checking
+        # Table 2: checking overview
+        if lib_checking:
+            checking_rows = []
+            for ss in all_stats:
+                row = [ss.solver, total, ss.checked_ok, _fmt(ss.total_checking_time), _fmt(ss.total_common_checking_time)]
+                checking_rows.append(row)
+            print_table(checking_headers1, checking_rows)
+            print()
+
+
+        # Table 3: checking error details
         if lib_checking:
             checking_rows = []
             for ss in all_stats:
@@ -348,7 +480,7 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None):
                 for code in outcome_codes:
                     row.append(ss.outcome_counts.get(code, 0))
                 checking_rows.append(row)
-            print_table(checking_headers, checking_rows)
+            print_table(checking_headers2, checking_rows)
             print()
 
         if output_csv:
@@ -428,6 +560,7 @@ def parse_args(argv: list[str] | None = None):
                         help="Report large cvc5/verit line-count differences")
     parser.add_argument("--line-diff-threshold", type=int, default=10000,
                         help="Threshold for --line-diff (default: 10000)")
+    parser.add_argument("-l", "--library", help="Filter results for a certain logic/library")
     return parser.parse_args(argv)
 
 
@@ -442,7 +575,7 @@ def main(argv: list[str] | None = None):
     if args.summary:
         print_summary(bd)
     else:
-        print_detailed(bd, output_csv=args.output_csv)
+        print_detailed(bd, output_csv=args.output_csv, library_filter=args.library)
 
 
 if __name__ == "__main__":

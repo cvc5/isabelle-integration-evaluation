@@ -119,6 +119,14 @@ then
   end_time=$(date +%s%N)
   solver_name="cvc5_solving"
   solver_config="cvc5_solving"
+elif [ $solver_config = "verit_solving" ];
+then
+  start_time=$(date +%s%N)
+  output=$(/usr/bin/time  timeout $timeout_sec $VERIT_HOME '--disable-banner' '-s' $input_file 2>&1)
+  return_value=$?
+  end_time=$(date +%s%N)
+  solver_name="verit_solving"
+  solver_config="verit_solving"
 else echo "\"invalid solver config\"}]}"; exit -1; fi;
     
 
