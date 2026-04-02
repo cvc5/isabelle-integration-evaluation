@@ -48,6 +48,7 @@ CHECKING_OUTCOMES: dict[int, str] = {
     5: "parsing error",
     7: "error replay",
     10: "Slurm timeout",
+    11: "Checking timeout"
 }
 
 
@@ -70,6 +71,7 @@ class BenchmarkData:
     )  # library -> solver -> outcome_code -> count
     checking_time_stats: dict = field(default_factory=lambda: defaultdict(lambda: defaultdict(list)))
     checking_time_per_benchmark: dict = field(default_factory=lambda: defaultdict(lambda: defaultdict(dict)))
+    checked_benchmarks: dict = field(default_factory=lambda: defaultdict(lambda: defaultdict(set)))  # library -> solver -> set of benchmarks with successful check
     all_benchmarks: dict = field(default_factory=lambda: defaultdict(set))
 
 
@@ -99,6 +101,19 @@ def collect_statistics(entries: list[dict]) -> BenchmarkData:
 
     return bd
 
+def apply_checking_time_limit(bd: BenchmarkData, limit: float):
+    """Reclassify successful checks that exceeded *limit* seconds as failures (code 11)."""
+    for library in list(bd.checking_time_per_benchmark.keys()):
+        for solver in list(bd.checking_time_per_benchmark[library].keys()):
+            for benchmark, t in list(bd.checking_time_per_benchmark[library][solver].items()):
+                if t > limit:
+                    # Only reclassify if it was a success (code 0)
+                    if bd.checking_outcome_counts[library][solver].get(0, 0) > 0:
+                        bd.checking_outcome_counts[library][solver][0] -= 1
+                        bd.checking_outcome_counts[library][solver][11] += 1
+                        bd.checking_counts[library][solver] -= 1
+                        bd.checked_benchmarks[library][solver].discard(benchmark)
+
 
 def _collect_solving(entry: dict, library: str, benchmark: str, bd: BenchmarkData):
     for s in entry.get("solving", []):
@@ -117,7 +132,7 @@ def _collect_solving(entry: dict, library: str, benchmark: str, bd: BenchmarkDat
         if "solving_time" in s:
             #user_time = extract_user_time(s["solving_time"])
             try:
-             user_time = float(s["solving_time"])/1000000000
+             user_time = float(s["solving_time"])/e^19
             except Exception:
              user_time = extract_user_time(s["solving_time"])
             if user_time is not None:
@@ -137,6 +152,7 @@ def _collect_checking(entry: dict, library: str, benchmark: str, bd: BenchmarkDa
             continue
         if code == 0:
             bd.checking_counts[library][solver] += 1
+            bd.checked_benchmarks[library][solver].add(benchmark)
 
         if "checking_time" in c:
             checking_time = float(c["checking_time"])/100000000
@@ -329,29 +345,39 @@ def print_summary(bd: BenchmarkData):
 
     # Build header
     header0 =  ' ' * (cw + 2) * 2  + '|'
+    sep = " | "  # must match print_table separator
+    sep_w = len(sep)  # 3
+    # Track which header indices belong to each solver
+    solver_col_ranges = []
+
     headers = [("Library", "<", cw), ("Total", ">", cw)]
     for s in solvers:
-        offset=0
+        start=len(headers)
         if solving:
             headers.append((f"Nr solved", ">", cw))
-            offset+=1
         if checking:
             headers.append((f"Nr checked", ">", cw))
             headers.append((f"Nr unique", ">", cw))
-            offset+=2
         if solving and checking:
             headers.append((f"Total Time", ">", cw))
-            offset+=1
-        if offset == 1:
-          j = 0
-        else:
-          j = offset - 2
-        total_space=(cw + 2) * offset + j
-        available_space=total_space-len(s)
-        part_length=(math.floor(available_space/2))
-        space=' ' * part_length
-        pad='' if (available_space) % 2 == 0 else ' '
-        header0 = header0 + space + s + space  + pad + '|'
+        end=len(headers)
+        solver_col_ranges.append((s, start, end))
+
+    # Build solver name row aligned to column positions
+    # First: width of fixed columns (Library + Total) plus their trailing separator
+    fixed_width = sum(w for _, _, w in headers[:2]) + sep_w  # after last fixed col, separator into first group
+    header0 = ' ' * fixed_width + '|'
+    for s, start, end in solver_col_ranges:
+         ncols = end - start
+         # Width of this group: column widths + separators between them + leading separator
+         group_width = sum(w for _, _, w in headers[start:end]) + sep_w * (ncols - 1) + sep_w
+         available_space = group_width - len(s) - 1  # -1 for the trailing '|'
+         if available_space < 0:
+            available_space = 0
+         left = available_space // 2
+         right = available_space - left
+         header0 = header0 + ' ' * left + s + ' ' * right + '|'
+
     print(header0)
    
     rows = []
@@ -393,7 +419,7 @@ def print_summary(bd: BenchmarkData):
     print("Total Time is the time to produce the proof and check it on benchmark both solvers produced a proof for (common) in seconds")
     print()
 
-def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None, library_filter: Optional[str] = None):
+def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None, library_filter: Optional[str] = None, config_filter: Optional[list[str]] = None):
     libraries, _ = all_libraries_and_solvers(bd)
     csv_rows: list[dict] = []
     if library_filter:
@@ -435,6 +461,11 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None, library_
         )
 
         common = common_benchmarks(bd, library, solvers)
+        if config_filter:
+            solvers = [s for s in solvers if s in config_filter]
+            if not solvers:
+                print("  (no matching solver configs)\n")
+                continue
 
         # Compute stats for all solvers once
         all_stats = [compute_solver_stats(bd, library, s, common) for s in solvers]
@@ -561,6 +592,10 @@ def parse_args(argv: list[str] | None = None):
     parser.add_argument("--line-diff-threshold", type=int, default=10000,
                         help="Threshold for --line-diff (default: 10000)")
     parser.add_argument("-l", "--library", help="Filter results for a certain logic/library")
+    parser.add_argument("-c", "--config", action="append",
+                        help="Filter detailed view to specific solver config(s) (repeatable)")
+    parser.add_argument("--checking-time-limit", type=float,
+                        help="Count checks exceeding this time (seconds) as failures")
     return parser.parse_args(argv)
 
 
@@ -569,13 +604,16 @@ def main(argv: list[str] | None = None):
     entries = load_data(args.file)
     bd = collect_statistics(entries)
 
+    if args.checking_time_limit is not None:
+        apply_checking_time_limit(bd, args.checking_time_limit)
+
     if args.line_diff:
         report_cvc5_verit_line_diffs(bd, threshold=args.line_diff_threshold)
 
     if args.summary:
         print_summary(bd)
     else:
-        print_detailed(bd, output_csv=args.output_csv, library_filter=args.library)
+        print_detailed(bd, output_csv=args.output_csv, library_filter=args.library, config_filter=args.config)
 
 
 if __name__ == "__main__":
