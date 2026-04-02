@@ -204,6 +204,15 @@ def common_benchmarks(bd: BenchmarkData, library: str, solvers: list[str]) -> se
         return set.intersection(*non_empty)
     return set()
 
+
+def common_checked_benchmarks(bd: BenchmarkData, library: str, solvers: list[str]) -> set:
+    """Benchmarks checked by *all* solvers for a given library."""
+    non_empty = [set(bd.checking_time_per_benchmark[library][s].keys()) for s in solvers
+                 if bd.checking_time_per_benchmark[library][s]]
+    if len(non_empty) >= 2:
+        return set.intersection(*non_empty)
+    return set()
+
 def unique_solved_benchmarks(bd: BenchmarkData, library: str, solvers: list[str]) -> dict:
     """Benchmarks solved by *only one* solver for a given library.
  
@@ -270,7 +279,8 @@ class SolverStats:
     outcome_counts: dict = field(default_factory=dict)  # outcome_code -> count
 
 def compute_solver_stats(
-    bd: BenchmarkData, library: str, solver: str, common: set
+    bd: BenchmarkData, library: str, solver: str, common: set,
+    common_checking: set | None = None,
 ) -> SolverStats:
     ss = SolverStats(solver=solver)
     ss.solved_count = len(bd.solved_benchmarks[library][solver])
@@ -303,7 +313,8 @@ def compute_solver_stats(
 
     common_checking_times = [
         bd.checking_time_per_benchmark[library][solver][b]
-        for b in common if b in bd.checking_time_per_benchmark[library][solver]
+        for b in (common_checking if common_checking is not None else common)
+        if b in bd.checking_time_per_benchmark[library][solver]
     ]
     if common_checking_times:
         ss.total_common_checking_time = sum(common_checking_times)
@@ -440,12 +451,22 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None, library_
     ]
     # Build checking headers 
     checking_headers1 = [("solver config", "<", 18), ("total benchmarks", ">", 18), ("nr_checked", ">", 18), ("total checking time",">",18), ("total checking time (common)",">",20)]
-    checking_headers2 = [("solver config", "<", 18), ("total benchmarks", ">", 18)]
+    checking_headers2 = [("solver config", "<", 18), ("benchmarks solved", ">", 18)]
     outcome_codes = sorted(CHECKING_OUTCOMES.keys())
+    # Codes 2,3,4,5 are merged into a single "parsing error" display column.
+    # The underlying data is still collected per-code in checking_outcome_counts.
+    PARSING_ERROR_CODES = {2, 3, 4, 5}
+    _parsing_col_added = False
+    display_outcome_cols = []  # list of (label, codes_to_sum)
     for code in outcome_codes:
-        label = CHECKING_OUTCOMES[code]
-        # Match "checked ok" width to "nr benchmarks solved" (21)
-        if code == 0:
+        if code in PARSING_ERROR_CODES:
+            if not _parsing_col_added:
+                display_outcome_cols.append(("parsing error", list(sorted(PARSING_ERROR_CODES))))
+                _parsing_col_added = True
+            continue
+        display_outcome_cols.append((CHECKING_OUTCOMES[code], [code]))
+    for label, _ in display_outcome_cols:
+        if label == "Replay Success":
             width = 21
         else:
             width = max(len(label), 8) + 2
@@ -460,7 +481,14 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None, library_
             | bd.checking_outcome_counts[library].keys()
         )
 
+        # Solver configs that should only appear in the solving table (table 1).
+        SOLVING_ONLY_CONFIGS = {"cpc", "verit_solving", "cvc5_solving"}
+
         common = common_benchmarks(bd, library, solvers)
+        # For checking-related "common" stats, only consider solvers that
+        # actually participate in checking (exclude solving-only configs).
+        checking_solvers = [s for s in solvers if s not in SOLVING_ONLY_CONFIGS]
+        common_checking = common_checked_benchmarks(bd, library, checking_solvers)
         if config_filter:
             solvers = [s for s in solvers if s in config_filter]
             if not solvers:
@@ -468,7 +496,7 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None, library_
                 continue
 
         # Compute stats for all solvers once
-        all_stats = [compute_solver_stats(bd, library, s, common) for s in solvers]
+        all_stats = [compute_solver_stats(bd, library, s, common, common_checking) for s in solvers]
 
         lib_solving = any(ss.solved_count > 0 for ss in all_stats)
         lib_checking = any(ss.outcome_counts for ss in all_stats)
@@ -495,6 +523,8 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None, library_
         if lib_checking:
             checking_rows = []
             for ss in all_stats:
+                if ss.solver in SOLVING_ONLY_CONFIGS:
+                    continue
                 row = [ss.solver, total, ss.checked_ok, _fmt(ss.total_checking_time), _fmt(ss.total_common_checking_time)]
                 checking_rows.append(row)
             print_table(checking_headers1, checking_rows)
@@ -505,11 +535,15 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None, library_
         if lib_checking:
             checking_rows = []
             for ss in all_stats:
+                if ss.solver in SOLVING_ONLY_CONFIGS:
+                    continue
                 if not any(ss.outcome_counts.get(c, 0) > 0 for c in outcome_codes):
                     continue
-                row = [ss.solver, total]
-                for code in outcome_codes:
-                    row.append(ss.outcome_counts.get(code, 0))
+                row = [ss.solver,
+                       ss.solved_count if ss.solved_count > 0
+                       else sum(ss.outcome_counts.get(c, 0) for c in outcome_codes)]
+                for _label, codes in display_outcome_cols:
+                    row.append(sum(ss.outcome_counts.get(c, 0) for c in codes))
                 checking_rows.append(row)
             print_table(checking_headers2, checking_rows)
             print()
