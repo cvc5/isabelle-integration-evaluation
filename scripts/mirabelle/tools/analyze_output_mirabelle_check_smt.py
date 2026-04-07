@@ -325,7 +325,7 @@ def batch_theory_text(
     replay_timeout: int,
 ) -> str:
     entries_text = ",\n        ".join(
-        f'({index}, "{isabelle_string(artifact.in_path)}", "{isabelle_string(artifact.out_path)}")'
+        f'({index}, "{isabelle_string(artifact.in_path)}", "{isabelle_string(artifact.out_path)}", "{isabelle_string(result_file.with_name(f"check_{index}.txt"))}")'
         for index, artifact in enumerate(batch_artifacts)
         if artifact.in_path is not None
     )
@@ -339,10 +339,6 @@ def batch_theory_text(
         let
           val result_path = "{isabelle_string(result_file)}"
           val replay_timeout = Time.fromSeconds {replay_timeout}
-          val base_ctxt =
-            @{{context}}
-            |> Config.put SMT_Config.check_external true
-            |> SMT_Config.alethe_set_no_provided_assms true
 
           fun sanitize s =
             String.translate
@@ -358,51 +354,42 @@ def batch_theory_text(
                   [Int.toString idx ^ "\\t" ^ Int.toString code ^ "\\t" ^ sanitize msg ^ "\\n"])
               (Path.explode result_path)
 
-          fun classify exn =
-            (case exn of
-              SMT_Parse_Problem.SMT_PROBLEM_PARSE msg =>
-                if String.isPrefix "command not supported: " msg
-                then (5, "Unsupported SMT-LIB command in problem: " ^ msg)
-                else (5, "Error parsing SMT-LIB problem: " ^ msg)
-            | SMTLIB.PARSE (line, err) =>
-                (5, "Error parsing SMTLIB into SMTLIB Tree: " ^ err ^ " in line " ^ Int.toString line)
-            | SMTLIB_Proof.SMTLIB_PARSE ("unknown SMT type", t) =>
-                (2, "Either theory is not supported or parsing instructions for the type are not included in the parser " ^ SMTLIB.str_of t)
-            | SMTLIB_Proof.SMTLIB_PARSE ("bad SMT term", t) =>
-                (3, "Either theory is not supported or parsing instructions for the term are not included in the parser " ^ SMTLIB.str_of t)
-            | SMTLIB_Proof.SMTLIB_PARSE (err, t) =>
-                (4, "Unkown error parsing SMTLIB: " ^ err ^ SMTLIB.str_of t)
-            | SMT_Failure.SMT (SMT_Failure.Replay (rule, ERROR msg)) =>
-                (6, "Error replaying step " ^ rule ^ ": " ^ msg)
-            | SMT_Failure.SMT (SMT_Failure.Replay (rule, Exn.Interrupt_Breakdown)) =>
-                (7, "Error replaying step " ^ rule ^ ": interrupt while replaying step")
-            | SMT_Failure.SMT (SMT_Failure.Replay (rule, exn')) =>
-                (7, "Error replaying step " ^ rule ^ ": " ^ General.exnMessage exn')
-            | SMT_Failure.SMT (SMT_Failure.Time_Out rule) =>
-                (7, "Error replaying step " ^ rule ^ ": timeout while reconstructing rule")
-            | SMT_Failure.SMT err =>
-                (5, "Unkown SMT error " ^ SMT_Failure.string_of_failure err)
-            | Timeout.TIMEOUT _ =>
-                (7, "Timeout")
-            | TYPE (msg, _, _) =>
-                (1, "Type Error " ^ msg)
-            | Size =>
-                (1, "Size")
-            | ERROR msg =>
-                (1, "Error " ^ msg)
-            | exn' =>
-                (1, "Unhandled exception " ^ General.exnMessage exn'))
+          fun last_path_component path =
+            (case rev (String.tokens (fn c => c = #"/") path) of
+              [] => path
+            | name :: _ => name)
 
-          fun replay_one (idx, problem_path, proof_path) =
+          fun success_message check_text =
+            (case rev (String.tokens
+                (fn c => c = #"," orelse c = #" " orelse c = #"\\n" orelse c = #"\\r" orelse c = #"\\t")
+                check_text) of
+              time_ns :: _ =>
+                if time_ns <> "" andalso List.all Char.isDigit (String.explode time_ns)
+                then SOME ("check_smt success parsing_time_ns=" ^ time_ns)
+                else NONE
+            | [] => NONE)
+
+          fun replay_one (idx, problem_path, proof_path, check_path) =
             let
-              val problem_lines = Bytes.read (Path.explode problem_path) |> Bytes.split_lines
-              val proof_lines = Bytes.read (Path.explode proof_path) |> Bytes.split_lines
+              val lthy = Named_Target.theory_init @{{theory}}
+              val check_file = Path.explode check_path
+              val base_name = last_path_component problem_path
               val (code, msg) =
                 (Timeout.apply replay_timeout
                   (fn () =>
-                    (SMT_Check_External.replay_only "cvc5_proof" base_ctxt problem_lines proof_lines NONE;
-                     (0, ""))) ()
-                 handle exn => classify exn)
+                    let
+                      val _ = Bytes.write check_file Bytes.empty
+                      val _ = SMT_Check_External.check_smt "cvc5_proof" problem_path proof_path (SOME check_path) lthy
+                      val check_text = if File.exists check_file then File.read check_file else ""
+                    in
+                      (case success_message check_text of
+                        SOME msg => (0, msg)
+                      | NONE =>
+                          (1,
+                           "check_smt failed without parsing time for " ^ base_name ^
+                           "; raw_output=" ^ sanitize check_text))
+                    end) ()
+                 handle exn => (2, "exception while running check_smt on " ^ base_name ^ ": " ^ General.exnMessage exn))
             in
               emit idx code msg
             end
@@ -810,7 +797,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--import-theory",
-        default="Main",
+        default="HOL.SMT_CVC",
         help="theory import used for the temporary replay session",
     )
     parser.add_argument(
