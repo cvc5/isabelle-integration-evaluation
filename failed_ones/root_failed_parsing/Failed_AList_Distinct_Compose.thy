@@ -1,4 +1,4 @@
-wha(*  Title:      root_failed_alist/Failed_AList_Distinct_Compose.thy *)
+(*  Title:      root_failed_alist/Failed_AList_Distinct_Compose.thy *)
 
 section \<open>Isolated distinct_compose\<close>
 
@@ -19,12 +19,6 @@ lemma delete_simps [simp]:
   "delete k (p # ps) = (if fst p = k then delete k ps else p # delete k ps)"
   by (auto simp add: delete_eq)
 
-lemma delete_conv': "map_of (delete k al) = (map_of al)(k := None)"
-  by (induct al) (auto simp add: fun_eq_iff)
-
-corollary delete_conv: "map_of (delete k al) k' = ((map_of al)(k := None)) k'"
-  by (simp add: delete_conv')
-
 lemma delete_keys: "map fst (delete k al) = removeAll k (map fst al)"
   by (simp add: delete_eq removeAll_filter_not_eq filter_map split_def comp_def)
 
@@ -35,12 +29,6 @@ lemma distinct_delete:
 
 lemma delete_id [simp]: "k \<notin> fst ` set al \<Longrightarrow> delete k al = al"
   by (auto simp add: image_iff delete_eq filter_id_conv)
-
-lemma map_of_delete [simp]: "k' \<noteq> k \<Longrightarrow> map_of (delete k al) k' = map_of al k'"
-  by (simp add: delete_conv')
-
-lemma delete_notin_dom: "k \<notin> fst ` set (delete k al)"
-  by (auto simp add: delete_eq)
 
 lemma dom_delete_subset: "fst ` set (delete k al) \<subseteq> fst ` set al"
   by (auto simp add: delete_eq)
