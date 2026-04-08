@@ -54,4 +54,4 @@ problem_path=$input_problem_dir/$relative_problem_path
 
 echo "(\"PROOF_FILE\",\"$input_file\")"
 echo "(\"PROBLEM_FILE\",\"$problem_path\")"
-$SCRIPT_DIR/checkOneBench.sh $problem_path $input_file 
+$SCRIPT_DIR/checkOneBench.sh -t $timeout $problem_path $input_file 

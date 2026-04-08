@@ -3,6 +3,7 @@ trap "cd \"${PWD}\"" EXIT
 
 #Defaults for options
 delete=0
+solver_config=""
 
 Help()
 {
@@ -14,15 +15,17 @@ Help()
    echo
    echo "options:"
    echo "r     Remove benchmark from tmp directory"
+   echo "c     The solver config, if not given a proof producing config is assumed"
    echo "h     Print this Help."
    echo
 }
 
-while getopts ":hr" option; do
+while getopts ":hrc:" option; do
    case $option in
       h) # display Help
          Help
          exit;;
+      c) solver_config="$OPTARG";;
       r) delete=1;;
      \?) # Invalid option
          echo "Error: Invalid option"
@@ -55,13 +58,14 @@ check_solver() {
       echo "solving"
       ;;
     *)
-      echo "unknown"
+      echo "base"
       ;;
   esac
 }
 
-
-solver_category=$(check_solver "$solver")
+echo "config $solver_config"
+solver_category=$(check_solver "$solver_config")
+echo "solver $solver_category"
 if [[ "$solver_category" == "base" ]]
 then
    nr_proofs=$(find "$input_dir" -type f -name "*.alethe" | wc -l)
@@ -71,7 +75,6 @@ then
     exit -1
   fi
 fi
-
 #Remove double slashes in file path
 input_dir="${input_dir//\/\//\/}"
 
@@ -82,7 +85,7 @@ output_file_json=$output_file".json"
 echo "[" > $output_file_json
 output_file_csv=$output_file".csv"
 rm -f $output_file_csv
-
+echo "output csv $output_file_csv"
 
 while read -r output_log; do
   json=""
@@ -121,8 +124,7 @@ while read -r output_log; do
   done < $output_log
 
 
-
-  if [[ $outcome = "0" ]] && [[ "$solver_config" == "base" ]]
+  if [[ $outcome = "0" ]] && [[ "$solver_category" == "base" ]]
   then
     mkdir -p $output_dir/$rel_path
     directory=$(dirname "$output_log")
@@ -152,7 +154,7 @@ while read -r output_log; do
         echo "$json," >> $output_file_json
       fi
   fi
-done <<< $(find "$input_dir" -type f -name "output.log")
+done <<< "$(find "$input_dir" -type f -name "output.log")"
 
 #Check last character
 sed -i '$s/,$//' "$output_file_json"

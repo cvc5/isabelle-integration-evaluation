@@ -70,6 +70,9 @@ result_code=10
         '("PROBLEM_FILE"'*)
             problem_file=$(echo "$line" | grep -oP '"[^"]+"' | tail -1 | tr -d '"')
             ;;
+        '("CHECKING_TIME"'*)
+	    checking_time=$(echo "$line" | grep -oP '(?<="CHECKING_TIME", )\d+')
+            ;;
 	 *) #echo "line $line" 
 	 if [[ "$line" == *"Error replaying step"* ]]; then
      	   echo "Found"
@@ -83,7 +86,7 @@ result_code=10
   #Remove leading/trailing whitespace just in case
   logic=$(echo $logic | xargs)
   config=$(echo $config | xargs)
-  echo "{\"benchmark_path\": \"$problem_file\", \"library_name\": \"$logic\", \"checking\":[{\"solver_config\": \"$config\", \"checking_outcome\": \"$result_code\"$error_reason}]}," >> $output_file_json
+  echo "{\"benchmark_path\": \"$problem_file\", \"library_name\": \"$logic\", \"checking\":[{\"solver_config\": \"$config\", \"checking_outcome\": \"$result_code\", \"checking_time\": \"$checking_time\"$error_reason}]}," >> $output_file_json
 
 done
 

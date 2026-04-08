@@ -51,6 +51,9 @@ CHECKING_OUTCOMES: dict[int, str] = {
     11: "Checking timeout"
 }
 
+# Solver configs that should only appear in solving tables, not checking tables.
+SOLVING_ONLY_CONFIGS = {"cpc", "verit_solving", "cvc5_solving"}
+
 
 # ---------------------------------------------------------------------------
 # Data collection
@@ -355,7 +358,6 @@ def print_summary(bd: BenchmarkData):
     cw = 13
 
     # Build header
-    header0 =  ' ' * (cw + 2) * 2  + '|'
     sep = " | "  # must match print_table separator
     sep_w = len(sep)  # 3
     # Track which header indices belong to each solver
@@ -364,12 +366,12 @@ def print_summary(bd: BenchmarkData):
     headers = [("Library", "<", cw), ("Total", ">", cw)]
     for s in solvers:
         start=len(headers)
+        is_solving_only = s in SOLVING_ONLY_CONFIGS
         if solving:
             headers.append((f"Nr solved", ">", cw))
-        if checking:
+        if checking and not is_solving_only:
             headers.append((f"Nr checked", ">", cw))
-            headers.append((f"Nr unique", ">", cw))
-        if solving and checking:
+        if solving and checking and not is_solving_only:
             headers.append((f"Total Time", ">", cw))
         end=len(headers)
         solver_col_ranges.append((s, start, end))
@@ -377,7 +379,7 @@ def print_summary(bd: BenchmarkData):
     # Build solver name row aligned to column positions
     # First: width of fixed columns (Library + Total) plus their trailing separator
     fixed_width = sum(w for _, _, w in headers[:2]) + sep_w  # after last fixed col, separator into first group
-    header0 = ' ' * fixed_width + '|'
+    header0 = ' ' + ' ' * fixed_width + '|'
     for s, start, end in solver_col_ranges:
          ncols = end - start
          # Width of this group: column widths + separators between them + leading separator
@@ -394,10 +396,10 @@ def print_summary(bd: BenchmarkData):
     rows = []
     for lib in libraries:
         common = common_benchmarks(bd, lib, solvers)
-        unique = unique_checked_benchmarks(bd,lib,solvers)
 
         row = [lib, len(bd.all_benchmarks[lib])]
         for s in solvers:
+            is_solving_only = s in SOLVING_ONLY_CONFIGS
             #TODO: duplicate code, should be solidified
             common_solving_times = [
              bd.time_per_benchmark[lib][s][b]
@@ -416,12 +418,13 @@ def print_summary(bd: BenchmarkData):
 
             if solving:
                 row.append(len(bd.solved_benchmarks[lib][s]))
-            if checking:
+            if checking and not is_solving_only:
                 row.append(bd.checking_counts[lib][s])
-                row.append(len(unique[s]))
-            if solving and checking:
+            if solving and checking and not is_solving_only:
                 if common_solving_times:
                   row.append(int(total_common_time+total_common_checking_time))
+                else:
+                  row.append("N/A")
 
         rows.append(row)
 
@@ -480,9 +483,6 @@ def print_detailed(bd: BenchmarkData, output_csv: Optional[str] = None, library_
             | bd.checking_counts[library].keys()
             | bd.checking_outcome_counts[library].keys()
         )
-
-        # Solver configs that should only appear in the solving table (table 1).
-        SOLVING_ONLY_CONFIGS = {"cpc", "verit_solving", "cvc5_solving"}
 
         common = common_benchmarks(bd, library, solvers)
         # For checking-related "common" stats, only consider solvers that

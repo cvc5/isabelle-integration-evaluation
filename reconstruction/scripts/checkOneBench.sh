@@ -35,7 +35,7 @@ fi
 
 input_problem_file=$1
 input_proof_file=$2
-ISABELLE_VERSION=Isabelle_27-Mar-2026
+ISABELLE_VERSION=Isabelle
 #ISABELLE_PATH=/barrett/scratch/lachnitt/Binaries/dist-$ISABELLE_VERSION/$ISABELLE_VERSION/bin/
 ISABELLE_PATH=/barrett/scratch/lachnitt/Binaries/$ISABELLE_VERSION/bin/
 export USER_HOME=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/
@@ -48,7 +48,7 @@ end_time=$(date +%s%N)
 echo "$output" | sed  -E "/^(Warning|###|$)/d"
 echo "return_value: $return_value"
 checking_time=$((end_time - start_time))
-echo "checking_time: $checking_time"
+echo "(\"CHECKING_TIME\", $checking_time)"
 
 #$ISABELLE_PATH/isabelle build_log
 
