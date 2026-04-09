@@ -1,0 +1,4 @@
+unsat
+(assume conjecture21 (! (not (! (=> (fun_app$j (fun_app$k less$ i$) (fun_app$y (fun_app$z times$a (size$ (cons$b z$ zs$))) (! (size$a y$) :named @p_1))) (fun_app$j (fun_app$k less$ (fun_app$y (fun_app$z minus$ i$) @p_1)) (fun_app$y (fun_app$z times$a (size$ zs$)) @p_1))) :named @p_2)) :named @p_3))
+(assume a22 @p_2)
+(step t0 (cl) :rule resolution :premises (a22 conjecture21))

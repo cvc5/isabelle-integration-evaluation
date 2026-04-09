@@ -1,0 +1,8 @@
+unsat
+(assume conjecture4 (! (not (! (fun_app$f (! (fun_app$g less$ j$) :named @p_1) (fun_app$c (fun_app$h times$ (size$ (mat_multI$ zer$ g$ f$ (row_length$ a1$) a1$ a2$))) (size$ (mat_multI$ zer$ g$ f$ (row_length$ b1$) b1$ b2$)))) :named @p_2)) :named @p_3))
+(assume a17 (! (= (! (fun_app$f @p_1 (fun_app$c (fun_app$h times$ (size$ a2$)) (size$ b2$))) :named @p_4) @p_2) :named @p_5))
+(assume a21 @p_4)
+(step t0 (cl (= @p_2 @p_4)) :rule symm :premises (a17))
+(step t1 (cl @p_2 (! (not @p_4) :named @p_6)) :rule equiv2 :premises (t0))
+(step t2 (cl @p_6) :rule resolution :premises (t1 conjecture4))
+(step t3 (cl) :rule resolution :premises (a21 t2))

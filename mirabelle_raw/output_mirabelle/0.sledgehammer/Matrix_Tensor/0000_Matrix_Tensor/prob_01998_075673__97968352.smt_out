@@ -1,0 +1,7 @@
+unsat
+(assume conjecture0 (! (not (! (less$ (minus$ j$ (! (size$ m2$) :named @p_1)) (times$ (size$ m$) @p_1)) :named @p_2)) :named @p_3))
+(assume a1 (! (=> (! (less_eq$ @p_1 j$) :named @p_4) @p_2) :named @p_5))
+(assume a2 @p_4)
+(step t0 (cl (not @p_4) @p_2) :rule implies :premises (a1))
+(step t1 (cl @p_2) :rule resolution :premises (t0 a2))
+(step t2 (cl) :rule resolution :premises (t1 conjecture0))

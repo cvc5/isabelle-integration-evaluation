@@ -1,0 +1,5 @@
+unsat
+(assume conjecture0 (! (not (=> (less$ i$ (size$ (! (cons$ x$ xs$) :named @p_1))) (! (= (nth$ (fun_app$ (fun_app$a (times$ f$) a$) @p_1) i$) (fun_app$b (fun_app$c f$ a$) (nth$ @p_1 i$))) :named @p_2))) :named @p_3))
+(assume a2 @p_2)
+(step t0 (cl (not @p_2)) :rule not_implies2 :premises (conjecture0))
+(step t1 (cl) :rule resolution :premises (a2 t0))

@@ -1,0 +1,4 @@
+unsat
+(assume conjecture50 (! (not (! (= nc$ zero$) :named @p_1)) :named @p_2))
+(assume a51 @p_1)
+(step t0 (cl) :rule resolution :premises (a51 conjecture50))

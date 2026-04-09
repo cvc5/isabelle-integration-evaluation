@@ -1,0 +1,6 @@
+unsat
+(assume conjecture2 (! (not (! (= (! (size$ v1$) :named @p_1) (suc$ k$)) :named @p_2)) :named @p_3))
+(assume a8 (! (and (= @p_1 (size$ v2$)) (! (and @p_2 (= (size$ w1$) (size$ w2$))) :named @p_4)) :named @p_5))
+(step t0 (cl @p_4) :rule and :premises (a8) :args (1))
+(step t1 (cl @p_2) :rule and :premises (t0) :args (0))
+(step t2 (cl) :rule resolution :premises (t1 conjecture2))

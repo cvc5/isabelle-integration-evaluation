@@ -1,0 +1,4 @@
+unsat
+(assume conjecture1 (! (not (! (= (fun_app$a (modulo$ (fun_app$a (! (modulo$ a$) :named @p_1) (fun_app$a (times$ b$) c$))) c$) (fun_app$a @p_1 c$)) :named @p_2)) :named @p_3))
+(assume a2 @p_2)
+(step t0 (cl) :rule resolution :premises (a2 conjecture1))

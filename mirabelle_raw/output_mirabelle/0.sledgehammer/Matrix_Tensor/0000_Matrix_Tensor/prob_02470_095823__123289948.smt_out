@@ -1,0 +1,4 @@
+unsat
+(assume conjecture36 (! (not (! (= (fun_app$b (fun_app$c divide$ (fun_app$b (fun_app$c modulo$ a$) (fun_app$b (fun_app$c times$ b$) c$))) c$) (fun_app$b (fun_app$c modulo$ (fun_app$b (fun_app$c divide$ a$) c$)) b$)) :named @p_1)) :named @p_2))
+(assume a37 @p_1)
+(step t0 (cl) :rule resolution :premises (a37 conjecture36))

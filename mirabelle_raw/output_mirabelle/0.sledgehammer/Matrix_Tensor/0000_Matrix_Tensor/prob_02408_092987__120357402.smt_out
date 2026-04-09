@@ -1,0 +1,8 @@
+unsat
+(assume conjecture1 (! (not (! (= c$ zero$) :named @p_1)) :named @p_2))
+(assume a27 (! (or (! (= b$ zero$) :named @p_3) @p_1) :named @p_4))
+(assume a30 (! (not @p_3) :named @p_5))
+(step t0 (cl @p_3 @p_1) :rule or :premises (a27))
+(step t1 (cl @p_1 @p_3) :rule reordering :premises (t0))
+(step t2 (cl @p_3) :rule resolution :premises (t1 conjecture1))
+(step t3 (cl) :rule resolution :premises (a30 t2))

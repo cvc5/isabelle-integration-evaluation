@@ -1,0 +1,12 @@
+unsat
+(assume conjecture27 (! (not (! (=> (! (and (! (fun_app$k (fun_app$l less$ i$) (fun_app$b (fun_app$c times$a (! (row_length$ (! (cons$ v$ m$) :named @p_2)) :named @p_5)) (! (row_length$ m2$) :named @p_1))) :named @p_7) (and (! (mat$ @p_5 (size$ @p_2) @p_2) :named @p_6) (! (mat$ @p_1 (size$ m2$) m2$) :named @p_4))) :named @p_8) (! (= (fun_app$e (row$ (fun_app$r (tensor$ f$ @p_2) m2$)) i$) (fun_app$s (fun_app$t (vec_vec_Tensor$ f$) (fun_app$e (row$ @p_2) (fun_app$b (fun_app$c divide$ i$) @p_1))) (fun_app$e (row$ m2$) (fun_app$b (fun_app$c modulo$ i$) @p_1)))) :named @p_3)) :named @p_9)) :named @p_10))
+(assume a28 @p_9)
+(step t0 (cl (not (! (= @p_9 (! (=> (! (and @p_7 @p_6 @p_4) :named @p_11) @p_3) :named @p_12)) :named @p_15)) @p_10 @p_12) :rule equiv_pos2)
+(step t1 (cl (= @p_8 @p_11)) :rule aci_simp)
+(step t2 (cl (= @p_3 @p_3)) :rule refl)
+(step t3 (cl @p_15) :rule cong :premises (t1 t2))
+(step t4 (cl @p_12) :rule resolution :premises (t0 t3 a28))
+(step t5 (cl (not (! (= @p_10 (! (not @p_12) :named @p_13)) :named @p_14)) (not @p_10) @p_13) :rule equiv_pos2)
+(step t6 (cl @p_14) :rule cong :premises (t3))
+(step t7 (cl @p_13) :rule resolution :premises (t5 t6 conjecture27))
+(step t8 (cl) :rule resolution :premises (t4 t7))

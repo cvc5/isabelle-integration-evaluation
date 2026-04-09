@@ -1,0 +1,4 @@
+unsat
+(assume conjecture7 (! (not (! (=> (less$ i$ (size$b nil$)) (= (nth$b (fun_app$g (fun_app$h (times$ f$) a$) nil$) i$) (fun_app$i (fun_app$j f$ a$) (nth$b nil$ i$)))) :named @p_1)) :named @p_2))
+(assume a22 @p_1)
+(step t0 (cl) :rule resolution :premises (a22 conjecture7))

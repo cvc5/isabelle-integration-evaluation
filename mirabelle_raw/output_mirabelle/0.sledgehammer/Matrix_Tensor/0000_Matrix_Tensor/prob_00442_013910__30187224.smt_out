@@ -1,0 +1,6 @@
+unsat
+(assume conjecture0 (! (not (! (= (! (row_length$ nil$) :named @p_1) zero$) :named @p_2)) :named @p_3))
+(assume a13 @p_2)
+(step t0 (cl (! (= zero$ @p_1) :named @p_4)) :rule symm :premises (a13))
+(step t1 (cl (not @p_4)) :rule not_symm :premises (conjecture0))
+(step t2 (cl) :rule resolution :premises (t0 t1))

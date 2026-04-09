@@ -1,0 +1,7 @@
+unsat
+(assume conjecture0 (! (not (! (= c$ zero$) :named @p_1)) :named @p_2))
+(assume a1 (! (not (! (= b$ zero$) :named @p_3)) :named @p_4))
+(assume a4 (! (or @p_3 @p_1) :named @p_5))
+(step t0 (cl @p_3 @p_1) :rule or :premises (a4))
+(step t1 (cl @p_1 @p_3) :rule reordering :premises (t0))
+(step t2 (cl) :rule resolution :premises (t1 a1 conjecture0))

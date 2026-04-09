@@ -1,0 +1,9 @@
+; --trigger-sel=max --full-saturate-quant --proof-format-mode=alethe --proof-granularity=dsl-rewrite --full-saturate-quant --proof-mode=full-proof-strict --no-stats --sat-random-seed=1 --lang=smt2 --proof-prune --proof-prune-input --proof-elim-subtypes --proof-alethe-define-skolems --proof-format-mode=alethe --tlimit 264
+(set-option :produce-proofs true)
+(set-logic AUFLIRA)
+(declare-fun m$ () Int)
+(declare-fun n$ () Int)
+(declare-fun modulo$ (Int Int) Int)
+(assert (! (not (= (modulo$ m$ n$) (modulo$ (+ m$ (* (- 1) n$)) n$))) :named conjecture0))
+(check-sat)
+(get-proof)

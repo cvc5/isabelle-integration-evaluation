@@ -1,0 +1,7 @@
+unsat
+(assume conjecture7 (! (not (! (= c$ zero$) :named @p_1)) :named @p_2))
+(assume a8 (! (not (! (= b$ zero$) :named @p_3)) :named @p_4))
+(assume a11 (! (or @p_3 @p_1) :named @p_5))
+(step t0 (cl (! (not @p_5) :named @p_6) @p_3 @p_1) :rule or_pos)
+(step t1 (cl @p_6) :rule resolution :premises (t0 a8 conjecture7))
+(step t2 (cl) :rule resolution :premises (a11 t1))

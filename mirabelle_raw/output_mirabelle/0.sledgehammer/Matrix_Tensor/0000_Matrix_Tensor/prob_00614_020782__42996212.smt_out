@@ -1,0 +1,7 @@
+unsat
+(assume conjecture27 (! (not (! (fun_app$h (mat$ (row_length$ m2$) (fun_app$e size$a m2$)) m2$) :named @p_1)) :named @p_2))
+(assume a28 (! (fun_app$h (mat$ (row_length$ (! (fun_app$x (append$ m1a$) m2$) :named @p_3)) (fun_app$e size$a @p_3)) @p_3) :named @p_4))
+(assume a33 (! (=> @p_4 @p_1) :named @p_5))
+(step t0 (cl (! (not @p_5) :named @p_6) (not @p_4) @p_1) :rule implies_pos)
+(step t1 (cl @p_6) :rule resolution :premises (t0 a28 conjecture27))
+(step t2 (cl) :rule resolution :premises (a33 t1))

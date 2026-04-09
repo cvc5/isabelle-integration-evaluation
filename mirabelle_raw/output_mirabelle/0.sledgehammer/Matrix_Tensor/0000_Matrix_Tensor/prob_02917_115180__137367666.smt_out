@@ -1,0 +1,2 @@
+unknown
+(error "cannot get proof unless in unsat mode.")

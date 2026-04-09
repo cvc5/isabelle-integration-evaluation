@@ -1,0 +1,4 @@
+unsat
+(assume conjecture9 (! (not (! (fun_app$c (fun_app$d less$ (fun_app$e (fun_app$f modulo$ (fun_app$e (fun_app$f divide$ a$) c$)) b$)) b$) :named @p_1)) :named @p_2))
+(assume a10 @p_1)
+(step t0 (cl) :rule resolution :premises (a10 conjecture9))

@@ -1,0 +1,12 @@
+unsat
+(assume conjecture14 (! (not (! (=> (! (and (! (= (fun_app$b size$a zs$) (fun_app$b size$a ws$)) :named @p_5) (and (! (= (! (fun_app$b size$a xs$) :named @p_2) (fun_app$b size$a ys$)) :named @p_4) (! (= @p_2 (fun_app$g suc$ k$)) :named @p_3))) :named @p_6) (! (= (fun_app$w (scalar_product$ f$ zer$ g$ (fun_app$i (fun_app$k append$ xs$) zs$)) (fun_app$i (fun_app$k append$ ys$) ws$)) (fun_app$v (fun_app$t g$ (fun_app$w (scalar_product$ f$ zer$ g$ xs$) ys$)) (fun_app$w (scalar_product$ f$ zer$ g$ zs$) ws$))) :named @p_1)) :named @p_7)) :named @p_8))
+(assume a16 @p_7)
+(step t0 (cl (not (! (= @p_7 (! (=> (! (and @p_5 @p_4 @p_3) :named @p_9) @p_1) :named @p_10)) :named @p_13)) @p_8 @p_10) :rule equiv_pos2)
+(step t1 (cl (= @p_6 @p_9)) :rule aci_simp)
+(step t2 (cl (= @p_1 @p_1)) :rule refl)
+(step t3 (cl @p_13) :rule cong :premises (t1 t2))
+(step t4 (cl @p_10) :rule resolution :premises (t0 t3 a16))
+(step t5 (cl (not (! (= @p_8 (! (not @p_10) :named @p_11)) :named @p_12)) (not @p_8) @p_11) :rule equiv_pos2)
+(step t6 (cl @p_12) :rule cong :premises (t3))
+(step t7 (cl @p_11) :rule resolution :premises (t5 t6 conjecture14))
+(step t8 (cl) :rule resolution :premises (t4 t7))

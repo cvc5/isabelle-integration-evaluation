@@ -1,0 +1,4 @@
+unsat
+(assume conjecture5 (! (not (! (=> (fun_app$c (fun_app$d less$ i$) (size$c nil$)) (= (fun_app$i (nth$c (fun_app$j (fun_app$k (times$ f$) a$) nil$)) i$) (fun_app$l (fun_app$m f$ a$) (fun_app$i (nth$c nil$) i$)))) :named @p_1)) :named @p_2))
+(assume a17 @p_1)
+(step t0 (cl) :rule resolution :premises (a17 conjecture5))

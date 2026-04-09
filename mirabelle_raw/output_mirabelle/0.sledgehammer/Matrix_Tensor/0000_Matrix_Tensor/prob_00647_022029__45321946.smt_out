@@ -1,0 +1,10 @@
+unsat
+(assume conjecture1 (! (not (! (mat$ (fun_app$ (times$ (! (row_length$ m1a$) :named @p_4)) (! (row_length$ m2$) :named @p_3)) (fun_app$ (times$ (! (size$ m1a$) :named @p_2)) (! (size$ m2$) :named @p_1)) (fun_app$a (fun_app$b (tensor$ f$) m1a$) m2$)) :named @p_5)) :named @p_6))
+(assume a2 (! (mat$ @p_4 @p_2 m1a$) :named @p_7))
+(assume a3 (! (mat$ @p_3 @p_1 m2$) :named @p_8))
+(assume a18 (! (=> (! (and @p_7 @p_8) :named @p_9) @p_5) :named @p_10))
+(step t0 (cl (! (not @p_9) :named @p_11) @p_5) :rule implies :premises (a18))
+(step t1 (cl @p_5 @p_11) :rule reordering :premises (t0))
+(step t2 (cl @p_9 (not @p_7) (not @p_8)) :rule and_neg)
+(step t3 (cl @p_9) :rule resolution :premises (t2 a2 a3))
+(step t4 (cl) :rule resolution :premises (t1 t3 conjecture1))

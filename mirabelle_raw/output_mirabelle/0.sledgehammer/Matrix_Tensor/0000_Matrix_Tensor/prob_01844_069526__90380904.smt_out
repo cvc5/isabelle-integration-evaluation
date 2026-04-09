@@ -1,0 +1,13 @@
+unsat
+(assume a16 (! (=> (! (= y$ one$a) :named @p_1) false) :named @p_2))
+(assume a17 (! (=> (! (= y$ zero$a) :named @p_3) false) :named @p_4))
+(assume a39 (! (or @p_3 @p_1) :named @p_5))
+(step t0 (cl (! (not @p_5) :named @p_6) @p_3 @p_1) :rule or_pos)
+(step t1 (cl (not (! (= @p_4 (! (not @p_3) :named @p_9)) :named @p_10)) (not @p_4) @p_9) :rule equiv_pos2)
+(step t2 (cl @p_10) :rule rare_rewrite :args ("bool-impl-false1" @p_3))
+(step t3 (cl @p_9) :rule resolution :premises (t1 t2 a17))
+(step t4 (cl (not (! (= @p_2 (! (not @p_1) :named @p_7)) :named @p_8)) (not @p_2) @p_7) :rule equiv_pos2)
+(step t5 (cl @p_8) :rule rare_rewrite :args ("bool-impl-false1" @p_1))
+(step t6 (cl @p_7) :rule resolution :premises (t4 t5 a16))
+(step t7 (cl @p_6) :rule resolution :premises (t0 t3 t6))
+(step t8 (cl) :rule resolution :premises (a39 t7))

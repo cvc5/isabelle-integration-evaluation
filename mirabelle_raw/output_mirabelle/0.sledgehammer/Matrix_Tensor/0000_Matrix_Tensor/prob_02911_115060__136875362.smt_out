@@ -1,0 +1,4 @@
+unsat
+(assume a14 (! (= m$ nil$) :named @p_1))
+(assume a27 (! (not @p_1) :named @p_2))
+(step t0 (cl) :rule resolution :premises (a27 a14))

@@ -1,0 +1,8 @@
+unsat
+(assume conjecture1 (! (not (! (fun_app$a (! (mat$ nr$ nc$) :named @p_2) (! (cons$ a$ n$) :named @p_1)) :named @p_3)) :named @p_4))
+(assume a2 (! (= m$ @p_1) :named @p_5))
+(assume a4 (! (fun_app$a @p_2 m$) :named @p_6))
+(step t0 (cl (not (! (= @p_6 @p_3) :named @p_7)) (not @p_6) @p_3) :rule equiv_pos2)
+(step t1 (cl @p_7) :rule cong :premises (a2))
+(step t2 (cl @p_3) :rule resolution :premises (t0 t1 a4))
+(step t3 (cl) :rule resolution :premises (t2 conjecture1))

@@ -1,0 +1,4 @@
+unsat
+(assume conjecture3 (! (not (forall ((?v0 Nat$)) (= (fun_app$g (nth$b (fun_app$i (cons$ x$) xs$)) (fun_app$e (plus$ ?v0) one$)) (fun_app$g (nth$b xs$) ?v0)))) :named @p_1))
+(assume a4 (forall ((?v0 Nat$)) (= (fun_app$g (nth$b (fun_app$i (cons$ x$) xs$)) (fun_app$e (plus$ ?v0) one$)) (fun_app$g (nth$b xs$) ?v0))))
+(step t0 (cl) :rule resolution :premises (a4 conjecture3))

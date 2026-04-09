@@ -1,0 +1,13 @@
+; --decision=internal --simplification=none --full-saturate-quant --proof-format-mode=alethe --proof-granularity=dsl-rewrite --full-saturate-quant --proof-mode=full-proof-strict --no-stats --sat-random-seed=1 --lang=smt2 --proof-prune --proof-prune-input --proof-elim-subtypes --proof-alethe-define-skolems --proof-format-mode=alethe --tlimit 242
+(set-option :produce-proofs true)
+(set-logic AUFLIRA)
+(declare-sort Nat$ 0)
+(declare-sort A_list$ 0)
+(declare-fun i$ () Nat$)
+(declare-fun y$ () A_list$)
+(declare-fun size$ (A_list$) Nat$)
+(declare-fun zero$ () Nat$)
+(declare-fun modulo$ (Nat$ Nat$) Nat$)
+(assert (! (not (=> (= i$ (size$ y$)) (= (modulo$ i$ (size$ y$)) zero$))) :named conjecture0))
+(check-sat)
+(get-proof)

@@ -1,0 +1,4 @@
+unsat
+(assume conjecture10 (! (not (! (=> (fun_app$d (less$ i$) (fun_app$g size$b nil$)) (= (nth$a (fun_app$n (fun_app$o (times$ f$) a$) nil$) i$) (fun_app$p (fun_app$q f$ a$) (nth$a nil$ i$)))) :named @p_1)) :named @p_2))
+(assume a20 @p_1)
+(step t0 (cl) :rule resolution :premises (a20 conjecture10))

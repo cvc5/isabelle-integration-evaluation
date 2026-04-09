@@ -1,0 +1,5 @@
+unsat
+(assume conjecture3 (! (not (! (fun_app$e (mat$ (row_length$ (! (fun_app$f (fun_app$a cons$ a$) m1a$) :named @p_1)) (size$ @p_1)) @p_1) :named @p_2)) :named @p_3))
+(assume a6 (! (and @p_2 (fun_app$e (mat$ (row_length$ m2$) (size$ m2$)) m2$)) :named @p_4))
+(step t0 (cl @p_2) :rule and :premises (a6) :args (0))
+(step t1 (cl) :rule resolution :premises (t0 conjecture3))

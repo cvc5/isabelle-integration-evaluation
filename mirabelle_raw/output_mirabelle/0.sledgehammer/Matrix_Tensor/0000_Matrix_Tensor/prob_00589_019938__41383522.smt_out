@@ -1,0 +1,4 @@
+unsat
+(assume conjecture21 (! (not (! (= (fun_app$a size$ (fun_app$o (fun_app$p (tensor$ f$) m1a$) m2$)) (fun_app$k (fun_app$l times$ (fun_app$a size$ m1a$)) (fun_app$a size$ m2$))) :named @p_1)) :named @p_2))
+(assume a30 @p_1)
+(step t0 (cl) :rule resolution :premises (a30 conjecture21))

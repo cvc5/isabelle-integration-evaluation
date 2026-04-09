@@ -1,0 +1,11 @@
+unsat
+(assume conjecture14 (! (not b$) :named @p_1))
+(assume a15 (! (=> (! (not a$) :named @p_2) b$) :named @p_3))
+(assume a17 (! (=> a$ b$) :named @p_4))
+(step t0 (cl (not (! (not @p_2) :named @p_5)) a$) :rule not_not)
+(step t1 (cl @p_5 b$) :rule implies :premises (a15))
+(step t2 (cl @p_5) :rule resolution :premises (t1 conjecture14))
+(step t3 (cl a$) :rule resolution :premises (t0 t2))
+(step t4 (cl @p_2 b$) :rule implies :premises (a17))
+(step t5 (cl @p_2) :rule resolution :premises (t4 conjecture14))
+(step t6 (cl) :rule resolution :premises (t3 t5))

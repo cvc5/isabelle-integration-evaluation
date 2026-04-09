@@ -1,0 +1,12 @@
+unsat
+(assume conjecture39 (! (not (! (=> (! (and (! (= (! (fun_app$j size$b y$) :named @p_1) i$) :named @p_5) (! (fun_app$e (fun_app$f less$ i$) (fun_app$b (fun_app$c times$a (fun_app$j size$b (! (fun_app$af (cons$ z$) zs$) :named @p_2))) @p_1)) :named @p_4)) :named @p_6) (! (= (fun_app$q (nth$b (fun_app$af (fun_app$ag (vec_vec_Tensor$ f$) @p_2) y$)) i$) (fun_app$ah (fun_app$ai f$ (fun_app$q (nth$b @p_2) (fun_app$b (fun_app$c divide$ i$) @p_1))) (fun_app$q (nth$b y$) (fun_app$b (fun_app$c modulo$ i$) @p_1)))) :named @p_3)) :named @p_7)) :named @p_8))
+(assume a40 (! (=> (! (and (! (= i$ @p_1) :named @p_9) @p_4) :named @p_10) @p_3) :named @p_11))
+(step t0 (cl (not (! (= @p_8 (! (not @p_11) :named @p_12)) :named @p_13)) (not @p_8) @p_12) :rule equiv_pos2)
+(step t1 (cl (= @p_5 @p_9)) :rule rare_rewrite :args ("eq-symm" @p_1 i$))
+(step t2 (cl (= @p_4 @p_4)) :rule refl)
+(step t3 (cl (= @p_6 @p_10)) :rule cong :premises (t1 t2))
+(step t4 (cl (= @p_3 @p_3)) :rule refl)
+(step t5 (cl (= @p_7 @p_11)) :rule cong :premises (t3 t4))
+(step t6 (cl @p_13) :rule cong :premises (t5))
+(step t7 (cl @p_12) :rule resolution :premises (t0 t6 conjecture39))
+(step t8 (cl) :rule resolution :premises (a40 t7))

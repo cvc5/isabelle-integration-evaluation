@@ -1,0 +1,7 @@
+unsat
+(assume conjecture0 (! (not (! (less$ zero$ (size$ y$)) :named @p_1)) :named @p_2))
+(assume a1 (! (=> (! (not (= y$ nil$)) :named @p_3) @p_1) :named @p_4))
+(assume a2 @p_3)
+(step t0 (cl (not @p_3) @p_1) :rule implies :premises (a1))
+(step t1 (cl @p_1) :rule resolution :premises (t0 a2))
+(step t2 (cl) :rule resolution :premises (t1 conjecture0))

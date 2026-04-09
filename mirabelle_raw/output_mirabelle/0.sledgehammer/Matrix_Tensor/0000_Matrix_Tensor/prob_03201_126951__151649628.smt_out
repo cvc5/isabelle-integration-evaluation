@@ -1,0 +1,4 @@
+unsat
+(assume conjecture6 (! (not (! (fun_app$h (fun_app$i less$ j$) (fun_app$a (times$a (size$ a2$)) (size$ b2$))) :named @p_1)) :named @p_2))
+(assume a17 @p_1)
+(step t0 (cl) :rule resolution :premises (a17 conjecture6))

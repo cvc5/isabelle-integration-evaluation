@@ -1,0 +1,11 @@
+; --trigger-sel=max --full-saturate-quant --proof-format-mode=alethe --proof-granularity=dsl-rewrite --full-saturate-quant --proof-mode=full-proof-strict --no-stats --sat-random-seed=1 --lang=smt2 --proof-prune --proof-prune-input --proof-elim-subtypes --proof-alethe-define-skolems --proof-format-mode=alethe --tlimit 238
+(set-option :produce-proofs true)
+(set-logic AUFLIRA)
+(declare-sort Nat$ 0)
+(declare-sort A_list$ 0)
+(declare-fun b$ () A_list$)
+(declare-fun vec$ (Nat$ A_list$) Bool)
+(declare-fun size$ (A_list$) Nat$)
+(assert (! (not (vec$ (size$ b$) b$)) :named conjecture0))
+(check-sat)
+(get-proof)

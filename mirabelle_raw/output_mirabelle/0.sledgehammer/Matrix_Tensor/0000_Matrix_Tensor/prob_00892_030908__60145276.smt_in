@@ -1,0 +1,13 @@
+; --relevant-triggers --full-saturate-quant --proof-format-mode=alethe --proof-granularity=dsl-rewrite --full-saturate-quant --proof-mode=full-proof-strict --no-stats --sat-random-seed=1 --lang=smt2 --proof-prune --proof-prune-input --proof-elim-subtypes --proof-alethe-define-skolems --proof-format-mode=alethe --tlimit 294
+(set-option :produce-proofs true)
+(set-logic AUFLIRA)
+(declare-fun a$ () Int)
+(declare-fun b$ () Int)
+(declare-fun times$ (Int Int) Int)
+(declare-fun divide$ (Int Int) Int)
+(assert (! (not (=> (not (= b$ 0)) (= (divide$ (+ a$ (* b$ (- 1))) b$) (+ (- 1) (divide$ a$ b$))))) :named conjecture0))
+(assert (! (forall ((?v0 Int) (?v1 Int) (?v2 Int)) (=> (not (= ?v0 0)) (= (divide$ (+ ?v1 (times$ ?v0 ?v2)) ?v0) (+ ?v2 (divide$ ?v1 ?v0))))) :named a1))
+(assert (! (< 0 b$) :named a2))
+(assert (! (<= b$ a$) :named a3))
+(check-sat)
+(get-proof)
