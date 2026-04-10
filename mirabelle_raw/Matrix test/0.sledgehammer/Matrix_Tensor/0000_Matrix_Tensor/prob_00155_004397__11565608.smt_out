@@ -1,0 +1,4 @@
+unsat
+(assume conjecture7 (! (not (! (= nc$ zero$a) :named @p_1)) :named @p_2))
+(assume a8 @p_1)
+(step t0 (cl) :rule resolution :premises (a8 conjecture7))

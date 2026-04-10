@@ -1,0 +1,8 @@
+unsat
+(assume conjecture1 (! (not (! (and (! (fun_app$a (mat$ (row_length$ m1$) (size$ m1$)) m1$) :named @p_2) (! (fun_app$a (mat$ (row_length$ m2$) (size$ m2$)) m2$) :named @p_1)) :named @p_3)) :named @p_4))
+(assume a2 (! (and @p_2 (! (and @p_1 (fun_app$a (mat$ (row_length$ m3$) (size$ m3$)) m3$)) :named @p_5)) :named @p_6))
+(step t0 (cl @p_2) :rule and :premises (a2) :args (0))
+(step t1 (cl @p_5) :rule and :premises (a2) :args (1))
+(step t2 (cl @p_1) :rule and :premises (t1) :args (0))
+(step t3 (cl @p_3) :rule and_intro :premises (t0 t2))
+(step t4 (cl) :rule resolution :premises (t3 conjecture1))

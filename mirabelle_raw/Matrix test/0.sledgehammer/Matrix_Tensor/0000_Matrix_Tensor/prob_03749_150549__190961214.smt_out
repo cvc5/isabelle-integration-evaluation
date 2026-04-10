@@ -1,0 +1,4 @@
+unsat
+(assume conjecture7 (! (not (! (fun_app$e (fun_app$f (fun_app$g (matrix_match$ a1$) a2$) b1$) b2$) :named @p_1)) :named @p_2))
+(assume a14 @p_1)
+(step t0 (cl) :rule resolution :premises (a14 conjecture7))

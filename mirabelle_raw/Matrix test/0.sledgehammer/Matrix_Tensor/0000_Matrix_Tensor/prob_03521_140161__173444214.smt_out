@@ -1,0 +1,2 @@
+unsat
+(error "Proof unsupported by Alethe: contains Skolem (kind ground_term, term @ground_term_13")

@@ -1,0 +1,4 @@
+unsat
+(assume conjecture2 (! (not (! (matrix_match$ a1$ a2$ b1$ b2$) :named @p_1)) :named @p_2))
+(assume a3 @p_1)
+(step t0 (cl) :rule resolution :premises (a3 conjecture2))

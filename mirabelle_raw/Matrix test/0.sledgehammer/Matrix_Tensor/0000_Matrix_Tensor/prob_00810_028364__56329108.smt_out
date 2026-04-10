@@ -1,0 +1,11 @@
+unsat
+(assume conjecture20 (! (not (=> (! (fun_app$a (fun_app$b less$ i$) (fun_app$i size$c (! (fun_app$u (cons$ x$) xs$) :named @p_1))) :named @p_3) (! (= (fun_app$p (nth$c (fun_app$u (times$ f$ a$) @p_1)) i$) (fun_app$v (fun_app$w f$ a$) (fun_app$p (nth$c @p_1) i$))) :named @p_2))) :named @p_4))
+(assume a21 (! (=> (! (fun_app$a (fun_app$b less$ j$) (fun_app$i size$c xs$)) :named @p_5) @p_2) :named @p_6))
+(assume a83 (! (=> @p_3 @p_5) :named @p_7))
+(step t0 (cl (! (not @p_6) :named @p_8) (not @p_5) @p_2) :rule implies_pos)
+(step t1 (cl (not @p_3) @p_5) :rule implies :premises (a83))
+(step t2 (cl @p_3) :rule not_implies1 :premises (conjecture20))
+(step t3 (cl @p_5) :rule resolution :premises (t1 t2))
+(step t4 (cl (not @p_2)) :rule not_implies2 :premises (conjecture20))
+(step t5 (cl @p_8) :rule resolution :premises (t0 t3 t4))
+(step t6 (cl) :rule resolution :premises (a21 t5))

@@ -1,0 +1,4 @@
+unsat
+(assume conjecture5 (! (not (! (= (fun_app$b (divide$ (fun_app$b (modulo$ a$) (fun_app$b (times$ b$) c$))) c$) (fun_app$b (modulo$ (fun_app$b (divide$ a$) c$)) b$)) :named @p_1)) :named @p_2))
+(assume a6 @p_1)
+(step t0 (cl) :rule resolution :premises (a6 conjecture5))

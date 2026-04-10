@@ -1,0 +1,7 @@
+unsat
+(assume conjecture0 (! (not (! (fun_app$ (mat$ (row_length$ m2$) (size$ m2$)) m2$) :named @p_1)) :named @p_2))
+(assume a1 (! (=> (! (fun_app$ (mat$ (row_length$ (! (fun_app$a (append$ m1a$) m2$) :named @p_3)) (size$ @p_3)) @p_3) :named @p_4) @p_1) :named @p_5))
+(assume a2 @p_4)
+(step t0 (cl (not @p_4) @p_1) :rule implies :premises (a1))
+(step t1 (cl @p_1) :rule resolution :premises (t0 a2))
+(step t2 (cl) :rule resolution :premises (t1 conjecture0))

@@ -1,0 +1,7 @@
+unsat
+(assume conjecture33 (! (not (! (fun_app$i (fun_app$j less$ (fun_app$c (fun_app$d minus$ j$) (! (size$ m2$) :named @p_1))) (fun_app$c (fun_app$d times$a (size$ m$)) @p_1)) :named @p_2)) :named @p_3))
+(assume a35 (! (=> (! (fun_app$i (fun_app$j less_eq$ @p_1) j$) :named @p_4) @p_2) :named @p_5))
+(assume a60 @p_4)
+(step t0 (cl (not @p_4) @p_2) :rule implies :premises (a35))
+(step t1 (cl @p_2) :rule resolution :premises (t0 a60))
+(step t2 (cl) :rule resolution :premises (t1 conjecture33))

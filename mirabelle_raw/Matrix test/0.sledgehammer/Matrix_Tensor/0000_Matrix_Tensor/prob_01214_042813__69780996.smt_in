@@ -1,0 +1,13 @@
+; --decision=internal --simplification=none --full-saturate-quant --proof-format-mode=alethe --proof-granularity=dsl-rewrite --full-saturate-quant --proof-mode=full-proof-strict --no-stats --sat-random-seed=1 --lang=smt2 --proof-prune --proof-prune-input --proof-elim-subtypes --proof-alethe-define-skolems --proof-format-mode=alethe --tlimit 30000
+(set-option :produce-proofs true)
+(set-logic AUFLIRA)
+(declare-sort Nat$ 0)
+(declare-fun j$ () Nat$)
+(declare-fun k$ () Nat$)
+(declare-fun nat$ (Int) Nat$)
+(declare-fun one$ () Nat$)
+(declare-fun plus$ (Nat$ Nat$) Nat$)
+(declare-fun of_nat$ (Nat$) Int)
+(assert (! (not (=> (= (nat$ (+ (of_nat$ j$) (- 1))) k$) (= (plus$ (nat$ (+ (of_nat$ j$) (- 1))) one$) (plus$ k$ one$)))) :named conjecture0))
+(check-sat)
+(get-proof)

@@ -1,0 +1,11 @@
+unsat
+(assume conjecture0 (! (not (! (mat$ (! (row_length$ m$) :named @p_2) (! (size$ m$) :named @p_1) m$) :named @p_3)) :named @p_4))
+(assume a1 (! (= nc$ @p_1) :named @p_5))
+(assume a2 (! (= @p_2 nr$) :named @p_6))
+(assume a3 (! (mat$ nr$ nc$ m$) :named @p_7))
+(step t0 (cl (not (! (= @p_7 @p_3) :named @p_8)) (not @p_7) @p_3) :rule equiv_pos2)
+(step t1 (cl (= nr$ @p_2)) :rule symm :premises (a2))
+(step t2 (cl (= m$ m$)) :rule refl)
+(step t3 (cl @p_8) :rule cong :premises (t1 a1 t2))
+(step t4 (cl @p_3) :rule resolution :premises (t0 t3 a3))
+(step t5 (cl) :rule resolution :premises (t4 conjecture0))

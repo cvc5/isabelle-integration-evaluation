@@ -1,0 +1,4 @@
+unsat
+(assume conjecture8 (! (not (! (= (size$ (fun_app$i (fun_app$j (tensor$ f$) m1a$) m2$)) (fun_app$b (fun_app$c times$a (size$ m1a$)) (size$ m2$))) :named @p_1)) :named @p_2))
+(assume a17 @p_1)
+(step t0 (cl) :rule resolution :premises (a17 conjecture8))

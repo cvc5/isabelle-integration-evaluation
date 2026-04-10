@@ -1,0 +1,4 @@
+unsat
+(assume conjecture39 (! (not (! (=> (fun_app$j (fun_app$k less$ i$) (fun_app$q size$f nil$)) (= (fun_app$y (nth$c (fun_app$am (times$ f$ a$) nil$)) i$) (fun_app$an (fun_app$ao f$ a$) (fun_app$y (nth$c nil$) i$)))) :named @p_1)) :named @p_2))
+(assume a50 @p_1)
+(step t0 (cl) :rule resolution :premises (a50 conjecture39))

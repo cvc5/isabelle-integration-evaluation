@@ -1,0 +1,4 @@
+unsat
+(assume conjecture7 (! (not (! (= (row_length$ (fun_app$j (fun_app$k (vec_mat_Tensor$ f$) v$) nil$)) (fun_app$h (fun_app$i times$ (size$a v$)) (row_length$ nil$))) :named @p_1)) :named @p_2))
+(assume a8 @p_1)
+(step t0 (cl) :rule resolution :premises (a8 conjecture7))

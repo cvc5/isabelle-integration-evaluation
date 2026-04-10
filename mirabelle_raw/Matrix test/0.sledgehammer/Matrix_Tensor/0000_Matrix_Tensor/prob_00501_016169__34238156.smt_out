@@ -1,0 +1,4 @@
+unsat
+(assume conjecture0 (! (not (! (fun_app$ (mat$ (row_length$ (! (cons$ a$ ma$) :named @p_1)) (size$ @p_1)) @p_1) :named @p_2)) :named @p_3))
+(assume a4 @p_2)
+(step t0 (cl) :rule resolution :premises (a4 conjecture0))

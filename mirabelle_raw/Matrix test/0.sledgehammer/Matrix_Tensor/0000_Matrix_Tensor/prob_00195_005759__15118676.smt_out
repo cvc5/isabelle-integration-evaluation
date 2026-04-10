@@ -1,0 +1,4 @@
+unsat
+(assume conjecture44 (! (not (! (fun_app$ag (mat$ zero$ nc$) m$) :named @p_1)) :named @p_2))
+(assume a45 @p_1)
+(step t0 (cl) :rule resolution :premises (a45 conjecture44))

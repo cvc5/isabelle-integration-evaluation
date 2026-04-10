@@ -1,0 +1,4 @@
+unsat
+(assume conjecture20 (! (not (! (vec$ (fun_app$p (fun_app$q times$b nr$) k$) x$) :named @p_1)) :named @p_2))
+(assume a21 @p_1)
+(step t0 (cl) :rule resolution :premises (a21 conjecture20))

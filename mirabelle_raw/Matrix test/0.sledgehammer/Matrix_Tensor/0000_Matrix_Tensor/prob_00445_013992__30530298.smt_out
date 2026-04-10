@@ -1,0 +1,6 @@
+unsat
+(assume conjecture22 (! (not (! (= (! (fun_app$l size$c nil$c) :named @p_1) zero$) :named @p_2)) :named @p_3))
+(assume a30 @p_2)
+(step t0 (cl (! (= zero$ @p_1) :named @p_4)) :rule symm :premises (a30))
+(step t1 (cl (not @p_4)) :rule not_symm :premises (conjecture22))
+(step t2 (cl) :rule resolution :premises (t0 t1))

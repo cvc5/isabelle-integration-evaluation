@@ -1,0 +1,4 @@
+unsat
+(assume conjecture1 (! (not (! (less$ (fun_app$a (modulo$ (divide$ a$ c$)) b$) b$) :named @p_1)) :named @p_2))
+(assume a5 @p_1)
+(step t0 (cl) :rule resolution :premises (a5 conjecture1))

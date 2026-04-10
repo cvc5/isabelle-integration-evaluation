@@ -1,0 +1,4 @@
+unsat
+(assume conjecture21 (! (not (! (=> (fun_app$f (fun_app$g less$ i$) (fun_app$l size$d nil$)) (= (fun_app$p (nth$b (fun_app$u (fun_app$v (times$ f$) a$) nil$)) i$) (fun_app$w (fun_app$x f$ a$) (fun_app$p (nth$b nil$) i$)))) :named @p_1)) :named @p_2))
+(assume a33 @p_1)
+(step t0 (cl) :rule resolution :premises (a33 conjecture21))

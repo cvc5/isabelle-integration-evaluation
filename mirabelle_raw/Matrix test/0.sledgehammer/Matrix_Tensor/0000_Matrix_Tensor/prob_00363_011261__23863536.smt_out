@@ -1,0 +1,8 @@
+unsat
+(assume conjecture10 (! (not (! (mat$ nr$ nc$ (! (fun_app$m (fun_app$a cons$ a$) n$) :named @p_1)) :named @p_2)) :named @p_3))
+(assume a11 (! (= m$ @p_1) :named @p_4))
+(assume a12 (! (mat$ nr$ nc$ m$) :named @p_5))
+(step t0 (cl (not (! (= @p_5 @p_2) :named @p_6)) (not @p_5) @p_2) :rule equiv_pos2)
+(step t1 (cl @p_6) :rule cong :premises (a11))
+(step t2 (cl @p_2) :rule resolution :premises (t0 t1 a12))
+(step t3 (cl) :rule resolution :premises (t2 conjecture10))

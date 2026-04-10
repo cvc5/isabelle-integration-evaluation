@@ -1,0 +1,6 @@
+unsat
+(assume conjecture56 (! (not (! (= (! (fun_app$al size$b v1$) :named @p_1) (fun_app$ suc$ k$)) :named @p_2)) :named @p_3))
+(assume a66 (! (and (= @p_1 (fun_app$al size$b v2$)) (! (and @p_2 (= (fun_app$al size$b w1$) (fun_app$al size$b w2$))) :named @p_4)) :named @p_5))
+(step t0 (cl @p_4) :rule and :premises (a66) :args (1))
+(step t1 (cl @p_2) :rule and :premises (t0) :args (0))
+(step t2 (cl) :rule resolution :premises (t1 conjecture56))

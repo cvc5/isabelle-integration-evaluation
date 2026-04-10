@@ -1,0 +1,4 @@
+unsat
+(assume conjecture6 (! (not (! (fun_app$a (fun_app$k vec$ (fun_app$ (fun_app$l times$ nr$) k$)) x$) :named @p_1)) :named @p_2))
+(assume a7 @p_1)
+(step t0 (cl) :rule resolution :premises (a7 conjecture6))

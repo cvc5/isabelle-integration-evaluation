@@ -1,0 +1,7 @@
+unsat
+(assume conjecture0 (! (not (! (fun_app$ (mat$ (fun_app$a (times$ (! (row_length$ ma$) :named @p_2)) (size$ v$)) (! (size$a ma$) :named @p_1)) (fun_app$b (vec_mat_Tensor$ f$ v$) ma$)) :named @p_3)) :named @p_4))
+(assume a9 (! (fun_app$ (mat$ @p_2 @p_1) ma$) :named @p_5))
+(assume a10 (! (=> @p_5 @p_3) :named @p_6))
+(step t0 (cl (! (not @p_5) :named @p_7) @p_3) :rule implies :premises (a10))
+(step t1 (cl @p_3 @p_7) :rule reordering :premises (t0))
+(step t2 (cl) :rule resolution :premises (t1 a9 conjecture0))

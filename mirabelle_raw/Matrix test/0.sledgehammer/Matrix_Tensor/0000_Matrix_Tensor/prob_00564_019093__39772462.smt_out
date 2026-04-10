@@ -1,0 +1,4 @@
+unsat
+(assume conjecture2 (! (not (! (fun_app$b (mat$ (fun_app$c (times$ (row_length$ (! (cons$ a$ ma$) :named @p_1))) (size$ v$)) (size$a @p_1)) (fun_app$d (fun_app$e (vec_mat_Tensor$ f$) v$) @p_1)) :named @p_2)) :named @p_3))
+(assume a3 @p_2)
+(step t0 (cl) :rule resolution :premises (a3 conjecture2))
