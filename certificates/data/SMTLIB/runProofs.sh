@@ -28,7 +28,7 @@ Help()
    echo
    echo "options:"
    echo "l     Run on specific logic (e.g., QF_LRA). Can give several arguments with -l"
-   echo "c     Run a specific config (verit or cvc5). Can give several arguments with -c"
+   echo "c     Run a specific config (verit,cvc5,cpc,cvc5_solving,verit_solving). Can give several arguments with -c"
    echo "t     Set timeout for slurm (each separate call to slurm has to use this timeout not this script itself)"
    echo "p     Override partition for calls to slurm"
    echo "h     Print this Help."

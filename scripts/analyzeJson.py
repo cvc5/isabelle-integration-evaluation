@@ -135,7 +135,7 @@ def _collect_solving(entry: dict, library: str, benchmark: str, bd: BenchmarkDat
         if "solving_time" in s:
             #user_time = extract_user_time(s["solving_time"])
             try:
-             user_time = float(s["solving_time"])/e^19
+             user_time = float(s["solving_time"])/1e9
             except Exception:
              user_time = extract_user_time(s["solving_time"])
             if user_time is not None:
@@ -158,7 +158,7 @@ def _collect_checking(entry: dict, library: str, benchmark: str, bd: BenchmarkDa
             bd.checked_benchmarks[library][solver].add(benchmark)
 
         if "checking_time" in c:
-            checking_time = float(c["checking_time"])/100000000
+            checking_time = float(c["checking_time"])/1e9
             if checking_time is not None:
                 bd.checking_time_stats[library][solver].append(checking_time)
                 bd.checking_time_per_benchmark[library][solver][benchmark] = checking_time
@@ -296,7 +296,6 @@ def compute_solver_stats(
 
     solving_times = bd.time_stats[library][solver]
     ss.total_time = sum(solving_times)
-
     checking_times = bd.checking_time_stats[library][solver]
     ss.total_checking_time = sum(checking_times)
 
@@ -396,24 +395,31 @@ def print_summary(bd: BenchmarkData):
     rows = []
     for lib in libraries:
         common = common_benchmarks(bd, lib, solvers)
-
+        if len(solvers) == 1:
+            common = bd.solved_benchmarks[lib][solvers[0]]
         row = [lib, len(bd.all_benchmarks[lib])]
         for s in solvers:
             is_solving_only = s in SOLVING_ONLY_CONFIGS
             #TODO: duplicate code, should be solidified
-            common_solving_times = [
-             bd.time_per_benchmark[lib][s][b]
-             for b in common if b in bd.time_per_benchmark[lib][s]
-            ]
-            if common_solving_times:
-              total_common_time = sum(common_solving_times)
+            total_common_time = None
+            total_common_checking_time = None
 
-            common_checking_times = [
-               bd.checking_time_per_benchmark[lib][s][b]
-               for b in common if b in bd.checking_time_per_benchmark[lib][s]
-            ]
-            if common_checking_times:
-              total_common_checking_time = sum(common_checking_times)
+            if len(solvers) == 1:
+              solving_times = bd.time_stats[lib][s]
+              checking_times = bd.checking_time_stats[lib][s]
+            else:
+              solving_times = [
+                bd.time_per_benchmark[lib][s][b]
+                for b in common if b in bd.time_per_benchmark[lib][s]
+              ]
+              checking_times = [
+                bd.checking_time_per_benchmark[lib][s][b]
+                for b in common if b in bd.checking_time_per_benchmark[lib][s]
+              ]
+            if solving_times:
+              total_common_time = sum(solving_times)
+            if checking_times:
+              total_common_checking_time = sum(checking_times)
 
 
             if solving:
@@ -421,8 +427,10 @@ def print_summary(bd: BenchmarkData):
             if checking and not is_solving_only:
                 row.append(bd.checking_counts[lib][s])
             if solving and checking and not is_solving_only:
-                if common_solving_times:
-                  row.append(int(total_common_time+total_common_checking_time))
+                t_solve = total_common_time if total_common_time is not None else 0
+                t_check = total_common_checking_time if total_common_checking_time is not None else 0
+                if total_common_time is not None or total_common_checking_time is not None:
+                  row.append(int(t_solve + t_check))
                 else:
                   row.append("N/A")
 

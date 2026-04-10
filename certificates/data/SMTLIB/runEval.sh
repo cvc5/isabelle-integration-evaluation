@@ -7,7 +7,7 @@ BENCH_PATH="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/c
 cd $BENCH_PATH
 
 declare -a logics=("LIA" "LRA" "QF_IDL" "QF_LIA" "QF_LRA" "QF_LRA" "QF_RDL" "QF_UF" "QF_UFIDL" "QF_UFLIA" "QF_UFLRA" "UF" "UFIDL" "UFLIA" "UFLRA") #"QF_BV" "NIA")
-declare -a configs=("verit" "cvc5")
+declare -a configs=("verit" "cvc5" "cvc5_solving" "verit_solving")
 
 
 #------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ Help()
    echo
    echo "options:"
    echo "l     Run on specific logic (e.g., QF_LRA). Can give several arguments with -l"
-   echo "c     Run a specific config (verit or cvc5_with_rewrite). Can give several arguments with -c"
+   echo "c     Run a specific config (verit,cvc5,cpc,cvc5_solving,verit_solving). Can give several arguments with -c"
    echo "a     Only run analyze script don't update .json files or copy proofs"
    echo "h     Print this Help."
    echo
