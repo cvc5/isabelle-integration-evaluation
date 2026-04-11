@@ -1,0 +1,3 @@
+CVC5_PROOF_SOLVER=/barrett/scratch/lachnitt/Binaries/cvc5bin ../../Isabelle/bin/isabelle mirabelle -d ../../afp-2026-04-04/thys/ -O output_mirabelle_PNT_preplay_only_cvc5 -A 'sledgehammer[provers=cvc5_proof, keep_probs=true, try0=false, keep_proofs=true, debug=true]' -d ../../afp-2026-04-04/thys/Prime_Number_Theorem/ Prime_Number_Theorem
+
+Only allowed cvc5 strategies for replay

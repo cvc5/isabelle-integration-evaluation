@@ -1,0 +1,460 @@
+0.sledgehammer initialize Params for sledgehammer: {abduce = SOME 0, cache_dir = NONE, compress = NONE, debug = true, expect =
+0.sledgehammer initialize  "", fact_filter = NONE, fact_thresholds = (0.45, 0.85), falsify =
+0.sledgehammer initialize  SOME false, induction_rules = NONE, instantiate = NONE, isar_proofs = NONE,
+0.sledgehammer initialize  lam_trans = NONE, learn = true, max_facts = NONE, max_mono_iters = NONE,
+0.sledgehammer initialize  max_new_mono_instances = NONE, max_proofs = 4, minimize = true, overlord =
+0.sledgehammer initialize  false, preplay_timeout = 1.000, provers = ["cvc5_proof"], slices = 96,
+0.sledgehammer initialize  smt_proofs = true, spy = false, strict = false, timeout = 30.000, try0 =
+0.sledgehammer initialize  false, type_enc = NONE, uncurried_aliases = NONE, verbose = true}
+0.sledgehammer goal.using     40533ms Prime_Number_Theorem.Prime_Number_Theorem_Library 19:618  timeout (SH 40522ms): Timed out
+0.sledgehammer goal.unfolding 45338ms Prime_Number_Theorem.Prime_Number_Theorem_Library 19:630  some (SH 45335ms, ATP 1007ms): Try this: by (smt (cvc5, fmf) homotopic_loops image_subset_iff_funcset) (2.4 s)
+0.sledgehammer goal.by        41965ms Prime_Number_Theorem.Prime_Number_Theorem_Library 19:656  some (SH 41963ms, ATP 986ms): Try this: by (smt (cvc5) Pi_I funcset_mem image_subset_iff_funcset)
+0.sledgehammer goal.using     45558ms Prime_Number_Theorem.Prime_Number_Theorem_Library 30:1082  some (SH 45554ms, ATP 988ms): Try this: by (smt (cvc5, fmf) assms(1,2,3,4,5,6) homotopic_paths[of s p q] image_subset_iff_funcset[of h "{0..1} \<times> {0..1}" s]) (3.4 s)
+0.sledgehammer goal.unfolding 32179ms Prime_Number_Theorem.Prime_Number_Theorem_Library 30:1094  some (SH 32177ms, ATP 972ms): Try this: by (smt (cvc5, fmf) homotopic_paths[of s p q] image_subset_iff_funcset[of h "{0..1} \<times> {0..1}" s]) (2.8 s)
+0.sledgehammer goal.by        43628ms Prime_Number_Theorem.Prime_Number_Theorem_Library 30:1120  some (SH 43626ms, ATP 1264ms): Try this: by (smt (cvc5) Pi_I funcset_mem image_subset_iff_funcset)
+0.sledgehammer goal.proof     37774ms Prime_Number_Theorem.Prime_Number_Theorem_Library 34:1273  timeout (SH 37772ms): Timed out
+0.sledgehammer goal.by        37528ms Prime_Number_Theorem.Prime_Number_Theorem_Library 37:1377  some (SH 37526ms, ATP 3290ms): Try this: by (smt (cvc5, trigger_max) bot_nat_0.not_eq_extremum id_apply mangoldt_sum of_real_eq_id sum_upto_cong) (437 ms)
+0.sledgehammer goal.by        36991ms Prime_Number_Theorem.Prime_Number_Theorem_Library 39:1509  timeout (SH 36989ms): Timed out
+0.sledgehammer goal.unfolding 37616ms Prime_Number_Theorem.Prime_Number_Theorem_Library 41:1610  timeout (SH 37614ms): Timed out
+0.sledgehammer goal.by        32529ms Prime_Number_Theorem.Prime_Number_Theorem_Library 41:1636  timeout (SH 32527ms): Timed out
+0.sledgehammer goal.proof     36660ms Prime_Number_Theorem.Prime_Number_Theorem_Library 47:1785  timeout (SH 36658ms): Timed out
+0.sledgehammer goal.by        36258ms Prime_Number_Theorem.Prime_Number_Theorem_Library 48:1853  timeout (SH 36256ms): Timed out
+0.sledgehammer goal.by        33106ms Prime_Number_Theorem.Prime_Number_Theorem_Library 50:1917  timeout (SH 33104ms): Timed out
+0.sledgehammer goal.unfolding 82309ms Prime_Number_Theorem.Prime_Number_Theorem_Library 52:2049  some (SH 82308ms, ATP 669ms): Try this: by (smt (cvc5, best) floor_divide_of_nat_eq linordered_euclidean_semiring_class.of_nat_div nat_div_as_int sum_upto_cong sum_upto_ln_conv_sum_upto_mangoldt) (484 ms)
+0.sledgehammer goal.by        46971ms Prime_Number_Theorem.Prime_Number_Theorem_Library 53:2098  some (SH 46969ms, ATP 2318ms): Try this: by (smt (cvc5, quant_saturate) floor_divide_of_nat_eq linordered_euclidean_semiring_class.of_nat_div nat_div_as_int sum_upto_cong) (419 ms)
+0.sledgehammer goal.unfolding 36640ms Prime_Number_Theorem.Prime_Number_Theorem_Library 61:2403  timeout (SH 36638ms): Timed out
+0.sledgehammer goal.proof     38112ms Prime_Number_Theorem.Prime_Number_Theorem_Library 62:2435  timeout (SH 38109ms): Timed out
+0.sledgehammer goal.by        37555ms Prime_Number_Theorem.Prime_Number_Theorem_Library 64:2547  timeout (SH 37553ms): Timed out
+0.sledgehammer goal.by        32836ms Prime_Number_Theorem.Prime_Number_Theorem_Library 68:2769  timeout (SH 32834ms): Timed out
+0.sledgehammer goal.proof     36179ms Prime_Number_Theorem.Prime_Number_Theorem_Library 74:2963  timeout (SH 36177ms): Timed out
+0.sledgehammer goal.by        37903ms Prime_Number_Theorem.Prime_Number_Theorem_Library 76:3046  timeout (SH 37901ms): Timed out
+0.sledgehammer goal.by        40601ms Prime_Number_Theorem.Prime_Number_Theorem_Library 78:3214  some (SH 40599ms, ATP 1409ms): Try this: by (smt (cvc5, quant_saturate) divide_eq_0_iff fds_cong fds_nth_0 fds_nth_fds' scaleR_conv_of_real semiring_1_class.of_nat_simps(1) suminf_zero times_divide_eq_right) (811 ms)
+0.sledgehammer goal.by        38646ms Prime_Number_Theorem.Prime_Number_Theorem_Library 79:3272  timeout (SH 38644ms): Timed out
+0.sledgehammer goal.proof     36448ms Prime_Number_Theorem.Prime_Number_Theorem_Library 85:3426  timeout (SH 36446ms): Timed out
+0.sledgehammer goal.by        37620ms Prime_Number_Theorem.Prime_Number_Theorem_Library 87:3516  timeout (SH 37617ms): Timed out
+0.sledgehammer goal.by        49795ms Prime_Number_Theorem.Prime_Number_Theorem_Library 89:3705  some (SH 49794ms, ATP 4007ms): Try this: by (smt (cvc5) divide_eq_0_iff divide_eq_0_iff fds_cong fds_nth_0 fds_nth_fds' norm_divide norm_scaleR norm_zero norm_zero times_divide_eq_right)
+0.sledgehammer goal.by        37128ms Prime_Number_Theorem.Prime_Number_Theorem_Library 90:3755  timeout (SH 37127ms): Timed out
+0.sledgehammer goal.by        14561ms Prime_Number_Theorem.Prime_Number_Theorem_Library 94:3874  some (SH 14559ms, ATP 779ms): Try this: by (smt (cvc5, trigger_max) conv_abscissa_mono fds_converges_scaleR) (186 ms)
+0.sledgehammer goal.by        14528ms Prime_Number_Theorem.Prime_Number_Theorem_Library 97:3998  some (SH 14526ms, ATP 811ms): Try this: by (smt (cvc5, trigger_last) abs_conv_abscissa_mono fds_abs_converges_scaleR) (128 ms)
+0.sledgehammer goal.by        37412ms Prime_Number_Theorem.Prime_Number_Theorem_Library 101:4154  timeout (SH 37411ms): Timed out
+0.sledgehammer goal.by        17770ms Prime_Number_Theorem.Prime_Number_Theorem_Library 105:4343  some (SH 17768ms, ATP 788ms): Try this: by (smt (cvc5, best) conv_abscissa_mono fds_converges_cmult_left) (135 ms)
+0.sledgehammer goal.by        17285ms Prime_Number_Theorem.Prime_Number_Theorem_Library 109:4484  some (SH 17283ms, ATP 741ms): Try this: by (smt (cvc5, best) abs_conv_abscissa_mono fds_abs_converges_mult_const_left) (152 ms)
+0.sledgehammer goal.by        24065ms Prime_Number_Theorem.Prime_Number_Theorem_Library 113:4642  some (SH 24063ms, ATP 742ms): Try this: by (smt (cvc5, fmf) Groups.mult_ac(2) fds_abs_converges_mult_const_left) (83 ms)
+0.sledgehammer goal.by        11409ms Prime_Number_Theorem.Prime_Number_Theorem_Library 117:4795  some (SH 11407ms, ATP 801ms): Try this: by (smt (cvc5, best) Groups.mult_ac(2) conv_abscissa_mult_const_left) (46 ms)
+0.sledgehammer goal.by        11638ms Prime_Number_Theorem.Prime_Number_Theorem_Library 121:4937  some (SH 11636ms, ATP 681ms): Try this: by (smt (cvc5, best) Groups.mult_ac(2) abs_conv_abscissa_mult_const_left) (72 ms)
+0.sledgehammer goal.proof     36077ms Prime_Number_Theorem.Prime_Number_Theorem_Library 128:5153  timeout (SH 36075ms): Timed out
+0.sledgehammer goal.by        36475ms Prime_Number_Theorem.Prime_Number_Theorem_Library 130:5225  timeout (SH 36473ms): Timed out
+0.sledgehammer goal.proof     35492ms Prime_Number_Theorem.Prime_Number_Theorem_Library 132:5267  timeout (SH 35489ms): Timed out
+0.sledgehammer goal.by        61578ms Prime_Number_Theorem.Prime_Number_Theorem_Library 134:5387  some (SH 61571ms, ATP 937ms): Try this: by (smt (cvc5, fmf) fds_abs_converges_imp_converges fds_abs_summable_zeta_iff fds_converges_scaleR real_inner_1_right) (966 ms)
+0.sledgehammer goal.by        36838ms Prime_Number_Theorem.Prime_Number_Theorem_Library 136:5531  timeout (SH 36836ms): Timed out
+0.sledgehammer goal.proof     38424ms Prime_Number_Theorem.Prime_Number_Theorem_Library 144:5805  timeout (SH 38421ms): Timed out
+0.sledgehammer goal.by        36678ms Prime_Number_Theorem.Prime_Number_Theorem_Library 146:5888  timeout (SH 36675ms): Timed out
+0.sledgehammer goal.by        37014ms Prime_Number_Theorem.Prime_Number_Theorem_Library 147:5967  timeout (SH 37011ms): Timed out
+0.sledgehammer goal.by        99018ms Prime_Number_Theorem.Prime_Number_Theorem_Library 149:6046  some (SH 99015ms, ATP 807ms): Try this: by (smt (cvc5, noematch) add_diff_cancel_right' bounded_coeffs_imp_fds_abs_converges cross3_simps(36)) (1.7 s)
+0.sledgehammer goal.by        21654ms Prime_Number_Theorem.Prime_Number_Theorem_Library 150:6136  some (SH 21652ms, ATP 725ms): Try this: by (smt (cvc5, best) add_diff_cancel_right' fds_abs_converges_shift) (71 ms)
+0.sledgehammer goal.proof     36827ms Prime_Number_Theorem.Prime_Number_Theorem_Library 157:6370  timeout (SH 36825ms): Timed out
+0.sledgehammer goal.by         7355ms Prime_Number_Theorem.Prime_Number_Theorem_Library 159:6470  some (SH 7353ms, ATP 523ms): Try this: by (smt (cvc5, quant_saturate) assms(2)) (44 ms)
+0.sledgehammer goal.by        12864ms Prime_Number_Theorem.Prime_Number_Theorem_Library 160:6504  some (SH 11775ms, ATP 554ms): Try this: by (smt (cvc5, best) \<open>c < ereal x\<close>) (25 ms)
+0.sledgehammer goal.by         6365ms Prime_Number_Theorem.Prime_Number_Theorem_Library 161:6549  some (SH 6363ms, ATP 518ms): Try this: by (smt (cvc5, trigger_max)) (41 ms)
+0.sledgehammer goal.by        38970ms Prime_Number_Theorem.Prime_Number_Theorem_Library 163:6602  timeout (SH 37678ms): Timed out
+0.sledgehammer goal.proof     36583ms Prime_Number_Theorem.Prime_Number_Theorem_Library 170:6850  timeout (SH 36581ms): Timed out
+0.sledgehammer goal.by        15840ms Prime_Number_Theorem.Prime_Number_Theorem_Library 172:6927  some (SH 15837ms, ATP 815ms): Try this: by (smt (cvc5, noematch) fds_nth_shift fds_shift_by_0) (60 ms)
+0.sledgehammer goal.by        35687ms Prime_Number_Theorem.Prime_Number_Theorem_Library 174:6970  timeout (SH 35685ms): Timed out
+0.sledgehammer goal.proof     37048ms Prime_Number_Theorem.Prime_Number_Theorem_Library 186:7549  timeout (SH 37046ms): Timed out
+0.sledgehammer goal.using     36750ms Prime_Number_Theorem.Prime_Number_Theorem_Library 190:7763  timeout (SH 36748ms): Timed out
+0.sledgehammer goal.unfolding 35719ms Prime_Number_Theorem.Prime_Number_Theorem_Library 190:7774  timeout (SH 35718ms): Timed out
+0.sledgehammer goal.by        35647ms Prime_Number_Theorem.Prime_Number_Theorem_Library 190:7805  timeout (SH 35645ms): Timed out
+0.sledgehammer goal.using     37717ms Prime_Number_Theorem.Prime_Number_Theorem_Library 191:7893  timeout (SH 37715ms): Timed out
+0.sledgehammer goal.by        36357ms Prime_Number_Theorem.Prime_Number_Theorem_Library 192:7915  timeout (SH 36355ms): Timed out
+0.sledgehammer goal.by        37739ms Prime_Number_Theorem.Prime_Number_Theorem_Library 194:8060  timeout (SH 37737ms): Timed out
+0.sledgehammer goal.using     37020ms Prime_Number_Theorem.Prime_Number_Theorem_Library 195:8172  timeout (SH 37017ms): Timed out
+0.sledgehammer goal.by        36977ms Prime_Number_Theorem.Prime_Number_Theorem_Library 196:8194  timeout (SH 36975ms): Timed out
+0.sledgehammer goal.by        11098ms Prime_Number_Theorem.Prime_Number_Theorem_Library 198:8378  some (SH 11095ms, ATP 511ms): Try this: by (smt (cvc5, fmf) interval_integral_to_infinity_eq) (188 ms)
+0.sledgehammer goal.using     35359ms Prime_Number_Theorem.Prime_Number_Theorem_Library 200:8498  timeout (SH 35357ms): Timed out
+0.sledgehammer goal.by        15671ms Prime_Number_Theorem.Prime_Number_Theorem_Library 200:8543  some (SH 15668ms, ATP 119ms): Try this: by (smt (cvc5, fmf) einterval_eq_Ici integrable_integral) (83 ms)
+0.sledgehammer goal.unfolding 36526ms Prime_Number_Theorem.Prime_Number_Theorem_Library 205:8682  timeout (SH 36524ms): Timed out
+0.sledgehammer goal.by        37662ms Prime_Number_Theorem.Prime_Number_Theorem_Library 206:8755  timeout (SH 37661ms): Timed out
+0.sledgehammer goal.proof     38405ms Prime_Number_Theorem.Prime_Number_Theorem_Library 211:8970  timeout (SH 38403ms): Timed out
+0.sledgehammer goal.unfolding 40469ms Prime_Number_Theorem.Prime_Number_Theorem_Library 214:9109  timeout (SH 40466ms): Timed out
+0.sledgehammer goal.by        38529ms Prime_Number_Theorem.Prime_Number_Theorem_Library 215:9141  timeout (SH 38527ms): Timed out
+0.sledgehammer goal.using     37012ms Prime_Number_Theorem.Prime_Number_Theorem_Library 216:9246  timeout (SH 37011ms): Timed out
+0.sledgehammer goal.by        36826ms Prime_Number_Theorem.Prime_Number_Theorem_Library 217:9262  timeout (SH 36824ms): Timed out
+0.sledgehammer goal.by        39480ms Prime_Number_Theorem.Prime_Number_Theorem_Library 222:9439  timeout (SH 39479ms): Timed out
+0.sledgehammer goal.by        38270ms Prime_Number_Theorem.Prime_Number_Theorem_Library 225:9538  timeout (SH 38267ms): Timed out
+0.sledgehammer goal.proof     36806ms Prime_Number_Theorem.Prime_Number_Theorem_Library 232:9862  timeout (SH 36805ms): Timed out
+0.sledgehammer goal.using     39543ms Prime_Number_Theorem.Prime_Number_Theorem_Library 234:9965  timeout (SH 39540ms): Timed out
+0.sledgehammer goal.by        38643ms Prime_Number_Theorem.Prime_Number_Theorem_Library 234:10027  timeout (SH 38642ms): Timed out
+0.sledgehammer goal.using     36591ms Prime_Number_Theorem.Prime_Number_Theorem_Library 237:10191  timeout (SH 36588ms): Timed out
+0.sledgehammer goal.by        39512ms Prime_Number_Theorem.Prime_Number_Theorem_Library 237:10248  timeout (SH 39510ms): Timed out
+0.sledgehammer goal.using     38137ms Prime_Number_Theorem.Prime_Number_Theorem_Library 238:10355  timeout (SH 38135ms): Timed out
+0.sledgehammer goal.by        37028ms Prime_Number_Theorem.Prime_Number_Theorem_Library 239:10371  timeout (SH 37027ms): Timed out
+0.sledgehammer goal.using     96470ms Prime_Number_Theorem.Prime_Number_Theorem_Library 248:10748  some (SH 96468ms, ATP 3020ms): Try this: by (smt (cvc5, trigger_relev) assms(1,2) contour_integrable_on_def has_contour_integral_linepath_same_Im_iff integrable_eq integrable_on_def) (1.9 s)
+0.sledgehammer goal.by        37598ms Prime_Number_Theorem.Prime_Number_Theorem_Library 248:10832  timeout (SH 37596ms): Timed out
+0.sledgehammer goal.proof     157600ms Prime_Number_Theorem.Prime_Number_Theorem_Library 254:11066  timeout (SH 157599ms):
+0.sledgehammer goal.using     37180ms Prime_Number_Theorem.Prime_Number_Theorem_Library 256:11146  timeout (SH 37177ms): Timed out
+0.sledgehammer goal.using     12570ms Prime_Number_Theorem.Prime_Number_Theorem_Library 257:11214  some (SH 12569ms, ATP 2023ms): Try this: by (smt (cvc5, trigger_relev) has_contour_integral_integral integral_unique) (162 ms)
+0.sledgehammer goal.by        18981ms Prime_Number_Theorem.Prime_Number_Theorem_Library 257:11278  some (SH 18979ms, ATP 1571ms): Try this: by (smt (cvc5, term_relev) integral_unique) (161 ms)
+0.sledgehammer goal.using     40794ms Prime_Number_Theorem.Prime_Number_Theorem_Library 260:11320  timeout (SH 40792ms): Timed out
+0.sledgehammer goal.by        40128ms Prime_Number_Theorem.Prime_Number_Theorem_Library 261:11386  some (SH 40127ms, ATP 1408ms): Try this: by (smt (cvc5, fmf) not_integrable_contour_integral not_integrable_integral) (371 ms)
+0.sledgehammer goal.by        46910ms Prime_Number_Theorem.Prime_Number_Theorem_Library 268:11599  some (SH 46908ms, ATP 3576ms): Try this: by (smt (cvc5, trigger_max) cis_2pi cis_mult more_arith_simps(6) periodic_fun_simple_def) (128 ms)
+0.sledgehammer goal.proof     36930ms Prime_Number_Theorem.Prime_Number_Theorem_Library 273:11789  timeout (SH 36929ms): Timed out
+0.sledgehammer goal.by        16743ms Prime_Number_Theorem.Prime_Number_Theorem_Library 275:11868  some (SH 16741ms, ATP 3540ms): Try this: by (smt (cvc5, fmf) analytic_at_ball analytic_on_analytic_at) (1.1 s)
+0.sledgehammer goal.by        29829ms Prime_Number_Theorem.Prime_Number_Theorem_Library 277:12024  some (SH 29827ms, ATP 1450ms): Try this: by (smt (cvc5, quant_saturate) Elementary_Metric_Spaces.open_ball centre_in_ball) (505 ms)
+0.sledgehammer goal.by        13933ms Prime_Number_Theorem.Prime_Number_Theorem_Library 278:12080  some (SH 13931ms, ATP 999ms): Try this: by (smt (cvc5, trigger_last) Elementary_Metric_Spaces.open_ball analytic_on_open) (207 ms)
+0.sledgehammer goal.using     53518ms Prime_Number_Theorem.Prime_Number_Theorem_Library 279:12138  some (SH 53516ms, ATP 1599ms): Try this: by (smt (cvc5) Basis_complex_def analytic_on_subset complex_inner_1_right complex_inner_i_right insertCI that)
+0.sledgehammer goal.by        33077ms Prime_Number_Theorem.Prime_Number_Theorem_Library 280:12207  some (SH 33075ms, ATP 1669ms): Try this: by (smt (cvc5) Basis_complex_def analytic_on_subset complex_inner_1_right complex_inner_i_right insertCI that)
+0.sledgehammer goal.using     48772ms Prime_Number_Theorem.Prime_Number_Theorem_Library 286:12348  some (SH 48770ms, ATP 459ms): Try this: by (smt (cvc5) Basis_complex_def assms(1,2) complex_inner_1_right complex_inner_i_right empty_iff image_cong inner_image_box insert_iff)
+0.sledgehammer goal.by        48719ms Prime_Number_Theorem.Prime_Number_Theorem_Library 286:12397  some (SH 48717ms, ATP 3004ms): Try this: by (smt (cvc5) Basis_complex_def complex_inner_1_right image_cong inner_image_box insert_iff subset_box(3) subset_box_complex(3))
+0.sledgehammer goal.using     55996ms Prime_Number_Theorem.Prime_Number_Theorem_Library 291:12534  some (SH 55994ms, ATP 2044ms): Try this: by (smt (cvc5) Basis_complex_def assms(1,2) complex_inner_1_right complex_inner_i_right image_cong inner_image_box insert_iff singletonD)
+0.sledgehammer goal.by        42265ms Prime_Number_Theorem.Prime_Number_Theorem_Library 291:12583  some (SH 42263ms, ATP 1627ms): Try this: by (smt (cvc5) Basis_complex_def complex_inner_1_right complex_inner_i_right image_cong inner_image_box insert_iff singletonD)
+0.sledgehammer goal.using     125743ms Prime_Number_Theorem.Prime_Number_Theorem_Library 296:12720  some (SH 125741ms, ATP 377ms): Try this: by (smt (cvc5) Basis_complex_def assms(1,2) complex_inner_1_right complex_inner_i_right image_cong inner_image_cbox insert_iff singletonD)
+0.sledgehammer goal.by        38524ms Prime_Number_Theorem.Prime_Number_Theorem_Library 296:12770  timeout (SH 38521ms): Timed out
+0.sledgehammer goal.using     37224ms Prime_Number_Theorem.Prime_Number_Theorem_Library 301:12907  timeout (SH 37221ms): Timed out
+0.sledgehammer goal.by        43035ms Prime_Number_Theorem.Prime_Number_Theorem_Library 301:12957  some (SH 43032ms, ATP 494ms): Try this: by (smt (cvc5) Basis_complex_def complex_inner_1_right complex_inner_i_right empty_iff image_cong inner_image_cbox insert_iff)
+0.sledgehammer goal.proof     31988ms Prime_Number_Theorem.Prime_Number_Theorem_Library 306:13132  timeout (SH 31985ms): Timed out
+0.sledgehammer goal.by        14310ms Prime_Number_Theorem.Prime_Number_Theorem_Library 308:13208  some (SH 14309ms, ATP 1093ms): Try this: by (smt (cvc5, noematch) analytic_at_ball analytic_on_analytic_at) (580 ms)
+0.sledgehammer goal.by        10841ms Prime_Number_Theorem.Prime_Number_Theorem_Library 309:13273  some (SH 10839ms, ATP 841ms): Try this: by (smt (cvc5, noematch) Elementary_Metric_Spaces.open_ball analytic_on_open) (144 ms)
+0.sledgehammer goal.by        37034ms Prime_Number_Theorem.Prime_Number_Theorem_Library 311:13364  timeout (SH 36994ms): Timed out
+0.sledgehammer goal.using     17416ms Prime_Number_Theorem.Prime_Number_Theorem_Library 313:13523  some (SH 17414ms, ATP 1145ms): Try this: apply (smt (cvc5) \<open>0 < r\<close> assms(3) half_gt_zero)
+0.sledgehammer goal.by        15422ms Prime_Number_Theorem.Prime_Number_Theorem_Library 313:13550  some (SH 15421ms, ATP 1127ms): Try this: apply (smt (cvc5) half_gt_zero)
+0.sledgehammer goal.using     13875ms Prime_Number_Theorem.Prime_Number_Theorem_Library 314:13600  some (SH 13873ms, ATP 851ms): Try this: by (smt (cvc5, fmf) that) (1.7 s)
+0.sledgehammer goal.by        14147ms Prime_Number_Theorem.Prime_Number_Theorem_Library 315:13642  some (SH 14145ms, ATP 789ms): Try this: by (smt (cvc5, fmf)) (825 ms)
+0.sledgehammer goal.using     52219ms Prime_Number_Theorem.Prime_Number_Theorem_Library 322:13792  timeout (SH 52217ms): Timed out
+0.sledgehammer goal.by        37123ms Prime_Number_Theorem.Prime_Number_Theorem_Library 323:13875  timeout (SH 37121ms): Timed out
+0.sledgehammer goal.using     41618ms Prime_Number_Theorem.Prime_Number_Theorem_Library 328:14065  timeout (SH 41616ms): Timed out
+0.sledgehammer goal.by        37816ms Prime_Number_Theorem.Prime_Number_Theorem_Library 329:14156  timeout (SH 37815ms): Timed out
+0.sledgehammer goal.using     38134ms Prime_Number_Theorem.Prime_Number_Theorem_Library 334:14320  timeout (SH 38131ms): Timed out
+0.sledgehammer goal.by        38319ms Prime_Number_Theorem.Prime_Number_Theorem_Library 335:14399  timeout (SH 38318ms): Timed out
+0.sledgehammer goal.using     41308ms Prime_Number_Theorem.Prime_Number_Theorem_Library 339:14517  timeout (SH 41304ms): Timed out
+0.sledgehammer goal.by        41968ms Prime_Number_Theorem.Prime_Number_Theorem_Library 339:14544  timeout (SH 41966ms): Timed out
+0.sledgehammer goal.by        121020ms Prime_Number_Theorem.Prime_Number_Theorem_Library 342:14643  some (SH 121017ms, ATP 1269ms): Try this: by (smt (cvc5, noematch) real_sqrt_mult real_sqrt_unique) (1.6 s)
+0.sledgehammer goal.using     36349ms Prime_Number_Theorem.Prime_Number_Theorem_Library 345:14723  timeout (SH 36348ms): Timed out
+0.sledgehammer goal.by        37690ms Prime_Number_Theorem.Prime_Number_Theorem_Library 345:14756  timeout (SH 37687ms): Timed out
+0.sledgehammer goal.using     37937ms Prime_Number_Theorem.Prime_Number_Theorem_Library 352:14967  timeout (SH 37936ms): Timed out
+0.sledgehammer goal.by        37617ms Prime_Number_Theorem.Prime_Number_Theorem_Library 352:15004  timeout (SH 37614ms): Timed out
+0.sledgehammer goal.unfolding 38316ms Prime_Number_Theorem.Prime_Number_Theorem_Library 358:15164  timeout (SH 38315ms): Timed out
+0.sledgehammer goal.by        37309ms Prime_Number_Theorem.Prime_Number_Theorem_Library 359:15194  timeout (SH 37307ms): Timed out
+0.sledgehammer goal.unfolding 39041ms Prime_Number_Theorem.Prime_Number_Theorem_Library 364:15433  timeout (SH 39040ms): Timed out
+0.sledgehammer goal.by        36316ms Prime_Number_Theorem.Prime_Number_Theorem_Library 365:15467  timeout (SH 36314ms): Timed out
+0.sledgehammer goal.proof     39886ms Prime_Number_Theorem.Prime_Number_Theorem_Library 370:15678  timeout (SH 39884ms): Timed out
+0.sledgehammer goal.by        36534ms Prime_Number_Theorem.Prime_Number_Theorem_Library 372:15733  timeout (SH 36531ms): Timed out
+0.sledgehammer goal.by        24305ms Prime_Number_Theorem.Prime_Number_Theorem_Library 373:15793  some (SH 24303ms, ATP 948ms): Try this: by (smt (cvc5, best) conv_abscissa_mono nle_le) (400 ms)
+0.sledgehammer goal.proof     42535ms Prime_Number_Theorem.Prime_Number_Theorem_Library 379:15977  timeout (SH 42533ms): Timed out
+0.sledgehammer goal.by        39154ms Prime_Number_Theorem.Prime_Number_Theorem_Library 381:16040  timeout (SH 39153ms): Timed out
+0.sledgehammer goal.by        28641ms Prime_Number_Theorem.Prime_Number_Theorem_Library 382:16104  some (SH 28638ms, ATP 2606ms): Try this: by (smt (cvc5, trigger_last) abs_conv_abscissa_mono alethe_la_disequality) (254 ms)
+0.sledgehammer goal.by        34108ms Prime_Number_Theorem.Prime_Number_Theorem_Library 390:16325  timeout (SH 34106ms): Timed out
+0.sledgehammer goal.by        38210ms Prime_Number_Theorem.Prime_Number_Theorem_Library 394:16494  timeout (SH 38208ms): Timed out
+0.sledgehammer goal.by        36699ms Prime_Number_Theorem.Prime_Number_Theorem_Library 399:16724  timeout (SH 36698ms): Timed out
+0.sledgehammer goal.by         7776ms Prime_Number_Theorem.Prime_Number_Theorem_Library 406:17066  some (SH 7771ms, ATP 817ms): Try this: apply (smt (cvc5, noematch) fds_converges_remainder_iff) (197 ms)
+0.sledgehammer goal.by        32520ms Prime_Number_Theorem.Prime_Number_Theorem_Library 410:17175  some (SH 32518ms, ATP 990ms): Try this: by (smt (cvc5, noematch) Collect_cong conv_abscissa_def fds_converges_remainder_iff) (145 ms)
+0.sledgehammer goal.by        39063ms Prime_Number_Theorem.Prime_Number_Theorem_Library 415:17397  some (SH 39061ms, ATP 186ms): Try this: by (smt (cvc5, trigger_last) abs_conv_abscissa_mono alethe_la_disequality fds_abs_converges_remainder_iff) (477 ms)
+0.sledgehammer goal.proof     40625ms Prime_Number_Theorem.Prime_Number_Theorem_Library 421:17676  timeout (SH 40624ms): Timed out
+0.sledgehammer goal.by         7726ms Prime_Number_Theorem.Prime_Number_Theorem_Library 423:17770  some (SH 7725ms, ATP 529ms): Try this: by (smt (cvc5, trigger_relev) fds_converges_remainder_iff) (295 ms)
+0.sledgehammer goal.by        45271ms Prime_Number_Theorem.Prime_Number_Theorem_Library 425:17871  timeout (SH 45269ms): Timed out
+0.sledgehammer goal.by        91881ms Prime_Number_Theorem.Prime_Number_Theorem_Library 427:17980  some (SH 91879ms, ATP 1666ms): Try this: by (smt (cvc5, term_relev) The_cong \<open>\<not> fds_converges (fds_remainder m f) s\<close> eval_fds_def fds_converges_def suminf_def sums_iff) (238 ms)
+0.sledgehammer goal.unfolding 40790ms Prime_Number_Theorem.Prime_Number_Theorem_Library 428:18079  timeout (SH 40787ms): Timed out
+0.sledgehammer goal.by        37866ms Prime_Number_Theorem.Prime_Number_Theorem_Library 429:18111  timeout (SH 37863ms): Timed out
+0.sledgehammer goal.by        46544ms Prime_Number_Theorem.Prime_Number_Theorem_Library 431:18208  timeout (SH 46541ms): Timed out
+0.sledgehammer goal.by        37467ms Prime_Number_Theorem.Prime_Number_Theorem_Library 433:18296  some (SH 37464ms, ATP 1988ms): Try this: by (smt (cvc5, noematch) The_cong suminf_def) (625 ms)
+0.sledgehammer goal.by         8134ms Prime_Number_Theorem.Prime_Number_Theorem_Library 434:18348  some (SH 8132ms, ATP 807ms): Try this: by (smt (cvc5, trigger_last)) (253 ms)
+0.sledgehammer goal.by        59357ms Prime_Number_Theorem.Prime_Number_Theorem_Library 437:18422  some (SH 58610ms, ATP 513ms): Try this: by (smt (cvc5, noematch) fds_converges_remainder_iff) (69 ms)
+0.sledgehammer goal.unfolding 32308ms Prime_Number_Theorem.Prime_Number_Theorem_Library 439:18528  some (SH 32003ms, ATP 232ms): Try this: by (smt (cvc5, trigger_last) eval_fds_def suminf_cong) (152 ms)
+0.sledgehammer goal.using     40465ms Prime_Number_Theorem.Prime_Number_Theorem_Library 441:18648  timeout (SH 40463ms): Timed out
+0.sledgehammer goal.unfolding 37877ms Prime_Number_Theorem.Prime_Number_Theorem_Library 441:18656  timeout (SH 37875ms): Timed out
+0.sledgehammer goal.by        38263ms Prime_Number_Theorem.Prime_Number_Theorem_Library 442:18688  timeout (SH 38261ms): Timed out
+0.sledgehammer goal.by        38542ms Prime_Number_Theorem.Prime_Number_Theorem_Library 444:18853  timeout (SH 38539ms): Timed out
+0.sledgehammer goal.by        37186ms Prime_Number_Theorem.Prime_Number_Theorem_Library 449:19009  timeout (SH 37184ms): Timed out
+0.sledgehammer goal.using     39538ms Prime_Number_Theorem.Prime_Number_Theorem_Library 455:19272  timeout (SH 39535ms): Timed out
+0.sledgehammer goal.by        57225ms Prime_Number_Theorem.Prime_Number_Theorem_Library 456:19371  some (SH 57223ms, ATP 1013ms): Try this: by (smt (cvc5, noematch) comp_apply holomorphic_cong image_subset_iff mem_Collect_eq) (799 ms)
+0.sledgehammer goal.using     37366ms Prime_Number_Theorem.Prime_Number_Theorem_Library 461:19558  timeout (SH 37364ms): Timed out
+0.sledgehammer goal.by        81304ms Prime_Number_Theorem.Prime_Number_Theorem_Library 462:19651  some (SH 81301ms, ATP 262ms): Try this: by (smt (cvc5, best) analytic_on_def comp_apply holomorphic_cong mem_Collect_eq) (589 ms)
+0.sledgehammer goal.using     39029ms Prime_Number_Theorem.Prime_Number_Theorem_Library 467:19857  timeout (SH 39026ms): Timed out
+0.sledgehammer goal.by        38806ms Prime_Number_Theorem.Prime_Number_Theorem_Library 467:19869  timeout (SH 38804ms): Timed out
+0.sledgehammer goal.using     41262ms Prime_Number_Theorem.Prime_Number_Theorem_Library 473:20190  timeout (SH 41259ms): Timed out
+0.sledgehammer goal.by        41400ms Prime_Number_Theorem.Prime_Number_Theorem_Library 473:20202  timeout (SH 41399ms): Timed out
+0.sledgehammer goal.proof     38211ms Prime_Number_Theorem.Prime_Number_Theorem_Library 479:20513  timeout (SH 38208ms): Timed out
+0.sledgehammer goal.proof     38836ms Prime_Number_Theorem.Prime_Number_Theorem_Library 482:20631  timeout (SH 38834ms): Timed out
+0.sledgehammer goal.by        39170ms Prime_Number_Theorem.Prime_Number_Theorem_Library 484:20712  timeout (SH 39167ms): Timed out
+0.sledgehammer goal.by        38592ms Prime_Number_Theorem.Prime_Number_Theorem_Library 487:20847  timeout (SH 38591ms): Timed out
+0.sledgehammer goal.by         7110ms Prime_Number_Theorem.Prime_Number_Theorem_Library 488:20931  some (SH 7107ms, ATP 754ms): Try this: by (smt (cvc5, term_relev) assms(1)) (72 ms)
+0.sledgehammer goal.by        54513ms Prime_Number_Theorem.Prime_Number_Theorem_Library 493:21135  some (SH 54233ms, ATP 359ms): Try this: apply (smt (cvc5, best) \<open>h \<equiv> \<lambda>(x, y). part_circlepath c r (linepath a1 a2 x) (linepath b1 b2 x) y\<close> linepath_0' split_conv) (200 ms)
+0.sledgehammer goal.using     61398ms Prime_Number_Theorem.Prime_Number_Theorem_Library 495:21225  some (SH 61395ms, ATP 1195ms): Try this: by (smt (cvc5) Ints_of_int cis_multiple_2pi mult_of_int_commute of_int_add vector_space_over_itself.scale_left_distrib)
+0.sledgehammer goal.by        80016ms Prime_Number_Theorem.Prime_Number_Theorem_Library 495:21255  some (SH 80013ms, ATP 3046ms): Try this: by (smt (cvc5) Groups.mult_ac(2) cis.ctr cos_eq_neg_periodic_intro cos_one_sin_zero cos_pi one_complex.ctr)
+0.sledgehammer goal.by        37363ms Prime_Number_Theorem.Prime_Number_Theorem_Library 497:21350  timeout (SH 37361ms): Timed out
+0.sledgehammer goal.by        40008ms Prime_Number_Theorem.Prime_Number_Theorem_Library 504:21617  timeout (SH 40007ms): Timed out
+0.sledgehammer goal.proof     40670ms Prime_Number_Theorem.Prime_Number_Theorem_Library 512:22013  timeout (SH 40667ms): Timed out
+0.sledgehammer goal.by        14384ms Prime_Number_Theorem.Prime_Number_Theorem_Library 514:22074  some (SH 14382ms, ATP 852ms): Try this: by (smt (cvc5, fmf)) (1.5 s)
+0.sledgehammer goal.by        35907ms Prime_Number_Theorem.Prime_Number_Theorem_Library 517:22189  timeout (SH 35905ms): Timed out
+0.sledgehammer goal.proof     41123ms Prime_Number_Theorem.Prime_Number_Theorem_Library 522:22327  timeout (SH 41121ms): Timed out
+0.sledgehammer goal.proof     41341ms Prime_Number_Theorem.Prime_Number_Theorem_Library 525:22453  timeout (SH 41340ms): Timed out
+0.sledgehammer goal.by        47534ms Prime_Number_Theorem.Prime_Number_Theorem_Library 528:22566  some (SH 47532ms, ATP 1751ms): Try this: by (smt (cvc5, best) cis_conv_exp[of "linepath a c (f t)"] linepath_def[of a c] part_circlepath_def[of C r a c] real_scaleR_def[of "f t" c] real_scaleR_def[of "1 - f t" a]) (406 ms)
+0.sledgehammer goal.unfolding 43747ms Prime_Number_Theorem.Prime_Number_Theorem_Library 530:22739  timeout (SH 43745ms): Timed out
+0.sledgehammer goal.by        36755ms Prime_Number_Theorem.Prime_Number_Theorem_Library 531:22800  timeout (SH 36754ms): Timed out
+0.sledgehammer goal.by        38007ms Prime_Number_Theorem.Prime_Number_Theorem_Library 534:22999  timeout (SH 38005ms): Timed out
+0.sledgehammer goal.by        38798ms Prime_Number_Theorem.Prime_Number_Theorem_Library 539:23201  timeout (SH 38796ms): Timed out
+0.sledgehammer goal.unfolding 38086ms Prime_Number_Theorem.Prime_Number_Theorem_Library 541:23381  timeout (SH 38081ms): Timed out
+0.sledgehammer goal.by        38004ms Prime_Number_Theorem.Prime_Number_Theorem_Library 542:23442  timeout (SH 38003ms): Timed out
+0.sledgehammer goal.by        46944ms Prime_Number_Theorem.Prime_Number_Theorem_Library 545:23642  timeout (SH 46941ms): Timed out
+0.sledgehammer goal.by        34951ms Prime_Number_Theorem.Prime_Number_Theorem_Library 550:23812  timeout (SH 34949ms): Timed out
+0.sledgehammer goal.by        80460ms Prime_Number_Theorem.Prime_Number_Theorem_Library 551:23908  timeout (SH 80458ms): Timed out
+0.sledgehammer goal.unfolding 36451ms Prime_Number_Theorem.Prime_Number_Theorem_Library 553:23969  timeout (SH 36449ms): Timed out
+0.sledgehammer goal.by        37876ms Prime_Number_Theorem.Prime_Number_Theorem_Library 553:23985  timeout (SH 37874ms): Timed out
+0.sledgehammer goal.by         8528ms Prime_Number_Theorem.Prime_Number_Theorem_Library 554:24027  some (SH 8526ms, ATP 1301ms): Try this: by (smt (cvc5, fmf) path_defs(1)) (148 ms)
+0.sledgehammer goal.by        27987ms Prime_Number_Theorem.Prime_Number_Theorem_Library 558:24176  some (SH 27986ms, ATP 559ms): Try this: by (smt (cvc5, fmf)) (1.0 s)
+0.sledgehammer goal.by        38885ms Prime_Number_Theorem.Prime_Number_Theorem_Library 560:24275  timeout (SH 38883ms): Timed out
+0.sledgehammer goal.using     36100ms Prime_Number_Theorem.Prime_Number_Theorem_Library 561:24350  some (SH 36098ms, ATP 902ms): Try this: by (smt (cvc5, best) True \<open>b = c\<close> assms(3) homotopic_paths_refl path_part_circlepath) (350 ms)
+0.sledgehammer goal.by        25310ms Prime_Number_Theorem.Prime_Number_Theorem_Library 561:24362  some (SH 25309ms, ATP 1026ms): Try this: by (smt (cvc5, best) True homotopic_paths_refl path_part_circlepath) (1.5 s)
+0.sledgehammer goal.using     63659ms Prime_Number_Theorem.Prime_Number_Theorem_Library 567:24546  some (SH 63657ms, ATP 1891ms): Try this: by (smt (cvc5) assms(1,2,3) mem_Collect_eq path_image_part_circlepath subsetI)
+0.sledgehammer goal.by        39514ms Prime_Number_Theorem.Prime_Number_Theorem_Library 567:24558  timeout (SH 39512ms): Timed out
+0.sledgehammer goal.proof     40036ms Prime_Number_Theorem.Prime_Number_Theorem_Library 572:24792  timeout (SH 40034ms): Timed out
+0.sledgehammer goal.by        37141ms Prime_Number_Theorem.Prime_Number_Theorem_Library 575:24908  timeout (SH 37138ms): Timed out
+0.sledgehammer goal.by        19266ms Prime_Number_Theorem.Prime_Number_Theorem_Library 577:25082  some (SH 19263ms, ATP 1216ms): Try this: by (smt (cvc5, trigger_relev) cis.periodic_simps(4)) (191 ms)
+0.sledgehammer goal.by        18322ms Prime_Number_Theorem.Prime_Number_Theorem_Library 579:25152  some (SH 18320ms, ATP 732ms): Try this: by (smt (cvc5, quant_saturate) minus_cis) (384 ms)
+0.sledgehammer goal.by        60411ms Prime_Number_Theorem.Prime_Number_Theorem_Library 581:25235  some (SH 60409ms, ATP 982ms): Try this: by (smt (cvc5, term_relev) assms(3) cis_conv_exp more_arith_simps(8,9) part_circlepath_def) (169 ms)
+0.sledgehammer goal.by         7837ms Prime_Number_Theorem.Prime_Number_Theorem_Library 583:25371  some (SH 7835ms, ATP 609ms): Try this: by (smt (cvc5, noematch) uminus_apply) (289 ms)
+0.sledgehammer goal.by        46463ms Prime_Number_Theorem.Prime_Number_Theorem_Library 587:25469  timeout (SH 46461ms): Timed out
+0.sledgehammer goal.using     37418ms Prime_Number_Theorem.Prime_Number_Theorem_Library 590:25607  timeout (SH 37416ms): Timed out
+0.sledgehammer goal.by        38813ms Prime_Number_Theorem.Prime_Number_Theorem_Library 590:25652  timeout (SH 38812ms): Timed out
+0.sledgehammer goal.by        34326ms Prime_Number_Theorem.Prime_Number_Theorem_Library 593:25751  timeout (SH 34324ms): Timed out
+0.sledgehammer goal.using     34520ms Prime_Number_Theorem.Prime_Number_Theorem_Library 596:25900  timeout (SH 34519ms): Timed out
+0.sledgehammer goal.by        32537ms Prime_Number_Theorem.Prime_Number_Theorem_Library 596:25957  timeout (SH 32535ms): Timed out
+0.sledgehammer goal.by        18747ms Prime_Number_Theorem.Prime_Number_Theorem_Library 600:26119  some (SH 18745ms, ATP 948ms): Try this: apply (smt (cvc5, best) path_defs(2) uminus_apply) (66 ms)
+0.sledgehammer goal.by        37366ms Prime_Number_Theorem.Prime_Number_Theorem_Library 603:26237  timeout (SH 37365ms): Timed out
+0.sledgehammer goal.proof     40671ms Prime_Number_Theorem.Prime_Number_Theorem_Library 608:26341  timeout (SH 40669ms): Timed out
+0.sledgehammer goal.by         9363ms Prime_Number_Theorem.Prime_Number_Theorem_Library 609:26380  some (SH 9362ms, ATP 750ms): Try this: by (smt (cvc5, term_relev) cos_minus_pi) (684 ms)
+0.sledgehammer goal.by        56129ms Prime_Number_Theorem.Prime_Number_Theorem_Library 611:26454  timeout (SH 56127ms): Timed out
+0.sledgehammer goal.by        63881ms Prime_Number_Theorem.Prime_Number_Theorem_Library 612:26508  some (SH 63879ms, ATP 1034ms): Try this: by (smt (cvc5, fmf)) (1.3 s)
+0.sledgehammer goal.using     38810ms Prime_Number_Theorem.Prime_Number_Theorem_Library 616:26578  timeout (SH 38808ms): Timed out
+0.sledgehammer goal.by        37485ms Prime_Number_Theorem.Prime_Number_Theorem_Library 616:26605  timeout (SH 37483ms): Timed out
+0.sledgehammer goal.by        16784ms Prime_Number_Theorem.Prime_Number_Theorem_Library 623:26937  some (SH 16782ms, ATP 1145ms): Try this: by (smt (cvc5, fmf) winding_number_join_pos_combined) (2.5 s)
+0.sledgehammer goal.proof     47951ms Prime_Number_Theorem.Prime_Number_Theorem_Library 628:27150  timeout (SH 47949ms): Timed out
+0.sledgehammer goal.proof     42415ms Prime_Number_Theorem.Prime_Number_Theorem_Library 631:27275  timeout (SH 42412ms): Timed out
+0.sledgehammer goal.by        40110ms Prime_Number_Theorem.Prime_Number_Theorem_Library 633:27344  timeout (SH 40109ms): Timed out
+0.sledgehammer goal.by        38667ms Prime_Number_Theorem.Prime_Number_Theorem_Library 636:27448  timeout (SH 38664ms): Timed out
+0.sledgehammer goal.by        38722ms Prime_Number_Theorem.Prime_Number_Theorem_Library 637:27518  some (SH 38721ms, ATP 1700ms): Try this: apply (smt (cvc5, fmf) of_nat_0_le_iff of_nat_floor) (1.0 s)
+0.sledgehammer goal.by        26400ms Prime_Number_Theorem.Prime_Number_Theorem_Library 638:27584  some (SH 26398ms, ATP 1169ms): Try this: apply (smt (cvc5, noematch) le_nat_floor) (482 ms)
+0.sledgehammer goal.by        42359ms Prime_Number_Theorem.Prime_Number_Theorem_Library 639:27625  timeout (SH 42357ms): Timed out
+0.sledgehammer goal.proof     49203ms Prime_Number_Theorem.Prime_Number_Theorem_Library 647:27814  timeout (SH 49201ms): Timed out
+0.sledgehammer goal.using     42593ms Prime_Number_Theorem.Prime_Number_Theorem_Library 650:27921  timeout (SH 42591ms): Timed out
+0.sledgehammer goal.by        41647ms Prime_Number_Theorem.Prime_Number_Theorem_Library 650:27966  timeout (SH 41645ms): Timed out
+0.sledgehammer goal.proof     36851ms Prime_Number_Theorem.Prime_Number_Theorem_Library 652:28088  timeout (SH 36849ms): Timed out
+0.sledgehammer goal.using     41196ms Prime_Number_Theorem.Prime_Number_Theorem_Library 655:28225  timeout (SH 41194ms): Timed out
+0.sledgehammer goal.by        39993ms Prime_Number_Theorem.Prime_Number_Theorem_Library 655:28238  timeout (SH 39991ms): Timed out
+0.sledgehammer goal.using     39205ms Prime_Number_Theorem.Prime_Number_Theorem_Library 657:28415  timeout (SH 39204ms): Timed out
+0.sledgehammer goal.by        43232ms Prime_Number_Theorem.Prime_Number_Theorem_Library 658:28429  timeout (SH 43230ms): Timed out
+0.sledgehammer goal.using     38759ms Prime_Number_Theorem.Prime_Number_Theorem_Library 659:28506  timeout (SH 38756ms): Timed out
+0.sledgehammer goal.by        39825ms Prime_Number_Theorem.Prime_Number_Theorem_Library 660:28580  timeout (SH 39823ms): Timed out
+0.sledgehammer goal.unfolding 38263ms Prime_Number_Theorem.Prime_Number_Theorem_Library 664:28748  timeout (SH 38260ms): Timed out
+0.sledgehammer goal.by        43183ms Prime_Number_Theorem.Prime_Number_Theorem_Library 664:28764  timeout (SH 43182ms): Timed out
+0.sledgehammer goal.proof     45858ms Prime_Number_Theorem.Prime_Number_Theorem_Library 672:29023  timeout (SH 45849ms): Timed out
+0.sledgehammer goal.using     45422ms Prime_Number_Theorem.Prime_Number_Theorem_Library 675:29130  timeout (SH 45420ms): Timed out
+0.sledgehammer goal.by        45069ms Prime_Number_Theorem.Prime_Number_Theorem_Library 675:29175  timeout (SH 45068ms): Timed out
+0.sledgehammer goal.proof     39274ms Prime_Number_Theorem.Prime_Number_Theorem_Library 677:29297  timeout (SH 39268ms): Timed out
+0.sledgehammer goal.using     38042ms Prime_Number_Theorem.Prime_Number_Theorem_Library 680:29434  timeout (SH 38038ms): Timed out
+0.sledgehammer goal.by        37242ms Prime_Number_Theorem.Prime_Number_Theorem_Library 680:29447  timeout (SH 37241ms): Timed out
+0.sledgehammer goal.using     39819ms Prime_Number_Theorem.Prime_Number_Theorem_Library 682:29626  timeout (SH 39816ms): Timed out
+0.sledgehammer goal.by        69851ms Prime_Number_Theorem.Prime_Number_Theorem_Library 683:29640  timeout (SH 69848ms): Timed out
+0.sledgehammer goal.using     43186ms Prime_Number_Theorem.Prime_Number_Theorem_Library 684:29717  timeout (SH 43183ms): Timed out
+0.sledgehammer goal.by        43432ms Prime_Number_Theorem.Prime_Number_Theorem_Library 685:29791  timeout (SH 43431ms): Timed out
+0.sledgehammer goal.unfolding 42279ms Prime_Number_Theorem.Prime_Number_Theorem_Library 689:29965  timeout (SH 42272ms): Timed out
+0.sledgehammer goal.by        39690ms Prime_Number_Theorem.Prime_Number_Theorem_Library 689:29981  timeout (SH 39688ms): Timed out
+0.sledgehammer goal.by        41762ms Prime_Number_Theorem.Prime_Number_Theorem_Library 691:30084  timeout (SH 41761ms): Timed out
+0.sledgehammer goal.proof     40257ms Prime_Number_Theorem.Prime_Number_Theorem_Library 699:30322  timeout (SH 40255ms): Timed out
+0.sledgehammer goal.by        14520ms Prime_Number_Theorem.Prime_Number_Theorem_Library 700:30369  some (SH 14518ms, ATP 1967ms): Try this: by (smt (cvc5, noematch) less_one linorder_neqE_nat) (1.7 s)
+0.sledgehammer goal.proof     39594ms Prime_Number_Theorem.Prime_Number_Theorem_Library 702:30395  timeout (SH 39592ms): Timed out
+0.sledgehammer goal.by        37255ms Prime_Number_Theorem.Prime_Number_Theorem_Library 704:30467  timeout (SH 37253ms): Timed out
+0.sledgehammer goal.by        57878ms Prime_Number_Theorem.Prime_Number_Theorem_Library 706:30565  timeout (SH 57877ms): Timed out
+0.sledgehammer goal.proof     76683ms Prime_Number_Theorem.Prime_Number_Theorem_Library 708:30655  timeout (SH 76680ms): Timed out
+0.sledgehammer goal.using     44111ms Prime_Number_Theorem.Prime_Number_Theorem_Library 710:30790  some (SH 44108ms, ATP 1686ms): Try this: by (smt (cvc5, quant_saturate) has_integral_eq m nat_sum_has_integral_ceiling) (397 ms)
+0.sledgehammer goal.by        40939ms Prime_Number_Theorem.Prime_Number_Theorem_Library 710:30798  timeout (SH 40935ms): Timed out
+0.sledgehammer goal.by        41100ms Prime_Number_Theorem.Prime_Number_Theorem_Library 714:30980  timeout (SH 41096ms): Timed out
+0.sledgehammer goal.by        51410ms Prime_Number_Theorem.Prime_Number_Theorem_Library 718:31270  some (SH 51407ms, ATP 1234ms): Try this: by (smt (cvc5, best) Num.of_nat_simps(2) powr_one_eq_one) (1.2 s)
+0.sledgehammer goal.using     38782ms Prime_Number_Theorem.Prime_Number_Theorem_Library 721:31397  timeout (SH 38780ms): Timed out
+0.sledgehammer goal.by        39854ms Prime_Number_Theorem.Prime_Number_Theorem_Library 721:31405  timeout (SH 39852ms): Timed out
+0.sledgehammer goal.by        12650ms Prime_Number_Theorem.Prime_Number_Theorem_Library 722:31457  some (SH 12648ms, ATP 530ms): Try this: by (smt (cvc5, best)) (1.1 s)
+0.sledgehammer goal.proof     40308ms Prime_Number_Theorem.Prime_Number_Theorem_Library 730:31663  timeout (SH 40305ms): Timed out
+0.sledgehammer goal.by        46789ms Prime_Number_Theorem.Prime_Number_Theorem_Library 733:31768  timeout (SH 46786ms): Timed out
+0.sledgehammer goal.using     37729ms Prime_Number_Theorem.Prime_Number_Theorem_Library 735:31853  timeout (SH 37728ms): Timed out
+0.sledgehammer goal.by        39560ms Prime_Number_Theorem.Prime_Number_Theorem_Library 735:31865  timeout (SH 39558ms): Timed out
+0.sledgehammer goal.by        39900ms Prime_Number_Theorem.Prime_Number_Theorem_Library 740:32015  timeout (SH 39898ms): Timed out
+0.sledgehammer goal.by        44044ms Prime_Number_Theorem.Prime_Number_Theorem_Library 741:32117  timeout (SH 44041ms): Timed out
+0.sledgehammer goal.proof     40128ms Prime_Number_Theorem.Prime_Number_Theorem_Library 743:32190  timeout (SH 40126ms): Timed out
+0.sledgehammer goal.using     61495ms Prime_Number_Theorem.Prime_Number_Theorem_Library 745:32321  some (SH 61492ms, ATP 1730ms): Try this: by (smt (cvc5, quant_saturate) assms(2) has_integral_eq nat_sum_has_integral_floor) (865 ms)
+0.sledgehammer goal.by        59129ms Prime_Number_Theorem.Prime_Number_Theorem_Library 745:32329  some (SH 59126ms, ATP 983ms): Try this: by (smt (cvc5, quant_saturate) has_integral_cong nat_sum_has_integral_floor) (1.4 s)
+0.sledgehammer goal.using     39411ms Prime_Number_Theorem.Prime_Number_Theorem_Library 748:32469  timeout (SH 39407ms): Timed out
+0.sledgehammer goal.by        40233ms Prime_Number_Theorem.Prime_Number_Theorem_Library 748:32514  timeout (SH 40230ms): Timed out
+0.sledgehammer goal.by        61890ms Prime_Number_Theorem.Prime_Number_Theorem_Library 752:32644  some (SH 61883ms, ATP 2348ms): Try this: by (smt (cvc5) nat_floor_neg of_nat_eq_0_iff of_nat_floor of_nat_le_0_iff powr_less_cancel2 powr_nonneg_iff)
+0.sledgehammer goal.using     43015ms Prime_Number_Theorem.Prime_Number_Theorem_Library 755:32771  timeout (SH 43011ms): Timed out
+0.sledgehammer goal.by        40569ms Prime_Number_Theorem.Prime_Number_Theorem_Library 755:32781  timeout (SH 40566ms): Timed out
+0.sledgehammer goal.by        14373ms Prime_Number_Theorem.Prime_Number_Theorem_Library 756:32841  some (SH 14371ms, ATP 1192ms): Try this: by (smt (cvc5, noematch)) (1.9 s)
+0.sledgehammer goal.proof     50734ms Prime_Number_Theorem.Prime_Number_Theorem_Library 762:32962  timeout (SH 50731ms): Timed out
+0.sledgehammer goal.by        45831ms Prime_Number_Theorem.Prime_Number_Theorem_Library 764:33027  timeout (SH 45824ms): Timed out
+0.sledgehammer goal.by        41067ms Prime_Number_Theorem.Prime_Number_Theorem_Library 766:33163  timeout (SH 41065ms): Timed out
+0.sledgehammer goal.by        38816ms Prime_Number_Theorem.Prime_Number_Theorem_Library 768:33288  timeout (SH 38814ms): Timed out
+0.sledgehammer goal.using     37094ms Prime_Number_Theorem.Prime_Number_Theorem_Library 769:33345  some (SH 37092ms, ATP 638ms): Try this: by (smt (cvc5, trigger_max) that) (639 ms)
+0.sledgehammer goal.by        35957ms Prime_Number_Theorem.Prime_Number_Theorem_Library 769:33356  some (SH 35953ms, ATP 929ms): Try this: by (smt (cvc5, quant_saturate)) (1.0 s)
+0.sledgehammer goal.proof     56699ms Prime_Number_Theorem.Prime_Number_Theorem_Library 773:33422  timeout (SH 56695ms): Timed out
+0.sledgehammer goal.by        13348ms Prime_Number_Theorem.Prime_Number_Theorem_Library 775:33497  some (SH 13346ms, ATP 1120ms): Try this: by (smt (cvc5, trigger_relev) Bseq_def) (1.9 s)
+0.sledgehammer goal.by        47508ms Prime_Number_Theorem.Prime_Number_Theorem_Library 776:33544  timeout (SH 47505ms): Timed out
+0.sledgehammer goal.by        31684ms Prime_Number_Theorem.Prime_Number_Theorem_Library 780:33696  some (SH 31682ms, ATP 1069ms): Try this: by (smt (cvc5, best)) (1.6 s)
+0.sledgehammer goal.by        29001ms Prime_Number_Theorem.Prime_Number_Theorem_Library 781:33720  some (SH 28999ms, ATP 545ms): Try this: by (smt (cvc5, quant_saturate) BseqI) (639 ms)
+0.sledgehammer goal.proof     44977ms Prime_Number_Theorem.Prime_Number_Theorem_Library 788:33967  timeout (SH 44973ms): Timed out
+0.sledgehammer goal.by        40283ms Prime_Number_Theorem.Prime_Number_Theorem_Library 791:34074  timeout (SH 40281ms): Timed out
+0.sledgehammer goal.using     43416ms Prime_Number_Theorem.Prime_Number_Theorem_Library 793:34193  timeout (SH 43414ms): Timed out
+0.sledgehammer goal.by        43714ms Prime_Number_Theorem.Prime_Number_Theorem_Library 793:34204  timeout (SH 43713ms): Timed out
+0.sledgehammer goal.by        40440ms Prime_Number_Theorem.Prime_Number_Theorem_Library 796:34393  timeout (SH 40437ms): Timed out
+0.sledgehammer goal.by        41959ms Prime_Number_Theorem.Prime_Number_Theorem_Library 798:34548  timeout (SH 41957ms): Timed out
+0.sledgehammer goal.by        51645ms Prime_Number_Theorem.Prime_Number_Theorem_Library 801:34680  timeout (SH 51643ms): Timed out
+0.sledgehammer goal.by        66180ms Prime_Number_Theorem.Prime_Number_Theorem_Library 807:34875  some (SH 66178ms, ATP 2388ms): Try this: by (smt (cvc5, noematch) abs_summable_on_cong abs_summable_on_norm_iff norm_minus_cancel) (1.4 s)
+0.sledgehammer goal.by        39561ms Prime_Number_Theorem.Prime_Number_Theorem_Library 813:35117  timeout (SH 39560ms): Timed out
+0.sledgehammer goal.by        58157ms Prime_Number_Theorem.Prime_Number_Theorem_Library 819:35367  some (SH 58156ms, ATP 554ms): Try this: by (smt (cvc5, best) abs_summable_on_cmult_right_iff abs_summable_on_cong assms mult_commute_abs) (1.8 s)
+0.sledgehammer goal.proof     42327ms Prime_Number_Theorem.Prime_Number_Theorem_Library 827:35700  timeout (SH 42323ms): Timed out
+0.sledgehammer goal.by        39370ms Prime_Number_Theorem.Prime_Number_Theorem_Library 829:35735  timeout (SH 39369ms): Timed out
+0.sledgehammer goal.by        43477ms Prime_Number_Theorem.Prime_Number_Theorem_Library 832:35906  timeout (SH 43474ms): Timed out
+0.sledgehammer goal.using     37544ms Prime_Number_Theorem.Prime_Number_Theorem_Library 834:36025  timeout (SH 37535ms): Timed out
+0.sledgehammer goal.by        37420ms Prime_Number_Theorem.Prime_Number_Theorem_Library 834:36036  timeout (SH 37419ms): Timed out
+0.sledgehammer goal.by        58321ms Prime_Number_Theorem.Prime_Number_Theorem_Library 837:36241  some (SH 58319ms, ATP 1603ms): Try this: by (smt (cvc5) indicator_simps(2) mult_eq_0_iff nn_integral_cong suminf_cong)
+0.sledgehammer goal.by        50541ms Prime_Number_Theorem.Prime_Number_Theorem_Library 839:36404  timeout (SH 50538ms): Timed out
+0.sledgehammer goal.by        43941ms Prime_Number_Theorem.Prime_Number_Theorem_Library 842:36574  timeout (SH 43939ms): Timed out
+0.sledgehammer goal.by        61878ms Prime_Number_Theorem.Prime_Number_Theorem_Library 844:36731  some (SH 61874ms, ATP 4631ms): Try this: by (smt (cvc5, trigger_last) indicator_mult_ennreal mult.commute nn_integral_cong) (833 ms)
+0.sledgehammer goal.using     42494ms Prime_Number_Theorem.Prime_Number_Theorem_Library 846:36818  timeout (SH 42491ms): Timed out
+0.sledgehammer goal.by        59777ms Prime_Number_Theorem.Prime_Number_Theorem_Library 846:36878  timeout (SH 59775ms): Timed out
+0.sledgehammer goal.by        171078ms Prime_Number_Theorem.Prime_Number_Theorem_Library 849:37023  timeout (SH 171075ms):
+0.sledgehammer goal.by        51723ms Prime_Number_Theorem.Prime_Number_Theorem_Library 852:37189  some (SH 51722ms, ATP 2400ms): Try this: by (smt (cvc5, trigger_max) assms(1)[of "real (Suc _)"] of_nat_0_le_iff[of "Suc _"] suminf_ennreal2[of "\<lambda>R. f (real (Suc R))"]) (93 ms)
+0.sledgehammer goal.by        41165ms Prime_Number_Theorem.Prime_Number_Theorem_Library 853:37286  some (SH 41164ms, ATP 4980ms): Try this: by (smt (cvc5, fmf) \<open>0 \<le> I\<close> ennreal_le_iff) (482 ms)
+0.sledgehammer goal.proof     40776ms Prime_Number_Theorem.Prime_Number_Theorem_Library 862:37581  timeout (SH 40774ms): Timed out
+0.sledgehammer goal.using     39919ms Prime_Number_Theorem.Prime_Number_Theorem_Library 864:37636  timeout (SH 39914ms): Timed out
+0.sledgehammer goal.by        18149ms Prime_Number_Theorem.Prime_Number_Theorem_Library 864:37679  some (SH 18147ms, ATP 912ms): Try this: by (smt (cvc5, best)) (2.4 s)
+0.sledgehammer goal.by        41412ms Prime_Number_Theorem.Prime_Number_Theorem_Library 865:37738  timeout (SH 41410ms): Timed out
+0.sledgehammer goal.by        73585ms Prime_Number_Theorem.Prime_Number_Theorem_Library 866:37808  some (SH 73582ms, ATP 2584ms): Try this: by (smt (cvc5, best) assms(1,2,3) decreasing_sum_le_integral(2)[of f I]) (682 ms)
+0.sledgehammer goal.using     42818ms Prime_Number_Theorem.Prime_Number_Theorem_Library 868:37899  timeout (SH 42815ms): Timed out
+0.sledgehammer goal.by        40772ms Prime_Number_Theorem.Prime_Number_Theorem_Library 868:37907  timeout (SH 40770ms): Timed out
+0.sledgehammer goal.proof     41929ms Prime_Number_Theorem.Prime_Number_Theorem_Library 874:38064  timeout (SH 41926ms): Timed out
+0.sledgehammer goal.by        90797ms Prime_Number_Theorem.Prime_Number_Theorem_Library 876:38127  some (SH 90794ms, ATP 1103ms): Try this: by (smt (cvc5, best) Reals_of_nat complex_Re_of_nat norm_powr_real_powr of_nat_0_le_iff) (654 ms)
+0.sledgehammer goal.using     82661ms Prime_Number_Theorem.Prime_Number_Theorem_Library 878:38186  some (SH 82659ms, ATP 927ms): Try this: by (smt (cvc5, best) assms(1,2) one_of_nat_less_iff powr_eq_one_iff) (1.0 s)
+0.sledgehammer goal.by        29561ms Prime_Number_Theorem.Prime_Number_Theorem_Library 878:38198  some (SH 29559ms, ATP 813ms): Try this: by (smt (cvc5, trigger_last) one_of_nat_less_iff powr_eq_one_iff) (816 ms)
+0.sledgehammer goal.by         9521ms Prime_Number_Theorem.Prime_Number_Theorem_Library 879:38246  some (SH 9517ms, ATP 475ms): Try this: by (smt (cvc5, noematch) norm_one) (162 ms)
+0.sledgehammer goal.proof     66665ms Prime_Number_Theorem.Prime_Number_Theorem_Library 886:38494  timeout (SH 66664ms): Timed out
+0.sledgehammer goal.using     38301ms Prime_Number_Theorem.Prime_Number_Theorem_Library 888:38578  timeout (SH 38299ms): Timed out
+0.sledgehammer goal.by        43138ms Prime_Number_Theorem.Prime_Number_Theorem_Library 888:38642  timeout (SH 43136ms): Timed out
+0.sledgehammer goal.using     39192ms Prime_Number_Theorem.Prime_Number_Theorem_Library 890:38709  timeout (SH 39189ms): Timed out
+0.sledgehammer goal.by        62377ms Prime_Number_Theorem.Prime_Number_Theorem_Library 890:38721  some (SH 62375ms, ATP 3001ms): Try this: by (smt (cvc5, quant_saturate) divide_fds_def fds_right_inverse minus_mult_commute more_arith_simps(11) mult_minus1_right) (715 ms)
+0.sledgehammer goal.using     70825ms Prime_Number_Theorem.Prime_Number_Theorem_Library 898:39041  some (SH 70823ms, ATP 3222ms): Try this: by (smt (cvc5) arith_simps(63) assms(1,2) fds_logderiv_completely_multiplicative fds_nth_fds fds_nth_uminus mangoldt_0 more_arith_simps(7))
+0.sledgehammer goal.by        38792ms Prime_Number_Theorem.Prime_Number_Theorem_Library 898:39053  timeout (SH 38788ms): Timed out
+0.sledgehammer goal.proof     39913ms Prime_Number_Theorem.Prime_Number_Theorem_Library 909:39700  timeout (SH 39911ms): Timed out
+0.sledgehammer goal.by        11442ms Prime_Number_Theorem.Prime_Number_Theorem_Library 911:39801  some (SH 11440ms, ATP 755ms): Try this: by (smt (cvc5, quant_saturate) assms(2)) (158 ms)
+0.sledgehammer goal.using     139200ms Prime_Number_Theorem.Prime_Number_Theorem_Library 913:39844  some (SH 139064ms, ATP 2846ms): Try this: by (smt (cvc5, noematch) abs_conv_abscissa_completely_multiplicative_log_deriv assms(1,2,3,4) fds_abs_converges order_trans_rules(21)) (275 ms)
+0.sledgehammer goal.by        45233ms Prime_Number_Theorem.Prime_Number_Theorem_Library 914:39927  some (SH 45230ms, ATP 3117ms): Try this: by (smt (cvc5, best) alethe_comp_simplify(3) dual_order.trans fds_abs_converges) (769 ms)
+0.sledgehammer goal.by        34486ms Prime_Number_Theorem.Prime_Number_Theorem_Library 916:40033  some (SH 34483ms, ATP 2984ms): Try this: by (smt (cvc5, trigger_relev) abs_summable_on_cong fds_abs_converges_altdef') (873 ms)
+0.sledgehammer goal.unfolding 39402ms Prime_Number_Theorem.Prime_Number_Theorem_Library 921:40257  timeout (SH 39401ms): Timed out
+0.sledgehammer goal.using     41120ms Prime_Number_Theorem.Prime_Number_Theorem_Library 921:40273  timeout (SH 41118ms): Timed out
+0.sledgehammer goal.by        39340ms Prime_Number_Theorem.Prime_Number_Theorem_Library 922:40339  timeout (SH 39338ms): Timed out
+0.sledgehammer goal.by         7834ms Prime_Number_Theorem.Prime_Number_Theorem_Library 925:40547  some (SH 7833ms, ATP 602ms): Try this: by (smt (cvc5, trigger_relev)) (103 ms)
+0.sledgehammer goal.using     48431ms Prime_Number_Theorem.Prime_Number_Theorem_Library 928:40753  timeout (SH 44407ms): Timed out
+0.sledgehammer goal.unfolding 61156ms Prime_Number_Theorem.Prime_Number_Theorem_Library 928:40778  timeout (SH 61153ms): Timed out
+0.sledgehammer goal.by        43940ms Prime_Number_Theorem.Prime_Number_Theorem_Library 929:40809  some (SH 43928ms, ATP 4577ms): Try this: by (smt (cvc5, trigger_relev) abs_summable_on_cong abs_summable_on_reindex_bij_betw) (514 ms)
+0.sledgehammer goal.unfolding 42798ms Prime_Number_Theorem.Prime_Number_Theorem_Library 932:41006  timeout (SH 42796ms): Timed out
+0.sledgehammer goal.by        39193ms Prime_Number_Theorem.Prime_Number_Theorem_Library 933:41037  timeout (SH 39191ms): Timed out
+0.sledgehammer goal.proof     40516ms Prime_Number_Theorem.Prime_Number_Theorem_Library 939:41345  timeout (SH 40514ms): Timed out
+0.sledgehammer goal.using     38028ms Prime_Number_Theorem.Prime_Number_Theorem_Library 941:41446  timeout (SH 38026ms): Timed out
+0.sledgehammer goal.unfolding 42769ms Prime_Number_Theorem.Prime_Number_Theorem_Library 941:41500  timeout (SH 42767ms): Timed out
+0.sledgehammer goal.by        51961ms Prime_Number_Theorem.Prime_Number_Theorem_Library 942:41541  timeout (SH 51959ms): Timed out
+0.sledgehammer goal.by        41153ms Prime_Number_Theorem.Prime_Number_Theorem_Library 943:41629  timeout (SH 41152ms): Timed out
+0.sledgehammer goal.proof     39619ms Prime_Number_Theorem.Prime_Number_Theorem_Library 947:41854  timeout (SH 39617ms): Timed out
+0.sledgehammer goal.unfolding 40342ms Prime_Number_Theorem.Prime_Number_Theorem_Library 949:41934  timeout (SH 40340ms): Timed out
+0.sledgehammer goal.by        33290ms Prime_Number_Theorem.Prime_Number_Theorem_Library 949:41961  some (SH 33288ms, ATP 3322ms): Try this: by (smt (cvc5) real_norm_def summable_geometric_iff)
+0.sledgehammer goal.by        39897ms Prime_Number_Theorem.Prime_Number_Theorem_Library 950:42045  timeout (SH 39895ms): Timed out
+0.sledgehammer goal.proof     41551ms Prime_Number_Theorem.Prime_Number_Theorem_Library 956:42284  timeout (SH 41548ms): Timed out
+0.sledgehammer goal.using     39140ms Prime_Number_Theorem.Prime_Number_Theorem_Library 959:42469  timeout (SH 39138ms): Timed out
+0.sledgehammer goal.by        37781ms Prime_Number_Theorem.Prime_Number_Theorem_Library 960:42494  timeout (SH 37778ms): Timed out
+0.sledgehammer goal.using     40513ms Prime_Number_Theorem.Prime_Number_Theorem_Library 963:42741  timeout (SH 40511ms): Timed out
+0.sledgehammer goal.by        40218ms Prime_Number_Theorem.Prime_Number_Theorem_Library 964:42775  timeout (SH 40215ms): Timed out
+0.sledgehammer goal.by        139698ms Prime_Number_Theorem.Prime_Number_Theorem_Library 966:42913  some (SH 139695ms, ATP 2236ms): Try this: by (smt (cvc5) more_arith_simps(7) mult_eq_0_iff nonzero_mult_div_cancel_left nonzero_mult_div_cancel_right of_real_minus times_divide_times_eq)
+0.sledgehammer goal.using     42116ms Prime_Number_Theorem.Prime_Number_Theorem_Library 971:43086  timeout (SH 42114ms): Timed out
+0.sledgehammer goal.by        41261ms Prime_Number_Theorem.Prime_Number_Theorem_Library 971:43097  timeout (SH 41258ms): Timed out
+0.sledgehammer goal.by        91431ms Prime_Number_Theorem.Prime_Number_Theorem_Library 974:43292  some (SH 91429ms, ATP 1305ms): Try this: by (smt (cvc5, quant_saturate) abs_summable_on_cong eq mem_Collect_eq) (1.7 s)
+0.sledgehammer goal.by        41810ms Prime_Number_Theorem.Prime_Number_Theorem_Library 975:43355  some (SH 41807ms, ATP 7022ms): Try this: by (smt (cvc5, trigger_last) abs_summable_on_cong abs_summable_on_uminus_iff) (871 ms)
+0.sledgehammer goal.using     99784ms Prime_Number_Theorem.Prime_Number_Theorem_Library 979:43485  some (SH 99782ms, ATP 556ms): Try this: by (smt (cvc5, trigger_last) \<open>fds_abs_converges h s\<close> eval_fds_altdef infsetsum_cong) (1.7 s)
+0.sledgehammer goal.unfolding 68062ms Prime_Number_Theorem.Prime_Number_Theorem_Library 979:43493  some (SH 68060ms, ATP 395ms): Try this: by (smt (cvc5, term_relev) \<open>fds_abs_converges h s\<close> eval_fds_altdef infsetsum_cong) (1.9 s)
+0.sledgehammer goal.by        10239ms Prime_Number_Theorem.Prime_Number_Theorem_Library 979:43516  some (SH 10235ms, ATP 820ms): Try this: by (smt (cvc5, trigger_last) infsetsum_nat') (399 ms)
+0.sledgehammer goal.unfolding 44997ms Prime_Number_Theorem.Prime_Number_Theorem_Library 981:43637  timeout (SH 44995ms): Timed out
+0.sledgehammer goal.using     41587ms Prime_Number_Theorem.Prime_Number_Theorem_Library 981:43653  timeout (SH 41585ms): Timed out
+0.sledgehammer goal.by        40233ms Prime_Number_Theorem.Prime_Number_Theorem_Library 982:43719  timeout (SH 40232ms): Timed out
+0.sledgehammer goal.using     40784ms Prime_Number_Theorem.Prime_Number_Theorem_Library 985:43954  timeout (SH 40782ms): Timed out
+0.sledgehammer goal.unfolding 37822ms Prime_Number_Theorem.Prime_Number_Theorem_Library 985:43979  timeout (SH 37820ms): Timed out
+0.sledgehammer goal.by        44570ms Prime_Number_Theorem.Prime_Number_Theorem_Library 986:44011  some (SH 44563ms, ATP 1963ms): Try this: by (smt (cvc5, trigger_relev) infsetsum_cong infsetsum_reindex_bij_betw) (696 ms)
+0.sledgehammer goal.by        42715ms Prime_Number_Theorem.Prime_Number_Theorem_Library 989:44193  timeout (SH 42713ms): Timed out
+0.sledgehammer goal.using     39050ms Prime_Number_Theorem.Prime_Number_Theorem_Library 994:44515  timeout (SH 39048ms): Timed out
+0.sledgehammer goal.by        39329ms Prime_Number_Theorem.Prime_Number_Theorem_Library 994:44526  timeout (SH 39328ms): Timed out
+0.sledgehammer goal.using     41180ms Prime_Number_Theorem.Prime_Number_Theorem_Library 997:44714  timeout (SH 41178ms): Timed out
+0.sledgehammer goal.by        48694ms Prime_Number_Theorem.Prime_Number_Theorem_Library 997:44723  some (SH 48692ms, ATP 245ms): Try this: by (smt (cvc5, trigger_last) infsetsum_cong mem_Collect_eq more_arith_simps(7)) (501 ms)
+0.sledgehammer goal.by        70587ms Prime_Number_Theorem.Prime_Number_Theorem_Library 998:44774  some (SH 70574ms, ATP 4262ms): Try this: by (smt (cvc5, trigger_max) infsetsum_cong infsetsum_uminus) (1.2 s)
+0.sledgehammer goal.proof     40233ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1007:45086  timeout (SH 40231ms): Timed out
+0.sledgehammer goal.by        134642ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1009:45179  some (SH 134635ms, ATP 2687ms): Try this: by (smt (cvc5, noematch) One_nat_def Suc_lessD[of "0"] completely_multiplicative_function_def[of "fds_nth fds_zeta"] fds_nth_0[of fds_zeta] fds_nth_zeta_pos fds_nth_zeta_pos[of "1"] mult_cancel_right1[of "fds_nth fds_zeta _" "1"] mult_pos_pos zero_less_one) (644 ms)
+0.sledgehammer goal.using     40420ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1013:45411  timeout (SH 40418ms): Timed out
+0.sledgehammer goal.by        72849ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1013:45479  some (SH 72845ms, ATP 2253ms): Try this: by (smt (cvc5, trigger_max) abs_conv_abscissa_zeta abs_summable_on_cong[of "Collect prime" "\<lambda>uua. complex_of_real (ln (real uua)) * (1 / (1 - fds_nth fds_zeta uua / nat_power uua s) - 1)" "\<lambda>uua. complex_of_real (ln (real uua)) * (1 / (1 - fds_nth fds_zeta uua / complex_of_nat uua powr s) - 1)" "Collect prime"] complex_inner_1_right[of s] ereal_less(4)[of "Re s"] fds_nth_zeta_pos[of "1"] nat_power_complex_def[of _ s] rel_simps(68,93)) (838 ms)
+0.sledgehammer goal.using     41824ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1014:45573  timeout (SH 41823ms): Timed out
+0.sledgehammer goal.by        41393ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1015:45589  timeout (SH 41388ms): Timed out
+0.sledgehammer goal.by        44939ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1019:45776  timeout (SH 44937ms): Timed out
+0.sledgehammer goal.by        39996ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1021:45893  timeout (SH 39988ms): Timed out
+0.sledgehammer goal.using     58634ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1023:46072  some (SH 58632ms, ATP 5225ms): Try this: by (smt (cvc5) abs_conv_abscissa_deriv abs_conv_abscissa_zeta assms complex_inner_1_right conv_abscissa_zeta divide_fds_def ereal_less(4) eval_fds_deriv eval_fds_inverse eval_fds_mult eval_fds_zeta fds_abs_converges fds_abs_converges_moebius_mu fds_moebius_inverse_zeta fds_nth_zeta_pos field_class.field_divide_inverse one_neq_zero zero_less_one)
+0.sledgehammer goal.by        72140ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1024:46115  some (SH 72137ms, ATP 2324ms): Try this: by (smt (cvc5) abs_conv_abscissa_deriv abs_conv_abscissa_zeta alethe_eq_simplify(24) complex_inner_1_right conv_abscissa_zeta divide_fds_def ereal_less(4) eval_fds_deriv eval_fds_inverse eval_fds_mult eval_fds_zeta fds_abs_converges fds_abs_converges_moebius_mu fds_moebius_inverse_zeta fds_nth_zeta_pos field_class.field_divide_inverse poly_simp_rel(11))
+0.sledgehammer goal.using     76842ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1027:46376  some (SH 76840ms, ATP 1691ms): Try this: by (smt (cvc5) "*" abs_conv_abscissa_zeta assms complex_inner_1_right eq_numeral_extra(2) ereal_less(4) eval_fds_logderiv_completely_multiplicative(2) fds_nth_zeta_pos infsetsum_cong nat_power_complex_def poly_simp_rel(11))
+0.sledgehammer goal.by        80704ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1027:46444  some (SH 80699ms, ATP 3505ms): Try this: by (smt (cvc5, quant_saturate) abs_conv_abscissa_zeta complex_inner_1_right[of s] eq_numeral_extra(1) ereal_less(4)[of "Re s"] fds_nth_zeta_pos[of "1"] infsetsum_cong[of "Collect prime" "\<lambda>uua. complex_of_real (ln (real uua)) * (1 / (1 - fds_nth fds_zeta uua / complex_of_nat uua powr s) - 1)" "\<lambda>uua. complex_of_real (ln (real uua)) * (1 / (1 - fds_nth fds_zeta uua / nat_power uua s) - 1)" "Collect prime"] less_numeral_extra(1) nat_power_complex_def[of _ s]) (1.6 s)
+0.sledgehammer goal.using     38764ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1028:46518  timeout (SH 38762ms): Timed out
+0.sledgehammer goal.by        43468ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1029:46534  timeout (SH 43464ms): Timed out
+0.sledgehammer goal.proof     42951ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1037:46841  timeout (SH 42948ms): Timed out
+0.sledgehammer goal.by        68571ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1039:46950  some (SH 68569ms, ATP 3530ms): Try this: by (smt (cvc5) alethe_minus_simplify(4) mem_Collect_eq sums_cong)
+0.sledgehammer goal.using     42585ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1043:47021  timeout (SH 42583ms): Timed out
+0.sledgehammer goal.by        43558ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1043:47050  timeout (SH 43548ms): Timed out
+0.sledgehammer goal.proof     40969ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1048:47196  timeout (SH 40967ms): Timed out
+0.sledgehammer goal.using     43932ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1050:47282  timeout (SH 43930ms): Timed out
+0.sledgehammer goal.by        41740ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1051:47338  timeout (SH 41731ms): Timed out
+0.sledgehammer goal.by        48113ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1053:47482  timeout (SH 48109ms): Timed out
+0.sledgehammer goal.by        1004635ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1055:47622  some (SH 1004633ms, ATP 830ms): Try this: by (smt (cvc5, trigger_last) abs_summable_on_cong abs_summable_on_reindex calculation) (1.7 s)
+0.sledgehammer goal.by        45571ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1056:47705  some (SH 45568ms, ATP 579ms): Try this: by (smt (cvc5, fmf) range_add_nat[of b]) (171 ms)
+0.sledgehammer goal.proof     47500ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1064:47969  timeout (SH 47489ms): Timed out
+0.sledgehammer goal.using     44248ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1066:48045  timeout (SH 44243ms): Timed out
+0.sledgehammer goal.by        41012ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1066:48057  timeout (SH 41009ms): Timed out
+0.sledgehammer goal.using     44937ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1068:48151  timeout (SH 44928ms): Timed out
+0.sledgehammer goal.by        39845ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1069:48203  timeout (SH 39841ms): Timed out
+0.sledgehammer goal.by        58291ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1072:48418  timeout (SH 58284ms): Timed out
+0.sledgehammer goal.by        45260ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1073:48503  some (SH 45254ms, ATP 4833ms): Try this: by (smt (cvc5, trigger_max) range_add_nat[of a]) (76 ms)
+0.sledgehammer goal.proof     42567ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1080:48739  timeout (SH 42565ms): Timed out
+0.sledgehammer goal.by        21092ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1085:48979  some (SH 21087ms, ATP 3602ms): Try this: by (smt (cvc5, trigger_relev)) (202 ms)
+0.sledgehammer goal.unfolding 43868ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1087:49057  timeout (SH 43209ms): Timed out
+0.sledgehammer goal.by        77058ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1088:49080  some (SH 77054ms, ATP 3357ms): Try this: by (smt (cvc5) arithmetic_simps(45,45) diff_divide_distrib numeral_Bit0_div_2 of_int_eq_numeral_iff of_int_floor_le one_plus_numeral one_plus_numeral real_of_int_div4 real_of_int_floor_ge_diff_one semiring_norm(2))
+0.sledgehammer goal.by        44078ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1090:49142  timeout (SH 44072ms): Timed out
+0.sledgehammer goal.using     43009ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1092:49261  timeout (SH 43008ms): Timed out
+0.sledgehammer goal.by        41056ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1092:49286  timeout (SH 41049ms): Timed out
+0.sledgehammer goal.using     39634ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1095:49440  timeout (SH 39630ms): Timed out
+0.sledgehammer goal.by        41801ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1096:49469  timeout (SH 41798ms): Timed out
+0.sledgehammer goal.unfolding 41119ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1100:49737  timeout (SH 41116ms): Timed out
+0.sledgehammer goal.using     46943ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1100:49753  timeout (SH 46929ms): Timed out
+0.sledgehammer goal.by        45054ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1100:49776  timeout (SH 45049ms): Timed out
+0.sledgehammer goal.by        47183ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1103:49842  timeout (SH 47174ms): Timed out
+0.sledgehammer goal.using     42321ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1104:49970  timeout (SH 42319ms): Timed out
+0.sledgehammer goal.by        40157ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1105:49982  timeout (SH 40155ms): Timed out
+0.sledgehammer goal.by        42129ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1107:50133  timeout (SH 42123ms): Timed out
+0.sledgehammer goal.proof     48168ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1114:50313  timeout (SH 48164ms): Timed out
+0.sledgehammer goal.by        26874ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1116:50406  some (SH 26863ms, ATP 1438ms): Try this: by (smt (cvc5, fmf) pre_zeta_bound) (1.9 s)
+0.sledgehammer goal.using     42814ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1118:50502  timeout (SH 42812ms): Timed out
+0.sledgehammer goal.by        39435ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1118:50514  timeout (SH 39433ms): Timed out
+0.sledgehammer goal.by        17030ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1119:50599  some (SH 17020ms, ATP 1185ms): Try this: by (smt (cvc5, fmf) complex_Re_le_cmod) (288 ms)
+0.sledgehammer goal.by        31089ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1120:50689  some (SH 31087ms, ATP 2932ms): Try this: by (smt (cvc5, term_relev) field_sum_of_halves) (542 ms)
+0.sledgehammer goal.using     48930ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1122:50770  timeout (SH 48917ms): Timed out
+0.sledgehammer goal.by        46410ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1122:50782  timeout (SH 46408ms): Timed out
+0.sledgehammer goal.proof     42779ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1128:50926  timeout (SH 42773ms): Timed out
+0.sledgehammer goal.by        43797ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1129:50986  some (SH 43789ms, ATP 3535ms): Try this: by (smt (cvc5, noematch) eventually_nhds t1_space) (905 ms)
+0.sledgehammer goal.by        46209ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1131:51107  timeout (SH 46207ms): Timed out
+0.sledgehammer goal.using     46196ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1134:51297  timeout (SH 46188ms): Timed out
+0.sledgehammer goal.by        55998ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1134:51305  timeout (SH 55993ms): Timed out
+0.sledgehammer goal.by        45199ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1136:51467  timeout (SH 45195ms): Timed out
+0.sledgehammer goal.by        17249ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1138:51599  some (SH 17246ms, ATP 1253ms): Try this: by (smt (cvc5, fmf) DERIV_imp_deriv) (876 ms)
+0.sledgehammer goal.proof     47705ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1144:51718  timeout (SH 47701ms): Timed out
+0.sledgehammer goal.by        43885ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1147:51813  timeout (SH 43883ms): Timed out
+0.sledgehammer goal.using     53406ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1148:51904  some (SH 53369ms, ATP 1626ms): Try this: by (smt (cvc5, quant_saturate) mult_eq_0_iff right_minus_eq zeta_Re_ge_1_nonzero) (1.7 s)
+0.sledgehammer goal.by        64175ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1148:51937  some (SH 64173ms, ATP 1568ms): Try this: by (smt (cvc5, fmf) mult_eq_0_iff right_minus_eq) (333 ms)
+0.sledgehammer goal.proof     40912ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1155:52087  timeout (SH 40910ms): Timed out
+0.sledgehammer goal.using     42216ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1157:52156  timeout (SH 42214ms): Timed out
+0.sledgehammer goal.by        43156ms Prime_Number_Theorem.Prime_Number_Theorem_Library 1157:52168  timeout (SH 43154ms): Timed out
