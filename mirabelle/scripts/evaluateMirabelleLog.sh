@@ -17,7 +17,18 @@ LOG_RE = re.compile(
     r"(?P<theory>[A-Za-z0-9_.']+)\s+(?P<line>\d+):(?P<offset>\d+)\s+"
     r"(?P<outcome>some|timeout|none)\b"
 )
-SMT_BACKEND_RE = re.compile(r"Try this: (?:by|apply) \(smt \((?P<backend>[^)]*)\)")
+SMT_BACKEND_RE = re.compile(
+    r"(?:Try this: (?:by|apply)|Preplay:) \(smt \((?P<backend>[^)]*)\)"
+)
+SH_TIME_RE = re.compile(r"\(SH\s+(?P<sh>\d+)ms")
+ATP_TIME_RE = re.compile(r"ATP\s+(?P<atp>\d+)ms")
+PREPLAY_CMD_RE = re.compile(
+    r"(?:Try this:|Preplay:)\s+(?P<cmd>.+?)(?:\s+\(>?\s*\d+[\d.]*\s*(?:ms|s)\b[^)]*\)\s*)?$"
+)
+PREPLAY_TIME_RE = re.compile(
+    r"\(>?\s*(?P<time>\d+[\d.]*)\s*(?P<unit>ms|s)(?:,\s*timed out)?\)\s*$"
+)
+PREPLAY_TIMED_OUT_RE = re.compile(r"timed out\)\s*$")
 
 
 @dataclasses.dataclass(frozen=True)
@@ -30,10 +41,14 @@ class ProblemRef:
 @dataclasses.dataclass
 class LogEntry:
     ref: ProblemRef
+    line: int
     outcome: str
-    theory_long_name: str
-    line_text: str
     suggested_backend: str | None
+    strategy: str | None
+    sledgehammer_time: int | None
+    atp_time: int | None
+    preplay_command: str | None
+    preplay_time: int | None
 
 
 def parse_mirabelle_log(log_path: Path) -> list[LogEntry]:
@@ -56,16 +71,58 @@ def parse_mirabelle_log(log_path: Path) -> list[LogEntry]:
         )
         backend_match = SMT_BACKEND_RE.search(line)
         backend = None
+        strategy = None
         if backend_match:
-            backend_field = backend_match.group("backend").strip()
-            backend = backend_field.split(",", 1)[0].strip()
+            parts = [p.strip() for p in backend_match.group("backend").split(",")]
+            backend = parts[0]
+            if len(parts) > 1:
+                strategy = parts[1]
+        line_number = int(match.group("line"))
+
+        sh_match = SH_TIME_RE.search(line)
+        sh_time = int(sh_match.group("sh")) if sh_match else None
+
+        atp_match = ATP_TIME_RE.search(line)
+        atp_time = int(atp_match.group("atp")) if atp_match else None
+
+        raw_outcome = match.group("outcome")
+        preplay_command = None
+        preplay_time = None
+
+        if raw_outcome == "some":
+            if PREPLAY_TIMED_OUT_RE.search(line):
+                outcome = "failure preplay"
+            else:
+                outcome = "success preplay"
+            cmd_match = PREPLAY_CMD_RE.search(line)
+            if cmd_match:
+                preplay_command = cmd_match.group("cmd").strip()
+            time_match = PREPLAY_TIME_RE.search(line)
+            if time_match:
+                t = float(time_match.group("time"))
+                if time_match.group("unit") == "s":
+                    t *= 1000
+                preplay_time = int(t)
+        else:
+            if raw_outcome == "none":
+                if "Prover error:" in line:
+                    outcome = "prover error"
+                else:
+                    outcome = "other error"
+            else:
+                outcome = raw_outcome
+
         entries.append(
             LogEntry(
                 ref=ref,
-                outcome=match.group("outcome"),
-                theory_long_name=theory_long_name,
-                line_text=line,
+                line=line_number,
+                outcome=outcome,
                 suggested_backend=backend,
+                strategy=strategy,
+                sledgehammer_time=sh_time,
+                atp_time=atp_time,
+                preplay_command=preplay_command,
+                preplay_time=preplay_time,
             )
         )
     return entries
@@ -91,9 +148,11 @@ def render_summary(log_entries: list[LogEntry]) -> str:
         lines.append("## Mirabelle log")
         lines.append(f"- goals: {len(log_entries)}")
         lines.append(
-            f"- outcomes: some={outcome_counts.get('some', 0)}, "
+            f"- outcomes: success preplay={outcome_counts.get('success preplay', 0)}, "
+            f"failure preplay={outcome_counts.get('failure preplay', 0)}, "
             f"timeout={outcome_counts.get('timeout', 0)}, "
-            f"none={outcome_counts.get('none', 0)}"
+            f"prover error={outcome_counts.get('prover error', 0)}, "
+            f"other error={outcome_counts.get('other error', 0)}"
         )
         if backend_counts:
             backend_text = ", ".join(
@@ -101,6 +160,16 @@ def render_summary(log_entries: list[LogEntry]) -> str:
                 for backend, count in backend_counts.most_common()
             )
             lines.append(f"- suggested SMT backends: {backend_text}")
+        strategy_counts = count_by(
+            entry.strategy
+            for entry in log_entries
+            if entry.strategy is not None
+        )
+        if strategy_counts:
+            strategy_text = ", ".join(
+                f"{s}={c}" for s, c in strategy_counts.most_common()
+            )
+            lines.append(f"- SMT strategies: {strategy_text}")
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"
 
@@ -112,10 +181,14 @@ def json_payload(log_entries: list[LogEntry]) -> dict:
                 "session": entry.ref.session,
                 "theory": entry.ref.theory,
                 "base": entry.ref.base,
+                "line": entry.line,
                 "outcome": entry.outcome,
-                "theory_long_name": entry.theory_long_name,
                 "suggested_backend": entry.suggested_backend,
-                "line_text": entry.line_text,
+                "strategy": entry.strategy,
+                "sledgehammer_time": entry.sledgehammer_time,
+                "atp_time": entry.atp_time,
+                "preplay_command": entry.preplay_command,
+                "preplay_time": entry.preplay_time,
             }
             for entry in log_entries
         ],
