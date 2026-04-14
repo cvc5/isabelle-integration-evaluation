@@ -174,25 +174,23 @@ def render_summary(log_entries: list[LogEntry]) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def json_payload(log_entries: list[LogEntry]) -> dict:
-    return {
-        "log_entries": [
-            {
-                "session": entry.ref.session,
-                "theory": entry.ref.theory,
-                "base": entry.ref.base,
-                "line": entry.line,
-                "outcome": entry.outcome,
-                "suggested_backend": entry.suggested_backend,
-                "strategy": entry.strategy,
-                "sledgehammer_time": entry.sledgehammer_time,
-                "atp_time": entry.atp_time,
-                "preplay_command": entry.preplay_command,
-                "preplay_time": entry.preplay_time,
-            }
-            for entry in log_entries
-        ],
-    }
+def json_payload(log_entries: list[LogEntry]) -> list[dict]:
+    return [
+        {
+            "session": entry.ref.session,
+            "theory": entry.ref.theory,
+            "base": entry.ref.base,
+            "line": entry.line,
+            "outcome": entry.outcome,
+            "suggested_backend": entry.suggested_backend,
+            "strategy": entry.strategy,
+            "sledgehammer_time": entry.sledgehammer_time,
+            "atp_time": entry.atp_time,
+            "preplay_command": entry.preplay_command,
+            "preplay_time": entry.preplay_time,
+        }
+        for entry in log_entries
+    ]
 
 
 def parse_args() -> argparse.Namespace:
@@ -200,14 +198,12 @@ def parse_args() -> argparse.Namespace:
         description="Transform mirabelle.log into .json file."
     )
     parser.add_argument(
-        "--mirabelle-log",
-        required=True,
+        "mirabelle_log",
         help="path to mirabelle.log",
     )
     parser.add_argument(
-        "--json",
-        default=None,
-        help="optional path for machine-readable JSON output",
+        "json_output",
+        help="path for machine-readable JSON output",
     )
     return parser.parse_args()
 
@@ -220,12 +216,10 @@ def main() -> int:
     summary = render_summary(log_entries)
     sys.stdout.write(summary)
 
-    if args.json:
-        json_path = Path(args.json)
-        json_path.write_text(
-            json.dumps(json_payload(log_entries), indent=2, sort_keys=True),
-            encoding="utf-8",
-        )
+    Path(args.json_output).write_text(
+        json.dumps(json_payload(log_entries), indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
 
     return 0
 
