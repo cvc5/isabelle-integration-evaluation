@@ -1,0 +1,31 @@
+/bin/isabelle mirabelle -d ~/Sources/afp-2026-04-09/thys/ -O output_mirabelle_Apr13_RP_overnight -A 'sledgehammer[provers=cvc5_proof, keep_probs=true, try0=false, keep_proofs=true]' -d ~/Sources/afp-2026-04-09/thys/Ordered_Resolution_Prover/ Ordered_Resolution_Prover
+Unfinished session(s): Ordered_Resolution_Prover
+34:11:54 elapsed time, 16:32:12 cpu time, factor 0.48
+
+# output_mirabelle summary
+
+## Mirabelle log
+- goals: 2668
+- outcomes: success preplay=2093, failure preplay=0, timeout=567, prover error=4, other error=4
+- suggested SMT backends: z3=1033, verit=874, cvc5=186
+- SMT strategies: best=284, ccfv_threshold=189, del_insts=126, ccfv_SIG=111, quant_saturate=23, trigger_last=18, trigger_max=12, term_relev=11, noematch=10, trigger_relev=8, fmf=4
++ /usr/bin/python3 /home/lachnitt/Sources/isabelle-integration-evaluation/mirabelle/scripts/evaluateSledgehammerOutput.py /home/lachnitt/Sources/isabelle-integration-evaluation/mirabelle/data/RP/output_mirabelle_Apr13_RP_overnight/0.sledgehammer data/RP/Apr13_RP/mirabelle_files.json
+Written 2316 entries to data/RP/Apr13_RP/mirabelle_files.json
+Proof files with (error on line 2 or 3: 149094
++ /usr/bin/python3 /home/lachnitt/Sources/isabelle-integration-evaluation/mirabelle/scripts/rmSledgehammerFiles.py data/RP/Apr13_RP/mirabelle_files.json data/RP/Apr13_RP/mirabelle_files_filtered.json
+removed 148747 sat/unknown entries; removed 181195 duplicate-solver entries; deleted 652733 files; 0 already missing.
+remaining: 6705 calls, 13410 files.
++ /usr/bin/python3 /home/lachnitt/Sources/isabelle-integration-evaluation/mirabelle/scripts/mergeLogAndFiles.py data/RP/Apr13_RP/mirabelle_log.json data/RP/Apr13_RP/mirabelle_files_filtered.json data/RP/Apr13_RP/out.json
+Warning: no problem/proof files found for log entry prob_00093_002516 (session=Ordered_Resolution_Prover, theory=Clausal_Logic, outcome=prover error)
+Warning: no problem/proof files found for log entry prob_00093_002516 (session=Ordered_Resolution_Prover, theory=Clausal_Logic, outcome=other error)
+Warning: no problem/proof files found for log entry prob_00102_002698 (session=Ordered_Resolution_Prover, theory=Clausal_Logic, outcome=prover error)
+Warning: no problem/proof files found for log entry prob_00102_002698 (session=Ordered_Resolution_Prover, theory=Clausal_Logic, outcome=other error)
+Warning: no problem/proof files found for log entry prob_00143_003946 (session=Ordered_Resolution_Prover, theory=Clausal_Logic, outcome=prover error)
+Warning: no problem/proof files found for log entry prob_00143_003946 (session=Ordered_Resolution_Prover, theory=Clausal_Logic, outcome=other error)
+Warning: no problem/proof files found for log entry prob_00152_004092 (session=Ordered_Resolution_Prover, theory=Clausal_Logic, outcome=prover error)
+Warning: no problem/proof files found for log entry prob_00152_004092 (session=Ordered_Resolution_Prover, theory=Clausal_Logic, outcome=other error)
+Warning: problem/proof file found but no log entry prob_00411_015613 (session=Ordered_Resolution_Prover, theory=FO_Ordered_Resolution_Prover)
+Written 2669 entries to data/RP/Apr13_RP/out.json
+  2315 matched, 353 log-only, 1 files-only
+Wrote data/RP/Apr13_RP/out.json
+
