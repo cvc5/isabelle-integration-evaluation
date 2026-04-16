@@ -1,0 +1,4 @@
+(step t124 (cl (! (ite (! (= zero$ (! (fun_app$h integer_of_nat$ m$) :named @p_2)) :named @p_1) (! (= (! (fun_app$d (! (pair$ zero$) :named @p_5) zero$) :named @p_4) (! (ite @p_1 @p_4 (! (ite (! (= zero$ (! (fun_app$h integer_of_nat$ n$) :named @p_9)) :named @p_8) (! (fun_app$d @p_5 @p_2) :named @p_10) (! (fun_app$d (! (divmod_abs$a @p_2) :named @p_12) @p_9) :named @p_11)) :named @p_7)) :named @p_6)) :named @p_3) (! (= @p_6 @p_7) :named @p_13)) :named @p_0)) :rule hole :args ("trust"))
+(step t242 (cl @p_1 @p_13) :rule ite1 :premises (t124))
+(step slice_end (cl) :rule hole :premises (t242) :args ("trust"))
+

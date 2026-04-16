@@ -1,0 +1,4 @@
+(step t89 (cl (! (ite v$ (! (= m0$ (! (ite v$ m0$ m1$) :named @p_2)) :named @p_1) (! (= m1$ @p_2) :named @p_3)) :named @p_0)) :rule hole :args ("trust"))
+(step t91 (cl (! (not v$) :named @p_4) @p_1) :rule ite2 :premises (t89))
+(step slice_end (cl) :rule hole :premises (t91) :args ("trust"))
+

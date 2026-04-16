@@ -1,0 +1,13 @@
+(define-fun @quantifiers_skolemize_43 () Nat$ (! (choice ((?v4 Nat$)) (not (or (not (member$b ?v4 (! (atLeastAtMost$ one$ n$) :named @p_1))) (= (fun_app$ (! (uua$ a$) :named @p_2) ?v4) (fun_app$ uu$ ?v4))))) :named @p_0))
+(anchor :step t8)
+(assume t8.a0 (! (not (! (= (! (fun_app$a (! (times$ (! (prod$a uu$ @p_1) :named @p_7)) :named @p_6) (! (fun_app$b of_int$ p$) :named @p_8)) :named @p_5) (! (fun_app$b of_int$ (! (fun_app$d (! (times$a (! (prod$ a$ @p_1) :named @p_12)) :named @p_11) p$) :named @p_10)) :named @p_9)) :named @p_4)) :named @p_3))
+(assume t8.a1 (! (= @p_5 (! (+ (! (fun_app$a (! (times$ (! (fun_app$b of_int$ q$) :named @p_17)) :named @p_16) (! (sum$a uvf$ @p_1) :named @p_18)) :named @p_15) (! (fun_app$a @p_6 (! (+ @p_8 (! (* -1/1 (! (fun_app$a @p_16 (! (sum$a uve$ @p_1) :named @p_23)) :named @p_22)) :named @p_21)) :named @p_20)) :named @p_19)) :named @p_14)) :named @p_13))
+(assume t8.a2 (! (= (! (fun_app$b of_int$ @p_12) :named @p_25) (! (prod$a @p_2 @p_1) :named @p_26)) :named @p_24))
+(assume t8.a3 (! (= @p_9 (! (fun_app$a (! (times$ @p_25) :named @p_29) @p_8) :named @p_28)) :named @p_27))
+(assume t8.a4 (! (= @p_7 @p_26) :named @p_30))
+(step t8.t7 (cl (! (not (! (and @p_13 @p_30 @p_24 @p_27) :named @p_32)) :named @p_31) @p_31 @p_31 @p_31 (! (= @p_9 @p_14) :named @p_33)) :rule hole :args ("trust"))
+(step t8.t8 (cl @p_31 @p_33) :rule contraction :premises (t8.t7))
+(step t8.t39 (cl (! (and @p_33 @p_13 @p_3) :named @p_34)) :rule hole :premises (t8.t8) :args ("trust"))
+(step t8 (cl (! (not @p_3) :named @p_35) (! (not @p_13) :named @p_36) (! (not @p_24) :named @p_37) (! (not @p_27) :named @p_38) (! (not @p_30) :named @p_39) @p_34) :rule subproof :discharge (t8.a0 t8.a1 t8.a2 t8.a3 t8.a4))
+(step slice_end (cl) :rule hole :premises (t8) :args ("trust"))
+

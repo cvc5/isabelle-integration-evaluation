@@ -1,0 +1,4 @@
+(step t7 (cl (! (not (! (or (! (not (! (fun_app$b (! (fun_app$ag (! (fun_app$an rtranclp$ step$) :named @p_5) s$) :named @p_4) s$a) :named @p_3)) :named @p_2) (! (not (! (fun_app$b (! (finished$ step$) :named @p_8) s$a) :named @p_7)) :named @p_6) (! (fun_app$b final$ s$a) :named @p_9) (! (fun_app$e (! (fun_app$ak (! (state_behaves$ step$ final$) :named @p_12) s$) :named @p_11) (! (fun_app$ao goes_wrong$ s$a) :named @p_13)) :named @p_10)) :named @p_1)) :named @p_0) @p_2 @p_6 @p_9 @p_10) :rule hole :args ("trust"))
+(step t8 (cl @p_6 @p_2 @p_9 @p_10 @p_0) :rule reordering :premises (t7))
+(step slice_end (cl) :rule hole :premises (t8) :args ("trust"))
+

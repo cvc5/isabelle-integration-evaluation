@@ -1,0 +1,8 @@
+(anchor :step t1)
+(assume t1.a0 (! (forall ((?v0 Nat$) (?v1 Nat$)) (or (not (fun_app$b (fun_app$c less$ ?v0) ?v1)) (= ?v0 (fun_app$d (modulo$ ?v0) ?v1)))) :named @p_0))
+(step t1.t0 (cl (! (or (! (not @p_0) :named @p_2) (! (or (! (not (! (fun_app$b (! (fun_app$c less$ (! (card$ (! (fun_app$a (! (subgroups_of_size$ g$) :named @p_9) q$) :named @p_8)) :named @p_7)) :named @p_6) q$) :named @p_5)) :named @p_4) (! (= @p_7 (! (fun_app$d (! (modulo$ @p_7) :named @p_12) q$) :named @p_11)) :named @p_10)) :named @p_3)) :named @p_1)) :rule hole :args ("trust"))
+(step t1.t1 (cl @p_2 @p_3) :rule or :premises (t1.t0))
+(step t1.t11 (cl @p_3) :rule hole :premises (t1.t1) :args ("trust"))
+(step t1 (cl @p_2 @p_3) :rule subproof :discharge (t1.a0))
+(step slice_end (cl) :rule hole :premises (t1) :args ("trust"))
+

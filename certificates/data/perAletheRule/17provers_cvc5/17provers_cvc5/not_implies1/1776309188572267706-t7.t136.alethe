@@ -1,0 +1,11 @@
+(anchor :step t7)
+(assume t7.a0 (! (not (! (= (! (nth$ (! (fun_app$c (! (fun_app$d append$ l$) :named @p_4) (! (fun_app$c (! (cons$ y$) :named @p_6) (! (concat$b nil$b) :named @p_7)) :named @p_5)) :named @p_3) (! (size$b @p_7) :named @p_8)) :named @p_2) (! (nth$ l$ @p_8) :named @p_9)) :named @p_1)) :named @p_0))
+(assume t7.a1 (! (= l$ (! (fun_app$v (! (list_update$ l$ @p_8) :named @p_12) @p_9) :named @p_11)) :named @p_10))
+(assume t7.a2 (! (= (! (fun_app$v (! (list_update$ @p_3 @p_8) :named @p_15) @p_9) :named @p_14) (! (fun_app$c (! (fun_app$d append$ @p_11) :named @p_17) @p_5) :named @p_16)) :named @p_13))
+(assume t7.a3 (! (= @p_9 (! (nth$ @p_14 @p_8) :named @p_19)) :named @p_18))
+(step t7.t135 (cl (! (not (! (=> (! (not (! (= l$ @p_7) :named @p_23)) :named @p_22) @p_1) :named @p_21)) :named @p_20)) :rule hole :args ("trust"))
+(step t7.t136 (cl @p_22) :rule not_implies1 :premises (t7.t135))
+(step t7.t181 (cl (! (and @p_18 (! (not @p_18) :named @p_25)) :named @p_24)) :rule hole :premises (t7.t136) :args ("trust"))
+(step t7 (cl (! (not @p_0) :named @p_26) (! (not @p_10) :named @p_27) (! (not @p_13) :named @p_28) @p_25 @p_24) :rule subproof :discharge (t7.a0 t7.a1 t7.a2 t7.a3))
+(step slice_end (cl) :rule hole :premises (t7) :args ("trust"))
+

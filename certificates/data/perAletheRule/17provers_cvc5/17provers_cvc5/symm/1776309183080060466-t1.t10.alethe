@@ -1,0 +1,8 @@
+(anchor :step t1)
+(assume t1.a0 (! (forall ((?v0 B_b_fun$)) (not (fun_app$a (member$b ?v0) (! (iso$ (! (fun_app$v rep_group$ h$) :named @p_2) (! (fun_app$v rep_group$ g$) :named @p_3)) :named @p_1)))) :named @p_0))
+(step t1.t9 (cl (! (= (! (= thesis$ (! false :named @p_6)) :named @p_5) (! (not thesis$) :named @p_7)) :named @p_4)) :rule hole :args ("trust"))
+(step t1.t10 (cl (! (= @p_7 @p_5) :named @p_8)) :rule symm :premises (t1.t9))
+(step t1.t18 (cl (! (not (! (fun_app$a (! (member$b (! (fun_app$j (! (inv_into$ (! (carrier$ @p_3) :named @p_14)) :named @p_13) phi$) :named @p_12)) :named @p_11) @p_1) :named @p_10)) :named @p_9)) :rule hole :premises (t1.t10) :args ("trust"))
+(step t1 (cl (! (not @p_0) :named @p_15) @p_9) :rule subproof :discharge (t1.a0))
+(step slice_end (cl) :rule hole :premises (t1) :args ("trust"))
+

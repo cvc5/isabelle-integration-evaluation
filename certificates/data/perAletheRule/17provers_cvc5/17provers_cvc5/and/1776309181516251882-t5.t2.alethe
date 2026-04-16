@@ -1,0 +1,12 @@
+(define-fun @quantifiers_skolemize_11 () P$ (! (choice ((?v0 P$)) (not (or (not (fun_app$ (! (fun_app$a (! (fun_app$b bet$ c$a) :named @p_2) c$) :named @p_1) ?v0)) (not (fun_app$ (fun_app$a (fun_app$b (! (fun_app$c cong$ c$) :named @p_3) ?v0) c$) d$))))) :named @p_0))
+(assume a40 (! (and (! (fun_app$ (! (fun_app$a (! (fun_app$b bet$ d$) :named @p_7) c$) :named @p_6) r$) :named @p_5) (! (fun_app$ (! (fun_app$a (! (fun_app$b @p_3 r$) :named @p_10) c$) :named @p_9) e$) :named @p_8)) :named @p_4))
+(anchor :step t5)
+(assume t5.a0 @p_8)
+(assume t5.a1 (! (= c$ d$) :named @p_11))
+(assume t5.a2 (! (not (! (fun_app$ (! (fun_app$a @p_10 d$) :named @p_14) d$) :named @p_13)) :named @p_12))
+(assume t5.a3 (! (= d$ e$) :named @p_15))
+(step t5.t2 (cl @p_5) :rule and :premises (a40) :args (0))
+(step t5.t108 (cl (! (and @p_12 @p_11 @p_15 @p_8) :named @p_16)) :rule hole :premises (t5.t2) :args ("trust"))
+(step t5 (cl (! (not @p_8) :named @p_17) (! (not @p_11) :named @p_18) (! (not @p_12) :named @p_19) (! (not @p_15) :named @p_20) @p_16) :rule subproof :discharge (t5.a0 t5.a1 t5.a2 t5.a3))
+(step slice_end (cl) :rule hole :premises (t5) :args ("trust"))
+

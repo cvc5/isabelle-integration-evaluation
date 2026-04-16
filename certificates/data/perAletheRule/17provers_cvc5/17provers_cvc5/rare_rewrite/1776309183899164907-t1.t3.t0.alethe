@@ -1,0 +1,9 @@
+(anchor :step t1)
+(assume t1.a0 (! (forall ((?v0 Nat$) (?v1 Nat$)) (or (not (fun_app$c (fun_app$d less_eq$ ?v0) ?v1)) (not (fun_app$c (fun_app$d less$ ?v1) ?v0)))) :named @p_0))
+(anchor :step t1.t3 :args ((?v0 Nat$) (?v1 Nat$) (:= (?v0 Nat$) ?v0) (:= (?v1 Nat$) ?v1)))
+(step t1.t3.t0 (cl (= (=> (fun_app$c (fun_app$d less_eq$ ?v0) ?v1) (not (fun_app$c (fun_app$d less$ ?v1) ?v0))) (or (not (fun_app$c (fun_app$d less_eq$ ?v0) ?v1)) (not (fun_app$c (fun_app$d less$ ?v1) ?v0))))) :rule rare_rewrite :args ("bool-impl-elim" (fun_app$c (fun_app$d less_eq$ ?v0) ?v1) (not (fun_app$c (fun_app$d less$ ?v1) ?v0))))
+(step t1.t3 (cl (! (= (! (forall ((?v0 Nat$) (?v1 Nat$)) (=> (fun_app$c (fun_app$d less_eq$ ?v0) ?v1) (not (fun_app$c (fun_app$d less$ ?v1) ?v0)))) :named @p_2) @p_0) :named @p_1)) :rule bind)
+(step t1.t5 (cl (! (or (! (not (! (fun_app$c (! (fun_app$d less_eq$ (! (fun_app$b suc$ (! (fun_app$b suc$ m$) :named @p_8)) :named @p_7)) :named @p_6) (! (fun_app$b suc$ k$a) :named @p_9)) :named @p_5)) :named @p_4) (! (not (! (fun_app$c (! (fun_app$d less$ @p_9) :named @p_12) @p_7) :named @p_11)) :named @p_10)) :named @p_3)) :rule hole :premises (t1.t3) :args ("trust"))
+(step t1 (cl (! (not @p_0) :named @p_13) @p_3) :rule subproof :discharge (t1.a0))
+(step slice_end (cl) :rule hole :premises (t1) :args ("trust"))
+

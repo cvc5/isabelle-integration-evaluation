@@ -1,0 +1,428 @@
+Rule Example Collection Report
+==============================
+Input folder:  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe
+Metadata JSON: all.json
+Output dir:    /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/testFindRules/
+Total lookups: 3034
+Rounds:        2
+Files depleted: 2900 / 2902
+
+--- hole (1 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Category3/0033_CategoryWithPullbacks/prob_00691_024339__38669730.alethe
+
+--- true (0 / 5) ---
+  (none found)
+
+--- false (0 / 5) ---
+  (none found)
+
+--- not_not (0 / 5) ---
+  (none found)
+
+--- th_resolution (0 / 5) ---
+  (none found)
+
+--- resolution (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/List_Interleaving/0000_ListInterleaving/prob_00729_029422__19823510.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Subset_Boolean_Algebras/0000_Subset_Boolean_Algebras/prob_03014_098704__16662876.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Noninterference_CSP/0001_ClassicalNoninterference/prob_00446_017900__10784682.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Buildings/0003_Chamber/prob_02372_085742__21788202.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Bertrands_Postulate/0004_Bertrand/prob_00396_015759__15801204.alethe
+
+--- tautology (0 / 5) ---
+  (none found)
+
+--- contraction (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Abortable_Linearizable_Modules/0001_IOA/prob_00378_011666__7076718.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Irrationality_J_Hancl/0013_Irrationality_J_Hancl/prob_00269_010570__16183078.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Buildings/0001_Algebra/prob_02437_086306__17496210.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Falling_Factorial_Sum/0004_Falling_Factorial_Sum_Combinatorics/prob_00165_005775__17148740.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Subset_Boolean_Algebras/0000_Subset_Boolean_Algebras/prob_00880_031257__9167320.alethe
+
+--- subproof (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Card_Number_Partitions/0000_Additions_to_Main/prob_00047_001397__12021670.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Subset_Boolean_Algebras/0000_Subset_Boolean_Algebras/prob_02974_097024__16421902.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Prime_Harmonic_Series/0030_Prime_Harmonic_Misc/prob_00027_000666__14097160.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Category3/0025_SetCategory/prob_00989_037849__21588966.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Abstract-Hoare-Logics/0009_PsHoare/prob_00102_003240__16639700.alethe
+
+--- la_generic (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Transcendence_Series_Hancl_Rucki/0084_Transcendence_Series/prob_00399_017415__19830002.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/First_Welfare_Theorem/0006_Arrow_Debreu_Model/prob_00172_005684__20798882.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Polynomial_Interpolation/0000_Missing_Unsorted/prob_00230_009004__12984706.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/List_Update/0010_BIT/prob_01959_094062__19506884.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/List_Update/0012_List_Factoring/prob_02266_099970__21908426.alethe
+
+--- lia_generic (0 / 5) ---
+  (none found)
+
+--- la_disequality (0 / 5) ---
+  (none found)
+
+--- la_totality (0 / 5) ---
+  (none found)
+
+--- la_tautology (0 / 5) ---
+  (none found)
+
+--- la_mult_pos (0 / 5) ---
+  (none found)
+
+--- la_mult_neg (0 / 5) ---
+  (none found)
+
+--- bind (0 / 5) ---
+  (none found)
+
+--- sko_ex (0 / 5) ---
+  (none found)
+
+--- sko_forall (0 / 5) ---
+  (none found)
+
+--- forall_inst (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Bounded_Deducibility_Security/0004_Transition_System/prob_00238_006768__14450592.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/IsaGeoCoq/0000_Tarski_Neutral/prob_18938_618391__17518864.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Buildings/0004_Coxeter/prob_00615_023124__25377822.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Abstract-Hoare-Logics/0004_PLang/prob_00203_005956__8157698.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Noninterference_CSP/0001_ClassicalNoninterference/prob_00281_011095__9484786.alethe
+
+--- refl (0 / 5) ---
+  (none found)
+
+--- trans (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Category3/0027_Yoneda/prob_00774_031549__23977224.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/List_Interleaving/0000_ListInterleaving/prob_00451_017999__14484048.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/List_Update/0010_BIT/prob_01806_084342__19371988.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Menger/0005_Y_eq_new_last/prob_00187_008848__18440480.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Fishburn_Impossibility/0011_Social_Choice_Functions/prob_00406_014529__15120142.alethe
+
+--- cong (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Noninterference_CSP/0001_ClassicalNoninterference/prob_00557_022561__11814082.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Regex_Equivalence/0013_Derivatives_Finite/prob_00137_004717__15116202.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Comparison_Sort_Lower_Bound/0002_Linorder_Relations/prob_00256_009446__24244690.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Regex_Equivalence/0011_Before2/prob_00195_006773__13724770.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Abstract_Soundness/0001_Infinite_Proof_Soundness/prob_00425_017078__29750282.alethe
+
+--- eq_reflexive (0 / 5) ---
+  (none found)
+
+--- eq_transitive (0 / 5) ---
+  (none found)
+
+--- eq_congruent (0 / 5) ---
+  (none found)
+
+--- eq_congruent_pred (0 / 5) ---
+  (none found)
+
+--- qnt_cnf (0 / 5) ---
+  (none found)
+
+--- and (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Locally-Nameless-Sigma/0005_ParRed/prob_01238_044774__20031572.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/IsaGeoCoq/0000_Tarski_Neutral/prob_01347_037133__7197696.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Multi_Party_Computation/0020_Malicious_OT/prob_01262_065011__23839844.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Slicing/0034_WCFG/prob_00583_020822__59663902.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/MonoidalCategory/0002_FreeMonoidalCategory/prob_01658_059857__41886852.alethe
+
+--- not_or (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/CoSMed/0009_Friend/prob_00675_035492__17367168.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/CoSMed/0009_Friend/prob_00470_023501__15822414.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/List_Interleaving/0000_ListInterleaving/prob_00179_007883__7840420.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Abstract_Completeness/0003_Abstract_Completeness/prob_00285_011652__20250844.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Locally-Nameless-Sigma/0003_FMap/prob_00132_004199__7438726.alethe
+
+--- or (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Abortable_Linearizable_Modules/0003_RDR/prob_00110_002958__10445534.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Bertrands_Postulate/0004_Bertrand/prob_01285_051847__20285190.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Probabilistic_Noninterference/0009_Language_Semantics/prob_00820_026280__20886812.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Jordan_Hoelder/0008_CompositionSeries/prob_00065_002852__23988284.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Polynomial_Interpolation/0003_Missing_Polynomial/prob_00203_006925__15143132.alethe
+
+--- weakening (0 / 5) ---
+  (none found)
+
+--- reordering (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Bounded_Deducibility_Security/0003_Filtermap/prob_00128_004597__10594786.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/VeriComp/0004_Semantics/prob_00104_003137__12323648.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Pell/0000_Efficient_Discrete_Sqrt/prob_00267_010417__13279064.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Consensus_Refined/0031_OneThirdRule_Proofs/prob_00168_004962__16338486.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/VeriComp/0004_Semantics/prob_00108_003248__12429568.alethe
+
+--- shuffle (0 / 5) ---
+  (none found)
+
+--- not_and (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Noninterference_CSP/0000_CSPNoninterference/prob_00422_017158__7338578.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Comparison_Sort_Lower_Bound/0002_Linorder_Relations/prob_00087_002720__17617342.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Menger/0000_Graph/prob_00081_003306__5974790.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Finger-Trees/0000_FingerTree/prob_01556_055854__27321686.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Polynomial_Interpolation/0000_Missing_Unsorted/prob_00356_013586__13297650.alethe
+
+--- xor1 (0 / 5) ---
+  (none found)
+
+--- xor2 (0 / 5) ---
+  (none found)
+
+--- not_xor1 (0 / 5) ---
+  (none found)
+
+--- not_xor2 (0 / 5) ---
+  (none found)
+
+--- implies (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Dominance_CHK/0018_Dom_Kildall_Property/prob_01782_084739__20648596.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Abstract-Hoare-Logics/0009_PsHoare/prob_00116_003446__16841286.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/List_Interleaving/0000_ListInterleaving/prob_00570_023209__15137560.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Regex_Equivalence/0013_Derivatives_Finite/prob_00274_010247__16917220.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Cauchy/0001_CauchysMeanTheorem/prob_00569_018120__12190556.alethe
+
+--- not_implies1 (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Dominance_CHK/0018_Dom_Kildall_Property/prob_01301_061073__18295496.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Locally-Nameless-Sigma/0002_ListPre/prob_00070_002132__6788280.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Generalized_Counting_Sort/0001_Conservation/prob_00944_035861__15604940.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/First_Welfare_Theorem/0003_Preferences/prob_00472_015041__15413634.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/IsaGeoCoq/0000_Tarski_Neutral/prob_06062_185481__9338290.alethe
+
+--- not_implies2 (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Locally-Nameless-Sigma/0004_Sigma/prob_02031_068144__14413588.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Multi_Party_Computation/0017_ETP/prob_00042_001854__20141650.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/First_Welfare_Theorem/0004_Utility_Functions/prob_00155_004504__18223510.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Locally-Nameless-Sigma/0004_Sigma/prob_02069_069308__14602610.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Abstract-Hoare-Logics/0007_PHoareTotal/prob_00297_008633__11095150.alethe
+
+--- equiv1 (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Localization_Ring/0000_Localization/prob_01065_055564__25759240.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/CryptHOL/0032_Generative_Probabilistic_Value/prob_02972_124533__24181188.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Falling_Factorial_Sum/0004_Falling_Factorial_Sum_Combinatorics/prob_00158_005424__16750938.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/MonoidalCategory/0000_MonoidalCategory/prob_01655_063239__20260148.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Abortable_Linearizable_Modules/0006_Idempotence/prob_01090_037857__21506884.alethe
+
+--- equiv2 (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Public_Announcement_Logic/0000_PAL/prob_00446_013222__27133934.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Menger/0003_DisjointPaths/prob_00332_014598__14654128.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Bounded_Deducibility_Security/0007_IO_Automaton/prob_00222_006991__22893630.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Polynomial_Interpolation/0003_Missing_Polynomial/prob_00464_016206__16011070.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Bertrands_Postulate/0004_Bertrand/prob_01149_046867__19596998.alethe
+
+--- not_equiv1 (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Cauchy/0001_CauchysMeanTheorem/prob_00667_021755__13213822.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Pell/0001_Pell/prob_00040_001383__13590036.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/CoSMeDis/0039_Independent_DYNAMIC_Post_Value_Setup_ISSUER/prob_00032_000962__41777694.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Public_Announcement_Logic/0000_PAL/prob_00256_008157__18487834.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Bounded_Deducibility_Security/0005_BD_Security_TS/prob_00109_003641__15873292.alethe
+
+--- not_equiv2 (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Probabilistic_Noninterference/0011_Compositionality/prob_00828_026286__27953922.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Polynomial_Interpolation/0000_Missing_Unsorted/prob_00383_014421__13364278.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Fishburn_Impossibility/0011_Social_Choice_Functions/prob_00202_007039__10933602.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Triangle/0000_Angles/prob_00155_005469__15602366.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Fishburn_Impossibility/0011_Social_Choice_Functions/prob_00238_008621__12071668.alethe
+
+--- and_pos (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/CoSMed/0008_Friend_Value_Setup/prob_00578_027007__11563866.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Category3/0029_EquivalenceOfCategories/prob_00315_010928__25584508.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/CoSMed/0014_Post_Value_Setup/prob_00061_001675__30163642.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Finger-Trees/0000_FingerTree/prob_00525_019075__14865460.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Triangle/0001_Triangle/prob_00146_005754__20672348.alethe
+
+--- and_neg (0 / 5) ---
+  (none found)
+
+--- or_pos (0 / 5) ---
+  (none found)
+
+--- or_neg (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Dominance_CHK/0018_Dom_Kildall_Property/prob_01384_064809__18551640.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Abstract_Completeness/0003_Abstract_Completeness/prob_00348_014309__22870714.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Slicing/0026_JVMPostdomination/prob_00311_010648__45785470.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Abstract_Soundness/0001_Infinite_Proof_Soundness/prob_00518_019832__32543832.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Multi_Party_Computation/0025_OT14/prob_00216_010389__29120384.alethe
+
+--- xor_pos1 (0 / 5) ---
+  (none found)
+
+--- xor_pos2 (0 / 5) ---
+  (none found)
+
+--- xor_neg1 (0 / 5) ---
+  (none found)
+
+--- xor_neg2 (0 / 5) ---
+  (none found)
+
+--- implies_pos (0 / 5) ---
+  (none found)
+
+--- implies_neg1 (0 / 5) ---
+  (none found)
+
+--- implies_neg2 (0 / 5) ---
+  (none found)
+
+--- equiv_pos1 (0 / 5) ---
+  (none found)
+
+--- equiv_pos2 (0 / 5) ---
+  (none found)
+
+--- equiv_neg1 (0 / 5) ---
+  (none found)
+
+--- equiv_neg2 (0 / 5) ---
+  (none found)
+
+--- ite1 (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Regex_Equivalence/0014_Deriv_PDeriv/prob_00203_007567__22152674.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Triangle/0000_Angles/prob_00129_004363__14847558.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Locally-Nameless-Sigma/0004_Sigma/prob_01371_046474__12376798.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Polynomial_Interpolation/0001_Improved_Code_Equations/prob_00064_002337__14039764.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Bounded_Deducibility_Security/0003_Filtermap/prob_00170_006068__11281530.alethe
+
+--- ite2 (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/MonoidalCategory/0001_MonoidalFunctor/prob_00278_012764__34692028.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Prime_Harmonic_Series/0031_Squarefree_Nat/prob_00119_004675__19286252.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Noninterference_CSP/0001_ClassicalNoninterference/prob_00200_007720__8888822.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/CryptHOL/0028_Misc_CryptHOL/prob_02124_081865__19561242.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Multi_Party_Computation/0024_Noar_Pinkas_OT/prob_00169_007227__27913180.alethe
+
+--- ite_pos1 (0 / 5) ---
+  (none found)
+
+--- ite_pos2 (0 / 5) ---
+  (none found)
+
+--- ite_neg1 (0 / 5) ---
+  (none found)
+
+--- ite_neg2 (0 / 5) ---
+  (none found)
+
+--- not_ite1 (0 / 5) ---
+  (none found)
+
+--- not_ite2 (1 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/CoSMeDis/0045_Independent_Post_RECEIVER/prob_00229_008735__52007918.alethe
+
+--- connective_def (0 / 5) ---
+  (none found)
+
+--- and_simplify (0 / 5) ---
+  (none found)
+
+--- or_simplify (0 / 5) ---
+  (none found)
+
+--- not_simplify (0 / 5) ---
+  (none found)
+
+--- implies_simplify (0 / 5) ---
+  (none found)
+
+--- equiv_simplify (0 / 5) ---
+  (none found)
+
+--- bool_simplify (0 / 5) ---
+  (none found)
+
+--- ac_simp (0 / 5) ---
+  (none found)
+
+--- ite_simplify (0 / 5) ---
+  (none found)
+
+--- qnt_simplify (0 / 5) ---
+  (none found)
+
+--- onepoint (0 / 5) ---
+  (none found)
+
+--- qnt_join (0 / 5) ---
+  (none found)
+
+--- qnt_rm_unused (0 / 5) ---
+  (none found)
+
+--- eq_simplify (0 / 5) ---
+  (none found)
+
+--- div_simplify (0 / 5) ---
+  (none found)
+
+--- prod_simplify (0 / 5) ---
+  (none found)
+
+--- unary_minus_simplify (0 / 5) ---
+  (none found)
+
+--- minus_simplify (0 / 5) ---
+  (none found)
+
+--- sum_simplify (0 / 5) ---
+  (none found)
+
+--- comp_simplify (0 / 5) ---
+  (none found)
+
+--- let (0 / 5) ---
+  (none found)
+
+--- bind_let (0 / 5) ---
+  (none found)
+
+--- distinct_elim (0 / 5) ---
+  (none found)
+
+--- la_rw_eq (0 / 5) ---
+  (none found)
+
+--- nary_elim (0 / 5) ---
+  (none found)
+
+--- bfun_elim (0 / 5) ---
+  (none found)
+
+--- ite_intro (0 / 5) ---
+  (none found)
+
+--- symm (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Jordan_Hoelder/0003_GroupIsoClasses/prob_00040_001311__16756340.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Irrationality_J_Hancl/0013_Irrationality_J_Hancl/prob_00828_035975__22383322.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Bounded_Deducibility_Security/0007_IO_Automaton/prob_00091_002740__20252768.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Comparison_Sort_Lower_Bound/0002_Linorder_Relations/prob_00252_009260__24020344.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Probabilistic_Noninterference/0010_Resumption_Based/prob_01701_054413__26032312.alethe
+
+--- not_symm (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Poincare_Disc/0008_Poincare/prob_00077_002543__14120014.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Polynomial_Interpolation/0010_Newton_Interpolation/prob_00322_012410__20807966.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Subset_Boolean_Algebras/0000_Subset_Boolean_Algebras/prob_02651_084371__14495938.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Subset_Boolean_Algebras/0000_Subset_Boolean_Algebras/prob_02671_085168__14613904.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Buildings/0003_Chamber/prob_01260_045601__20541750.alethe
+
+--- eq_symmetric (0 / 5) ---
+  (none found)
+
+--- miniscope_distribute (0 / 5) ---
+  (none found)
+
+--- miniscope_split (0 / 5) ---
+  (none found)
+
+--- miniscope_ite (0 / 5) ---
+  (none found)
+
+--- aci_simp (0 / 5) ---
+  (none found)
+
+--- rare_rewrite (5 / 5) ---
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Localization_Ring/0000_Localization/prob_00390_018228__19796344.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Fishburn_Impossibility/0011_Social_Choice_Functions/prob_00520_019242__18548640.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Ergodic_Theory/0010_Gouezel_Karlsson/prob_00139_006837__23428062.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Abstract-Hoare-Logics/0008_PsLang/prob_00158_004564__16526814.alethe
+  /barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/SMT2_0512/proofs/cvc5_alethe/Generalized_Counting_Sort/0002_Sorting/prob_01071_044231__21536194.alethe
+
+--- multi_rare_rewrite (0 / 5) ---
+  (none found)
+

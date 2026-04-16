@@ -1,0 +1,4 @@
+(assume a64 (! (not (! (= (! (fun_app$a (! (member$a (! (fun_app$k sigma$ x$) :named @p_4)) :named @p_3) (! (fun_app$x scf$ r1$) :named @p_5)) :named @p_2) (! (fun_app$a (! (member$a x$) :named @p_7) (! (fun_app$x scf$ r2$) :named @p_8)) :named @p_6)) :named @p_1)) :named @p_0))
+(step t200 (cl (! (not @p_2) :named @p_9) (! (not @p_6) :named @p_10)) :rule not_equiv2 :premises (a64))
+(step slice_end (cl) :rule hole :premises (t200) :args ("trust"))
+

@@ -1,0 +1,8 @@
+(anchor :step t6)
+(assume t6.a0 (! (= h$ (! (the$ uu$) :named @p_1)) :named @p_0))
+(assume t6.a1 (! (not (! (= h$ (! (ite (! (fun_app$ (! (fun_app$g (! (fun_app$h (! (fun_app$i (! (commutative_square$ c$) :named @p_9) f$) :named @p_8) g$) :named @p_7) (! (fun_app$a (! (fun_app$b c$ (! (fun_app$a (! (fun_app$b prj1$ f$) :named @p_13) g$) :named @p_12)) :named @p_11) h$) :named @p_10)) :named @p_6) (! (fun_app$a (! (fun_app$b c$ (! (fun_app$a (! (fun_app$b prj0$ f$) :named @p_17) g$) :named @p_16)) :named @p_15) h$) :named @p_14)) :named @p_5) @p_1 (! (null$ c$) :named @p_18)) :named @p_4)) :named @p_3)) :named @p_2))
+(step t6.t35 (cl (! (= (! (= (! (forall ((?v0 A$)) (or (not (forall ((?v1 A$)) (or (not (= @p_10 (fun_app$a @p_11 ?v1))) (not (= @p_14 (fun_app$a @p_15 ?v1))) (= ?v0 ?v1)))) (not (= (fun_app$a @p_11 ?v0) @p_10)) (not (= (fun_app$a @p_15 ?v0) @p_14)))) :named @p_21) (! (forall ((?v0 A$)) (or (not (forall ((?v1 A$)) (or (not (= @p_14 (fun_app$a @p_15 ?v1))) (not (= @p_10 (fun_app$a @p_11 ?v1))) (= ?v0 ?v1)))) (not (= (fun_app$a @p_15 ?v0) @p_14)) (not (= (fun_app$a @p_11 ?v0) @p_10)))) :named @p_22)) :named @p_20) (! true :named @p_23)) :named @p_19)) :rule hole)
+(step t6.t75 (cl (! (not (! (= @p_1 @p_4) :named @p_25)) :named @p_24)) :rule hole :premises (t6.t35) :args ("trust"))
+(step t6 (cl (! (not @p_0) :named @p_26) (! (not @p_2) :named @p_27) @p_24) :rule subproof :discharge (t6.a0 t6.a1))
+(step slice_end (cl) :rule hole :premises (t6) :args ("trust"))
+

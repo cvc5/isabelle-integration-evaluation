@@ -1,0 +1,4 @@
+(step t32 (cl (! (not (! (and (! (= c$ (! (cnj$ c$) :named @p_3)) :named @p_2) (! (not (! (= @p_3 (! (cnj$ @p_3) :named @p_6)) :named @p_5)) :named @p_4) (! (= c$ @p_6) :named @p_7)) :named @p_1)) :named @p_0)) :rule hole :args ("trust"))
+(step t33 (cl (! (not @p_2) :named @p_8) (! (not @p_4) :named @p_9) (! (not @p_7) :named @p_10)) :rule not_and :premises (t32))
+(step slice_end (cl) :rule hole :premises (t33) :args ("trust"))
+

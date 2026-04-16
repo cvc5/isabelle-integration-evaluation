@@ -1,0 +1,4 @@
+(step t96 (cl (! (not (! (ite (! (fun_app$ (! (phi$ pid$ aid$) :named @p_3) (! (trans$ s1$ (! (cOMact$ (! (comReceivePost$ aid$ (! (serverPass$ s1$ aid$) :named @p_7) pid$ pst1$ uid$ vs$) :named @p_6)) :named @p_5) outOK$ s1$a) :named @p_4)) :named @p_2) (! (and (! (not (! (= (! (fun_app$s (! (v$ @p_3 (! (f$ pid$ aid$) :named @p_13)) :named @p_12) nil$a) :named @p_11) (! (cons$ (! (fun_app$a @p_13 @p_4) :named @p_15) vl1$) :named @p_14)) :named @p_10)) :named @p_9) (! (= @p_15 (! (hd$ @p_14) :named @p_17)) :named @p_16) (! (= vl1$ (! (tl$ @p_14) :named @p_19)) :named @p_18)) :named @p_8) (! (= vl1$ @p_14) :named @p_20)) :named @p_1)) :named @p_0)) :rule hole :args ("trust"))
+(step t97 (cl (! (not @p_2) :named @p_21) (! (not @p_8) :named @p_22)) :rule not_ite2 :premises (t96))
+(step slice_end (cl) :rule hole :premises (t97) :args ("trust"))
+

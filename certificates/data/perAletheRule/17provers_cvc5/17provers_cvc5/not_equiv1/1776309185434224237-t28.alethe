@@ -1,0 +1,4 @@
+(assume a6 (! (not (! (= (! (fun_app$g (! (pak$ a$) :named @p_3) (! (con$ (! (imp$ p$ q$) :named @p_5) (! (imp$ q$ p$) :named @p_6)) :named @p_4)) :named @p_2) (! (fun_app$g @p_3 (! (con$ @p_6 @p_5) :named @p_8)) :named @p_7)) :named @p_1)) :named @p_0))
+(step t28 (cl @p_2 @p_7) :rule not_equiv1 :premises (a6))
+(step slice_end (cl) :rule hole :premises (t28) :args ("trust"))
+

@@ -1,0 +1,4 @@
+(assume a89 (! (and (! (member$ h0$ (! (carrier$ g$) :named @p_2)) :named @p_1) (! (and (! (member$ h1$ @p_2) :named @p_4) (! (and (! (member$ b0$ @p_2) :named @p_6) (! (member$ b1$ @p_2) :named @p_7)) :named @p_5)) :named @p_3)) :named @p_0))
+(step t46 (cl @p_1) :rule and :premises (a89) :args (0))
+(step slice_end (cl) :rule hole :premises (t46) :args ("trust"))
+

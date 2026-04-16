@@ -1,0 +1,4 @@
+(step t11 (cl (! (not (! (and (! (not (! (fun_app$b (! (is_exec_frag_of$ aa$) :named @p_4) (! (append_exec$ e$ e_a$) :named @p_5)) :named @p_3)) :named @p_2) (! (= @p_5 (! (fun_app$j (! (pair$ (! (fun_app$i fst$ e$) :named @p_9)) :named @p_8) (! (fun_app$g (! (append$ (! (fun_app$g (! (cons$ p$) :named @p_13) (! (fun_app$g (! (cons$ p$a) :named @p_15) ps$) :named @p_14)) :named @p_12)) :named @p_11) (! (fun_app$h snd$ e$) :named @p_16)) :named @p_10)) :named @p_7)) :named @p_6)) :named @p_1)) :named @p_0) @p_0 (! (not (! (fun_app$b @p_4 @p_7) :named @p_18)) :named @p_17)) :rule hole :args ("trust"))
+(step t12 (cl @p_0 @p_17) :rule contraction :premises (t11))
+(step slice_end (cl) :rule hole :premises (t12) :args ("trust"))
+

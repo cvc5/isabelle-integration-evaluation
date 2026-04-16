@@ -1,0 +1,4 @@
+(step t69 (cl (! (ite (! (member$ p$ (! (fun_app$p squarefree_part$ n$) :named @p_2)) :named @p_1) (! (= (! (fun_app$e suc$ zero$) :named @p_4) (! (ite @p_1 @p_4 zero$) :named @p_5)) :named @p_3) (! (= zero$ @p_5) :named @p_6)) :named @p_0)) :rule hole :args ("trust"))
+(step t71 (cl (! (not @p_1) :named @p_7) @p_3) :rule ite2 :premises (t69))
+(step slice_end (cl) :rule hole :premises (t71) :args ("trust"))
+

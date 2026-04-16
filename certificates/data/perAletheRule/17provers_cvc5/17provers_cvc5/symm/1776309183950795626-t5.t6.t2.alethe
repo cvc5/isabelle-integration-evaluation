@@ -1,0 +1,11 @@
+(assume a254 (! (= (! (mset$ nil$) :named @p_1) zero$a) :named @p_0))
+(anchor :step t5)
+(assume t5.a0 (! (forall ((?v0 A_list$) (?v1 A_list$)) (or (not (= (mset$ ?v0) (mset$ ?v1))) (= (fun_app$c (! (gen_length$b (! (fun_app$f size$c @p_1) :named @p_4)) :named @p_3) ?v0) (fun_app$c @p_3 ?v1)))) :named @p_2))
+(anchor :step t5.t6 :args ((?v0 A_list$) (?v1 A_list$) (:= (?v0 A_list$) ?v0) (:= (?v1 A_list$) ?v1)))
+(step t5.t6.t2 (cl (! (= zero$a @p_1) :named @p_5)) :rule symm :premises (a254))
+(step t5.t6.t15 (cl (= (or (not (= (mset$ ?v0) (mset$ ?v1))) (= (fun_app$c size$ ?v1) (fun_app$c size$ ?v0))) (or (not (= (mset$ ?v0) (mset$ ?v1))) (= (fun_app$c @p_3 ?v1) (fun_app$c @p_3 ?v0))))) :rule hole :premises (t5.t6.t2) :args ("trust"))
+(step t5.t6 (cl (! (= (! (forall ((?v0 A_list$) (?v1 A_list$)) (or (not (= (mset$ ?v0) (mset$ ?v1))) (= (fun_app$c size$ ?v1) (fun_app$c size$ ?v0)))) :named @p_7) (! (forall ((?v0 A_list$) (?v1 A_list$)) (or (not (= (mset$ ?v0) (mset$ ?v1))) (= (fun_app$c @p_3 ?v1) (fun_app$c @p_3 ?v0)))) :named @p_8)) :named @p_6)) :rule bind)
+(step t5.t11 (cl (! (or (! (not (! (= (! (mset$ xs$) :named @p_12) (! (mset$ ys$) :named @p_13)) :named @p_11)) :named @p_10) (! (= (! (fun_app$c @p_3 xs$) :named @p_15) (! (fun_app$c @p_3 ys$) :named @p_16)) :named @p_14)) :named @p_9)) :rule hole :premises (t5.t6) :args ("trust"))
+(step t5 (cl (! (not @p_2) :named @p_17) @p_9) :rule subproof :discharge (t5.a0))
+(step slice_end (cl) :rule hole :premises (t5) :args ("trust"))
+

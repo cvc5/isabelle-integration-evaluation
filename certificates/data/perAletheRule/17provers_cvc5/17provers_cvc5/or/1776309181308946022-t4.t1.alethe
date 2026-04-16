@@ -1,0 +1,8 @@
+(anchor :step t4)
+(assume t4.a0 (! (forall ((?v0 Nat$) (?v1 Nat$) (?v2 Nat$)) (= (fun_app$a (divide$ ?v0) (fun_app$a (times$ ?v1) ?v2)) (fun_app$a (divide$ (fun_app$a (divide$ ?v0) ?v1)) ?v2))) :named @p_0))
+(step t4.t0 (cl (! (or (! (not @p_0) :named @p_2) (! (= (! (fun_app$a (! (divide$ n$) :named @p_5) (! (fun_app$a (! (times$ (! (numeral$ (! (bit0$ one$) :named @p_9)) :named @p_8)) :named @p_7) d$) :named @p_6)) :named @p_4) (! (fun_app$a (! (divide$ (! (fun_app$a @p_5 @p_8) :named @p_12)) :named @p_11) d$) :named @p_10)) :named @p_3)) :named @p_1)) :rule hole :args ("trust"))
+(step t4.t1 (cl @p_2 @p_3) :rule or :premises (t4.t0))
+(step t4.t2 (cl @p_3) :rule hole :premises (t4.t1) :args ("trust"))
+(step t4 (cl @p_2 @p_3) :rule subproof :discharge (t4.a0))
+(step slice_end (cl) :rule hole :premises (t4) :args ("trust"))
+

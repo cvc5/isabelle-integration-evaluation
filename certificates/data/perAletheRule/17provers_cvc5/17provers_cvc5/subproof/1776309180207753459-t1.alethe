@@ -1,0 +1,6 @@
+(anchor :step t1)
+(assume t1.a0 (! (forall ((?v0 A_set$) (?v1 A$) (?v2 A_b_fun$)) (or (not (fun_app$c finite$ ?v0)) (not (fun_app$c (member$a ?v1) ?v0)) (= (prod$ ?v2 ?v0) (times$ (fun_app$d ?v2 ?v1) (prod$ ?v2 (fun_app$e (minus$ ?v0) (insert$ ?v1 (! (collect$a bot$b) :named @p_1)))))))) :named @p_0))
+(step t1.t7 (cl (! (or (! (not (! (fun_app$c finite$ a$) :named @p_4)) :named @p_3) (! (not (! (fun_app$c (! (member$a x$) :named @p_7) a$) :named @p_6)) :named @p_5) (! (= (! (prod$ f$ a$) :named @p_9) (! (times$ (! (fun_app$d f$ x$) :named @p_11) (! (prod$ f$ (! (fun_app$e (! (minus$ a$) :named @p_14) (! (insert$ x$ @p_1) :named @p_15)) :named @p_13)) :named @p_12)) :named @p_10)) :named @p_8)) :named @p_2)) :rule hole :args ("trust"))
+(step t1 (cl (! (not @p_0) :named @p_16) @p_2) :rule subproof :discharge (t1.a0))
+(step slice_end (cl) :rule hole :premises (t1) :args ("trust"))
+

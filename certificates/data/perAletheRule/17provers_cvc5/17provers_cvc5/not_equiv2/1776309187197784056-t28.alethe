@@ -1,0 +1,4 @@
+(step t13 (cl (! (not (! (= (! (>= (! (+ (! (* -1/1 (! (fun_app$b inverse$ x$) :named @p_5)) :named @p_4) (! (fun_app$b inverse$ y$) :named @p_6)) :named @p_3) 0.0) :named @p_2) (! (>= (! (+ x$ (! (* -1/1 y$) :named @p_9)) :named @p_8) 0.0) :named @p_7)) :named @p_1)) :named @p_0)) :rule hole :args ("trust"))
+(step t28 (cl (! (not @p_2) :named @p_10) (! (not @p_7) :named @p_11)) :rule not_equiv2 :premises (t13))
+(step slice_end (cl) :rule hole :premises (t28) :args ("trust"))
+

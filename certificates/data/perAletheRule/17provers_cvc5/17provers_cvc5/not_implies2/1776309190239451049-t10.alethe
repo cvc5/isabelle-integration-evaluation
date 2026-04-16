@@ -1,0 +1,6 @@
+(define-fun @quantifiers_skolemize_8 () Sterm$ (! (choice ((?v4 Sterm$)) (not (or (not (fun_app$e (! (fun_app$f (! (rtranclp$ beta$) :named @p_2) t$) :named @p_1) ?v4)) (not (fun_app$e (fun_app$f beta$ ?v4) t$a))))) :named @p_0))
+(define-fun @quantifiers_skolemize_9 () Sterm$ (! (choice ((?v3 Sterm$)) (not (or (not (fun_app$e (! (fun_app$f beta$ t$) :named @p_4) ?v3)) (not (fun_app$e (fun_app$f @p_2 ?v3) t$a))))) :named @p_3))
+(assume a34 (! (not (! (=> (! (not (! (= t$ t$a) :named @p_8)) :named @p_7) (! (and (! (fun_app$e lc$ t$) :named @p_10) (! (fun_app$e lc$ t$a) :named @p_11)) :named @p_9)) :named @p_6)) :named @p_5))
+(step t10 (cl (! (not @p_9) :named @p_12)) :rule not_implies2 :premises (a34))
+(step slice_end (cl) :rule hole :premises (t10) :args ("trust"))
+

@@ -1,0 +1,4 @@
+(step t1 (cl (! (= (! (= (! (fun_app$y (! (foldl$ step$ s_0$) :named @p_3) (! (fun_app$z (! (fun_app$aa map$c fst$) :named @p_5) xps$) :named @p_4)) :named @p_2) @p_2) :named @p_1) (! true :named @p_6)) :named @p_0)) :rule hole :args ("trust"))
+(step t2 (cl (! (= (! (not @p_1) :named @p_8) (! (not @p_6) :named @p_9)) :named @p_7)) :rule cong :premises (t1))
+(step slice_end (cl) :rule hole :premises (t2) :args ("trust"))
+

@@ -1,0 +1,5 @@
+(assume a33 (! (fun_app$b (! (fun_app$c p$ x$) :named @p_1) xsa$) :named @p_0))
+(step t3 (cl (! (= @p_0 (! true :named @p_3)) :named @p_2) (! (not @p_0) :named @p_4)) :rule hole :args ("trust"))
+(step t4 (cl @p_2) :rule resolution :premises (t3 a33))
+(step slice_end (cl) :rule hole :premises (t4) :args ("trust"))
+

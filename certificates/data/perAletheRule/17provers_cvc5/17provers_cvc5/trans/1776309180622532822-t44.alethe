@@ -1,0 +1,6 @@
+(step t19 (cl (! (= (! true :named @p_1) (! (fun_app$b (! (fun_app$c p$ (! (nth$ (! (cons$ w$ wsa$) :named @p_5) zero$) :named @p_4)) :named @p_3) (! (fun_app$d (! (append$ (! (fun_app$d (! (drop$ zero$) :named @p_9) wsa$) :named @p_8)) :named @p_7) xs$) :named @p_6)) :named @p_2)) :named @p_0)) :rule hole :args ("trust"))
+(step t38 (cl (! (= @p_2 (! (fun_app$b (! (fun_app$c p$ w$) :named @p_12) (! (fun_app$d (! (append$ wsa$) :named @p_14) xs$) :named @p_13)) :named @p_11)) :named @p_10)) :rule hole :args ("trust"))
+(step t43 (cl (! (= @p_11 (! false :named @p_16)) :named @p_15)) :rule hole :args ("trust"))
+(step t44 (cl (! (= @p_1 @p_16) :named @p_17)) :rule trans :premises (t19 t38 t43))
+(step slice_end (cl) :rule hole :premises (t44) :args ("trust"))
+

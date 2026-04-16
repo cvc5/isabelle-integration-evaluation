@@ -1,0 +1,4 @@
+(step t38 (cl (! (not (! (= (! (fun_app$b (! (member$ (! (fun_app$j (! (permutation_of_list$ xs$) :named @p_5) x$) :named @p_4)) :named @p_3) (! (fun_app$f (! (image$ @p_5) :named @p_7) (! (fun_app$p scf$ (! (prefs_from_table$ yss$) :named @p_9)) :named @p_8)) :named @p_6)) :named @p_2) (! (fun_app$b (! (member$ x$) :named @p_11) @p_8) :named @p_10)) :named @p_1)) :named @p_0)) :rule hole :args ("trust"))
+(step t108 (cl (! (not @p_2) :named @p_12) (! (not @p_10) :named @p_13)) :rule not_equiv2 :premises (t38))
+(step slice_end (cl) :rule hole :premises (t108) :args ("trust"))
+

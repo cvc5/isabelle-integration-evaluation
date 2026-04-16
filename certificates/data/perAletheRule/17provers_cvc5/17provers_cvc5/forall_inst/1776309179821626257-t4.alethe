@@ -1,0 +1,3 @@
+(step t4 (cl (! (or (! (not (! (forall ((?v0 Trans$)) (or (not (member$e ?v0 (! (set$ tr$) :named @p_3))) (fun_app$e validTrans$ ?v0))) :named @p_2)) :named @p_1) (! (or (! (not (! (member$e (! (nth$ tr$ i$) :named @p_7) @p_3) :named @p_6)) :named @p_5) (! (fun_app$e validTrans$ @p_7) :named @p_8)) :named @p_4)) :named @p_0)) :rule forall_inst :args (@p_7))
+(step slice_end (cl) :rule hole :premises (t4) :args ("trust"))
+

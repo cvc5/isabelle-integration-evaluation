@@ -1,0 +1,4 @@
+(step t49 (cl (! (not (! (= (! (= (! (fun_app$b (! (fun_app$c inf$ iI1$) :named @p_4) iI2$) :named @p_3) (! (collect$a bot$a) :named @p_5)) :named @p_2) (! (= (! (fun_app$b (! (fun_app$c inf$ (! (fun_app$b (! (shift$ cl$ n$) :named @p_10) (! (fun_app$b (! (back$ cl$ n$) :named @p_12) iI1$) :named @p_11)) :named @p_9)) :named @p_8) (! (fun_app$b @p_10 (! (fun_app$b @p_12 iI2$) :named @p_14)) :named @p_13)) :named @p_7) @p_5) :named @p_6)) :named @p_1)) :named @p_0)) :rule hole :args ("trust"))
+(step t84 (cl (! (not @p_2) :named @p_15) (! (not @p_6) :named @p_16)) :rule not_equiv2 :premises (t49))
+(step slice_end (cl) :rule hole :premises (t84) :args ("trust"))
+

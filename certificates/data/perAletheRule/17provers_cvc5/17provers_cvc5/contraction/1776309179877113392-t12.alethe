@@ -1,0 +1,4 @@
+(step t11 (cl (! (=> (! (forall ((?v0 A$) (?v1 B_a_fun$) (?v2 B_set$)) (= (member$d ?v0 (fun_app$n (image$f ?v1) ?v2)) (not (forall ((?v3 B$)) (or (not (member$c ?v3 ?v2)) (not (= (fun_app$g ?v1 ?v3) ?v0))))))) :named @p_1) (! (= (! (member$d y$ (! (fun_app$n (! (image$f f$) :named @p_5) s$) :named @p_4)) :named @p_3) (! (not (! (forall ((?v3 B$)) (or (not (member$c ?v3 s$)) (not (= (fun_app$g f$ ?v3) y$)))) :named @p_7)) :named @p_6)) :named @p_2)) :named @p_0) @p_0) :rule hole :args ("trust"))
+(step t12 (cl @p_0) :rule contraction :premises (t11))
+(step slice_end (cl) :rule hole :premises (t12) :args ("trust"))
+

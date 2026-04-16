@@ -1,0 +1,11 @@
+(anchor :step t2)
+(assume t2.a0 (! (= (! (shd$ js4$) :named @p_1) (! (shd$ (! (fun_app$b (! (decr0$ ord$ (! (shd$ (! (fun_app$b (! (shift$ js3$) :named @p_7) js4$) :named @p_6)) :named @p_5)) :named @p_4) @p_6) :named @p_3)) :named @p_2)) :named @p_0))
+(assume t2.a1 (! (= (! (shd$ (! (fun_app$b (! (decr0$ ord$ (! (shd$ (! (fun_app$b (! (shift$ js1$) :named @p_14) @p_6) :named @p_13)) :named @p_12)) :named @p_11) @p_13) :named @p_10)) :named @p_9) (! (shd$ (! (fun_app$b stl$ @p_10) :named @p_16)) :named @p_15)) :named @p_8))
+(assume t2.a2 (! (= @p_5 @p_9) :named @p_17))
+(assume t2.a3 (! (= @p_3 @p_16) :named @p_18))
+(step t2.t2 (cl (! (= js2$ @p_6) :named @p_19)) :rule hole :args ("trust"))
+(step t2.t3 (cl (! (= (! (shd$ js2$) :named @p_21) @p_5) :named @p_20)) :rule cong :premises (t2.t2))
+(step t2.t94 (cl (! (= @p_1 @p_5) :named @p_22)) :rule hole :premises (t2.t3) :args ("trust"))
+(step t2 (cl (! (not @p_0) :named @p_23) (! (not @p_8) :named @p_24) (! (not @p_17) :named @p_25) (! (not @p_18) :named @p_26) @p_22) :rule subproof :discharge (t2.a0 t2.a1 t2.a2 t2.a3))
+(step slice_end (cl) :rule hole :premises (t2) :args ("trust"))
+

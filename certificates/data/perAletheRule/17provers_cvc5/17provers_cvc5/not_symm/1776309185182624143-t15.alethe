@@ -1,0 +1,4 @@
+(assume a102 (! (not (! (= z$ w$) :named @p_1)) :named @p_0))
+(step t15 (cl (! (not (! (= w$ z$) :named @p_3)) :named @p_2)) :rule not_symm :premises (a102))
+(step slice_end (cl) :rule hole :premises (t15) :args ("trust"))
+

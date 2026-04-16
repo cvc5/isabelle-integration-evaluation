@@ -1,0 +1,9 @@
+(anchor :step t1)
+(assume t1.a0 (! (forall ((?v0 Nat_set$)) (= (! (collect$ bot$b) :named @p_1) (fun_app$b (! (fun_app$c inf$ @p_1) :named @p_2) ?v0))) :named @p_0))
+(step t1.t3 (cl (! (= (! (forall ((?v0 Nat_set$)) (= (fun_app$b (! (fun_app$c inf$ bot$) :named @p_5) ?v0) bot$)) :named @p_4) (! (forall ((?v0 Nat_set$)) (= bot$ (fun_app$b @p_5 ?v0))) :named @p_6)) :named @p_3)) :rule hole :args ("trust"))
+(step t1.t4 (cl (! (= @p_6 @p_0) :named @p_7)) :rule hole :args ("trust"))
+(step t1.t5 (cl (! (= @p_4 @p_0) :named @p_8)) :rule trans :premises (t1.t3 t1.t4))
+(step t1.t7 (cl (! (= @p_1 (! (fun_app$b @p_2 (! (fun_app$b (! (insert$ (! (index$ init$ q$) :named @p_13)) :named @p_12) @p_1) :named @p_11)) :named @p_10)) :named @p_9)) :rule hole :premises (t1.t5) :args ("trust"))
+(step t1 (cl (! (not @p_0) :named @p_14) @p_9) :rule subproof :discharge (t1.a0))
+(step slice_end (cl) :rule hole :premises (t1) :args ("trust"))
+

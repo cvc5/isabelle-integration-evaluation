@@ -1,0 +1,6 @@
+(define-fun @quantifiers_skolemize_3 () A$ (! (choice ((?v0 A$)) (not (forall ((BOUND_VARIABLE_12777 A$)) (or (not (member$a ?v0 (! (fun_app$o (! (sinks$ i$ d$ u$) :named @p_2) ysa$) :named @p_1))) (not (member$a BOUND_VARIABLE_12777 ua$)) (not (member$ (fun_app$f (pair$ ?v0) BOUND_VARIABLE_12777) i$)))))) :named @p_0))
+(define-fun @quantifiers_skolemize_4 () A$ (! (choice ((BOUND_VARIABLE_12777 A$)) (not (or (! (not (! (member$a @p_0 @p_1) :named @p_5)) :named @p_4) (not (member$a BOUND_VARIABLE_12777 ua$)) (not (member$ (fun_app$f (! (pair$ @p_0) :named @p_6) BOUND_VARIABLE_12777) i$))))) :named @p_3))
+(step t67 (cl (! (ite (! (or (! (member$ (! (fun_app$f (! (pair$ u$) :named @p_11) (! (fun_app$m d$ y$) :named @p_12)) :named @p_10) i$) :named @p_9) (! (not (! (forall ((?v5 A$)) (or (not (member$a ?v5 @p_1)) (not (member$ (fun_app$f (pair$ ?v5) @p_12) i$)))) :named @p_14)) :named @p_13)) :named @p_8) (! (= (! (insert$b @p_12 @p_1) :named @p_16) (! (ite @p_8 @p_16 @p_1) :named @p_17)) :named @p_15) (! (= @p_1 @p_17) :named @p_18)) :named @p_7)) :rule hole :args ("trust"))
+(step t69 (cl (! (not @p_8) :named @p_19) @p_15) :rule ite2 :premises (t67))
+(step slice_end (cl) :rule hole :premises (t69) :args ("trust"))
+

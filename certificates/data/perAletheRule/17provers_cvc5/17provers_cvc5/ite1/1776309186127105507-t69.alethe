@@ -1,0 +1,6 @@
+(define-fun @quantifiers_skolemize_3 () Char_list$ (! (choice ((?v0 Char_list$)) (not (forall ((?v1 Sterm$)) (or (not (fun_app$an lc$ ?v1)) (fun_app$an lc$ (fun_app$m (ssubst$ ?v0 ?v1) (! (fvar$ x$) :named @p_1))))))) :named @p_0))
+(define-fun @quantifiers_skolemize_4 () Sterm$ (! (choice ((?v1 Sterm$)) (not (or (not (fun_app$an lc$ ?v1)) (fun_app$an lc$ (fun_app$m (ssubst$ @p_0 ?v1) @p_1))))) :named @p_2))
+(step t68 (cl (! (ite (! (= x$ @quantifiers_skolemize_3) :named @p_4) (! (= @quantifiers_skolemize_4 (! (ite @p_4 @quantifiers_skolemize_4 @p_1) :named @p_6)) :named @p_5) (! (= @p_1 @p_6) :named @p_7)) :named @p_3)) :rule hole :args ("trust"))
+(step t69 (cl @p_4 @p_7) :rule ite1 :premises (t68))
+(step slice_end (cl) :rule hole :premises (t69) :args ("trust"))
+

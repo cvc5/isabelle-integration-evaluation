@@ -1,0 +1,6 @@
+(step t1 (cl (! (= (! (not (! (not (! (fun_app$e (! (member$a w$) :named @p_4) (! (fun_app$ak lang$ s$) :named @p_5)) :named @p_3)) :named @p_2)) :named @p_1) @p_3) :named @p_0)) :rule hole :args ("trust"))
+(step t2 (cl (! (= (! (not (! (= @p_5 (! (sup$d (! (image$l lang$ (! (fun_app$al toplevel_summands$ s$) :named @p_11)) :named @p_10)) :named @p_9)) :named @p_8)) :named @p_7) @p_7) :named @p_6)) :rule hole :args ("trust"))
+(step t3 (cl (! (= (! (not (! (fun_app$e @p_4 @p_9) :named @p_14)) :named @p_13) @p_13) :named @p_12)) :rule hole :args ("trust"))
+(step t4 (cl (! (= (! (or @p_1 @p_7 @p_13) :named @p_16) (! (or @p_3 @p_7 @p_13) :named @p_17)) :named @p_15)) :rule cong :premises (t1 t2 t3))
+(step slice_end (cl) :rule hole :premises (t4) :args ("trust"))
+

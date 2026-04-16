@@ -1,0 +1,4 @@
+(step t7 (cl (! (not (! (or (! (not (! (fun_app$c (! (fun_app$f less_eq$ (! (card$ (! (hov$ msgs$ (! (the$ (! (fun_app$e msgs$ q$) :named @p_8)) :named @p_7)) :named @p_6)) :named @p_5)) :named @p_4) (! (card$ (! (hov$ msgs$ v$) :named @p_10)) :named @p_9)) :named @p_3)) :named @p_2) (! (not (! (fun_app$c (! (fun_app$f less$ @p_9) :named @p_13) @p_5) :named @p_12)) :named @p_11)) :named @p_1)) :named @p_0) @p_2 @p_11) :rule hole :args ("trust"))
+(step t8 (cl @p_2 @p_11 @p_0) :rule reordering :premises (t7))
+(step slice_end (cl) :rule hole :premises (t8) :args ("trust"))
+

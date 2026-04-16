@@ -1,0 +1,9 @@
+(anchor :step t1)
+(assume t1.a0 (! (forall ((?v0 State$) (?v1 Pname$) (?v2 State$)) (or (not (fun_app$ (exec$ ?v0 (body$ ?v1)) ?v2)) (fun_app$ (exec$ ?v0 (call$ ?v1)) ?v2))) :named @p_0))
+(anchor :step t1.t3 :args ((?v0 State$) (?v1 Pname$) (?v2 State$) (:= (?v0 State$) ?v0) (:= (?v1 Pname$) ?v1) (:= (?v2 State$) ?v2)))
+(step t1.t3.t0 (cl (= (=> (fun_app$ (exec$ ?v0 (body$ ?v1)) ?v2) (fun_app$ (exec$ ?v0 (call$ ?v1)) ?v2)) (or (not (fun_app$ (exec$ ?v0 (body$ ?v1)) ?v2)) (fun_app$ (exec$ ?v0 (call$ ?v1)) ?v2)))) :rule rare_rewrite :args ("bool-impl-elim" (fun_app$ (exec$ ?v0 (body$ ?v1)) ?v2) (fun_app$ (exec$ ?v0 (call$ ?v1)) ?v2)))
+(step t1.t3 (cl (! (= (! (forall ((?v0 State$) (?v1 Pname$) (?v2 State$)) (=> (fun_app$ (exec$ ?v0 (body$ ?v1)) ?v2) (fun_app$ (exec$ ?v0 (call$ ?v1)) ?v2))) :named @p_2) @p_0) :named @p_1)) :rule bind)
+(step t1.t5 (cl (! (or (! (not (! (fun_app$ (! (exec$ sa$ (! (body$ p$) :named @p_7)) :named @p_6) ta$) :named @p_5)) :named @p_4) (! (fun_app$ (! (exec$ sa$ (! (call$ p$) :named @p_10)) :named @p_9) ta$) :named @p_8)) :named @p_3)) :rule hole :premises (t1.t3) :args ("trust"))
+(step t1 (cl (! (not @p_0) :named @p_11) @p_3) :rule subproof :discharge (t1.a0))
+(step slice_end (cl) :rule hole :premises (t1) :args ("trust"))
+

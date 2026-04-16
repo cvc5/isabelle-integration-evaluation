@@ -1,0 +1,8 @@
+(anchor :step t6)
+(assume t6.a0 (! (not (! (= (! (fun_app$f (! (fun_app$g sup$ ya$) :named @p_3) (! (fun_app$f uminus$ (! (fun_app$f uminus$ (! (fun_app$f (! (fun_app$g inf$ (! (fun_app$f (! (fun_app$g sup$ (! (fun_app$f uminus$ bot$) :named @p_10)) :named @p_9) z$) :named @p_8)) :named @p_7) (! (fun_app$f uminus$ xa$) :named @p_11)) :named @p_6)) :named @p_5)) :named @p_4)) :named @p_2) (! (fun_app$f (! (fun_app$g sup$ @p_11) :named @p_13) @p_2) :named @p_12)) :named @p_1)) :named @p_0))
+(assume t6.a1 (! (= @p_11 (! (fun_app$f (! (fun_app$g inf$ @p_4) :named @p_16) @p_11) :named @p_15)) :named @p_14))
+(assume t6.a2 (! (= @p_2 (! (fun_app$f (! (fun_app$g sup$ @p_15) :named @p_19) @p_2) :named @p_18)) :named @p_17))
+(step t6.t46 (cl (! (and (! (not @p_17) :named @p_21) @p_17) :named @p_20)) :rule hole :args ("trust"))
+(step t6 (cl (! (not @p_0) :named @p_22) (! (not @p_14) :named @p_23) @p_21 @p_20) :rule subproof :discharge (t6.a0 t6.a1 t6.a2))
+(step slice_end (cl) :rule hole :premises (t6) :args ("trust"))
+

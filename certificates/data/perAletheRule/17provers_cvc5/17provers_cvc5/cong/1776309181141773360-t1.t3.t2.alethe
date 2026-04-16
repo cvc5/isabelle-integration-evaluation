@@ -1,0 +1,12 @@
+(anchor :step t1)
+(assume t1.a0 (! (forall ((?v0 A_list$)) (= (fun_app$g set_mset$ (fun_app$h mset$ ?v0)) (fun_app$e (! (comp$b set_mset$ mset$) :named @p_1) ?v0))) :named @p_0))
+(anchor :step t1.t3 :args ((?v0 A_list$) (:= (?v0 A_list$) ?v0)))
+(step t1.t3.t0 (cl (! (= set$ @p_1) :named @p_2)) :rule hole :args ("trust"))
+(step t1.t3.t1 (cl (= ?v0 ?v0)) :rule hole :args ("trust"))
+(step t1.t3.t2 (cl (= (fun_app$e set$ ?v0) (fun_app$e @p_1 ?v0))) :rule cong :premises (t1.t3.t0 t1.t3.t1))
+(step t1.t3.t3 (cl (= (= (fun_app$g set_mset$ (fun_app$h mset$ ?v0)) (fun_app$e set$ ?v0)) (= (fun_app$g set_mset$ (fun_app$h mset$ ?v0)) (fun_app$e @p_1 ?v0)))) :rule hole :premises (t1.t3.t2) :args ("trust"))
+(step t1.t3 (cl (! (= (! (forall ((?v0 A_list$)) (= (fun_app$g set_mset$ (fun_app$h mset$ ?v0)) (fun_app$e set$ ?v0))) :named @p_4) @p_0) :named @p_3)) :rule bind)
+(step t1.t5 (cl (! (= (! (fun_app$g set_mset$ (! (fun_app$h mset$ (! (fun_app$f (! (cons$ x$) :named @p_9) xsa$) :named @p_8)) :named @p_7)) :named @p_6) (! (fun_app$e @p_1 @p_8) :named @p_10)) :named @p_5)) :rule hole :premises (t1.t3) :args ("trust"))
+(step t1 (cl (! (not @p_0) :named @p_11) @p_5) :rule subproof :discharge (t1.a0))
+(step slice_end (cl) :rule hole :premises (t1) :args ("trust"))
+

@@ -1,0 +1,4 @@
+(step t5 (cl (! (or (! (not (! (forall ((?v0 A$) (?v1 A$)) (= (fun_app$f (fun_app$g (! (less$ delta$) :named @p_3) ?v0) ?v1) (and (fun_app$f (fun_app$g (! (less_eq$ delta$) :named @p_4) ?v0) ?v1) (not (= ?v0 ?v1))))) :named @p_2)) :named @p_1) (! (= (! (fun_app$f (! (fun_app$g @p_3 s$) :named @p_7) s$a) :named @p_6) (! (and (! (fun_app$f (! (fun_app$g @p_4 s$) :named @p_10) s$a) :named @p_9) (! (not (! (= s$ s$a) :named @p_12)) :named @p_11)) :named @p_8)) :named @p_5)) :named @p_0)) :rule hole :args ("trust"))
+(step t6 (cl @p_1 @p_5) :rule or :premises (t5))
+(step slice_end (cl) :rule hole :premises (t6) :args ("trust"))
+

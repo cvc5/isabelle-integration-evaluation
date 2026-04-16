@@ -1,0 +1,4 @@
+(step t22 (cl (! (not (! (= (! (not (! (fun_app$a (! (list_ex$ gamma$) :named @p_4) tr$) :named @p_3)) :named @p_2) (! (= (! (fun_app$ (! (filtermap$ gamma$ g$) :named @p_7) tr$) :named @p_6) (! (fun_app$ (! (o$ gamma$ g$) :named @p_9) (! (concat$a nil$b) :named @p_10)) :named @p_8)) :named @p_5)) :named @p_1)) :named @p_0)) :rule hole :args ("trust"))
+(step t23 (cl @p_2 @p_5) :rule not_equiv1 :premises (t22))
+(step slice_end (cl) :rule hole :premises (t23) :args ("trust"))
+

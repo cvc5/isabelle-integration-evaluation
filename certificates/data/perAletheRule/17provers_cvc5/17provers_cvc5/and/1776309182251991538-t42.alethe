@@ -1,0 +1,4 @@
+(step t41 (cl (! (and (! (forall ((BOUND_VARIABLE_9518 W_node$) (BOUND_VARIABLE_9520 Char_list_val_option_fun_edge_kind$)) (not (while_CFG$ (! (while$ b$ prog$) :named @p_2) BOUND_VARIABLE_9518 BOUND_VARIABLE_9520 (! (node$ (! (fun_app$ (! (plus$ l$) :named @p_5) (! (fun_app$a numeral$ (! (fun_app$b bit0$ one$) :named @p_7)) :named @p_6)) :named @p_4)) :named @p_3)))) :named @p_1) (! (forall ((BOUND_VARIABLE_9526 W_node$) (BOUND_VARIABLE_9528 Char_list_val_option_fun_edge_kind$)) (not (while_CFG$ @p_2 @p_3 BOUND_VARIABLE_9528 BOUND_VARIABLE_9526))) :named @p_8)) :named @p_0)) :rule hole :args ("trust"))
+(step t42 (cl @p_8) :rule and :premises (t41) :args (1))
+(step slice_end (cl) :rule hole :premises (t42) :args ("trust"))
+

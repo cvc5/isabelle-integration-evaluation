@@ -1,0 +1,3 @@
+(step t14 (cl (! (not (! (< delta$ 0.0) :named @p_1)) :named @p_0) (! (not (! (< (! (* -1/1 delta$) :named @p_4) (! (* -1/1 0.0) :named @p_5)) :named @p_3)) :named @p_2) (! (< (! (+ delta$ @p_4) :named @p_7) (! (+ 0.0 @p_5) :named @p_8)) :named @p_6)) :rule la_generic :args (1.0 1.0 1.0))
+(step slice_end (cl) :rule hole :premises (t14) :args ("trust"))
+

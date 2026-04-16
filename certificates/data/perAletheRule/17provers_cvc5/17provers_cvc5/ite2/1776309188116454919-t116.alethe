@@ -1,0 +1,4 @@
+(step t115 (cl (! (ite (! (fun_app$c p$ x$) :named @p_1) (! (= (! (return_pmf$ (! (fun_app$b some$ x$) :named @p_4)) :named @p_3) (! (ite @p_1 @p_3 (! (return_pmf$ none$) :named @p_6)) :named @p_5)) :named @p_2) (! (= @p_6 @p_5) :named @p_7)) :named @p_0)) :rule hole :args ("trust"))
+(step t116 (cl (! (not @p_1) :named @p_8) @p_2) :rule ite2 :premises (t115))
+(step slice_end (cl) :rule hole :premises (t116) :args ("trust"))
+

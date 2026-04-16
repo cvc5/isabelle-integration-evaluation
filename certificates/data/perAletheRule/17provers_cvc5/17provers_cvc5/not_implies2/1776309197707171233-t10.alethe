@@ -1,0 +1,4 @@
+(assume a83 (! (not (! (=> (! (not (! (fun_app$h (! (member$b x$) :named @p_4) (! (fv$ a$) :named @p_5)) :named @p_3)) :named @p_2) (! (not (! (fun_app$h @p_4 (! (fv$ c$) :named @p_8)) :named @p_7)) :named @p_6)) :named @p_1)) :named @p_0))
+(step t10 (cl (! (not @p_6) :named @p_9)) :rule not_implies2 :premises (a83))
+(step slice_end (cl) :rule hole :premises (t10) :args ("trust"))
+

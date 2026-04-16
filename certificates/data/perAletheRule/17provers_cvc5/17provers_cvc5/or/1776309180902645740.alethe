@@ -1,0 +1,17 @@
+unsat
+(
+(assume a6 (! (not (! (= (! (fun_app$f (fun_app$g (less$ delta$) s$) s$a) :named @p_2) (! (and (fun_app$f (fun_app$g (less_eq$ delta$) s$) s$a) (not (= s$ s$a))) :named @p_1)) :named @p_3)) :named @p_4))
+(assume a9 (forall ((?v0 A$) (?v1 A$)) (= (fun_app$f (fun_app$g (less$ delta$) ?v0) ?v1) (and (fun_app$f (fun_app$g (less_eq$ delta$) ?v0) ?v1) (not (= ?v0 ?v1))))))
+(step t0 (cl @p_4 @p_2 (! (not @p_1) :named @p_7)) :rule equiv_pos1)
+(step t1 (cl @p_2 @p_4 @p_7) :rule reordering :premises (t0))
+(step t2 (cl @p_2 @p_1) :rule not_equiv1 :premises (a6))
+(step t3 (cl @p_4 (! (not @p_2) :named @p_6) @p_1) :rule equiv_pos2)
+(step t4 (cl @p_1 @p_4 @p_6) :rule reordering :premises (t3))
+(step t5 (cl (or (! (not (forall ((?v0 A$) (?v1 A$)) (= (fun_app$f (fun_app$g (less$ delta$) ?v0) ?v1) (and (fun_app$f (fun_app$g (less_eq$ delta$) ?v0) ?v1) (not (= ?v0 ?v1)))))) :named @p_5) @p_3)) :rule forall_inst :args (s$ s$a))
+(step t6 (cl @p_5 @p_3) :rule or :premises (t5))
+(step t7 (cl @p_3) :rule resolution :premises (t6 a9))
+(step t8 (cl @p_6 @p_7) :rule not_equiv2 :premises (a6))
+(step t9 (cl @p_6) :rule resolution :premises (t4 t7 t8))
+(step t10 (cl @p_1) :rule resolution :premises (t2 t9))
+(step t11 (cl) :rule resolution :premises (t1 t10 t9 t7))
+)

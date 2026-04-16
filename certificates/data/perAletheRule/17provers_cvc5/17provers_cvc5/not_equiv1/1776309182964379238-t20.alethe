@@ -1,0 +1,4 @@
+(assume a5 (! (not (! (= (! (and (! (= (! (fun_app$e mean$ (! (fun_app$f fst$ (! (pair$ a$ b$) :named @p_6)) :named @p_5)) :named @p_4) (! (fun_app$e mean$ (! (fun_app$f snd$ @p_6) :named @p_8)) :named @p_7)) :named @p_3) (! (= (! (fun_app$g size$ @p_5) :named @p_10) (! (fun_app$g size$ @p_8) :named @p_11)) :named @p_9)) :named @p_2) (! (and (! (= (! (fun_app$e mean$ (! (fun_app$f fst$ (! (pair$ b$ a$) :named @p_16)) :named @p_15)) :named @p_14) (! (fun_app$e mean$ (! (fun_app$f snd$ @p_16) :named @p_18)) :named @p_17)) :named @p_13) (! (= (! (fun_app$g size$ @p_15) :named @p_20) (! (fun_app$g size$ @p_18) :named @p_21)) :named @p_19)) :named @p_12)) :named @p_1)) :named @p_0))
+(step t20 (cl @p_2 @p_12) :rule not_equiv1 :premises (a5))
+(step slice_end (cl) :rule hole :premises (t20) :args ("trust"))
+

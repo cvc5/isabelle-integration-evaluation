@@ -1,0 +1,8 @@
+(define-fun @quantifiers_skolemize_9 () Com_list$ (! (choice ((?v6 Com_list$)) (not (forall ((?v7 State$) (?v8 Com_list$) (?v9 State$)) (or (not (member$ (pair$ (! (pair$a cs$ s$) :named @p_1) (pair$a ?v6 ?v7)) (! (rtrancl$ exec1$) :named @p_2))) (not (member$ (pair$ (pair$a ?v6 ?v7) (pair$a ?v8 ?v9)) exec1$)) (not (fun_app$a (fun_app$b termis$ ?v6) ?v7)) (fun_app$a (fun_app$b termis$ ?v8) ?v9))))) :named @p_0))
+(define-fun @quantifiers_skolemize_10 () State$ (! (choice ((?v7 State$)) (not (forall ((?v8 Com_list$) (?v9 State$)) (or (not (member$ (pair$ @p_1 (pair$a @p_0 ?v7)) @p_2)) (not (member$ (pair$ (pair$a @p_0 ?v7) (pair$a ?v8 ?v9)) exec1$)) (not (fun_app$a (! (fun_app$b termis$ @p_0) :named @p_4) ?v7)) (fun_app$a (fun_app$b termis$ ?v8) ?v9))))) :named @p_3))
+(define-fun @quantifiers_skolemize_11 () Com_list$ (! (choice ((?v8 Com_list$)) (not (forall ((?v9 State$)) (or (! (not (! (member$ (! (pair$ @p_1 (! (pair$a @p_0 @p_3) :named @p_9)) :named @p_8) @p_2) :named @p_7)) :named @p_6) (not (member$ (pair$ @p_9 (pair$a ?v8 ?v9)) exec1$)) (! (not (! (fun_app$a @p_4 @p_3) :named @p_11)) :named @p_10) (fun_app$a (fun_app$b termis$ ?v8) ?v9))))) :named @p_5))
+(define-fun @quantifiers_skolemize_12 () State$ (! (choice ((?v9 State$)) (not (or @p_6 (not (member$ (pair$ @p_9 (pair$a @p_5 ?v9)) exec1$)) @p_10 (fun_app$a (! (fun_app$b termis$ @p_5) :named @p_13) ?v9)))) :named @p_12))
+(assume a2 (! (not (! (=> (! (fun_app$a (! (fun_app$b termis$ cs$) :named @p_17) s$) :named @p_16) (! (fun_app$a (! (fun_app$b termis$ cs$a) :named @p_19) s$a) :named @p_18)) :named @p_15)) :named @p_14))
+(step t25 (cl (! (not @p_18) :named @p_20)) :rule not_implies2 :premises (a2))
+(step slice_end (cl) :rule hole :premises (t25) :args ("trust"))
+

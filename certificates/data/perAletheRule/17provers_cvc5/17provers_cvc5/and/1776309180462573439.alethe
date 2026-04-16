@@ -1,0 +1,10 @@
+unsat
+(
+(assume a56 (! (not (! (fun_app$h (fun_app$i par_beta$ (fun_app$s (upd$ (obj$ fa$ t$) l$) ta$)) (obj$ (fun_app$ah (fun_upd$ fb$ l$) (fun_app$j some$ tb$)) t$)) :named @p_1)) :named @p_2))
+(assume a59 (! (and (! (fun_app$h body$ ta$) :named @p_3) (fun_app$h body$ tb$)) :named @p_4))
+(assume a62 (! (=> @p_3 @p_1) :named @p_5))
+(step t0 (cl (! (not @p_5) :named @p_6) (not @p_3) @p_1) :rule implies_pos)
+(step t1 (cl @p_3) :rule and :premises (a59) :args (0))
+(step t2 (cl @p_6) :rule resolution :premises (t0 t1 a56))
+(step t3 (cl) :rule resolution :premises (a62 t2))
+)

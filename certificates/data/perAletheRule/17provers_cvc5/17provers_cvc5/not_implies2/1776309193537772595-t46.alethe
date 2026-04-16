@@ -1,0 +1,4 @@
+(assume a4 (! (not (! (=> (! (and (! (member$ y$ (! (set_spmf$ i$) :named @p_4)) :named @p_3) (! (fun_app$b (! (member$a x$) :named @p_6) (! (fun_app$f range$ (! (fun_app$g fst$ y$) :named @p_8)) :named @p_7)) :named @p_5)) :named @p_2) (! (fun_app$b (! (member$a (! (fun_app$h (! (fun_app$i f$ @p_8) :named @p_12) x$) :named @p_11)) :named @p_10) @p_7) :named @p_9)) :named @p_1)) :named @p_0))
+(step t46 (cl (! (not @p_9) :named @p_13)) :rule not_implies2 :premises (a4))
+(step slice_end (cl) :rule hole :premises (t46) :args ("trust"))
+

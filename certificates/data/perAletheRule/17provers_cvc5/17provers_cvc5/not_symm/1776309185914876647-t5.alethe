@@ -1,0 +1,4 @@
+(assume a2 (! (not (! (= (! (xd$ xs$ (! (fun_app$ (! (minus$ k$) :named @p_4) fina$) :named @p_3) i$) :named @p_2) zero$) :named @p_1)) :named @p_0))
+(step t5 (cl (! (not (! (= zero$ @p_2) :named @p_6)) :named @p_5)) :rule not_symm :premises (a2))
+(step slice_end (cl) :rule hole :premises (t5) :args ("trust"))
+

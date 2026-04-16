@@ -1,0 +1,11 @@
+unsat
+(
+(assume a2 (! (not (! (= (! (fun_app$b (image$ (image$a f$)) (! (chamber_system$ x$) :named @p_1)) :named @p_3) (! (fun_app$b (image$ (image$a f$a)) @p_1) :named @p_2)) :named @p_4)) :named @p_5))
+(assume a3 (! (= b$ @p_2) :named @p_6))
+(assume a4 (! (= a$ @p_3) :named @p_7))
+(assume a22 (! (= a$ b$) :named @p_8))
+(step t0 (cl (not (! (= @p_8 @p_4) :named @p_9)) (not @p_8) @p_4) :rule equiv_pos2)
+(step t1 (cl @p_9) :rule cong :premises (a4 a3))
+(step t2 (cl @p_4) :rule resolution :premises (t0 t1 a22))
+(step t3 (cl) :rule resolution :premises (t2 a2))
+)

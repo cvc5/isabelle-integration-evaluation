@@ -1,0 +1,4 @@
+(step t2 (cl (! (= (! (= (! (fun_app$a (! (reach$ istate$ (! (validTrans$ step$) :named @p_4) srcOf$ tgtOf$) :named @p_3) sa$) :named @p_2) (! true :named @p_5)) :named @p_1) @p_2) :named @p_0)) :rule hole :args ("trust"))
+(step t3 (cl @p_1 (! (not @p_2) :named @p_6)) :rule equiv2 :premises (t2))
+(step slice_end (cl) :rule hole :premises (t3) :args ("trust"))
+

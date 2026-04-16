@@ -1,0 +1,9 @@
+(anchor :step t2)
+(assume t2.a0 (! (= (! (size$ nil$) :named @p_1) (! (fun_app$b (! (offs_num$ (! (size$ nsa$) :named @p_4) xsa$ index$ key$ mi$ ma$) :named @p_3) @p_1) :named @p_2)) :named @p_0))
+(assume t2.a1 (! (= @p_4 (! (size$ (! (list_update$ nsa$ (! (fun_app$d (! (fun_app$e (! (fun_app$f (! (fun_app$g (! (fun_app$h index$ key$) :named @p_12) x$) :named @p_11) @p_4) :named @p_10) mi$) :named @p_9) ma$) :named @p_8) (! (fun_app$b suc$ (! (fun_app$b (! (nth$ nsa$) :named @p_15) @p_8) :named @p_14)) :named @p_13)) :named @p_7)) :named @p_6)) :named @p_5))
+(step t2.t17 (cl (! (not (! (=> (! (and @p_0 (! (fun_app$ (! (fun_app$c less$ i$) :named @p_20) (! (fun_app$b (! (offs_next$ @p_7 ub$ xsa$ index$ key$ mi$ ma$) :named @p_22) @p_1) :named @p_21)) :named @p_19)) :named @p_18) (! (= none$ (! (nth$a (! (fill$ xsa$ @p_7 index$ key$ ub$ mi$ ma$) :named @p_25) i$) :named @p_24)) :named @p_23)) :named @p_17)) :named @p_16)) :rule hole :args ("trust"))
+(step t2.t18 (cl @p_18) :rule not_implies1 :premises (t2.t17))
+(step t2.t40 (cl (! (= @p_1 (! (fun_app$b (! (offs_num$ @p_6 xsa$ index$ key$ mi$ ma$) :named @p_28) @p_1) :named @p_27)) :named @p_26)) :rule hole :premises (t2.t18) :args ("trust"))
+(step t2 (cl (! (not @p_0) :named @p_29) (! (not @p_5) :named @p_30) @p_26) :rule subproof :discharge (t2.a0 t2.a1))
+(step slice_end (cl) :rule hole :premises (t2) :args ("trust"))
+

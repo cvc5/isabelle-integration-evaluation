@@ -1,0 +1,4 @@
+(assume a0 (! (not (! (=> (! (and (! (fun_app$ (! (fun_app$a (! (fun_app$b (! (fun_app$c (! (ts$ bet$) :named @p_7) q$) :named @p_6) r$) :named @p_5) p$) :named @p_4) a$) :named @p_3) (! (fun_app$ (! (fun_app$a (! (fun_app$b (! (fun_app$c (! (os$ bet$) :named @p_12) q$) :named @p_11) r$) :named @p_10) p$) :named @p_9) b$) :named @p_8)) :named @p_2) (! (or (! (fun_app$ (! (fun_app$a @p_5 a$) :named @p_15) b$) :named @p_14) (! (fun_app$ (! (fun_app$a @p_10 a$) :named @p_17) b$) :named @p_16)) :named @p_13)) :named @p_1)) :named @p_0))
+(step t19 (cl @p_2) :rule not_implies1 :premises (a0))
+(step slice_end (cl) :rule hole :premises (t19) :args ("trust"))
+

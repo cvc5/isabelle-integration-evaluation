@@ -1,0 +1,4 @@
+(step t35 (cl (! (not (! (=> (! (and (! (not (! (= v$ 1.0) :named @p_4)) :named @p_3) (! (not (! (= v$ 0.0) :named @p_6)) :named @p_5)) :named @p_2) (! (member$ (! (pair$ (! (plus$ (! (scaleR$ (! (+ 1.0 (! (* -1/1 v$) :named @p_12)) :named @p_11) x$) :named @p_10) (! (scaleR$ v$ y$) :named @p_13)) :named @p_9) y$) :named @p_8) relation$) :named @p_7)) :named @p_1)) :named @p_0)) :rule hole :args ("trust"))
+(step t48 (cl @p_2) :rule not_implies1 :premises (t35))
+(step slice_end (cl) :rule hole :premises (t48) :args ("trust"))
+

@@ -1,0 +1,6 @@
+(anchor :step t70)
+(assume t70.a0 (! (forall ((?v0 S$)) (= (fun_app$ (! (phi$a s$a s$ aa$ phi$) :named @p_1) ?v0) (ite (fun_app$i (! (arr$a s$a) :named @p_2) ?v0) (fun_app$z (fun_app$aa (fun_app$ab (! (mkArr$ s$ (! (some_img$ s$ aa$) :named @p_4) aa$) :named @p_3) (fun_app$e (! (set$a s$ @p_4) :named @p_5) (fun_app$ (! (phi_o$ s$a s$ aa$ phi$) :named @p_6) (fun_app$g (! (dom$ s$a) :named @p_7) ?v0)))) (fun_app$e @p_5 (fun_app$ @p_6 (fun_app$g (! (cod$ s$a) :named @p_8) ?v0)))) (fun_app$n (! (phi_a$ s$a aa$ phi$) :named @p_9) ?v0)) (! (null$a s$) :named @p_10)))) :named @p_0))
+(step t70.t2 (cl (! (= (! (fun_app$ @p_1 a$) :named @p_12) (! (ite (! (fun_app$i @p_2 a$) :named @p_14) (! (fun_app$z (! (fun_app$aa (! (fun_app$ab @p_3 (! (fun_app$e @p_5 (! (fun_app$ @p_6 (! (fun_app$g @p_7 a$) :named @p_20)) :named @p_19)) :named @p_18)) :named @p_17) (! (fun_app$e @p_5 (! (fun_app$ @p_6 (! (fun_app$g @p_8 a$) :named @p_23)) :named @p_22)) :named @p_21)) :named @p_16) (! (fun_app$n @p_9 a$) :named @p_24)) :named @p_15) @p_10) :named @p_13)) :named @p_11)) :rule hole :args ("trust"))
+(step t70 (cl (! (not @p_0) :named @p_25) @p_11) :rule subproof :discharge (t70.a0))
+(step slice_end (cl) :rule hole :premises (t70) :args ("trust"))
+
