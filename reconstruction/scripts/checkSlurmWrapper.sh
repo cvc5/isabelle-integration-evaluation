@@ -69,9 +69,9 @@ do
   echo "$field2" >> $bench_file
 done < $input_file
 
-delare_options_str=""
-if [[ -z "$declare_options" ]]; then
-  delare_options_str="-o $declare_options"
+declare_options_str=""
+if ! [[ -z "$declare_options" ]]; then
+  declare_options_str="-o $declare_options"
 fi
 
 nr_benchs=$(cat $input_file | wc -l)

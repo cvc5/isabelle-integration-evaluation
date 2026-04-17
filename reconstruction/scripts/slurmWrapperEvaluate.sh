@@ -111,7 +111,7 @@ error_reason=""
   echo "{\"benchmark_path\": \"$problem_file\", \"library_name\": \"$logic\", \"checking\":[{\"solver_config\": \"$config\", \"checking_outcome\": \"$result_code\", \"checking_time\": \"$checking_time\"$error_reason$spy_path}]}," >> $output_file_json
 done
 
-if ! [ -z $output_dir/spying ]
+if [ -d $output_dir/spying ]
 then
   cd $output_dir
   output_zip=$(zip -r spying.zip spying)

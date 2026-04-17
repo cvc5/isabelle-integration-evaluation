@@ -58,9 +58,9 @@ echo "(\"PROOF_FILE\",\"$input_file\")"
 echo "(\"PROBLEM_FILE\",\"$problem_path\")"
 
 
-delare_options_str=""
-if [[ -z "$declare_options" ]]; then
-  delare_options_str="-o $declare_options"
+declare_options_str=""
+if ! [[ -z "$declare_options" ]]; then
+  declare_options_str="-o $declare_options"
 fi
 
 $SCRIPT_DIR/checkOneBench.sh -t $timeout $declare_options_str $problem_path $input_file 

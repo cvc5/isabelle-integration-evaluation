@@ -42,9 +42,9 @@ export USER_HOME=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/
 export ISABELLE_SMT_CVC_SPY="${PWD}/spy.txt"
 ISABELLE_SMT_CVC_SPY="${PWD}/spy.txt"
 
-delare_options_str=""
-if [[ -z "$declare_options" ]]; then 
-  delare_options_str="-o $declare_options"
+declare_options_str=""
+if ! [[ -z "$declare_options" ]]; then 
+  declare_options_str="-o $declare_options"
 fi
 
 start_time=$(date +%s%N)
