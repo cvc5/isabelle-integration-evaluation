@@ -16,10 +16,11 @@ Help()
    echo "t     Set timeout for solving and producing proof"
    echo "c     Set config"
    echo "l     Set library"
+   echo "o     Set declare options"
    echo
 }
 
-while getopts ":ht:c:l:" option; do
+while getopts ":ht:c:l:o:" option; do
    case $option in
       h) # display Help
          Help
@@ -27,6 +28,7 @@ while getopts ":ht:c:l:" option; do
       t) timeout=$OPTARG;;
       c) config=$OPTARG;;
       l) library=$OPTARG;;
+      o) declare_options=$OPTARG;;
      \?) # Invalid option
          echo "Error: Invalid option"
          exit;;
@@ -54,4 +56,11 @@ problem_path=$input_problem_dir/$relative_problem_path
 
 echo "(\"PROOF_FILE\",\"$input_file\")"
 echo "(\"PROBLEM_FILE\",\"$problem_path\")"
-$SCRIPT_DIR/checkOneBench.sh -t $timeout $problem_path $input_file 
+
+
+delare_options_str=""
+if [[ -z "$declare_options" ]]; then
+  delare_options_str="-o $declare_options"
+fi
+
+$SCRIPT_DIR/checkOneBench.sh -t $timeout $declare_options_str $problem_path $input_file 

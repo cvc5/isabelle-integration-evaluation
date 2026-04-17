@@ -46,7 +46,8 @@ CHECKING_OUTCOMES: dict[int, str] = {
     3: "Unknown term",
     4: "SMT-LIB parsing",
     5: "parsing error",
-    7: "error replay",
+    6: "error replay",
+    7: "timeout replay",
     10: "Slurm timeout",
     11: "Checking timeout"
 }
@@ -156,7 +157,6 @@ def _collect_checking(entry: dict, library: str, benchmark: str, bd: BenchmarkDa
         if code == 0:
             bd.checking_counts[library][solver] += 1
             bd.checked_benchmarks[library][solver].add(benchmark)
-
         if "checking_time" in c:
             checking_time = float(c["checking_time"])/1e9
             if checking_time is not None:
@@ -288,6 +288,7 @@ def compute_solver_stats(
     ss = SolverStats(solver=solver)
     ss.solved_count = len(bd.solved_benchmarks[library][solver])
     ss.checked_ok = bd.checking_counts[library][solver]
+    print("checked_ok",ss.checked_ok)
     ss.outcome_counts = dict(bd.checking_outcome_counts[library][solver])
 
     lines = bd.line_stats[library][solver]

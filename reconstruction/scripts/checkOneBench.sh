@@ -15,12 +15,13 @@ Help()
    echo
 }
 
-while getopts ":ht:" option; do
+while getopts ":ht:o:" option; do
    case $option in
       h) # display Help
          Help
          exit;;
       t) timeout=$OPTARG;;
+      o) declare_options=$OPTARG;;
      \?) # Invalid option
          echo "Error: Invalid option"
          exit;;
@@ -35,13 +36,19 @@ fi
 
 input_problem_file=$1
 input_proof_file=$2
-ISABELLE_VERSION=Isabelle
-#ISABELLE_PATH=/barrett/scratch/lachnitt/Binaries/dist-$ISABELLE_VERSION/$ISABELLE_VERSION/bin/
-ISABELLE_PATH=/barrett/scratch/lachnitt/Binaries/$ISABELLE_VERSION/bin/
+
+ISABELLE_PATH=/barrett/scratch/lachnitt/Binaries/Isabelle/bin/
 export USER_HOME=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/
+export ISABELLE_SMT_CVC_SPY="${PWD}/spy.txt"
+ISABELLE_SMT_CVC_SPY="${PWD}/spy.txt"
+
+delare_options_str=""
+if [[ -z "$declare_options" ]]; then 
+  delare_options_str="-o $declare_options"
+fi
 
 start_time=$(date +%s%N)
-output=$(timeout $timeout $ISABELLE_PATH/isabelle smt_check -i $input_problem_file -p $input_proof_file 2>&1)
+output=$(timeout $timeout $ISABELLE_PATH/isabelle smt_check $declare_options_str -i $input_problem_file -p $input_proof_file 2>&1)
 return_value=$?
 end_time=$(date +%s%N)
 

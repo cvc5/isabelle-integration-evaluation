@@ -15,17 +15,19 @@ Help()
    echo "options:"
    echo "t     Set timeout for solving and producing proof"
    echo "p     Override partition in config"
+   echo "o     Set declare options"
    echo "h     Print this Help."
    echo
 }
 
-while getopts ":hp:t:" option; do
+while getopts ":hp:t:o:" option; do
    case $option in
       h) # display Help
          Help
          exit;;
       p) partition=$OPTARG;;
       t) timeout=$OPTARG;;
+      o) declare_options=$OPTARG;;
      \?) # Invalid option
          echo "Error: Invalid option"
          exit;;
@@ -67,12 +69,17 @@ do
   echo "$field2" >> $bench_file
 done < $input_file
 
+delare_options_str=""
+if [[ -z "$declare_options" ]]; then
+  delare_options_str="-o $declare_options"
+fi
+
 nr_benchs=$(cat $input_file | wc -l)
 if [[ $nr_benchs -ne 0 ]]
 then
     TEMP_OUT="Results/cvc5test"
     name="runSolver"_"$lib_name"_"$config"
-    output=$(/barrett/scratch/local/bin/submit-job.sh --partition "$partition" --full-access-dir $input_problem_dir -t $slurm_timeout -n "$name" -b "$id" -d $TEMP_OUT -o "-t $timeout ${input_problem_dir} ${input_proof_dir}" $SCRIPT_DIR/checkOneBenchWrapper.sh)
+    output=$(/barrett/scratch/local/bin/submit-job.sh --partition "$partition" --full-access-dir $input_problem_dir -t $slurm_timeout -n "$name" -b "$id" -d $TEMP_OUT -o "-t $timeout ${declare_options_str} ${input_problem_dir} ${input_proof_dir}" $SCRIPT_DIR/checkOneBenchWrapper.sh)
     if [[ $? -ne 0 ]]
     then
       echo "ERROR: Slurm could not be called on benchmarks"

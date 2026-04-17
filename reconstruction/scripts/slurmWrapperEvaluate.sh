@@ -48,6 +48,7 @@ fi
 
 rm -rf $output_dir
 mkdir $output_dir
+mkdir $output_dir/spying/
 
 output_file_json=$output_dir/$output_file".json"
 touch $output_file_json
@@ -59,6 +60,8 @@ rm -f $output_file_csv
 find "$input_dir" -type f -name "output.log" | while read -r output_log; do
 #default
 result_code=10
+checking_time=0
+error_reason=""
   while IFS= read -r line; do
      case "$line" in
         '("RESULT_CODE"'*)
@@ -75,7 +78,6 @@ result_code=10
             ;;
 	 *) #echo "line $line" 
 	 if [[ "$line" == *"Error replaying step"* ]]; then
-     	   echo "Found"
            tmp="${line#*Error replaying step }"
       	   error_reason="${tmp%%[,)\"[:space:]]*}"
      	   error_reason=", \"error\":\""$error_reason\"
@@ -83,12 +85,38 @@ result_code=10
 
     esac
      done < "$output_log"
+
+
   #Remove leading/trailing whitespace just in case
   logic=$(echo $logic | xargs)
   config=$(echo $config | xargs)
-  echo "{\"benchmark_path\": \"$problem_file\", \"library_name\": \"$logic\", \"checking\":[{\"solver_config\": \"$config\", \"checking_outcome\": \"$result_code\", \"checking_time\": \"$checking_time\"$error_reason}]}," >> $output_file_json
 
+  spy_path=""
+  current_output_dir=$(dirname $output_log)
+  if [ -f $current_output_dir/spy.txt ]; then
+    bench_basename=$(basename $problem_file)
+    raw_bench_name="${bench_basename%.*}"
+    SPY_DIR=$output_dir/spying
+
+    rel_dir="${current_output_dir#$input_dir}"
+    rel_dir="$(echo "$rel_dir" | cut -d'/' -f3-)"
+    rel_dir="${rel_dir%/*.*}"
+    rel_dir=$SPY_DIR/$rel_dir
+    SPY_PATH=$rel_dir/${raw_bench_name}_spy.txt
+    mkdir -p $rel_dir
+    cp $current_output_dir/spy.txt $SPY_PATH
+    spy_path=", \"spy_file_path\": \"$SPY_PATH\""
+  fi
+ 
+  echo "{\"benchmark_path\": \"$problem_file\", \"library_name\": \"$logic\", \"checking\":[{\"solver_config\": \"$config\", \"checking_outcome\": \"$result_code\", \"checking_time\": \"$checking_time\"$error_reason$spy_path}]}," >> $output_file_json
 done
+
+if ! [ -z $output_dir/spying ]
+then
+  cd $output_dir
+  output_zip=$(zip -r spying.zip spying)
+  rm -rf spying/
+fi
 
 #Check last character
 sed -i '$s/,$//' "$output_file_json"
