@@ -10,7 +10,7 @@ The input can be:
 
 The output folder will contain:
 - by-rule.csv
-- by-rule-central95.csv
+- by-rule-p05-p95.csv
 - by-rules-total-barplot.png
 - by-rules-mean-barplot.png
 - by-rules-boxplot.png
@@ -32,7 +32,7 @@ from txt_to_by_rule_csv import aggregate_samples, discover_input_files, merge_sa
 
 DPI = 200
 DEFAULT_MAX_RULES = 25
-CENTRAL_95_LIMITS = (0.025, 0.975)
+P05_P95_FILTER_LIMITS = (0.05, 0.95)
 
 
 def parse_args() -> argparse.Namespace:
@@ -104,7 +104,7 @@ def build_total_bar_plot(input_csv: Path, output_path: Path, max_rules: int) -> 
 
     fig, ax = plt.subplots(figsize=(12, figure_height))
     ax.barh(by_rule["rule"], by_rule["total"], color="#555555")
-    ax.set_xlabel("winsorized total time (central 95%) (s)", fontsize=axis_fontsize)
+    ax.set_xlabel("p5-p95 filtered total time (s)", fontsize=axis_fontsize)
     ax.tick_params(axis="x", labelsize=max(6.0, label_fontsize))
     ax.tick_params(axis="y", labelsize=label_fontsize)
     fig.tight_layout()
@@ -121,7 +121,7 @@ def build_mean_bar_plot(input_csv: Path, output_path: Path, max_rules: int) -> P
 
     fig, ax = plt.subplots(figsize=(12, figure_height))
     ax.barh(by_rule["rule"], by_rule["mean"], color="#2d6a8a")
-    ax.set_xlabel("winsorized mean time per occurrence (central 95%) (s)", fontsize=axis_fontsize)
+    ax.set_xlabel("p5-p95 filtered mean time per occurrence (s)", fontsize=axis_fontsize)
     ax.tick_params(axis="x", labelsize=max(6.0, label_fontsize))
     ax.tick_params(axis="y", labelsize=label_fontsize)
     fig.tight_layout()
@@ -149,7 +149,7 @@ def build_box_plot(input_csv: Path, output_path: Path, max_rules: int) -> Path:
         for _, row in by_rule.iterrows()
     ]
     ax.bxp(boxplot, shownotches=False, showmeans=False, showfliers=False, vert=False)
-    ax.set_xlabel("winsorized time (central 95%) (s)", fontsize=axis_fontsize)
+    ax.set_xlabel("p5-p95 filtered time (s)", fontsize=axis_fontsize)
     ax.tick_params(axis="x", labelsize=max(6.0, label_fontsize))
     ax.tick_params(axis="y", labelsize=label_fontsize)
     fig.tight_layout()
@@ -203,7 +203,7 @@ def run_pipeline(input_path: Path, output_dir: Path, max_rules: int) -> int:
         raise SystemExit("error: no timing samples found in input")
 
     csv_path = output_dir / "by-rule.csv"
-    central95_csv_path = output_dir / "by-rule-central95.csv"
+    p05_p95_csv_path = output_dir / "by-rule-p05-p95.csv"
     total_bar_path = output_dir / "by-rules-total-barplot.png"
     mean_bar_path = output_dir / "by-rules-mean-barplot.png"
     boxplot_path = output_dir / "by-rules-boxplot.png"
@@ -215,21 +215,28 @@ def run_pipeline(input_path: Path, output_dir: Path, max_rules: int) -> int:
     ]
 
     rows = aggregate_samples(samples)
-    central95_rows = aggregate_samples(samples, winsorize_limits=CENTRAL_95_LIMITS)
+    p05_p95_rows = aggregate_samples(samples, trim_limits=P05_P95_FILTER_LIMITS)
     write_csv(rows, csv_path)
-    write_csv(central95_rows, central95_csv_path)
+    write_csv(p05_p95_rows, p05_p95_csv_path)
 
     for stale_dir in stale_paged_outputs:
         if stale_dir.exists():
             shutil.rmtree(stale_dir)
+    stale_csv_paths = [
+        output_dir / "by-rule-central95.csv",
+        output_dir / "by-rule-upper95.csv",
+    ]
+    for stale_csv_path in stale_csv_paths:
+        if stale_csv_path.exists():
+            stale_csv_path.unlink()
 
-    build_total_bar_plot(central95_csv_path, total_bar_path, max_rules)
-    build_mean_bar_plot(central95_csv_path, mean_bar_path, max_rules)
-    build_box_plot(central95_csv_path, boxplot_path, max_rules)
+    build_total_bar_plot(p05_p95_csv_path, total_bar_path, max_rules)
+    build_mean_bar_plot(p05_p95_csv_path, mean_bar_path, max_rules)
+    build_box_plot(p05_p95_csv_path, boxplot_path, max_rules)
     build_scatter_plot(csv_path, scatterplot_path, max_rules)
 
     print(f"wrote {len(rows)} rule rows from {len(used_files)} txt file(s) to {csv_path}")
-    print(f"wrote winsorized central-95% rule rows to {central95_csv_path}")
+    print(f"wrote p5-p95 filtered rule rows to {p05_p95_csv_path}")
     print(f"wrote total bar plot to {total_bar_path}")
     print(f"wrote mean bar plot to {mean_bar_path}")
     print(f"wrote box plot to {boxplot_path}")

@@ -153,29 +153,35 @@ def maybe_int(value: float | int) -> float | int:
     return value
 
 
-def winsorize_series(
+def trim_series(
     series: pandas.Series,
     lower_quantile: float,
     upper_quantile: float,
 ) -> pandas.Series:
-    series = series.astype("float64")
-    lower_bound = series.quantile(lower_quantile, interpolation="linear")
-    upper_bound = series.quantile(upper_quantile, interpolation="linear")
-    return series.clip(lower=lower_bound, upper=upper_bound)
+    filtered = series
+    if lower_quantile > 0.0:
+        lower_bound = series.quantile(lower_quantile, interpolation="linear")
+        filtered = filtered[filtered >= lower_bound]
+    if upper_quantile < 1.0:
+        upper_bound = series.quantile(upper_quantile, interpolation="linear")
+        filtered = filtered[filtered <= upper_bound]
+    if filtered.empty:
+        return series.sort_values(ignore_index=True)
+    return filtered.sort_values(ignore_index=True)
 
 
 def aggregate_samples(
     samples: dict[str, list[int]],
-    winsorize_limits: tuple[float, float] | None = None,
+    trim_limits: tuple[float, float] | None = None,
 ) -> list[dict[str, float | int | str]]:
     rows: list[dict[str, float | int | str]] = []
 
     for rule, values in samples.items():
         series = pandas.Series(values, dtype="int64")
         summarized = series
-        if winsorize_limits is not None:
-            lower_quantile, upper_quantile = winsorize_limits
-            summarized = winsorize_series(series, lower_quantile, upper_quantile)
+        if trim_limits is not None:
+            lower_quantile, upper_quantile = trim_limits
+            summarized = trim_series(series, lower_quantile, upper_quantile)
 
         count = int(summarized.count())
         row = {
