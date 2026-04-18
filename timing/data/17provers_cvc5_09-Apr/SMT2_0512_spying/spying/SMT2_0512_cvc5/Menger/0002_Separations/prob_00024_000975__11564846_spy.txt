@@ -1,0 +1,14 @@
+1; Draft.Scratch_smt_check_7_266; 2026-04-10 13:50:34.756;
+bind: 265000,
+cong: 83000,99000,
+refl: 32000,
+or_pos: 182000,
+parsing: 1863000,
+equiv_pos2: 48000,165000,52000,
+reordering: 195000,266000,
+resolution: 220000,184000,210000,181000,299000,
+forall_inst: 783000,
+__normalized_input: 725000,465000,12526000,1084000,
+rare_rewrite_eq-symm: 105000,
+rare_rewrite_bool-double-not-elim: 117000,
+

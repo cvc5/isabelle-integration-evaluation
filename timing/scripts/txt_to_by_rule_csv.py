@@ -153,23 +153,41 @@ def maybe_int(value: float | int) -> float | int:
     return value
 
 
-def aggregate_samples(samples: dict[str, list[int]]) -> list[dict[str, float | int | str]]:
+def winsorize_series(
+    series: pandas.Series,
+    lower_quantile: float,
+    upper_quantile: float,
+) -> pandas.Series:
+    series = series.astype("float64")
+    lower_bound = series.quantile(lower_quantile, interpolation="linear")
+    upper_bound = series.quantile(upper_quantile, interpolation="linear")
+    return series.clip(lower=lower_bound, upper=upper_bound)
+
+
+def aggregate_samples(
+    samples: dict[str, list[int]],
+    winsorize_limits: tuple[float, float] | None = None,
+) -> list[dict[str, float | int | str]]:
     rows: list[dict[str, float | int | str]] = []
 
     for rule, values in samples.items():
         series = pandas.Series(values, dtype="int64")
-        count = int(series.count())
-        total = int(series.sum())
+        summarized = series
+        if winsorize_limits is not None:
+            lower_quantile, upper_quantile = winsorize_limits
+            summarized = winsorize_series(series, lower_quantile, upper_quantile)
+
+        count = int(summarized.count())
         row = {
             "rule": rule,
             "count": count,
-            "total": total,
-            "mean": maybe_int(series.mean()),
-            "min": int(series.min()),
-            "first_quartile": maybe_int(series.quantile(0.25, interpolation="linear")),
-            "median": maybe_int(series.quantile(0.50, interpolation="linear")),
-            "third_quartile": maybe_int(series.quantile(0.75, interpolation="linear")),
-            "max": int(series.max()),
+            "total": maybe_int(summarized.sum()),
+            "mean": maybe_int(summarized.mean()),
+            "min": maybe_int(summarized.min()),
+            "first_quartile": maybe_int(summarized.quantile(0.25, interpolation="linear")),
+            "median": maybe_int(summarized.quantile(0.50, interpolation="linear")),
+            "third_quartile": maybe_int(summarized.quantile(0.75, interpolation="linear")),
+            "max": maybe_int(summarized.max()),
         }
         rows.append(row)
 

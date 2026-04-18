@@ -1,0 +1,16 @@
+1; Draft.Scratch_smt_check_7_6438; 2026-04-10 13:46:20.459;
+bind: 329000,347000,332000,324000,
+cong: 179000,110000,132000,225000,
+refl: 113000,
+trans: 318000,262000,218000,279000,461000,270000,309000,
+parsing: 4673000,
+aci_simp: 2017000,2022000,
+equiv_pos2: 216000,192000,
+resolution: 215000,467000,339000,500000,
+miniscope_split: 474000,
+__normalized_input: 1024000,986000,1183000,
+rare_rewrite_eq-symm: 206000,
+rare_rewrite_bool-impl-elim: 12301000,
+rare_rewrite_bool-impl-false1: 11614000,12105000,
+rare_rewrite_bool-and-de-morgan: 11627000,12872000,
+

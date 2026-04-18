@@ -1,0 +1,6 @@
+1; Draft.Scratch_smt_check_7_14576; 2026-04-10 13:48:25.578;
+parsing: 987000,
+and_intro: 884000,
+resolution: 381000,
+__normalized_input: 16697000,7658000,2874000,
+

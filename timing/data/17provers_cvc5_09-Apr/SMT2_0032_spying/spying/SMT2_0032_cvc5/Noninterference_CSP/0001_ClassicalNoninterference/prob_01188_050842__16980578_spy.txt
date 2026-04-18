@@ -1,0 +1,18 @@
+1; Draft.Scratch_smt_check_7_9614; 2026-04-10 13:43:35.148;
+cong: 240000,155000,174000,
+refl: 38000,
+symm: 218000,
+trans: 420000,
+and_neg: 565000,
+and_pos: 507000,608000,
+implies: 649000,
+parsing: 1788000,
+subproof: 2751000,
+reordering: 910000,1299000,
+resolution: 301000,766000,850000,746000,978000,
+contraction: 910000,910000,
+implies_neg1: 1004000,
+implies_neg2: 917000,
+__local_input: 60000,87000,
+__normalized_input: 1155000,1429000,1716000,
+
