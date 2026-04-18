@@ -3,6 +3,7 @@
 import argparse
 import json
 import re
+import shutil
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -15,6 +16,13 @@ def parse_args():
     )
     parser.add_argument("input_directory", help="Directory to scan recursively")
     parser.add_argument("output_json", help="Path to the JSON file to write")
+    parser.add_argument(
+        "-d", "--output-dir",
+        default=None,
+        help="If set, copy problem/proof files per solver into this directory, "
+             "creating cvc5/, z3/, verit/ subfolders that mirror the "
+             "0.sledgehammer folder structure.",
+    )
     return parser.parse_args()
 
 
@@ -193,6 +201,7 @@ def main():
         return
 
     entries = []
+    error_in_proof_count = 0
     for (folder, base), file_list in sorted(groups.items()):
         ref = file_list[0][0]
         rel_dir = ref.parent.relative_to(input_dir)
@@ -253,7 +262,14 @@ def main():
                 call["original_proof_name"] = p.name
                 call["proof_path"] = str(p)
                 with open(p) as fh:
-                    call["prover_outcome"] = fh.readline().rstrip("\n")
+                    lines = [fh.readline().rstrip("\n") for _ in range(3)]
+                call["prover_outcome"] = lines[0]
+                has_error = any(
+                    line.startswith("(error") for line in lines[1:3]
+                )
+                if has_error:
+                    call["proof_has_error"] = True
+                    error_in_proof_count += 1
 
             calls.append(call)
 
@@ -268,6 +284,40 @@ def main():
 
     Path(args.output_json).write_text(json.dumps(entries, indent=2) + "\n")
     print(f"Written {len(entries)} entries to {args.output_json}")
+    print(f"Proof files with (error on line 2 or 3: {error_in_proof_count}")
+
+    if args.output_dir:
+        out_root = Path(args.output_dir)
+        for solver in ("cvc5", "z3", "verit"):
+            (out_root / solver).mkdir(parents=True, exist_ok=True)
+
+        copied = 0
+        for entry in entries:
+            for call in entry.get("calls", []):
+                solver = call.get("solver")
+                if solver not in ("cvc5", "z3", "verit"):
+                    continue
+                for key in ("problem_path", "proof_path"):
+                    src = call.get(key)
+                    if not src:
+                        continue
+                    src_path = Path(src)
+                    if not src_path.is_file():
+                        continue
+                    try:
+                        rel = src_path.resolve().relative_to(input_dir)
+                    except ValueError:
+                        rel = Path(src_path.name)
+                    new_name = re.sub(
+                        r'^(prob_\d+_\d+)__\d+_(\d+\.smt_(?:in|out))$',
+                        r'\1_\2',
+                        src_path.name,
+                    )
+                    dst_path = out_root / solver / rel.parent / new_name
+                    dst_path.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(src_path, dst_path)
+                    copied += 1
+        print(f"Copied {copied} files into {out_root}")
 
 
 if __name__ == "__main__":
