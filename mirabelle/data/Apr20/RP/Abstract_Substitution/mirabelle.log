@@ -1,0 +1,578 @@
+0.sledgehammer initialize Params for sledgehammer: {abduce = SOME 0, cache_dir = NONE, compress = NONE, debug = false, expect =
+0.sledgehammer initialize  "", fact_filter = NONE, fact_thresholds = (0.45, 0.85), falsify =
+0.sledgehammer initialize  SOME false, induction_rules = NONE, instantiate = NONE, isar_proofs = NONE,
+0.sledgehammer initialize  lam_trans = NONE, learn = true, max_facts = NONE, max_mono_iters = NONE,
+0.sledgehammer initialize  max_new_mono_instances = NONE, max_proofs = 4, minimize = true, overlord =
+0.sledgehammer initialize  false, preplay_provers = [], preplay_timeout = 1.000, provers =
+0.sledgehammer initialize  ["cvc5_proof"], slices = 96, smt_proofs = true, spy = false, strict =
+0.sledgehammer initialize  false, timeout = 30.000, try0 = true, type_enc = NONE, uncurried_aliases =
+0.sledgehammer initialize  NONE, verbose = false}
+0.sledgehammer goal.proof     34804ms Ordered_Resolution_Prover.Abstract_Substitution 29:822  timeout (SH 34804ms): Timed out
+0.sledgehammer goal.proof     34169ms Ordered_Resolution_Prover.Abstract_Substitution 32:927  timeout (SH 34169ms): Timed out
+0.sledgehammer goal.by        29234ms Ordered_Resolution_Prover.Abstract_Substitution 35:994  some (SH 29234ms, ATP 316ms): Try this: by auto (1 ms)
+0.sledgehammer goal.by         2914ms Ordered_Resolution_Prover.Abstract_Substitution 38:1074  some (SH 2914ms, ATP 274ms): Try this: by blast (1 ms)
+0.sledgehammer goal.using      5931ms Ordered_Resolution_Prover.Abstract_Substitution 40:1123  some (SH 5931ms, ATP 464ms): Try this: by (simp add: le_neq_implies_less leq) (15 ms)
+0.sledgehammer goal.by         4001ms Ordered_Resolution_Prover.Abstract_Substitution 40:1150  some (SH 4001ms, ATP 438ms): Try this: by metis (24 ms)
+0.sledgehammer goal.using      6598ms Ordered_Resolution_Prover.Abstract_Substitution 42:1195  some (SH 6598ms, ATP 464ms): Try this: by (simp add: l'_p leq lift_Suc_antimono_le) (4 ms)
+0.sledgehammer goal.by         4025ms Ordered_Resolution_Prover.Abstract_Substitution 42:1210  some (SH 4024ms, ATP 469ms): Try this: using lift_Suc_antimono_le by blast (8 ms)
+0.sledgehammer goal.using      7600ms Ordered_Resolution_Prover.Abstract_Substitution 44:1326  some (SH 7600ms, ATP 476ms): Try this: by (meson l'_p less_Suc_eq_le order_less_le_trans) (27 ms)
+0.sledgehammer goal.by         4033ms Ordered_Resolution_Prover.Abstract_Substitution 44:1351  some (SH 4033ms, ATP 421ms): Try this: by blast (39 ms)
+0.sledgehammer goal.by        34592ms Ordered_Resolution_Prover.Abstract_Substitution 48:1458  timeout (SH 34592ms): Timed out
+0.sledgehammer goal.by        33840ms Ordered_Resolution_Prover.Abstract_Substitution 54:1574  timeout (SH 33840ms): Timed out
+0.sledgehammer goal.by         5288ms Ordered_Resolution_Prover.Abstract_Substitution 56:1667  some (SH 5288ms, ATP 441ms): Try this: by simp (2 ms)
+0.sledgehammer goal.by        18055ms Ordered_Resolution_Prover.Abstract_Substitution 58:1733  some (SH 18055ms, ATP 196ms): Try this: by blast (0.3 ms)
+0.sledgehammer goal.using     34713ms Ordered_Resolution_Prover.Abstract_Substitution 60:1764  timeout (SH 34713ms): Timed out
+0.sledgehammer goal.by        32428ms Ordered_Resolution_Prover.Abstract_Substitution 60:1783  timeout (SH 32428ms): Timed out
+0.sledgehammer goal.unfolding  8195ms Ordered_Resolution_Prover.Abstract_Substitution 108:3284  some (SH 8195ms, ATP 444ms): Try this: using literal.map_sel(1,2) subst_lit_def by auto (12 ms)
+0.sledgehammer goal.by         5014ms Ordered_Resolution_Prover.Abstract_Substitution 108:3308  some (SH 5014ms, ATP 501ms): Try this: using literal.map_sel(1,2) by blast (8 ms)
+0.sledgehammer goal.unfolding  7969ms Ordered_Resolution_Prover.Abstract_Substitution 126:4045  some (SH 7969ms, ATP 143ms): Try this: by (simp add: subst_cls_def) (1 ms)
+0.sledgehammer goal.by         5057ms Ordered_Resolution_Prover.Abstract_Substitution 126:4069  some (SH 5057ms, ATP 547ms): Try this: by auto (2 ms)
+0.sledgehammer goal.unfolding  8708ms Ordered_Resolution_Prover.Abstract_Substitution 129:4169  some (SH 8707ms, ATP 2324ms): Try this: by (simp add: substitution_ops.subst_cls_mset_def) (9 ms)
+0.sledgehammer goal.by         4226ms Ordered_Resolution_Prover.Abstract_Substitution 129:4198  some (SH 4225ms, ATP 475ms): Try this: by simp (1 ms)
+0.sledgehammer goal.by        17873ms Ordered_Resolution_Prover.Abstract_Substitution 238:8179  some (SH 17873ms, ATP 90ms): Try this: using subst_ext by blast (1 ms)
+0.sledgehammer goal.by        30711ms Ordered_Resolution_Prover.Abstract_Substitution 244:8302  some (SH 30711ms, ATP 1695ms): Try this: by (simp add: subst_ext) (0.5 ms)
+0.sledgehammer goal.by        33955ms Ordered_Resolution_Prover.Abstract_Substitution 247:8382  timeout (SH 33955ms): Timed out
+0.sledgehammer goal.using     75079ms Ordered_Resolution_Prover.Abstract_Substitution 250:8488  some (SH 75079ms, ATP 249ms): Try this: by (smt (cvc5, quant_saturate) comp_substs_def list.map_ident_strong map2_map_map map_replicate_const substitution.id_subst_comp_subst substitution_axioms) (852 ms)
+0.sledgehammer goal.by        92902ms Ordered_Resolution_Prover.Abstract_Substitution 250:8510  some (SH 92902ms, ATP 3196ms): Try this: by (smt (z3) id_subst_comp_subst in_set_zip length_replicate map_eq_conv map_snd_zip nth_replicate split_beta) (353 ms)
+0.sledgehammer goal.using     153909ms Ordered_Resolution_Prover.Abstract_Substitution 253:8614  timeout (SH 153909ms):
+0.sledgehammer goal.by        153304ms Ordered_Resolution_Prover.Abstract_Substitution 253:8636  timeout (SH 153303ms):
+0.sledgehammer goal.unfolding 33149ms Ordered_Resolution_Prover.Abstract_Substitution 256:8718  timeout (SH 33148ms): Timed out
+0.sledgehammer goal.by         9381ms Ordered_Resolution_Prover.Abstract_Substitution 256:8743  some (SH 9381ms, ATP 519ms): Try this: by simp (1 ms)
+0.sledgehammer goal.unfolding 14857ms Ordered_Resolution_Prover.Abstract_Substitution 259:8814  some (SH 14857ms, ATP 138ms): Try this: by (simp add: subst_atmss_def) (0.9 ms)
+0.sledgehammer goal.by         8008ms Ordered_Resolution_Prover.Abstract_Substitution 259:8840  some (SH 8008ms, ATP 1609ms): Try this: by simp (0.9 ms)
+0.sledgehammer goal.unfolding 32212ms Ordered_Resolution_Prover.Abstract_Substitution 262:8911  timeout (SH 32212ms): Timed out
+0.sledgehammer goal.by         6960ms Ordered_Resolution_Prover.Abstract_Substitution 262:8940  some (SH 6960ms, ATP 453ms): Try this: by simp (0.8 ms)
+0.sledgehammer goal.unfolding 31833ms Ordered_Resolution_Prover.Abstract_Substitution 265:9011  some (SH 31833ms, ATP 972ms): Try this: by (simp add: subst_atm_mset_def) (0.8 ms)
+0.sledgehammer goal.by         7642ms Ordered_Resolution_Prover.Abstract_Substitution 265:9040  some (SH 7642ms, ATP 431ms): Try this: by simp (0.8 ms)
+0.sledgehammer goal.unfolding 14064ms Ordered_Resolution_Prover.Abstract_Substitution 268:9119  some (SH 14064ms, ATP 447ms): Try this: by (simp add: subst_atm_mset_list_def) (0.6 ms)
+0.sledgehammer goal.by         5572ms Ordered_Resolution_Prover.Abstract_Substitution 268:9153  some (SH 5572ms, ATP 472ms): Try this: by simp (0.5 ms)
+0.sledgehammer goal.unfolding 33048ms Ordered_Resolution_Prover.Abstract_Substitution 271:9257  timeout (SH 33048ms): Timed out
+0.sledgehammer goal.by        79716ms Ordered_Resolution_Prover.Abstract_Substitution 271:9292  some (SH 79716ms, ATP 1969ms): Try this: by (smt (cvc5) map2_map_map map_eq_conv map_ident map_replicate_const subst_atm_mset_list_id_subst substitution_ops.subst_atm_mset_list_def)
+0.sledgehammer goal.unfolding 46484ms Ordered_Resolution_Prover.Abstract_Substitution 274:9368  some (SH 46484ms, ATP 463ms): Try this: by (metis literal.exhaust_sel literal.map(1,2) subst_atm_id_subst subst_lit_def) (128 ms)
+0.sledgehammer goal.by        21164ms Ordered_Resolution_Prover.Abstract_Substitution 274:9392  some (SH 21163ms, ATP 581ms): Try this: by (simp add: literal.map_ident_strong) (1 ms)
+0.sledgehammer goal.unfolding 13192ms Ordered_Resolution_Prover.Abstract_Substitution 277:9479  some (SH 13192ms, ATP 440ms): Try this: by (simp add: substitution_ops.subst_cls_def) (0.8 ms)
+0.sledgehammer goal.by        28764ms Ordered_Resolution_Prover.Abstract_Substitution 277:9503  some (SH 28764ms, ATP 848ms): Try this: by simp (0.8 ms)
+0.sledgehammer goal.unfolding 32704ms Ordered_Resolution_Prover.Abstract_Substitution 280:9570  timeout (SH 32704ms): Timed out
+0.sledgehammer goal.by         5642ms Ordered_Resolution_Prover.Abstract_Substitution 280:9595  some (SH 5642ms, ATP 501ms): Try this: by auto (0.9 ms)
+0.sledgehammer goal.unfolding  8591ms Ordered_Resolution_Prover.Abstract_Substitution 283:9666  some (SH 8590ms, ATP 455ms): Try this: by (simp add: subst_cls_list_def) (0.5 ms)
+0.sledgehammer goal.by         5119ms Ordered_Resolution_Prover.Abstract_Substitution 283:9695  some (SH 5119ms, ATP 444ms): Try this: by auto (0.4 ms)
+0.sledgehammer goal.unfolding 155239ms Ordered_Resolution_Prover.Abstract_Substitution 286:9790  timeout (SH 155239ms):
+0.sledgehammer goal.by        153517ms Ordered_Resolution_Prover.Abstract_Substitution 286:9820  timeout (SH 153517ms):
+0.sledgehammer goal.unfolding 32058ms Ordered_Resolution_Prover.Abstract_Substitution 289:9903  timeout (SH 32058ms): Timed out
+0.sledgehammer goal.by        13510ms Ordered_Resolution_Prover.Abstract_Substitution 289:9932  some (SH 13510ms, ATP 476ms): Try this: by simp (0.5 ms)
+0.sledgehammer goal.by        32196ms Ordered_Resolution_Prover.Abstract_Substitution 295:10046  timeout (SH 32196ms): Timed out
+0.sledgehammer goal.unfolding 32494ms Ordered_Resolution_Prover.Abstract_Substitution 301:10207  timeout (SH 32494ms): Timed out
+0.sledgehammer goal.by        17548ms Ordered_Resolution_Prover.Abstract_Substitution 301:10232  some (SH 17548ms, ATP 857ms): Try this: by auto (4 ms)
+0.sledgehammer goal.unfolding 103164ms Ordered_Resolution_Prover.Abstract_Substitution 304:10318  some (SH 103164ms, ATP 1103ms): Try this: by (smt (z3) image_cong image_image subst_atms_comp_subst substitution_ops.subst_atmss_def) (452 ms)
+0.sledgehammer goal.by        13265ms Ordered_Resolution_Prover.Abstract_Substitution 304:10344  some (SH 13265ms, ATP 3844ms): Try this: by auto (16 ms)
+0.sledgehammer goal.unfolding 31838ms Ordered_Resolution_Prover.Abstract_Substitution 307:10428  timeout (SH 31837ms): Timed out
+0.sledgehammer goal.by        32081ms Ordered_Resolution_Prover.Abstract_Substitution 307:10457  timeout (SH 32081ms): Timed out
+0.sledgehammer goal.unfolding 34324ms Ordered_Resolution_Prover.Abstract_Substitution 310:10541  timeout (SH 34324ms): Timed out
+0.sledgehammer goal.by        33641ms Ordered_Resolution_Prover.Abstract_Substitution 310:10570  timeout (SH 33641ms): Timed out
+0.sledgehammer goal.unfolding 35339ms Ordered_Resolution_Prover.Abstract_Substitution 313:10666  timeout (SH 35339ms): Timed out
+0.sledgehammer goal.by        32744ms Ordered_Resolution_Prover.Abstract_Substitution 313:10700  timeout (SH 32744ms): Timed out
+0.sledgehammer goal.unfolding 34978ms Ordered_Resolution_Prover.Abstract_Substitution 316:10804  timeout (SH 34978ms): Timed out
+0.sledgehammer goal.by        33701ms Ordered_Resolution_Prover.Abstract_Substitution 317:10896  some (SH 33700ms, ATP 1739ms): Try this: by force (5 ms)
+0.sledgehammer goal.unfolding 32353ms Ordered_Resolution_Prover.Abstract_Substitution 320:10987  timeout (SH 32353ms): Timed out
+0.sledgehammer goal.by        32678ms Ordered_Resolution_Prover.Abstract_Substitution 320:11011  timeout (SH 32677ms): Timed out
+0.sledgehammer goal.unfolding 35172ms Ordered_Resolution_Prover.Abstract_Substitution 323:11113  timeout (SH 35172ms): Timed out
+0.sledgehammer goal.by        32790ms Ordered_Resolution_Prover.Abstract_Substitution 323:11137  timeout (SH 32790ms): Timed out
+0.sledgehammer goal.unfolding 127035ms Ordered_Resolution_Prover.Abstract_Substitution 326:11216  some (SH 127035ms, ATP 830ms): Try this: by (smt (z3) image_cong image_image subst_cls_comp_subst substitution_ops.subst_clss_def) (497 ms)
+0.sledgehammer goal.by        14973ms Ordered_Resolution_Prover.Abstract_Substitution 326:11241  some (SH 14973ms, ATP 1230ms): Try this: by auto (8 ms)
+0.sledgehammer goal.unfolding 32332ms Ordered_Resolution_Prover.Abstract_Substitution 329:11325  timeout (SH 32332ms): Timed out
+0.sledgehammer goal.by        32306ms Ordered_Resolution_Prover.Abstract_Substitution 329:11354  timeout (SH 32305ms): Timed out
+0.sledgehammer goal.unfolding 35375ms Ordered_Resolution_Prover.Abstract_Substitution 332:11448  timeout (SH 35375ms): Timed out
+0.sledgehammer goal.by        35297ms Ordered_Resolution_Prover.Abstract_Substitution 333:11535  some (SH 35297ms, ATP 4328ms): Try this: by force (4 ms)
+0.sledgehammer goal.unfolding 32998ms Ordered_Resolution_Prover.Abstract_Substitution 336:11636  timeout (SH 32998ms): Timed out
+0.sledgehammer goal.by        33443ms Ordered_Resolution_Prover.Abstract_Substitution 336:11665  timeout (SH 33443ms): Timed out
+0.sledgehammer goal.unfolding 34959ms Ordered_Resolution_Prover.Abstract_Substitution 342:11822  timeout (SH 34959ms): Timed out
+0.sledgehammer goal.by        17102ms Ordered_Resolution_Prover.Abstract_Substitution 342:11851  some (SH 17102ms, ATP 1010ms): Try this: by blast (2 ms)
+0.sledgehammer goal.unfolding 32853ms Ordered_Resolution_Prover.Abstract_Substitution 345:11932  timeout (SH 32852ms): Timed out
+0.sledgehammer goal.by        31849ms Ordered_Resolution_Prover.Abstract_Substitution 345:11956  timeout (SH 31849ms): Timed out
+0.sledgehammer goal.unfolding 37056ms Ordered_Resolution_Prover.Abstract_Substitution 348:12050  some (SH 37056ms, ATP 200ms): Try this: by (metis (no_types, lifting) image_iff multiset.set_map substitution_ops.subst_cls_mset_def) (126 ms)
+0.sledgehammer goal.by        32017ms Ordered_Resolution_Prover.Abstract_Substitution 348:12079  timeout (SH 32017ms): Timed out
+0.sledgehammer goal.unfolding 15778ms Ordered_Resolution_Prover.Abstract_Substitution 354:12191  some (SH 15778ms, ATP 430ms): Try this: by (simp add: subst_lit_def) (1 ms)
+0.sledgehammer goal.by         5439ms Ordered_Resolution_Prover.Abstract_Substitution 354:12215  some (SH 5439ms, ATP 549ms): Try this: by simp (2 ms)
+0.sledgehammer goal.unfolding  3415ms Ordered_Resolution_Prover.Abstract_Substitution 357:12285  some (SH 3415ms, ATP 619ms): Try this: using subst_lit_is_neg by blast (1 ms)
+0.sledgehammer goal.by         4302ms Ordered_Resolution_Prover.Abstract_Substitution 357:12309  some (SH 4302ms, ATP 376ms): Try this: by auto (2 ms)
+0.sledgehammer goal.by        21967ms Ordered_Resolution_Prover.Abstract_Substitution 360:12372  some (SH 21967ms, ATP 474ms): Try this: by (simp add: is_pos_neg_not_is_pos literal.expand) (3 ms)
+0.sledgehammer goal.by        16759ms Ordered_Resolution_Prover.Abstract_Substitution 366:12555  some (SH 16759ms, ATP 478ms): Try this: by (metis atm_of_subst_lit literal.collapse(2) literal.discI(2) literal.sel(2) subst_lit_is_neg) (60 ms)
+0.sledgehammer goal.by        14046ms Ordered_Resolution_Prover.Abstract_Substitution 369:12658  some (SH 14046ms, ATP 395ms): Try this: by (metis Pos_atm_of_iff atm_of_subst_lit literal.sel(1) subst_lit_is_neg) (79 ms)
+0.sledgehammer goal.unfolding 34796ms Ordered_Resolution_Prover.Abstract_Substitution 372:12752  timeout (SH 34796ms): Timed out
+0.sledgehammer goal.by        32877ms Ordered_Resolution_Prover.Abstract_Substitution 372:12809  timeout (SH 32877ms): Timed out
+0.sledgehammer goal.unfolding 34942ms Ordered_Resolution_Prover.Abstract_Substitution 375:12882  timeout (SH 34942ms): Timed out
+0.sledgehammer goal.by        32883ms Ordered_Resolution_Prover.Abstract_Substitution 375:12939  timeout (SH 32883ms): Timed out
+0.sledgehammer goal.proof     34636ms Ordered_Resolution_Prover.Abstract_Substitution 378:13010  timeout (SH 34636ms): Timed out
+0.sledgehammer goal.unfolding 245280ms Ordered_Resolution_Prover.Abstract_Substitution 380:13120  some (SH 245280ms, ATP 1018ms): Try this: by (smt (z3) atm_of_subst_lit atms_of_def image_mset_cong2 literal.expand literal.map_disc_iff literal.map_sel(1,2) multiset.set_map subst_lit_is_neg substitution_ops.subst_cls_def) (793 ms)
+0.sledgehammer goal.by         3478ms Ordered_Resolution_Prover.Abstract_Substitution 380:13185  some (SH 3478ms, ATP 450ms): Try this: by blast (0.7 ms)
+0.sledgehammer goal.by        35759ms Ordered_Resolution_Prover.Abstract_Substitution 382:13274  timeout (SH 35759ms): Timed out
+0.sledgehammer goal.unfolding 18711ms Ordered_Resolution_Prover.Abstract_Substitution 384:13361  some (SH 18711ms, ATP 625ms): Try this: by (metis atms_of_def set_image_mset subst_atms_def) (107 ms)
+0.sledgehammer goal.by         4969ms Ordered_Resolution_Prover.Abstract_Substitution 384:13398  some (SH 4969ms, ATP 450ms): Try this: by auto (24 ms)
+0.sledgehammer goal.by        11673ms Ordered_Resolution_Prover.Abstract_Substitution 388:13477  some (SH 11673ms, ATP 415ms): Try this: by (metis image_iff literal.disc(2) subst_lit_is_neg) (72 ms)
+0.sledgehammer goal.by         6989ms Ordered_Resolution_Prover.Abstract_Substitution 391:13628  some (SH 6989ms, ATP 490ms): Try this: by simp (12 ms)
+0.sledgehammer goal.by         4823ms Ordered_Resolution_Prover.Abstract_Substitution 394:13702  some (SH 4823ms, ATP 449ms): Try this: using in_image_Neg_is_neg by blast (3 ms)
+0.sledgehammer goal.unfolding 32054ms Ordered_Resolution_Prover.Abstract_Substitution 400:13799  timeout (SH 32053ms): Timed out
+0.sledgehammer goal.by         3731ms Ordered_Resolution_Prover.Abstract_Substitution 400:13824  some (SH 3731ms, ATP 647ms): Try this: by force (0.3 ms)
+0.sledgehammer goal.unfolding 34846ms Ordered_Resolution_Prover.Abstract_Substitution 403:13883  timeout (SH 34846ms): Timed out
+0.sledgehammer goal.by         4046ms Ordered_Resolution_Prover.Abstract_Substitution 403:13909  some (SH 4045ms, ATP 600ms): Try this: by fastforce (0.4 ms)
+0.sledgehammer goal.using      9769ms Ordered_Resolution_Prover.Abstract_Substitution 406:13991  some (SH 9769ms, ATP 459ms): Try this: by (simp add: comp_substs_def) (12 ms)
+0.sledgehammer goal.by         7978ms Ordered_Resolution_Prover.Abstract_Substitution 406:14028  some (SH 7978ms, ATP 692ms): Try this: by force (13 ms)
+0.sledgehammer goal.unfolding 43493ms Ordered_Resolution_Prover.Abstract_Substitution 409:14089  timeout (SH 43493ms): Timed out
+0.sledgehammer goal.by         3374ms Ordered_Resolution_Prover.Abstract_Substitution 409:14118  some (SH 3374ms, ATP 454ms): Try this: by force (0.5 ms)
+0.sledgehammer goal.unfolding 28752ms Ordered_Resolution_Prover.Abstract_Substitution 412:14181  timeout (SH 28752ms): Timed out
+0.sledgehammer goal.by         3357ms Ordered_Resolution_Prover.Abstract_Substitution 412:14210  some (SH 3357ms, ATP 446ms): Try this: by simp (0.5 ms)
+0.sledgehammer goal.unfolding 33269ms Ordered_Resolution_Prover.Abstract_Substitution 415:14277  timeout (SH 33269ms): Timed out
+0.sledgehammer goal.by         3651ms Ordered_Resolution_Prover.Abstract_Substitution 415:14311  some (SH 3651ms, ATP 434ms): Try this: by force (0.4 ms)
+0.sledgehammer goal.unfolding 36358ms Ordered_Resolution_Prover.Abstract_Substitution 418:14381  some (SH 36358ms, ATP 3265ms): Try this: by (metis comp_substs_empty_iff empty_replicate list.size(3) subst_atm_mset_lists_comp_substs subst_atm_mset_lists_id_subst) (56 ms)
+0.sledgehammer goal.by         3682ms Ordered_Resolution_Prover.Abstract_Substitution 418:14416  some (SH 3682ms, ATP 566ms): Try this: by simp (2 ms)
+0.sledgehammer goal.unfolding 17481ms Ordered_Resolution_Prover.Abstract_Substitution 421:14472  some (SH 17481ms, ATP 456ms): Try this: using atms_empty_iff_empty by fastforce (15 ms)
+0.sledgehammer goal.by         3514ms Ordered_Resolution_Prover.Abstract_Substitution 421:14496  some (SH 3514ms, ATP 372ms): Try this: by auto (0.8 ms)
+0.sledgehammer goal.unfolding 32193ms Ordered_Resolution_Prover.Abstract_Substitution 424:14553  timeout (SH 32193ms): Timed out
+0.sledgehammer goal.by         5622ms Ordered_Resolution_Prover.Abstract_Substitution 424:14578  some (SH 5622ms, ATP 419ms): Try this: by force (0.4 ms)
+0.sledgehammer goal.unfolding 35414ms Ordered_Resolution_Prover.Abstract_Substitution 427:14639  timeout (SH 35414ms): Timed out
+0.sledgehammer goal.by         3498ms Ordered_Resolution_Prover.Abstract_Substitution 427:14668  some (SH 3498ms, ATP 410ms): Try this: by force (0.5 ms)
+0.sledgehammer goal.unfolding 33842ms Ordered_Resolution_Prover.Abstract_Substitution 430:14732  timeout (SH 33841ms): Timed out
+0.sledgehammer goal.by         7958ms Ordered_Resolution_Prover.Abstract_Substitution 430:14762  some (SH 7957ms, ATP 221ms): Try this: by simp (0.5 ms)
+0.sledgehammer goal.unfolding 32037ms Ordered_Resolution_Prover.Abstract_Substitution 433:14826  timeout (SH 32037ms): Timed out
+0.sledgehammer goal.by         3645ms Ordered_Resolution_Prover.Abstract_Substitution 433:14855  some (SH 3645ms, ATP 414ms): Try this: by auto (0.6 ms)
+0.sledgehammer goal.unfolding 32409ms Ordered_Resolution_Prover.Abstract_Substitution 436:14926  timeout (SH 32409ms): Timed out
+0.sledgehammer goal.by         3690ms Ordered_Resolution_Prover.Abstract_Substitution 436:14951  some (SH 3690ms, ATP 421ms): Try this: by blast (0.7 ms)
+0.sledgehammer goal.unfolding 33192ms Ordered_Resolution_Prover.Abstract_Substitution 439:15026  timeout (SH 33192ms): Timed out
+0.sledgehammer goal.by         3583ms Ordered_Resolution_Prover.Abstract_Substitution 439:15052  some (SH 3583ms, ATP 391ms): Try this: by fastforce (1 ms)
+0.sledgehammer goal.unfolding 33105ms Ordered_Resolution_Prover.Abstract_Substitution 442:15127  timeout (SH 33104ms): Timed out
+0.sledgehammer goal.by         3400ms Ordered_Resolution_Prover.Abstract_Substitution 442:15156  some (SH 3399ms, ATP 429ms): Try this: by blast (0.4 ms)
+0.sledgehammer goal.unfolding 32191ms Ordered_Resolution_Prover.Abstract_Substitution 445:15233  timeout (SH 32191ms): Timed out
+0.sledgehammer goal.by         3796ms Ordered_Resolution_Prover.Abstract_Substitution 445:15262  some (SH 3796ms, ATP 662ms): Try this: by force (0.8 ms)
+0.sledgehammer goal.unfolding 31869ms Ordered_Resolution_Prover.Abstract_Substitution 448:15345  timeout (SH 31869ms): Timed out
+0.sledgehammer goal.by         3421ms Ordered_Resolution_Prover.Abstract_Substitution 448:15379  some (SH 3421ms, ATP 423ms): Try this: by fastforce (2 ms)
+0.sledgehammer goal.using     49699ms Ordered_Resolution_Prover.Abstract_Substitution 451:15477  timeout (SH 49699ms): Timed out
+0.sledgehammer goal.by        12804ms Ordered_Resolution_Prover.Abstract_Substitution 451:15523  some (SH 12804ms, ATP 220ms): Try this: by force (14 ms)
+0.sledgehammer goal.unfolding 17297ms Ordered_Resolution_Prover.Abstract_Substitution 454:15591  some (SH 17297ms, ATP 448ms): Try this: by (metis atms_empty_iff_empty atms_of_subst_atms subst_atms_empty_iff) (56 ms)
+0.sledgehammer goal.by         3617ms Ordered_Resolution_Prover.Abstract_Substitution 454:15615  some (SH 3617ms, ATP 527ms): Try this: by auto (0.9 ms)
+0.sledgehammer goal.unfolding 35660ms Ordered_Resolution_Prover.Abstract_Substitution 457:15686  timeout (SH 35660ms): Timed out
+0.sledgehammer goal.by         8298ms Ordered_Resolution_Prover.Abstract_Substitution 457:15711  some (SH 8298ms, ATP 406ms): Try this: by blast (1 ms)
+0.sledgehammer goal.unfolding 32492ms Ordered_Resolution_Prover.Abstract_Substitution 460:15786  timeout (SH 32492ms): Timed out
+0.sledgehammer goal.by        12916ms Ordered_Resolution_Prover.Abstract_Substitution 460:15815  some (SH 12916ms, ATP 100ms): Try this: by blast (1 ms)
+0.sledgehammer goal.using     33273ms Ordered_Resolution_Prover.Abstract_Substitution 463:15903  timeout (SH 33273ms): Timed out
+0.sledgehammer goal.by        29261ms Ordered_Resolution_Prover.Abstract_Substitution 463:15944  some (SH 29261ms, ATP 1066ms): Try this: by force (16 ms)
+0.sledgehammer goal.unfolding 32120ms Ordered_Resolution_Prover.Abstract_Substitution 466:16021  timeout (SH 32120ms): Timed out
+0.sledgehammer goal.by         4078ms Ordered_Resolution_Prover.Abstract_Substitution 466:16050  some (SH 4078ms, ATP 627ms): Try this: by simp (1 ms)
+0.sledgehammer goal.unfolding 34496ms Ordered_Resolution_Prover.Abstract_Substitution 472:16173  timeout (SH 34496ms): Timed out
+0.sledgehammer goal.by         4246ms Ordered_Resolution_Prover.Abstract_Substitution 472:16198  some (SH 4246ms, ATP 492ms): Try this: by auto (11 ms)
+0.sledgehammer goal.unfolding 32384ms Ordered_Resolution_Prover.Abstract_Substitution 475:16287  timeout (SH 32384ms): Timed out
+0.sledgehammer goal.by         9135ms Ordered_Resolution_Prover.Abstract_Substitution 475:16313  some (SH 9135ms, ATP 377ms): Try this: by blast (5 ms)
+0.sledgehammer goal.unfolding 33045ms Ordered_Resolution_Prover.Abstract_Substitution 478:16399  timeout (SH 33045ms): Timed out
+0.sledgehammer goal.by         3528ms Ordered_Resolution_Prover.Abstract_Substitution 478:16428  some (SH 3528ms, ATP 435ms): Try this: by auto (1 ms)
+0.sledgehammer goal.unfolding 32373ms Ordered_Resolution_Prover.Abstract_Substitution 481:16513  timeout (SH 32373ms): Timed out
+0.sledgehammer goal.by         3564ms Ordered_Resolution_Prover.Abstract_Substitution 481:16542  some (SH 3564ms, ATP 397ms): Try this: by auto (6 ms)
+0.sledgehammer goal.unfolding 37884ms Ordered_Resolution_Prover.Abstract_Substitution 484:16640  timeout (SH 37884ms): Timed out
+0.sledgehammer goal.by         3642ms Ordered_Resolution_Prover.Abstract_Substitution 484:16674  some (SH 3642ms, ATP 436ms): Try this: by auto (3 ms)
+0.sledgehammer goal.unfolding 30484ms Ordered_Resolution_Prover.Abstract_Substitution 487:16744  some (SH 30484ms, ATP 838ms): Try this: by (simp add: subst_cls_def) (4 ms)
+0.sledgehammer goal.by         3696ms Ordered_Resolution_Prover.Abstract_Substitution 487:16768  some (SH 3696ms, ATP 660ms): Try this: using image_mset_union by blast (4 ms)
+0.sledgehammer goal.unfolding 37249ms Ordered_Resolution_Prover.Abstract_Substitution 490:16849  timeout (SH 37249ms): Timed out
+0.sledgehammer goal.by         8730ms Ordered_Resolution_Prover.Abstract_Substitution 490:16874  some (SH 8730ms, ATP 388ms): Try this: by blast (4 ms)
+0.sledgehammer goal.unfolding 32662ms Ordered_Resolution_Prover.Abstract_Substitution 493:16960  timeout (SH 32662ms): Timed out
+0.sledgehammer goal.by         3664ms Ordered_Resolution_Prover.Abstract_Substitution 493:16989  some (SH 3664ms, ATP 429ms): Try this: by auto (2 ms)
+0.sledgehammer goal.unfolding 33585ms Ordered_Resolution_Prover.Abstract_Substitution 498:17148  timeout (SH 33585ms): Timed out
+0.sledgehammer goal.by        14044ms Ordered_Resolution_Prover.Abstract_Substitution 498:17178  some (SH 14043ms, ATP 184ms): Try this: by force (2 ms)
+0.sledgehammer goal.unfolding 31912ms Ordered_Resolution_Prover.Abstract_Substitution 501:17263  timeout (SH 31912ms): Timed out
+0.sledgehammer goal.by         3492ms Ordered_Resolution_Prover.Abstract_Substitution 501:17292  some (SH 3492ms, ATP 397ms): Try this: using image_mset_union by blast (6 ms)
+0.sledgehammer goal.unfolding 32398ms Ordered_Resolution_Prover.Abstract_Substitution 507:17403  timeout (SH 32398ms): Timed out
+0.sledgehammer goal.by         4811ms Ordered_Resolution_Prover.Abstract_Substitution 507:17428  some (SH 4811ms, ATP 455ms): Try this: by blast (2 ms)
+0.sledgehammer goal.unfolding 37139ms Ordered_Resolution_Prover.Abstract_Substitution 510:17498  timeout (SH 37139ms): Timed out
+0.sledgehammer goal.by         4869ms Ordered_Resolution_Prover.Abstract_Substitution 510:17524  some (SH 4869ms, ATP 573ms): Try this: by auto (4 ms)
+0.sledgehammer goal.unfolding 33565ms Ordered_Resolution_Prover.Abstract_Substitution 513:17593  timeout (SH 33565ms): Timed out
+0.sledgehammer goal.by         6111ms Ordered_Resolution_Prover.Abstract_Substitution 513:17622  some (SH 6111ms, ATP 561ms): Try this: by simp (3 ms)
+0.sledgehammer goal.unfolding 36199ms Ordered_Resolution_Prover.Abstract_Substitution 516:17695  timeout (SH 36199ms): Timed out
+0.sledgehammer goal.by         4023ms Ordered_Resolution_Prover.Abstract_Substitution 516:17724  some (SH 4023ms, ATP 524ms): Try this: by auto (1 ms)
+0.sledgehammer goal.unfolding 33529ms Ordered_Resolution_Prover.Abstract_Substitution 519:17795  timeout (SH 33529ms): Timed out
+0.sledgehammer goal.by         8911ms Ordered_Resolution_Prover.Abstract_Substitution 519:17829  some (SH 8911ms, ATP 776ms): Try this: by auto (1 ms)
+0.sledgehammer goal.by         4571ms Ordered_Resolution_Prover.Abstract_Substitution 522:17895  some (SH 4571ms, ATP 463ms): Try this: by simp (1 ms)
+0.sledgehammer goal.unfolding 35612ms Ordered_Resolution_Prover.Abstract_Substitution 525:17959  timeout (SH 35612ms): Timed out
+0.sledgehammer goal.by         8165ms Ordered_Resolution_Prover.Abstract_Substitution 525:17984  some (SH 8165ms, ATP 503ms): Try this: by auto (4 ms)
+0.sledgehammer goal.unfolding 33025ms Ordered_Resolution_Prover.Abstract_Substitution 528:18052  timeout (SH 33025ms): Timed out
+0.sledgehammer goal.by         7857ms Ordered_Resolution_Prover.Abstract_Substitution 528:18081  some (SH 7857ms, ATP 909ms): Try this: by simp (1 ms)
+0.sledgehammer goal.unfolding 35461ms Ordered_Resolution_Prover.Abstract_Substitution 531:18153  timeout (SH 35461ms): Timed out
+0.sledgehammer goal.by        33438ms Ordered_Resolution_Prover.Abstract_Substitution 531:18183  timeout (SH 33438ms): Timed out
+0.sledgehammer goal.by         8635ms Ordered_Resolution_Prover.Abstract_Substitution 534:18255  some (SH 8635ms, ATP 446ms): Try this: by auto (3 ms)
+0.sledgehammer goal.unfolding 35948ms Ordered_Resolution_Prover.Abstract_Substitution 540:18383  timeout (SH 35948ms): Timed out
+0.sledgehammer goal.by         5007ms Ordered_Resolution_Prover.Abstract_Substitution 540:18412  some (SH 5007ms, ATP 517ms): Try this: by auto (3 ms)
+0.sledgehammer goal.unfolding 33639ms Ordered_Resolution_Prover.Abstract_Substitution 543:18501  timeout (SH 33639ms): Timed out
+0.sledgehammer goal.by         5274ms Ordered_Resolution_Prover.Abstract_Substitution 543:18535  some (SH 5274ms, ATP 621ms): Try this: by auto (3 ms)
+0.sledgehammer goal.unfolding 33303ms Ordered_Resolution_Prover.Abstract_Substitution 546:18635  timeout (SH 33303ms): Timed out
+0.sledgehammer goal.by        32521ms Ordered_Resolution_Prover.Abstract_Substitution 546:18670  timeout (SH 32521ms): Timed out
+0.sledgehammer goal.unfolding 32845ms Ordered_Resolution_Prover.Abstract_Substitution 549:18750  timeout (SH 32845ms): Timed out
+0.sledgehammer goal.by        13260ms Ordered_Resolution_Prover.Abstract_Substitution 549:18779  some (SH 13260ms, ATP 185ms): Try this: by auto (1 ms)
+0.sledgehammer goal.unfolding 32599ms Ordered_Resolution_Prover.Abstract_Substitution 552:18870  timeout (SH 32599ms): Timed out
+0.sledgehammer goal.by        33883ms Ordered_Resolution_Prover.Abstract_Substitution 552:18900  timeout (SH 33883ms): Timed out
+0.sledgehammer goal.by        13059ms Ordered_Resolution_Prover.Abstract_Substitution 558:19017  some (SH 13059ms, ATP 441ms): Try this: by (simp add: map_tl subst_atm_list_def) (2 ms)
+0.sledgehammer goal.by        34040ms Ordered_Resolution_Prover.Abstract_Substitution 561:19109  timeout (SH 34040ms): Timed out
+0.sledgehammer goal.by        33122ms Ordered_Resolution_Prover.Abstract_Substitution 564:19193  timeout (SH 33121ms): Timed out
+0.sledgehammer goal.by        36086ms Ordered_Resolution_Prover.Abstract_Substitution 567:19308  timeout (SH 36086ms): Timed out
+0.sledgehammer goal.by        33687ms Ordered_Resolution_Prover.Abstract_Substitution 574:19496  timeout (SH 33687ms): Timed out
+0.sledgehammer goal.unfolding 33587ms Ordered_Resolution_Prover.Abstract_Substitution 577:19609  timeout (SH 33587ms): Timed out
+0.sledgehammer goal.using      4637ms Ordered_Resolution_Prover.Abstract_Substitution 577:19638  some (SH 4637ms, ATP 1377ms): Try this: by auto (4 ms)
+0.sledgehammer goal.by         8708ms Ordered_Resolution_Prover.Abstract_Substitution 577:19671  some (SH 8708ms, ATP 689ms): Try this: by force (15 ms)
+0.sledgehammer goal.unfolding 34784ms Ordered_Resolution_Prover.Abstract_Substitution 580:19774  timeout (SH 34784ms): Timed out
+0.sledgehammer goal.by        10016ms Ordered_Resolution_Prover.Abstract_Substitution 580:19808  some (SH 10016ms, ATP 1341ms): Try this: using nth_map by blast (3 ms)
+0.sledgehammer goal.unfolding 36586ms Ordered_Resolution_Prover.Abstract_Substitution 584:19947  timeout (SH 36586ms): Timed out
+0.sledgehammer goal.by        32343ms Ordered_Resolution_Prover.Abstract_Substitution 584:19982  timeout (SH 32343ms): Timed out
+0.sledgehammer goal.unfolding 41845ms Ordered_Resolution_Prover.Abstract_Substitution 587:20073  some (SH 41845ms, ATP 183ms): Try this: by (simp add: subst_cls_list_def) (1 ms)
+0.sledgehammer goal.using     13397ms Ordered_Resolution_Prover.Abstract_Substitution 587:20102  some (SH 13397ms, ATP 222ms): Try this: by simp (2 ms)
+0.sledgehammer goal.by         8806ms Ordered_Resolution_Prover.Abstract_Substitution 587:20135  some (SH 8806ms, ATP 75ms): Try this: by force (12 ms)
+0.sledgehammer goal.unfolding 33651ms Ordered_Resolution_Prover.Abstract_Substitution 591:20277  timeout (SH 33651ms): Timed out
+0.sledgehammer goal.by        33358ms Ordered_Resolution_Prover.Abstract_Substitution 591:20307  timeout (SH 33357ms): Timed out
+0.sledgehammer goal.unfolding 35754ms Ordered_Resolution_Prover.Abstract_Substitution 597:20447  some (SH 35754ms, ATP 918ms): Try this: by (simp add: Setcompr_eq_image image_image substitution_ops.subst_clss_def) (4 ms)
+0.sledgehammer goal.by        15841ms Ordered_Resolution_Prover.Abstract_Substitution 597:20472  some (SH 15841ms, ATP 602ms): Try this: by blast (3 ms)
+0.sledgehammer goal.unfolding 33777ms Ordered_Resolution_Prover.Abstract_Substitution 600:20569  timeout (SH 33777ms): Timed out
+0.sledgehammer goal.by        32959ms Ordered_Resolution_Prover.Abstract_Substitution 600:20598  timeout (SH 32959ms): Timed out
+0.sledgehammer goal.unfolding 32862ms Ordered_Resolution_Prover.Abstract_Substitution 603:20693  timeout (SH 32862ms): Timed out
+0.sledgehammer goal.by         3675ms Ordered_Resolution_Prover.Abstract_Substitution 603:20741  some (SH 3675ms, ATP 417ms): Try this: by simp (2 ms)
+0.sledgehammer goal.unfolding 35143ms Ordered_Resolution_Prover.Abstract_Substitution 606:20830  timeout (SH 35143ms): Timed out
+0.sledgehammer goal.by         3555ms Ordered_Resolution_Prover.Abstract_Substitution 606:20878  some (SH 3555ms, ATP 460ms): Try this: by simp (2 ms)
+0.sledgehammer goal.unfolding 32733ms Ordered_Resolution_Prover.Abstract_Substitution 609:20976  timeout (SH 32733ms): Timed out
+0.sledgehammer goal.by        33293ms Ordered_Resolution_Prover.Abstract_Substitution 609:21005  timeout (SH 33292ms): Timed out
+0.sledgehammer goal.by        33227ms Ordered_Resolution_Prover.Abstract_Substitution 612:21117  timeout (SH 33227ms): Timed out
+0.sledgehammer goal.by         5956ms Ordered_Resolution_Prover.Abstract_Substitution 615:21250  some (SH 5956ms, ATP 435ms): Try this: by (metis Melem_subst_cls eql_neg_lit_eql_atm) (60 ms)
+0.sledgehammer goal.by         9041ms Ordered_Resolution_Prover.Abstract_Substitution 618:21381  some (SH 9041ms, ATP 373ms): Try this: by (metis Melem_subst_cls eql_pos_lit_eql_atm) (60 ms)
+0.sledgehammer goal.by        13891ms Ordered_Resolution_Prover.Abstract_Substitution 621:21504  some (SH 13891ms, ATP 382ms): Try this: by (meson Neg_Melem_subst_atm_subst_cls Pos_Melem_subst_atm_subst_cls atm_imp_pos_or_neg_lit neg_lit_in_atms_of pos_lit_in_atms_of) (24 ms)
+0.sledgehammer goal.unfolding  3779ms Ordered_Resolution_Prover.Abstract_Substitution 627:21647  some (SH 3779ms, ATP 545ms): Try this: by (simp add: is_renaming_def) (1 ms)
+0.sledgehammer goal.by         5575ms Ordered_Resolution_Prover.Abstract_Substitution 627:21673  some (SH 5575ms, ATP 507ms): Try this: by force (0.5 ms)
+0.sledgehammer goal.by        39296ms Ordered_Resolution_Prover.Abstract_Substitution 630:21760  some (SH 39296ms, ATP 542ms): Try this: by (metis is_renaming_def subst_atm_comp_subst subst_atm_id_subst) (144 ms)
+0.sledgehammer goal.unfolding 38284ms Ordered_Resolution_Prover.Abstract_Substitution 633:21913  some (SH 38284ms, ATP 2041ms): Try this: using inv_renaming_def is_renaming_def some_eq_ex by fastforce (340 ms)
+0.sledgehammer goal.by        22702ms Ordered_Resolution_Prover.Abstract_Substitution 633:21956  some (SH 22702ms, ATP 524ms): Try this: by (simp add: alethe_sko_ex') (6 ms)
+0.sledgehammer goal.unfolding 33066ms Ordered_Resolution_Prover.Abstract_Substitution 637:22116  timeout (SH 33066ms): Timed out
+0.sledgehammer goal.by        33252ms Ordered_Resolution_Prover.Abstract_Substitution 637:22147  timeout (SH 33252ms): Timed out
+0.sledgehammer goal.unfolding  5949ms Ordered_Resolution_Prover.Abstract_Substitution 640:22245  some (SH 5949ms, ATP 480ms): Try this: by auto (2 ms)
+0.sledgehammer goal.by         5063ms Ordered_Resolution_Prover.Abstract_Substitution 640:22271  some (SH 5063ms, ATP 510ms): Try this: by auto (0.5 ms)
+0.sledgehammer goal.unfolding  3707ms Ordered_Resolution_Prover.Abstract_Substitution 643:22326  some (SH 3707ms, ATP 490ms): Try this: by simp (1 ms)
+0.sledgehammer goal.by         8612ms Ordered_Resolution_Prover.Abstract_Substitution 643:22352  some (SH 8612ms, ATP 557ms): Try this: by simp (0.4 ms)
+0.sledgehammer goal.by         6975ms Ordered_Resolution_Prover.Abstract_Substitution 646:22445  some (SH 6975ms, ATP 552ms): Try this: by (metis comp_subst_assoc comp_subst_id_subst inv_renaming_cancel_r) (90 ms)
+0.sledgehammer goal.by        16752ms Ordered_Resolution_Prover.Abstract_Substitution 650:22622  some (SH 16752ms, ATP 476ms): Try this: by (metis comp_subst_assoc comp_subst_id_subst inv_renaming_cancel_r) (87 ms)
+0.sledgehammer goal.unfolding 13435ms Ordered_Resolution_Prover.Abstract_Substitution 653:22774  some (SH 13435ms, ATP 1558ms): Try this: by (metis comp_subst_assoc comp_subst_id_subst is_renaming_def) (98 ms)
+0.sledgehammer goal.by        13315ms Ordered_Resolution_Prover.Abstract_Substitution 653:22800  some (SH 13315ms, ATP 1364ms): Try this: by (metis comp_subst_assoc comp_subst_id_subst) (30 ms)
+0.sledgehammer goal.by         6758ms Ordered_Resolution_Prover.Abstract_Substitution 656:22947  some (SH 6758ms, ATP 453ms): Try this: by (metis inv_renaming_cancel_r subst_atm_comp_subst subst_atm_id_subst) (44 ms)
+0.sledgehammer goal.by        11319ms Ordered_Resolution_Prover.Abstract_Substitution 659:23124  some (SH 11319ms, ATP 548ms): Try this: by (metis inv_renaming_cancel_r subst_atms_comp_subst subst_atms_id_subst) (93 ms)
+0.sledgehammer goal.by         9451ms Ordered_Resolution_Prover.Abstract_Substitution 662:23308  some (SH 9451ms, ATP 503ms): Try this: by (metis inv_renaming_cancel_r subst_atmss_comp_subst subst_atmss_id_subst) (65 ms)
+0.sledgehammer goal.by         7849ms Ordered_Resolution_Prover.Abstract_Substitution 665:23493  some (SH 7849ms, ATP 561ms): Try this: by (metis inv_renaming_cancel_r subst_atm_list_comp_subst subst_atm_list_id_subst) (51 ms)
+0.sledgehammer goal.by         8120ms Ordered_Resolution_Prover.Abstract_Substitution 668:23684  some (SH 8120ms, ATP 495ms): Try this: by (metis inv_renaming_cancel_r subst_atm_mset_comp_subst subst_atm_mset_id_subst) (52 ms)
+0.sledgehammer goal.by         9498ms Ordered_Resolution_Prover.Abstract_Substitution 671:23886  some (SH 9498ms, ATP 479ms): Try this: by (metis inv_renaming_cancel_r subst_atm_mset_list_comp_subst subst_atm_mset_list_id_subst) (563 ms)
+0.sledgehammer goal.by        15049ms Ordered_Resolution_Prover.Abstract_Substitution 675:24143  some (SH 15049ms, ATP 1781ms): Try this: by (metis inv_renaming_cancel_r_list subst_atm_mset_lists_comp_substs subst_atm_mset_lists_id_subst) (48 ms)
+0.sledgehammer goal.by         7583ms Ordered_Resolution_Prover.Abstract_Substitution 679:24351  some (SH 7583ms, ATP 561ms): Try this: by (metis inv_renaming_cancel_r subst_lit_comp_subst subst_lit_id_subst) (75 ms)
+0.sledgehammer goal.by         7363ms Ordered_Resolution_Prover.Abstract_Substitution 682:24522  some (SH 7362ms, ATP 426ms): Try this: by (metis inv_renaming_cancel_r subst_cls_comp_subst subst_cls_id_subst) (114 ms)
+0.sledgehammer goal.by        27818ms Ordered_Resolution_Prover.Abstract_Substitution 686:24701  some (SH 27818ms, ATP 609ms): Try this: by (metis inv_renaming_cancel_r subst_clss_id_subst subst_clsscomp_subst) (98 ms)
+0.sledgehammer goal.by         9366ms Ordered_Resolution_Prover.Abstract_Substitution 690:24885  some (SH 9366ms, ATP 642ms): Try this: by (metis inv_renaming_cancel_r subst_cls_list_comp_subst subst_cls_list_id_subst) (48 ms)
+0.sledgehammer goal.by        14075ms Ordered_Resolution_Prover.Abstract_Substitution 694:25121  some (SH 14074ms, ATP 1342ms): Try this: by (metis inv_renaming_cancel_r_list subst_cls_lists_comp_substs subst_cls_lists_id_subst) (31 ms)
+0.sledgehammer goal.by         7334ms Ordered_Resolution_Prover.Abstract_Substitution 698:25322  some (SH 7334ms, ATP 467ms): Try this: by (metis inv_renaming_cancel_r subst_cls_mset_comp_subst subst_cls_mset_id_subst) (48 ms)
+0.sledgehammer goal.by        14904ms Ordered_Resolution_Prover.Abstract_Substitution 704:25525  some (SH 14904ms, ATP 516ms): Try this: by fastforce (18 ms)
+0.sledgehammer goal.unfolding 32444ms Ordered_Resolution_Prover.Abstract_Substitution 707:25590  timeout (SH 32444ms): Timed out
+0.sledgehammer goal.by        33007ms Ordered_Resolution_Prover.Abstract_Substitution 707:25615  timeout (SH 33007ms): Timed out
+0.sledgehammer goal.unfolding 154286ms Ordered_Resolution_Prover.Abstract_Substitution 710:25723  some (SH 154286ms, ATP 1413ms): Try this: by (metis Diff_eq_empty_iff_mset add_diff_cancel_left' subset_mset.dual_order.strict_iff_order subset_mset.leD subset_mset.le_iff_add subst_cls_empty_iff subst_cls_union) (159 ms)
+0.sledgehammer goal.by         3574ms Ordered_Resolution_Prover.Abstract_Substitution 710:25747  some (SH 3574ms, ATP 538ms): Try this: by (simp add: image_mset_subset_mono) (7 ms)
+0.sledgehammer goal.unfolding 35800ms Ordered_Resolution_Prover.Abstract_Substitution 716:25878  timeout (SH 35800ms): Timed out
+0.sledgehammer goal.by         3500ms Ordered_Resolution_Prover.Abstract_Substitution 716:25902  some (SH 3500ms, ATP 534ms): Try this: by auto (2 ms)
+0.sledgehammer goal.unfolding 34667ms Ordered_Resolution_Prover.Abstract_Substitution 719:25980  timeout (SH 34667ms): Timed out
+0.sledgehammer goal.by         4526ms Ordered_Resolution_Prover.Abstract_Substitution 719:26009  some (SH 4526ms, ATP 1599ms): Try this: by simp (0.7 ms)
+0.sledgehammer goal.unfolding 36160ms Ordered_Resolution_Prover.Abstract_Substitution 722:26095  timeout (SH 36160ms): Timed out
+0.sledgehammer goal.by         4325ms Ordered_Resolution_Prover.Abstract_Substitution 722:26129  some (SH 4325ms, ATP 1236ms): Try this: by force (0.7 ms)
+0.sledgehammer goal.unfolding 36449ms Ordered_Resolution_Prover.Abstract_Substitution 725:26236  timeout (SH 36449ms): Timed out
+0.sledgehammer goal.by         8466ms Ordered_Resolution_Prover.Abstract_Substitution 725:26271  some (SH 8466ms, ATP 1248ms): Try this: by force (6 ms)
+0.sledgehammer goal.unfolding 34169ms Ordered_Resolution_Prover.Abstract_Substitution 728:26349  timeout (SH 34169ms): Timed out
+0.sledgehammer goal.by         8670ms Ordered_Resolution_Prover.Abstract_Substitution 728:26378  some (SH 8670ms, ATP 407ms): Try this: by force (1 ms)
+0.sledgehammer goal.unfolding 33189ms Ordered_Resolution_Prover.Abstract_Substitution 731:26471  timeout (SH 33189ms): Timed out
+0.sledgehammer goal.by         5027ms Ordered_Resolution_Prover.Abstract_Substitution 731:26497  some (SH 5027ms, ATP 645ms): Try this: by auto (6 ms)
+0.sledgehammer goal.unfolding 33331ms Ordered_Resolution_Prover.Abstract_Substitution 734:26596  timeout (SH 33331ms): Timed out
+0.sledgehammer goal.by        12965ms Ordered_Resolution_Prover.Abstract_Substitution 734:26626  some (SH 12965ms, ATP 156ms): Try this: by force (6 ms)
+0.sledgehammer goal.proof     35356ms Ordered_Resolution_Prover.Abstract_Substitution 742:26798  timeout (SH 35356ms): Timed out
+0.sledgehammer goal.using      5684ms Ordered_Resolution_Prover.Abstract_Substitution 746:26951  some (SH 5684ms, ATP 1277ms): Try this: using assms var_disjoint_def by blast (36 ms)
+0.sledgehammer goal.unfolding  4413ms Ordered_Resolution_Prover.Abstract_Substitution 746:26963  some (SH 4413ms, ATP 1174ms): Try this: using var_disjoint_def by blast (35 ms)
+0.sledgehammer goal.by         6035ms Ordered_Resolution_Prover.Abstract_Substitution 746:26990  some (SH 6035ms, ATP 1190ms): Try this: by blast (16 ms)
+0.sledgehammer goal.by         9144ms Ordered_Resolution_Prover.Abstract_Substitution 748:27066  some (SH 9144ms, ATP 1204ms): Try this: by blast (2 ms)
+0.sledgehammer goal.using     47355ms Ordered_Resolution_Prover.Abstract_Substitution 750:27114  timeout (SH 47355ms): Timed out
+0.sledgehammer goal.by        35525ms Ordered_Resolution_Prover.Abstract_Substitution 750:27122  timeout (SH 35525ms): Timed out
+0.sledgehammer goal.by         3119ms Ordered_Resolution_Prover.Abstract_Substitution 752:27197  some (SH 3119ms, ATP 456ms): Try this: by blast (4 ms)
+0.sledgehammer goal.using     43183ms Ordered_Resolution_Prover.Abstract_Substitution 759:27314  timeout (SH 43183ms): Timed out
+0.sledgehammer goal.by        20254ms Ordered_Resolution_Prover.Abstract_Substitution 760:27350  some (SH 20254ms, ATP 489ms): Try this: by (simp add: is_ground_cls_def) (3 ms)
+0.sledgehammer goal.unfolding 10515ms Ordered_Resolution_Prover.Abstract_Substitution 764:27499  some (SH 10515ms, ATP 532ms): Try this: by (simp add: is_ground_cls_list_def) (6 ms)
+0.sledgehammer goal.by         7845ms Ordered_Resolution_Prover.Abstract_Substitution 764:27532  some (SH 7845ms, ATP 454ms): Try this: by auto (2 ms)
+0.sledgehammer goal.unfolding 11224ms Ordered_Resolution_Prover.Abstract_Substitution 770:27671  some (SH 11224ms, ATP 2380ms): Try this: using is_ground_atms_def by auto (21 ms)
+0.sledgehammer goal.by         6901ms Ordered_Resolution_Prover.Abstract_Substitution 770:27700  some (SH 6901ms, ATP 657ms): Try this: by blast (5 ms)
+0.sledgehammer goal.unfolding 10598ms Ordered_Resolution_Prover.Abstract_Substitution 774:27830  some (SH 10598ms, ATP 830ms): Try this: using is_ground_atm_mset_def by auto (12 ms)
+0.sledgehammer goal.by         7298ms Ordered_Resolution_Prover.Abstract_Substitution 774:27863  some (SH 7298ms, ATP 588ms): Try this: by auto (16 ms)
+0.sledgehammer goal.unfolding 17012ms Ordered_Resolution_Prover.Abstract_Substitution 777:27967  some (SH 17012ms, ATP 1121ms): Try this: using is_ground_cls_def by auto (12 ms)
+0.sledgehammer goal.by         4790ms Ordered_Resolution_Prover.Abstract_Substitution 777:27995  some (SH 4790ms, ATP 772ms): Try this: by auto (32 ms)
+0.sledgehammer goal.unfolding 12666ms Ordered_Resolution_Prover.Abstract_Substitution 781:28109  some (SH 12666ms, ATP 588ms): Try this: using is_ground_clss_def by auto (21 ms)
+0.sledgehammer goal.by         7403ms Ordered_Resolution_Prover.Abstract_Substitution 781:28138  some (SH 7403ms, ATP 374ms): Try this: by blast (4 ms)
+0.sledgehammer goal.by        17797ms Ordered_Resolution_Prover.Abstract_Substitution 785:28260  some (SH 17797ms, ATP 606ms): Try this: using is_ground_cls_def is_ground_cls_list_def by auto (73 ms)
+0.sledgehammer goal.by        38570ms Ordered_Resolution_Prover.Abstract_Substitution 791:28438  timeout (SH 38570ms): Timed out
+0.sledgehammer goal.by        31813ms Ordered_Resolution_Prover.Abstract_Substitution 794:28564  timeout (SH 31813ms): Timed out
+0.sledgehammer goal.by        32137ms Ordered_Resolution_Prover.Abstract_Substitution 798:28714  timeout (SH 32137ms): Timed out
+0.sledgehammer goal.by        32363ms Ordered_Resolution_Prover.Abstract_Substitution 802:28859  timeout (SH 32363ms): Timed out
+0.sledgehammer goal.unfolding  6399ms Ordered_Resolution_Prover.Abstract_Substitution 808:29007  some (SH 6399ms, ATP 375ms): Try this: by (metis is_ground_cls_union mset_subset_eq_exists_conv) (60 ms)
+0.sledgehammer goal.by         4038ms Ordered_Resolution_Prover.Abstract_Substitution 808:29035  some (SH 4038ms, ATP 349ms): Try this: by blast (2 ms)
+0.sledgehammer goal.unfolding 17105ms Ordered_Resolution_Prover.Abstract_Substitution 811:29148  some (SH 17105ms, ATP 421ms): Try this: by (metis is_ground_clss_union subset_Un_eq) (35 ms)
+0.sledgehammer goal.by         7720ms Ordered_Resolution_Prover.Abstract_Substitution 811:29177  some (SH 7720ms, ATP 371ms): Try this: by blast (2 ms)
+0.sledgehammer goal.using     10853ms Ordered_Resolution_Prover.Abstract_Substitution 814:29275  some (SH 10853ms, ATP 390ms): Try this: by (metis grounding_of_clss_union subset_Un_eq) (48 ms)
+0.sledgehammer goal.by         9325ms Ordered_Resolution_Prover.Abstract_Substitution 814:29303  some (SH 9324ms, ATP 439ms): Try this: by auto (6 ms)
+0.sledgehammer goal.by        17506ms Ordered_Resolution_Prover.Abstract_Substitution 818:29448  some (SH 17506ms, ATP 473ms): Try this: by (meson in_mset_sum_list is_ground_cls_def is_ground_cls_list_def is_ground_cls_list_is_ground_cls_sum_list is_ground_cls_mono) (74 ms)
+0.sledgehammer goal.unfolding  5805ms Ordered_Resolution_Prover.Abstract_Substitution 825:29732  some (SH 5805ms, ATP 552ms): Try this: by (simp add: is_ground_subst_def) (5 ms)
+0.sledgehammer goal.by         5914ms Ordered_Resolution_Prover.Abstract_Substitution 825:29780  some (SH 5914ms, ATP 433ms): Try this: by force (2 ms)
+0.sledgehammer goal.by         2733ms Ordered_Resolution_Prover.Abstract_Substitution 828:29873  some (SH 2733ms, ATP 372ms): Try this: using is_ground_subst_def by blast (2 ms)
+0.sledgehammer goal.unfolding 18149ms Ordered_Resolution_Prover.Abstract_Substitution 831:29993  some (SH 18149ms, ATP 571ms): Try this: by (simp add: is_ground_lit_def) (3 ms)
+0.sledgehammer goal.by        14713ms Ordered_Resolution_Prover.Abstract_Substitution 831:30035  some (SH 14713ms, ATP 492ms): Try this: by (metis ground_subst_ground_atm literal.map_sel(1,2)) (59 ms)
+0.sledgehammer goal.unfolding 11411ms Ordered_Resolution_Prover.Abstract_Substitution 834:30137  some (SH 11411ms, ATP 366ms): Try this: using is_ground_cls_def by force (12 ms)
+0.sledgehammer goal.by         5575ms Ordered_Resolution_Prover.Abstract_Substitution 834:30165  some (SH 5575ms, ATP 379ms): Try this: by auto (9 ms)
+0.sledgehammer goal.unfolding 35652ms Ordered_Resolution_Prover.Abstract_Substitution 837:30262  timeout (SH 35652ms): Timed out
+0.sledgehammer goal.by         6984ms Ordered_Resolution_Prover.Abstract_Substitution 837:30306  some (SH 6984ms, ATP 553ms): Try this: using ground_subst_ground_cls by blast (2 ms)
+0.sledgehammer goal.unfolding 35223ms Ordered_Resolution_Prover.Abstract_Substitution 840:30411  timeout (SH 35223ms): Timed out
+0.sledgehammer goal.by        32897ms Ordered_Resolution_Prover.Abstract_Substitution 840:30463  timeout (SH 32897ms): Timed out
+0.sledgehammer goal.unfolding 36064ms Ordered_Resolution_Prover.Abstract_Substitution 844:30586  timeout (SH 36064ms): Timed out
+0.sledgehammer goal.by        33390ms Ordered_Resolution_Prover.Abstract_Substitution 844:30639  timeout (SH 33390ms): Timed out
+0.sledgehammer goal.proof     110097ms Ordered_Resolution_Prover.Abstract_Substitution 849:30783  some (SH 110097ms, ATP 3381ms): Try this: by (smt (z3) assms ground_subst_ground_cls make_ground_subst mem_Collect_eq subsetI subst_cls_comp_subst substitution_ops.grounding_of_cls_def) (620 ms)
+0.sledgehammer goal.unfolding 32885ms Ordered_Resolution_Prover.Abstract_Substitution 854:30907  timeout (SH 32885ms): Timed out
+0.sledgehammer goal.by         8234ms Ordered_Resolution_Prover.Abstract_Substitution 854:30938  some (SH 8234ms, ATP 649ms): Try this: by blast (3 ms)
+0.sledgehammer goal.using      6786ms Ordered_Resolution_Prover.Abstract_Substitution 856:31011  some (SH 6786ms, ATP 369ms): Try this: using assms by force (3 ms)
+0.sledgehammer goal.by         2599ms Ordered_Resolution_Prover.Abstract_Substitution 856:31023  some (SH 2599ms, ATP 463ms): Try this: by auto (6 ms)
+0.sledgehammer goal.unfolding 40450ms Ordered_Resolution_Prover.Abstract_Substitution 858:31074  timeout (SH 40450ms): Timed out
+0.sledgehammer goal.using     12648ms Ordered_Resolution_Prover.Abstract_Substitution 858:31105  some (SH 12648ms, ATP 637ms): Try this: using C\<sigma>'(1) by force (49 ms)
+0.sledgehammer goal.by         8669ms Ordered_Resolution_Prover.Abstract_Substitution 858:31118  some (SH 8669ms, ATP 511ms): Try this: by force (55 ms)
+0.sledgehammer goal.unfolding  3737ms Ordered_Resolution_Prover.Abstract_Substitution 864:31259  some (SH 3736ms, ATP 396ms): Try this: by (simp add: is_ground_atm_def) (2 ms)
+0.sledgehammer goal.by         3591ms Ordered_Resolution_Prover.Abstract_Substitution 864:31287  some (SH 3591ms, ATP 440ms): Try this: by auto (0.8 ms)
+0.sledgehammer goal.unfolding 35266ms Ordered_Resolution_Prover.Abstract_Substitution 867:31368  timeout (SH 35266ms): Timed out
+0.sledgehammer goal.by        18768ms Ordered_Resolution_Prover.Abstract_Substitution 867:31422  some (SH 18768ms, ATP 394ms): Try this: by simp (3 ms)
+0.sledgehammer goal.unfolding 32882ms Ordered_Resolution_Prover.Abstract_Substitution 870:31511  timeout (SH 32882ms): Timed out
+0.sledgehammer goal.by         6253ms Ordered_Resolution_Prover.Abstract_Substitution 870:31563  some (SH 6253ms, ATP 612ms): Try this: by fastforce (6 ms)
+0.sledgehammer goal.unfolding 36155ms Ordered_Resolution_Prover.Abstract_Substitution 873:31652  timeout (SH 36155ms): Timed out
+0.sledgehammer goal.by         5717ms Ordered_Resolution_Prover.Abstract_Substitution 873:31704  some (SH 5717ms, ATP 457ms): Try this: by (simp add: list.map_ident_strong) (15 ms)
+0.sledgehammer goal.unfolding 13425ms Ordered_Resolution_Prover.Abstract_Substitution 877:31848  some (SH 13425ms, ATP 740ms): Try this: by (simp add: is_ground_atm_list_def) (6 ms)
+0.sledgehammer goal.by        20404ms Ordered_Resolution_Prover.Abstract_Substitution 877:31881  some (SH 20404ms, ATP 536ms): Try this: by auto (7 ms)
+0.sledgehammer goal.unfolding 17677ms Ordered_Resolution_Prover.Abstract_Substitution 880:31956  some (SH 17677ms, ATP 433ms): Try this: by (metis atm_of_subst_lit is_ground_lit_def is_ground_subst_atm literal.expand subst_lit_is_neg) (103 ms)
+0.sledgehammer goal.by        25715ms Ordered_Resolution_Prover.Abstract_Substitution 880:31998  some (SH 25715ms, ATP 459ms): Try this: by (simp add: literal.expand literal.map_sel(1,2)) (231 ms)
+0.sledgehammer goal.unfolding 32897ms Ordered_Resolution_Prover.Abstract_Substitution 883:32086  timeout (SH 32897ms): Timed out
+0.sledgehammer goal.by         6528ms Ordered_Resolution_Prover.Abstract_Substitution 883:32128  some (SH 6528ms, ATP 432ms): Try this: by fastforce (6 ms)
+0.sledgehammer goal.unfolding 35382ms Ordered_Resolution_Prover.Abstract_Substitution 886:32209  timeout (SH 35382ms): Timed out
+0.sledgehammer goal.by        18881ms Ordered_Resolution_Prover.Abstract_Substitution 886:32263  some (SH 18881ms, ATP 515ms): Try this: by simp (2 ms)
+0.sledgehammer goal.using     33116ms Ordered_Resolution_Prover.Abstract_Substitution 891:32399  timeout (SH 33116ms): Timed out
+0.sledgehammer goal.by        33051ms Ordered_Resolution_Prover.Abstract_Substitution 891:32411  timeout (SH 33051ms): Timed out
+0.sledgehammer goal.using      7915ms Ordered_Resolution_Prover.Abstract_Substitution 895:32616  some (SH 7915ms, ATP 487ms): Try this: by (metis atm_of_subst_lit is_ground_atm_def is_ground_lit_def is_ground_subst_lit) (75 ms)
+0.sledgehammer goal.by         9786ms Ordered_Resolution_Prover.Abstract_Substitution 895:32672  some (SH 9786ms, ATP 672ms): Try this: by (metis atm_of_subst_lit is_ground_subst_lit) (95 ms)
+0.sledgehammer goal.by         7518ms Ordered_Resolution_Prover.Abstract_Substitution 898:32760  some (SH 7518ms, ATP 566ms): Try this: by (metis ex_ground_subst ground_subst_ground_cls is_ground_subst_cls) (21 ms)
+0.sledgehammer goal.proof      2232ms Ordered_Resolution_Prover.Abstract_Substitution 903:32957  some (SH 2232ms, ATP 347ms): Try this: using subst_cls_eq_grounding_of_cls_subset_eq by presburger (5 ms)
+0.sledgehammer goal.unfolding 35375ms Ordered_Resolution_Prover.Abstract_Substitution 907:33105  timeout (SH 35375ms): Timed out
+0.sledgehammer goal.by         2095ms Ordered_Resolution_Prover.Abstract_Substitution 907:33151  some (SH 2095ms, ATP 334ms): Try this: by blast (4 ms)
+0.sledgehammer goal.unfolding 13238ms Ordered_Resolution_Prover.Abstract_Substitution 910:33196  some (SH 13238ms, ATP 398ms): Try this: by (meson \<open>D \<in> grounding_of_cls (C \<cdot> \<mu>)\<close> in_mono subst_cls_eq_grounding_of_cls_subset_eq) (12 ms)
+0.sledgehammer goal.using     10902ms Ordered_Resolution_Prover.Abstract_Substitution 911:33252  some (SH 10902ms, ATP 553ms): Try this: by (metis gr_\<gamma> is_ground_comp_subst subst_cls_comp_subst) (19 ms)
+0.sledgehammer goal.by         2848ms Ordered_Resolution_Prover.Abstract_Substitution 912:33298  some (SH 2848ms, ATP 523ms): Try this: by force (28 ms)
+0.sledgehammer goal.using     36859ms Ordered_Resolution_Prover.Abstract_Substitution 916:33406  timeout (SH 36859ms): Timed out
+0.sledgehammer goal.by        33860ms Ordered_Resolution_Prover.Abstract_Substitution 917:33444  timeout (SH 33860ms): Timed out
+0.sledgehammer goal.by        33201ms Ordered_Resolution_Prover.Abstract_Substitution 922:33633  timeout (SH 33201ms): Timed out
+0.sledgehammer goal.by        27518ms Ordered_Resolution_Prover.Abstract_Substitution 928:33930  some (SH 27518ms, ATP 442ms): Try this: by (metis assms grounding_of_subst_clss_subset inv_renaming_cancel_r subset_antisym subst_clss_id_subst subst_clsscomp_subst) (141 ms)
+0.sledgehammer goal.by        35505ms Ordered_Resolution_Prover.Abstract_Substitution 934:34179  some (SH 35505ms, ATP 1577ms): Try this: by (metis atm_imp_pos_or_neg_lit atm_of_lit_in_atms_of is_ground_cls_def is_ground_lit_def literal.sel(1,2)) (45 ms)
+0.sledgehammer goal.by         2252ms Ordered_Resolution_Prover.Abstract_Substitution 937:34330  some (SH 2252ms, ATP 397ms): Try this: using is_ground_cls_def by blast (3 ms)
+0.sledgehammer goal.by         5545ms Ordered_Resolution_Prover.Abstract_Substitution 940:34457  some (SH 5545ms, ATP 368ms): Try this: using is_ground_cls_as_atms by blast (0.6 ms)
+0.sledgehammer goal.by        17560ms Ordered_Resolution_Prover.Abstract_Substitution 943:34594  some (SH 17560ms, ATP 564ms): Try this: using is_ground_atms_def is_ground_cls_as_atms by blast (4 ms)
+0.sledgehammer goal.unfolding 34161ms Ordered_Resolution_Prover.Abstract_Substitution 946:34731  timeout (SH 34161ms): Timed out
+0.sledgehammer goal.by        11832ms Ordered_Resolution_Prover.Abstract_Substitution 946:34784  some (SH 11831ms, ATP 814ms): Try this: by force (4 ms)
+0.sledgehammer goal.using     15927ms Ordered_Resolution_Prover.Abstract_Substitution 949:34884  some (SH 15927ms, ATP 651ms): Try this: using grounding_ground grounding_of_clss_singleton by blast (3 ms)
+0.sledgehammer goal.by         3523ms Ordered_Resolution_Prover.Abstract_Substitution 949:34935  some (SH 3523ms, ATP 403ms): Try this: by blast (3 ms)
+0.sledgehammer goal.unfolding  4254ms Ordered_Resolution_Prover.Abstract_Substitution 953:35062  some (SH 4254ms, ATP 374ms): Try this: using grounding_ground by blast (2 ms)
+0.sledgehammer goal.by        21950ms Ordered_Resolution_Prover.Abstract_Substitution 953:35115  some (SH 21950ms, ATP 774ms): Try this: by (metis (no_types, lifting) UN_iff grounding_of_cls_def in_mono is_ground_cls_if_in_grounding_of_cls) (155 ms)
+0.sledgehammer goal.unfolding  3685ms Ordered_Resolution_Prover.Abstract_Substitution 956:35179  some (SH 3685ms, ATP 333ms): Try this: by (simp add: is_ground_subst_cls_iff) (2 ms)
+0.sledgehammer goal.by        10212ms Ordered_Resolution_Prover.Abstract_Substitution 956:35207  some (SH 10212ms, ATP 444ms): Try this: by simp (1 ms)
+0.sledgehammer goal.by        63741ms Ordered_Resolution_Prover.Abstract_Substitution 960:35323  some (SH 63741ms, ATP 571ms): Try this: using is_ground_cls_def by auto (16 ms)
+0.sledgehammer goal.unfolding 52476ms Ordered_Resolution_Prover.Abstract_Substitution 963:35436  some (SH 52476ms, ATP 4357ms): Try this: by (smt (z3) Sup_empty insert_is_Un is_ground_subst_cls make_ground_subst mem_Collect_eq singleton_iff subset_antisym subset_eq substitution_ops.grounding_of_cls_def) (371 ms)
+0.sledgehammer goal.by        44792ms Ordered_Resolution_Prover.Abstract_Substitution 963:35467  some (SH 44792ms, ATP 1120ms): Try this: by (simp add: ex_ground_subst) (11 ms)
+0.sledgehammer goal.by         2477ms Ordered_Resolution_Prover.Abstract_Substitution 966:35568  some (SH 2477ms, ATP 369ms): Try this: by (simp add: grounding_of_cls_ground) (2 ms)
+0.sledgehammer goal.by        15972ms Ordered_Resolution_Prover.Abstract_Substitution 969:35691  some (SH 15972ms, ATP 603ms): Try this: using is_ground_cls_if_in_grounding_of_cls is_ground_clss_def by force (59 ms)
+0.sledgehammer goal.using      8196ms Ordered_Resolution_Prover.Abstract_Substitution 972:35852  some (SH 8196ms, ATP 498ms): Try this: using grounding_ground is_ground_clss_def by blast (10 ms)
+0.sledgehammer goal.by        31421ms Ordered_Resolution_Prover.Abstract_Substitution 972:35910  some (SH 31421ms, ATP 579ms): Try this: by presburger (6 ms)
+0.sledgehammer goal.using     12308ms Ordered_Resolution_Prover.Abstract_Substitution 978:36053  some (SH 12308ms, ATP 539ms): Try this: using grounding_of_cls_ground is_ground_cls_if_in_grounding_of_cls by blast (3 ms)
+0.sledgehammer goal.by        38766ms Ordered_Resolution_Prover.Abstract_Substitution 978:36080  some (SH 38766ms, ATP 620ms): Try this: by (smt (z3) is_ground_cls_if_in_grounding_of_cls is_ground_subst_cls mem_Collect_eq) (421 ms)
+0.sledgehammer goal.proof     10630ms Ordered_Resolution_Prover.Abstract_Substitution 982:36211  some (SH 10629ms, ATP 559ms): Try this: by (meson grounding_of_cls_ground image_cong is_ground_cls_if_in_grounding_of_cls) (39 ms)
+0.sledgehammer goal.using      5422ms Ordered_Resolution_Prover.Abstract_Substitution 984:36302  some (SH 5422ms, ATP 374ms): Try this: using grounding_of_cls_ground is_ground_cls_if_in_grounding_of_cls by blast (8 ms)
+0.sledgehammer goal.by         5297ms Ordered_Resolution_Prover.Abstract_Substitution 984:36369  some (SH 5297ms, ATP 382ms): Try this: by blast (10 ms)
+0.sledgehammer goal.unfolding 35281ms Ordered_Resolution_Prover.Abstract_Substitution 989:36505  timeout (SH 35281ms): Timed out
+0.sledgehammer goal.unfolding 33287ms Ordered_Resolution_Prover.Abstract_Substitution 990:36553  timeout (SH 33287ms): Timed out
+0.sledgehammer goal.by         5815ms Ordered_Resolution_Prover.Abstract_Substitution 991:36605  some (SH 5815ms, ATP 592ms): Try this: by blast (5 ms)
+0.sledgehammer goal.unfolding  8792ms Ordered_Resolution_Prover.Abstract_Substitution 997:36696  some (SH 8791ms, ATP 1751ms): Try this: by (simp add: subsumes_def) (0.5 ms)
+0.sledgehammer goal.by         8039ms Ordered_Resolution_Prover.Abstract_Substitution 997:36733  some (SH 8039ms, ATP 540ms): Try this: by simp (1 ms)
+0.sledgehammer goal.unfolding 12381ms Ordered_Resolution_Prover.Abstract_Substitution 1000:36822  some (SH 12381ms, ATP 438ms): Try this: by (simp add: strictly_subsumes_def subsumes_def) (2 ms)
+0.sledgehammer goal.by         7546ms Ordered_Resolution_Prover.Abstract_Substitution 1000:36881  some (SH 7546ms, ATP 602ms): Try this: by simp (1 ms)
+0.sledgehammer goal.by        38816ms Ordered_Resolution_Prover.Abstract_Substitution 1006:36991  some (SH 38816ms, ATP 500ms): Try this: by (metis One_nat_def bot.extremum_uniqueI bot_nat_def card_1_singleton_iff card_eq_0_iff le_SucE le_numeral_extra(1,4)) (82 ms)
+0.sledgehammer goal.unfolding 35099ms Ordered_Resolution_Prover.Abstract_Substitution 1011:37147  timeout (SH 35099ms): Timed out
+0.sledgehammer goal.by        38258ms Ordered_Resolution_Prover.Abstract_Substitution 1012:37233  some (SH 38258ms, ATP 1250ms): Try this: using mk_disjoint_insert by fastforce (50 ms)
+0.sledgehammer goal.unfolding 31161ms Ordered_Resolution_Prover.Abstract_Substitution 1017:37382  timeout (SH 31161ms): Timed out
+0.sledgehammer goal.by        33159ms Ordered_Resolution_Prover.Abstract_Substitution 1018:37471  timeout (SH 33159ms): Timed out
+0.sledgehammer goal.by        13953ms Ordered_Resolution_Prover.Abstract_Substitution 1023:37667  some (SH 13953ms, ATP 412ms): Try this: by (meson assms(1,2,3,4,5) is_unifier_subst_atm_eqI is_unifiers_def) (40 ms)
+0.sledgehammer goal.unfolding 33804ms Ordered_Resolution_Prover.Abstract_Substitution 1028:37882  timeout (SH 33804ms): Timed out
+0.sledgehammer goal.by        16776ms Ordered_Resolution_Prover.Abstract_Substitution 1028:37939  some (SH 16776ms, ATP 313ms): Try this: by auto (53 ms)
+0.sledgehammer goal.using      2433ms Ordered_Resolution_Prover.Abstract_Substitution 1034:38050  some (SH 2433ms, ATP 336ms): Try this: using is_mgu_def by blast (2 ms)
+0.sledgehammer goal.by         3593ms Ordered_Resolution_Prover.Abstract_Substitution 1034:38067  some (SH 3593ms, ATP 324ms): Try this: by blast (3 ms)
+0.sledgehammer goal.using     12870ms Ordered_Resolution_Prover.Abstract_Substitution 1037:38160  some (SH 12870ms, ATP 406ms): Try this: using is_mgu_def by force (9 ms)
+0.sledgehammer goal.by         4091ms Ordered_Resolution_Prover.Abstract_Substitution 1037:38177  some (SH 4091ms, ATP 491ms): Try this: by blast (2 ms)
+0.sledgehammer goal.using      3883ms Ordered_Resolution_Prover.Abstract_Substitution 1040:38268  some (SH 3883ms, ATP 354ms): Try this: using is_unifiers_def by blast (3 ms)
+0.sledgehammer goal.by         3297ms Ordered_Resolution_Prover.Abstract_Substitution 1040:38290  some (SH 3297ms, ATP 378ms): Try this: by blast (7 ms)
+0.sledgehammer goal.by         5648ms Ordered_Resolution_Prover.Abstract_Substitution 1043:38361  some (SH 5648ms, ATP 470ms): Try this: using is_imgu_def is_mgu_def by auto (14 ms)
+0.sledgehammer goal.by         4903ms Ordered_Resolution_Prover.Abstract_Substitution 1046:38468  some (SH 4903ms, ATP 436ms): Try this: by (simp add: is_imgu_def) (8 ms)
+0.sledgehammer goal.using      7214ms Ordered_Resolution_Prover.Abstract_Substitution 1049:38579  some (SH 7214ms, ATP 389ms): Try this: by (metis is_imgu_comp_idempotent subst_atm_comp_subst) (28 ms)
+0.sledgehammer goal.by         4791ms Ordered_Resolution_Prover.Abstract_Substitution 1049:38646  some (SH 4791ms, ATP 361ms): Try this: by force (17 ms)
+0.sledgehammer goal.using      8950ms Ordered_Resolution_Prover.Abstract_Substitution 1052:38744  some (SH 8950ms, ATP 445ms): Try this: by (metis is_imgu_comp_idempotent subst_atms_comp_subst) (42 ms)
+0.sledgehammer goal.by         4453ms Ordered_Resolution_Prover.Abstract_Substitution 1052:38813  some (SH 4453ms, ATP 349ms): Try this: by force (8 ms)
+0.sledgehammer goal.using      6057ms Ordered_Resolution_Prover.Abstract_Substitution 1055:38906  some (SH 6057ms, ATP 437ms): Try this: by (metis is_imgu_comp_idempotent subst_lit_comp_subst) (47 ms)
+0.sledgehammer goal.by         4844ms Ordered_Resolution_Prover.Abstract_Substitution 1055:38973  some (SH 4843ms, ATP 339ms): Try this: by auto (23 ms)
+0.sledgehammer goal.using      6081ms Ordered_Resolution_Prover.Abstract_Substitution 1058:39063  some (SH 6081ms, ATP 409ms): Try this: by (metis is_imgu_comp_idempotent subst_cls_comp_subst) (47 ms)
+0.sledgehammer goal.by         5761ms Ordered_Resolution_Prover.Abstract_Substitution 1058:39130  some (SH 5761ms, ATP 369ms): Try this: by auto (34 ms)
+0.sledgehammer goal.using      5996ms Ordered_Resolution_Prover.Abstract_Substitution 1061:39229  some (SH 5995ms, ATP 409ms): Try this: by (metis is_imgu_comp_idempotent subst_clsscomp_subst) (43 ms)
+0.sledgehammer goal.by         4254ms Ordered_Resolution_Prover.Abstract_Substitution 1061:39297  some (SH 4254ms, ATP 362ms): Try this: by force (15 ms)
+0.sledgehammer goal.unfolding 10464ms Ordered_Resolution_Prover.Abstract_Substitution 1067:39409  some (SH 10464ms, ATP 409ms): Try this: using variants_def by auto (6 ms)
+0.sledgehammer goal.by         2330ms Ordered_Resolution_Prover.Abstract_Substitution 1067:39432  some (SH 2330ms, ATP 522ms): Try this: by meson (0.8 ms)
+0.sledgehammer goal.proof     34374ms Ordered_Resolution_Prover.Abstract_Substitution 1070:39515  timeout (SH 34374ms): Timed out
+0.sledgehammer goal.unfolding 23413ms Ordered_Resolution_Prover.Abstract_Substitution 1073:39591  some (SH 23413ms, ATP 1373ms): Try this: by (metis generalizes_def subset_mset.dual_order.refl subsumes_def variants_def) (35 ms)
+0.sledgehammer goal.by         6138ms Ordered_Resolution_Prover.Abstract_Substitution 1074:39649  some (SH 6137ms, ATP 515ms): Try this: by (metis subset_mset.dual_order.refl) (30 ms)
+0.sledgehammer goal.unfolding 35846ms Ordered_Resolution_Prover.Abstract_Substitution 1078:39760  some (SH 35846ms, ATP 970ms): Try this: by (metis nle_le size_mset_mono size_subst subsumes_def) (94 ms)
+0.sledgehammer goal.by        32176ms Ordered_Resolution_Prover.Abstract_Substitution 1078:39783  some (SH 32176ms, ATP 455ms): Try this: by (metis order_antisym_conv size_mset_mono size_subst) (212 ms)
+0.sledgehammer goal.using     22362ms Ordered_Resolution_Prover.Abstract_Substitution 1080:39859  some (SH 22362ms, ATP 461ms): Try this: by (metis generalizes_def size_subst sub subseteq_mset_size_eql subsumes_def variants_def) (134 ms)
+0.sledgehammer goal.unfolding 11405ms Ordered_Resolution_Prover.Abstract_Substitution 1080:39869  some (SH 11405ms, ATP 613ms): Try this: by (metis generalizes_def size_subst subseteq_mset_size_eql subsumes_def variants_def) (209 ms)
+0.sledgehammer goal.by        11475ms Ordered_Resolution_Prover.Abstract_Substitution 1081:39925  some (SH 11475ms, ATP 530ms): Try this: by (metis size_subst subseteq_mset_size_eql) (34 ms)
+0.sledgehammer goal.by        37568ms Ordered_Resolution_Prover.Abstract_Substitution 1086:40120  some (SH 37568ms, ATP 1155ms): Try this: by (metis antisym size_mset_mono size_subst strictly_subsumes_def subset_mset_def subseteq_mset_size_eql substitution_ops.subsumes_def) (472 ms)
+0.sledgehammer goal.unfolding  9597ms Ordered_Resolution_Prover.Abstract_Substitution 1090:40339  some (SH 9597ms, ATP 404ms): Try this: using generalizes_lit_def subst_lit_id_subst by blast (2 ms)
+0.sledgehammer goal.by         7728ms Ordered_Resolution_Prover.Abstract_Substitution 1090:40369  some (SH 7728ms, ATP 448ms): Try this: using subst_lit_id_subst by blast (0.6 ms)
+0.sledgehammer goal.unfolding 13089ms Ordered_Resolution_Prover.Abstract_Substitution 1094:40509  some (SH 13088ms, ATP 427ms): Try this: by (metis generalizes_lit_def subst_lit_comp_subst) (48 ms)
+0.sledgehammer goal.using      9224ms Ordered_Resolution_Prover.Abstract_Substitution 1094:40539  some (SH 9223ms, ATP 463ms): Try this: using subst_lit_comp_subst by blast (1 ms)
+0.sledgehammer goal.by         8997ms Ordered_Resolution_Prover.Abstract_Substitution 1094:40566  some (SH 8997ms, ATP 461ms): Try this: by blast (3 ms)
+0.sledgehammer goal.unfolding  8197ms Ordered_Resolution_Prover.Abstract_Substitution 1097:40626  some (SH 8197ms, ATP 558ms): Try this: using generalizes_def subst_cls_id_subst by blast (1 ms)
+0.sledgehammer goal.by         7652ms Ordered_Resolution_Prover.Abstract_Substitution 1097:40652  some (SH 7652ms, ATP 431ms): Try this: using subst_cls_id_subst by blast (0.7 ms)
+0.sledgehammer goal.unfolding 13086ms Ordered_Resolution_Prover.Abstract_Substitution 1100:40768  some (SH 13086ms, ATP 440ms): Try this: by (metis generalizes_def subst_cls_comp_subst) (72 ms)
+0.sledgehammer goal.using     33053ms Ordered_Resolution_Prover.Abstract_Substitution 1100:40794  timeout (SH 33053ms): Timed out
+0.sledgehammer goal.by         8033ms Ordered_Resolution_Prover.Abstract_Substitution 1100:40821  some (SH 8033ms, ATP 427ms): Try this: by blast (2 ms)
+0.sledgehammer goal.unfolding  9272ms Ordered_Resolution_Prover.Abstract_Substitution 1103:40869  some (SH 9272ms, ATP 551ms): Try this: by (metis subset_mset.dual_order.refl subst_cls_id_subst subsumes_def) (19 ms)
+0.sledgehammer goal.by         8498ms Ordered_Resolution_Prover.Abstract_Substitution 1103:40892  some (SH 8498ms, ATP 400ms): Try this: by (metis subset_mset.dual_order.refl subst_cls_id_subst) (30 ms)
+0.sledgehammer goal.unfolding 33055ms Ordered_Resolution_Prover.Abstract_Substitution 1106:40996  timeout (SH 33055ms): Timed out
+0.sledgehammer goal.by        34934ms Ordered_Resolution_Prover.Abstract_Substitution 1107:41021  some (SH 34934ms, ATP 4303ms): Try this: by (metis subset_mset.trans subst_cls_comp_subst subst_cls_mono_mset) (471 ms)
+0.sledgehammer goal.unfolding  2703ms Ordered_Resolution_Prover.Abstract_Substitution 1110:41169  some (SH 2703ms, ATP 476ms): Try this: by (simp add: strictly_generalizes_def) (3 ms)
+0.sledgehammer goal.by         3323ms Ordered_Resolution_Prover.Abstract_Substitution 1110:41204  some (SH 3323ms, ATP 344ms): Try this: by auto (1 ms)
+0.sledgehammer goal.unfolding  8192ms Ordered_Resolution_Prover.Abstract_Substitution 1113:41308  some (SH 8192ms, ATP 427ms): Try this: using strictly_generalizes_def by blast (2 ms)
+0.sledgehammer goal.by         3346ms Ordered_Resolution_Prover.Abstract_Substitution 1113:41343  some (SH 3345ms, ATP 317ms): Try this: by blast (0.5 ms)
+0.sledgehammer goal.unfolding  4814ms Ordered_Resolution_Prover.Abstract_Substitution 1117:41472  some (SH 4814ms, ATP 420ms): Try this: by (meson generalizes_trans strictly_generalizes_def) (44 ms)
+0.sledgehammer goal.using      3480ms Ordered_Resolution_Prover.Abstract_Substitution 1117:41507  some (SH 3480ms, ATP 398ms): Try this: using generalizes_trans by blast (4 ms)
+0.sledgehammer goal.by         3260ms Ordered_Resolution_Prover.Abstract_Substitution 1117:41531  some (SH 3260ms, ATP 312ms): Try this: by blast (4 ms)
+0.sledgehammer goal.unfolding  3834ms Ordered_Resolution_Prover.Abstract_Substitution 1120:41601  some (SH 3834ms, ATP 331ms): Try this: using strictly_subsumes_def by auto (0.7 ms)
+0.sledgehammer goal.by         3802ms Ordered_Resolution_Prover.Abstract_Substitution 1120:41633  some (SH 3802ms, ATP 293ms): Try this: by simp (0.6 ms)
+0.sledgehammer goal.unfolding  4019ms Ordered_Resolution_Prover.Abstract_Substitution 1123:41728  some (SH 4019ms, ATP 388ms): Try this: by (simp add: strictly_subsumes_def) (4 ms)
+0.sledgehammer goal.by         4029ms Ordered_Resolution_Prover.Abstract_Substitution 1123:41760  some (SH 4029ms, ATP 268ms): Try this: by blast (0.4 ms)
+0.sledgehammer goal.unfolding  5207ms Ordered_Resolution_Prover.Abstract_Substitution 1127:41877  some (SH 5207ms, ATP 433ms): Try this: using strictly_subsumes_def subsumes_trans by blast (15 ms)
+0.sledgehammer goal.using      3534ms Ordered_Resolution_Prover.Abstract_Substitution 1127:41909  some (SH 3534ms, ATP 331ms): Try this: using subsumes_trans by blast (3 ms)
+0.sledgehammer goal.by         3372ms Ordered_Resolution_Prover.Abstract_Substitution 1127:41930  some (SH 3372ms, ATP 407ms): Try this: by blast (4 ms)
+0.sledgehammer goal.using     12487ms Ordered_Resolution_Prover.Abstract_Substitution 1130:42007  some (SH 12487ms, ATP 702ms): Try this: by (metis size_subst strict_subset_subst_strictly_subsumes subseteq_mset_size_eql subsumes_def subsumes_refl) (35 ms)
+0.sledgehammer goal.by         2249ms Ordered_Resolution_Prover.Abstract_Substitution 1130:42066  some (SH 2249ms, ATP 368ms): Try this: by auto (1 ms)
+0.sledgehammer goal.unfolding  4494ms Ordered_Resolution_Prover.Abstract_Substitution 1133:42150  some (SH 4494ms, ATP 573ms): Try this: using generalizes_def strictly_generalizes_def by blast (3 ms)
+0.sledgehammer goal.by         4437ms Ordered_Resolution_Prover.Abstract_Substitution 1133:42201  some (SH 4437ms, ATP 392ms): Try this: by blast (1 ms)
+0.sledgehammer goal.unfolding 12327ms Ordered_Resolution_Prover.Abstract_Substitution 1136:42280  some (SH 12327ms, ATP 634ms): Try this: using strictly_subsumes_def subsumes_def by auto (45 ms)
+0.sledgehammer goal.by         6670ms Ordered_Resolution_Prover.Abstract_Substitution 1136:42325  some (SH 6670ms, ATP 445ms): Try this: by blast (2 ms)
+0.sledgehammer goal.unfolding  5315ms Ordered_Resolution_Prover.Abstract_Substitution 1139:42410  some (SH 5315ms, ATP 424ms): Try this: using generalizes_def variants_def by blast (13 ms)
+0.sledgehammer goal.by        11482ms Ordered_Resolution_Prover.Abstract_Substitution 1140:42457  some (SH 11482ms, ATP 597ms): Try this: by (metis leD mset_subset_size size_mset_mono size_subst subset_mset.le_imp_less_or_eq) (83 ms)
+0.sledgehammer goal.proof     15722ms Ordered_Resolution_Prover.Abstract_Substitution 1145:42679  some (SH 15722ms, ATP 429ms): Try this: by (meson assms(1,2) strictly_subsumes_def subsumes_trans variants_iff_subsumes) (43 ms)
+0.sledgehammer goal.using      4851ms Ordered_Resolution_Prover.Abstract_Substitution 1148:42761  some (SH 4851ms, ATP 527ms): Try this: using variants_imp_exists_substitution variants_sym by presburger (11 ms)
+0.sledgehammer goal.by         3524ms Ordered_Resolution_Prover.Abstract_Substitution 1148:42813  some (SH 3524ms, ATP 534ms): Try this: by presburger (7 ms)
+0.sledgehammer goal.unfolding  5343ms Ordered_Resolution_Prover.Abstract_Substitution 1152:42876  some (SH 5343ms, ATP 573ms): Try this: using strictly_subsumes_def subsumes_def by blast (16 ms)
+0.sledgehammer goal.by         3829ms Ordered_Resolution_Prover.Abstract_Substitution 1152:42921  some (SH 3829ms, ATP 387ms): Try this: by blast (3 ms)
+0.sledgehammer goal.using      3847ms Ordered_Resolution_Prover.Abstract_Substitution 1154:42968  some (SH 3847ms, ATP 339ms): Try this: using subst_cls_mono_mset by blast (4 ms)
+0.sledgehammer goal.by         3103ms Ordered_Resolution_Prover.Abstract_Substitution 1154:42994  some (SH 3102ms, ATP 322ms): Try this: by blast (3 ms)
+0.sledgehammer goal.using      5380ms Ordered_Resolution_Prover.Abstract_Substitution 1156:43041  some (SH 5380ms, ATP 496ms): Try this: by (simp add: \<sigma>_\<sigma>'_p) (9 ms)
+0.sledgehammer goal.by         3439ms Ordered_Resolution_Prover.Abstract_Substitution 1156:43054  some (SH 3439ms, ATP 382ms): Try this: by (metis subst_cls_comp_subst) (40 ms)
+0.sledgehammer goal.unfolding  9522ms Ordered_Resolution_Prover.Abstract_Substitution 1158:43113  some (SH 9522ms, ATP 559ms): Try this: using strict_subset_subst_strictly_subsumes strictly_subsumes_antisym strictly_subsumes_neq subset_mset.dual_order.order_iff_strict by blast (19 ms)
+0.sledgehammer goal.by         2934ms Ordered_Resolution_Prover.Abstract_Substitution 1158:43158  some (SH 2934ms, ATP 339ms): Try this: by meson (0.4 ms)
+0.sledgehammer goal.proof     10849ms Ordered_Resolution_Prover.Abstract_Substitution 1160:43193  some (SH 10849ms, ATP 505ms): Try this: by (metis \<sigma>_\<sigma>'_p n subst_cls_comp_subst) (39 ms)
+0.sledgehammer goal.by         3535ms Ordered_Resolution_Prover.Abstract_Substitution 1164:43290  some (SH 3535ms, ATP 297ms): Try this: by blast (2 ms)
+0.sledgehammer goal.using      4830ms Ordered_Resolution_Prover.Abstract_Substitution 1166:43340  some (SH 4830ms, ATP 358ms): Try this: by (simp add: \<sigma>_\<sigma>'_p) (5 ms)
+0.sledgehammer goal.by         3636ms Ordered_Resolution_Prover.Abstract_Substitution 1166:43353  some (SH 3636ms, ATP 438ms): Try this: using subst_cls_comp_subst by presburger (4 ms)
+0.sledgehammer goal.using      3955ms Ordered_Resolution_Prover.Abstract_Substitution 1168:43387  some (SH 3955ms, ATP 497ms): Try this: using n by blast (1 ms)
+0.sledgehammer goal.by         3407ms Ordered_Resolution_Prover.Abstract_Substitution 1168:43395  some (SH 3407ms, ATP 356ms): Try this: by blast (0.6 ms)
+0.sledgehammer goal.unfolding 12515ms Ordered_Resolution_Prover.Abstract_Substitution 1171:43440  some (SH 12515ms, ATP 468ms): Try this: by (meson assms(1,2) strictly_subsumes_def subsumes_trans variants_iff_subsumes) (52 ms)
+0.sledgehammer goal.by         3379ms Ordered_Resolution_Prover.Abstract_Substitution 1171:43485  some (SH 3379ms, ATP 435ms): Try this: by blast (0.7 ms)
+0.sledgehammer goal.using     17768ms Ordered_Resolution_Prover.Abstract_Substitution 1177:43630  some (SH 17768ms, ATP 464ms): Try this: by (meson assms(1,2) strictly_subsumes_def subsumes_trans variants_iff_subsumes) (44 ms)
+0.sledgehammer goal.by         2807ms Ordered_Resolution_Prover.Abstract_Substitution 1177:43682  some (SH 2807ms, ATP 391ms): Try this: by blast (6 ms)
+0.sledgehammer goal.proof     35151ms Ordered_Resolution_Prover.Abstract_Substitution 1202:44435  timeout (SH 35151ms): Timed out
+0.sledgehammer goal.by         3658ms Ordered_Resolution_Prover.Abstract_Substitution 1207:44633  some (SH 3658ms, ATP 278ms): Try this: by blast (2 ms)
+0.sledgehammer goal.proof     35288ms Ordered_Resolution_Prover.Abstract_Substitution 1213:44741  timeout (SH 35288ms): Timed out
+0.sledgehammer goal.using     36851ms Ordered_Resolution_Prover.Abstract_Substitution 1216:44807  some (SH 36851ms, ATP 855ms): Try this: by (metis sg_C size_subst strictly_generalizes_def substitution_ops.generalizes_def) (33 ms)
+0.sledgehammer goal.unfolding  9325ms Ordered_Resolution_Prover.Abstract_Substitution 1216:44824  some (SH 9325ms, ATP 520ms): Try this: by (metis generalizes_def size_subst strictly_generalizes_def) (64 ms)
+0.sledgehammer goal.by         5111ms Ordered_Resolution_Prover.Abstract_Substitution 1217:44897  some (SH 5111ms, ATP 431ms): Try this: by (metis size_image_mset) (44 ms)
+0.sledgehammer goal.using     35096ms Ordered_Resolution_Prover.Abstract_Substitution 1222:45063  timeout (SH 35096ms): Timed out
+0.sledgehammer goal.by        35030ms Ordered_Resolution_Prover.Abstract_Substitution 1222:45139  timeout (SH 35030ms): Timed out
+0.sledgehammer goal.unfolding  9882ms Ordered_Resolution_Prover.Abstract_Substitution 1232:45528  some (SH 9882ms, ATP 394ms): Try this: apply (simp add: Ls_at_def) (1 ms)
+0.sledgehammer goal.by         5573ms Ordered_Resolution_Prover.Abstract_Substitution 1232:45548  some (SH 5573ms, ATP 393ms): Try this: apply fastforce (6 ms)
+0.sledgehammer goal.unfolding 24477ms Ordered_Resolution_Prover.Abstract_Substitution 1235:45613  some (SH 24477ms, ATP 837ms): Try this: by (metis (mono_tags, lifting) Eps_cong Ls_at_0 list_of_mset_def mset_list_of_mset) (204 ms)
+0.sledgehammer goal.by        24876ms Ordered_Resolution_Prover.Abstract_Substitution 1235:45631  some (SH 24876ms, ATP 356ms): Try this: by (metis (mono_tags, lifting) Eps_cong list_of_mset_def mset_list_of_mset) (52 ms)
+0.sledgehammer goal.proof     34820ms Ordered_Resolution_Prover.Abstract_Substitution 1239:45789  timeout (SH 34820ms): Timed out
+0.sledgehammer goal.by        35557ms Ordered_Resolution_Prover.Abstract_Substitution 1242:45849  timeout (SH 35557ms): Timed out
+0.sledgehammer goal.by        35022ms Ordered_Resolution_Prover.Abstract_Substitution 1247:46005  timeout (SH 35022ms): Timed out
+0.sledgehammer goal.by        35923ms Ordered_Resolution_Prover.Abstract_Substitution 1252:46216  some (SH 35923ms, ATP 331ms): Try this: by (metis mset_Ls mset_Lt_at_0 not0_implies_Suc size_mset sz_C) (19 ms)
+0.sledgehammer goal.using     34712ms Ordered_Resolution_Prover.Abstract_Substitution 1255:46373  timeout (SH 34712ms): Timed out
+0.sledgehammer goal.by        22280ms Ordered_Resolution_Prover.Abstract_Substitution 1255:46391  some (SH 22279ms, ATP 197ms): Try this: by (metis nth_map subst_lit_is_neg) (28 ms)
+0.sledgehammer goal.by        35850ms Ordered_Resolution_Prover.Abstract_Substitution 1258:46529  timeout (SH 35850ms): Timed out
+0.sledgehammer goal.proof     34539ms Ordered_Resolution_Prover.Abstract_Substitution 1263:46749  timeout (SH 34538ms): Timed out
+0.sledgehammer goal.using     33185ms Ordered_Resolution_Prover.Abstract_Substitution 1267:46871  timeout (SH 33185ms): Timed out
+0.sledgehammer goal.by        38214ms Ordered_Resolution_Prover.Abstract_Substitution 1268:46916  some (SH 38214ms, ATP 399ms): Try this: by (metis (no_types, lifting) mset_map nth_equalityI nth_map size_image_mset size_mset) (125 ms)
+0.sledgehammer goal.using     27713ms Ordered_Resolution_Prover.Abstract_Substitution 1271:47062  some (SH 27713ms, ATP 474ms): Try this: by (metis atm_of_subst_lit is_pos_Ls j_\<tau> j_lt literal.expand subst_lit_is_neg) (49 ms)
+0.sledgehammer goal.by        13509ms Ordered_Resolution_Prover.Abstract_Substitution 1272:47099  some (SH 13509ms, ATP 469ms): Try this: by (metis atm_of_subst_lit literal.expand subst_lit_is_neg) (68 ms)
+0.sledgehammer goal.using     25424ms Ordered_Resolution_Prover.Abstract_Substitution 1274:47222  some (SH 25424ms, ATP 629ms): Try this: by (metis j_lt len_Ls length_map list.map_comp nth_map) (1.0 s)
+0.sledgehammer goal.by        17768ms Ordered_Resolution_Prover.Abstract_Substitution 1274:47240  some (SH 17768ms, ATP 265ms): Try this: by (metis length_map list.map_comp nth_map) (640 ms)
+0.sledgehammer goal.unfolding 33941ms Ordered_Resolution_Prover.Abstract_Substitution 1281:47434  timeout (SH 33941ms): Timed out
+0.sledgehammer goal.using     33240ms Ordered_Resolution_Prover.Abstract_Substitution 1282:47498  timeout (SH 33240ms): Timed out
+0.sledgehammer goal.by        34436ms Ordered_Resolution_Prover.Abstract_Substitution 1282:47541  timeout (SH 34435ms): Timed out
+0.sledgehammer goal.unfolding 33530ms Ordered_Resolution_Prover.Abstract_Substitution 1284:47640  timeout (SH 33530ms): Timed out
+0.sledgehammer goal.by         5608ms Ordered_Resolution_Prover.Abstract_Substitution 1284:47698  some (SH 5608ms, ATP 411ms): Try this: by (simp add: Ls_\<tau>_strict_tm) (1 ms)
+0.sledgehammer goal.unfolding  4765ms Ordered_Resolution_Prover.Abstract_Substitution 1286:47811  some (SH 4765ms, ATP 390ms): Try this: using strictly_generalizes_atm_def by blast (10 ms)
+0.sledgehammer goal.by         3044ms Ordered_Resolution_Prover.Abstract_Substitution 1286:47850  some (SH 3044ms, ATP 331ms): Try this: by presburger (3 ms)
+0.sledgehammer goal.using     33558ms Ordered_Resolution_Prover.Abstract_Substitution 1288:47885  timeout (SH 33558ms): Timed out
+0.sledgehammer goal.by        33598ms Ordered_Resolution_Prover.Abstract_Substitution 1288:47967  some (SH 33598ms, ATP 4549ms): Try this: by auto (3 ms)
+0.sledgehammer goal.unfolding 33519ms Ordered_Resolution_Prover.Abstract_Substitution 1291:48046  timeout (SH 33519ms): Timed out
+0.sledgehammer goal.by        33011ms Ordered_Resolution_Prover.Abstract_Substitution 1291:48064  timeout (SH 33011ms): Timed out
+0.sledgehammer goal.proof     29261ms Ordered_Resolution_Prover.Abstract_Substitution 1297:48238  timeout (SH 29261ms): Timed out
+0.sledgehammer goal.by         3546ms Ordered_Resolution_Prover.Abstract_Substitution 1300:48371  some (SH 3546ms, ATP 276ms): Try this: by blast (3 ms)
+0.sledgehammer goal.by        34047ms Ordered_Resolution_Prover.Abstract_Substitution 1303:48463  timeout (SH 34047ms): Timed out
+0.sledgehammer goal.by        19524ms Ordered_Resolution_Prover.Abstract_Substitution 1306:48522  some (SH 19523ms, ATP 262ms): Try this: by blast (0.6 ms)
+0.sledgehammer goal.by        33563ms Ordered_Resolution_Prover.Abstract_Substitution 1312:48631  timeout (SH 33563ms): Timed out
+0.sledgehammer goal.using     33419ms Ordered_Resolution_Prover.Abstract_Substitution 1314:48732  timeout (SH 33419ms): Timed out
+0.sledgehammer goal.unfolding 32934ms Ordered_Resolution_Prover.Abstract_Substitution 1314:48747  timeout (SH 32934ms): Timed out
+0.sledgehammer goal.by        19646ms Ordered_Resolution_Prover.Abstract_Substitution 1314:48763  some (SH 19646ms, ATP 1280ms): Try this: by simp (1 ms)
+0.sledgehammer goal.using     33457ms Ordered_Resolution_Prover.Abstract_Substitution 1316:48818  timeout (SH 33457ms): Timed out
+0.sledgehammer goal.unfolding 33008ms Ordered_Resolution_Prover.Abstract_Substitution 1316:48827  timeout (SH 33008ms): Timed out
+0.sledgehammer goal.by        18807ms Ordered_Resolution_Prover.Abstract_Substitution 1316:48872  some (SH 18807ms, ATP 110ms): Try this: by (metis size_mset_mono size_subst) (9 ms)
+0.sledgehammer goal.unfolding  5734ms Ordered_Resolution_Prover.Abstract_Substitution 1318:48970  some (SH 5734ms, ATP 377ms): Try this: by simp (4 ms)
+0.sledgehammer goal.using     33309ms Ordered_Resolution_Prover.Abstract_Substitution 1320:49054  timeout (SH 33309ms): Timed out
+0.sledgehammer goal.by        32697ms Ordered_Resolution_Prover.Abstract_Substitution 1320:49097  timeout (SH 32696ms): Timed out
+0.sledgehammer goal.by         3543ms Ordered_Resolution_Prover.Abstract_Substitution 1323:49183  some (SH 3543ms, ATP 304ms): Try this: by blast (3 ms)
+0.sledgehammer goal.using     33276ms Ordered_Resolution_Prover.Abstract_Substitution 1325:49260  timeout (SH 33276ms): Timed out
+0.sledgehammer goal.unfolding 32923ms Ordered_Resolution_Prover.Abstract_Substitution 1325:49269  timeout (SH 32923ms): Timed out
+0.sledgehammer goal.by        33555ms Ordered_Resolution_Prover.Abstract_Substitution 1326:49324  timeout (SH 33555ms): Timed out
+0.sledgehammer goal.unfolding 10479ms Ordered_Resolution_Prover.Abstract_Substitution 1329:49527  some (SH 10479ms, ATP 368ms): Try this: by simp (1 ms)
+0.sledgehammer goal.by        20992ms Ordered_Resolution_Prover.Abstract_Substitution 1329:49578  some (SH 20992ms, ATP 372ms): Try this: using add_Suc le_add2 by presburger (2 ms)
+0.sledgehammer goal.by        33296ms Ordered_Resolution_Prover.Abstract_Substitution 1331:49651  timeout (SH 33296ms): Timed out
+0.sledgehammer goal.using     33394ms Ordered_Resolution_Prover.Abstract_Substitution 1333:49709  timeout (SH 33394ms): Timed out
+0.sledgehammer goal.unfolding 34019ms Ordered_Resolution_Prover.Abstract_Substitution 1335:49820  timeout (SH 34019ms): Timed out
+0.sledgehammer goal.by        33636ms Ordered_Resolution_Prover.Abstract_Substitution 1335:49838  timeout (SH 33636ms): Timed out
+0.sledgehammer goal.using     11988ms Ordered_Resolution_Prover.Abstract_Substitution 1339:49905  some (SH 11987ms, ATP 410ms): Try this: by (metis strictly_subsumes_has_minimum wfp_iff_ex_minimal) (73 ms)
+0.sledgehammer goal.by         6661ms Ordered_Resolution_Prover.Abstract_Substitution 1339:49941  some (SH 6661ms, ATP 429ms): Try this: by (metis wfp_iff_ex_minimal) (74 ms)
+0.sledgehammer goal.proof     32496ms Ordered_Resolution_Prover.Abstract_Substitution 1372:50960  timeout (SH 32496ms): Timed out
+0.sledgehammer goal.using     34388ms Ordered_Resolution_Prover.Abstract_Substitution 1374:51039  timeout (SH 34388ms): Timed out
+0.sledgehammer goal.by        30094ms Ordered_Resolution_Prover.Abstract_Substitution 1374:51055  some (SH 30094ms, ATP 388ms): Try this: by simp (34 ms)
+0.sledgehammer goal.using      4236ms Ordered_Resolution_Prover.Abstract_Substitution 1376:51135  some (SH 4236ms, ATP 621ms): Try this: using is_mgu_def by blast (2 ms)
+0.sledgehammer goal.by         3582ms Ordered_Resolution_Prover.Abstract_Substitution 1376:51160  some (SH 3582ms, ATP 489ms): Try this: by blast (4 ms)
+0.sledgehammer goal.using     33592ms Ordered_Resolution_Prover.Abstract_Substitution 1378:51240  timeout (SH 33592ms): Timed out
+0.sledgehammer goal.unfolding 33216ms Ordered_Resolution_Prover.Abstract_Substitution 1378:51264  timeout (SH 33216ms): Timed out
+0.sledgehammer goal.by        33795ms Ordered_Resolution_Prover.Abstract_Substitution 1379:51309  timeout (SH 33795ms): Timed out
+0.sledgehammer goal.using     27294ms Ordered_Resolution_Prover.Abstract_Substitution 1381:51420  some (SH 27294ms, ATP 460ms): Try this: by (metis a_in insert_iff is_unifier_subst_atm_eqI multiset.set_finite set_mset_add_mset_insert) (84 ms)
+0.sledgehammer goal.by        22908ms Ordered_Resolution_Prover.Abstract_Substitution 1382:51473  some (SH 22908ms, ATP 484ms): Try this: by (metis insert_iff multiset.set_finite set_mset_add_mset_insert) (136 ms)
+0.sledgehammer finalize   Total number of sledgehammer calls: 558
+0.sledgehammer finalize   Number of successful sledgehammer calls: 367
+0.sledgehammer finalize   Number of sledgehammer lemmas: 958
+0.sledgehammer finalize   Max number of sledgehammer lemmas: 11
+0.sledgehammer finalize   Success rate: 65.8%
+0.sledgehammer finalize   Total number of nontrivial sledgehammer calls: 558
+0.sledgehammer finalize   Number of successful nontrivial sledgehammer calls: 367
+0.sledgehammer finalize   Total time for sledgehammer calls (Isabelle): 12036.027
+0.sledgehammer finalize   Total time for successful sledgehammer calls (ATP): 231.098
+0.sledgehammer finalize   Average time for sledgehammer calls (Isabelle): 21.570
+0.sledgehammer finalize   Average time for successful sledgehammer calls (ATP): 0.630

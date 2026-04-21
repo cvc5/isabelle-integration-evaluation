@@ -1,0 +1,237 @@
+0.sledgehammer initialize Params for sledgehammer: {abduce = SOME 0, cache_dir = NONE, compress = NONE, debug = false, expect =
+0.sledgehammer initialize  "", fact_filter = NONE, fact_thresholds = (0.45, 0.85), falsify =
+0.sledgehammer initialize  SOME false, induction_rules = NONE, instantiate = NONE, isar_proofs = NONE,
+0.sledgehammer initialize  lam_trans = NONE, learn = true, max_facts = NONE, max_mono_iters = NONE,
+0.sledgehammer initialize  max_new_mono_instances = NONE, max_proofs = 4, minimize = true, overlord =
+0.sledgehammer initialize  false, preplay_provers = [], preplay_timeout = 1.000, provers =
+0.sledgehammer initialize  ["cvc5_proof"], slices = 96, smt_proofs = true, spy = false, strict =
+0.sledgehammer initialize  false, timeout = 30.000, try0 = true, type_enc = NONE, uncurried_aliases =
+0.sledgehammer initialize  NONE, verbose = false}
+0.sledgehammer goal.by         7282ms Ordered_Resolution_Prover.Lazy_List_Chain 33:1087  some (SH 7282ms, ATP 515ms): Try this: using chain.cases apply blast (47 ms)
+0.sledgehammer goal.proof     35331ms Ordered_Resolution_Prover.Lazy_List_Chain 41:1268  timeout (SH 35331ms): Timed out
+0.sledgehammer goal.using     35109ms Ordered_Resolution_Prover.Lazy_List_Chain 44:1331  timeout (SH 35109ms): Timed out
+0.sledgehammer goal.proof     34734ms Ordered_Resolution_Prover.Lazy_List_Chain 45:1348  timeout (SH 34734ms): Timed out
+0.sledgehammer goal.proof     71829ms Ordered_Resolution_Prover.Lazy_List_Chain 49:1512  some (SH 71829ms, ATP 934ms): Try this: by (smt (cvc5) chain.simps ih lappend_code(1,2) lhd_lappend llast_LCons llist.disc(1) llist.expand ltl_simps(2) mid r_xxs r_ys)
+0.sledgehammer goal.using     13031ms Ordered_Resolution_Prover.Lazy_List_Chain 52:1586  some (SH 13031ms, ATP 621ms): Try this: using chain_cons mid r_ys by fastforce (44 ms)
+0.sledgehammer goal.by         8977ms Ordered_Resolution_Prover.Lazy_List_Chain 52:1601  some (SH 8977ms, ATP 596ms): Try this: by (simp add: chain_cons) (7 ms)
+0.sledgehammer goal.by         9214ms Ordered_Resolution_Prover.Lazy_List_Chain 56:1700  some (SH 9214ms, ATP 626ms): Try this: using chain.cases r_xxs xs_nnil by blast (34 ms)
+0.sledgehammer goal.by         8089ms Ordered_Resolution_Prover.Lazy_List_Chain 58:1799  some (SH 8089ms, ATP 505ms): Try this: by (metis chain_not_lnull llast_LCons mid r_xs) (38 ms)
+0.sledgehammer goal.by        21563ms Ordered_Resolution_Prover.Lazy_List_Chain 60:1898  some (SH 21563ms, ATP 730ms): Try this: using chain.cases r_xxs xs_nnil by fastforce (176 ms)
+0.sledgehammer goal.unfolding 11948ms Ordered_Resolution_Prover.Lazy_List_Chain 63:2036  some (SH 11948ms, ATP 526ms): Try this: using chain_cons ih mid' r_xs start by fastforce (37 ms)
+0.sledgehammer goal.using      9202ms Ordered_Resolution_Prover.Lazy_List_Chain 63:2062  some (SH 9202ms, ATP 428ms): Try this: by (meson chain_cons ih mid' r_xs start) (27 ms)
+0.sledgehammer goal.by         5226ms Ordered_Resolution_Prover.Lazy_List_Chain 63:2091  some (SH 5226ms, ATP 454ms): Try this: by (simp add: chain_cons) (4 ms)
+0.sledgehammer goal.by        12841ms Ordered_Resolution_Prover.Lazy_List_Chain 69:2221  some (SH 12841ms, ATP 477ms): Try this: by (simp add: chain_not_lnull) (1 ms)
+0.sledgehammer goal.using     34008ms Ordered_Resolution_Prover.Lazy_List_Chain 74:2345  timeout (SH 34008ms): Timed out
+0.sledgehammer goal.by        33132ms Ordered_Resolution_Prover.Lazy_List_Chain 75:2359  timeout (SH 33132ms): Timed out
+0.sledgehammer goal.using     13880ms Ordered_Resolution_Prover.Lazy_List_Chain 79:2567  some (SH 13880ms, ATP 424ms): Try this: by (metis chain_ldropn ldropn_eq_LNil lfinite_LNil lfinite_ldropn linorder_not_less) (27 ms)
+0.sledgehammer goal.by        14811ms Ordered_Resolution_Prover.Lazy_List_Chain 79:2594  some (SH 14811ms, ATP 491ms): Try this: by (metis chain_ldropn ldropn_eq_LNil lfinite_LNil lfinite_ldropn linorder_not_less) (38 ms)
+0.sledgehammer goal.by        12598ms Ordered_Resolution_Prover.Lazy_List_Chain 82:2719  some (SH 12598ms, ATP 694ms): Try this: using chain.cases by fastforce (200 ms)
+0.sledgehammer goal.proof     86987ms Ordered_Resolution_Prover.Lazy_List_Chain 89:2913  some (SH 86987ms, ATP 500ms): Try this: by (smt (cvc5) Suc_ile_eq chain chain.simps chain_ldropn ldropn_Suc_conv_ldropn ldropn_eq_LNil len lhd_LCons linorder_not_less llist.sel(3) order_less_imp_le)
+0.sledgehammer goal.unfolding 71097ms Ordered_Resolution_Prover.Lazy_List_Chain 92:2986  some (SH 71097ms, ATP 1870ms): Try this: by (metis Extended_Nat.eSuc_mono Suc_ile_eq gr_zeroI iless_Suc_eq ldropn_Suc_conv_ldropn len linorder_not_less llength_LCons one_eSuc one_enat_def order_less_le ys_def) (203 ms)
+0.sledgehammer goal.using     25302ms Ordered_Resolution_Prover.Lazy_List_Chain 92:3003  some (SH 25302ms, ATP 1309ms): Try this: by (metis ldropn_eq_LNil ldropn_ldropn len linorder_not_less one_enat_def plus_1_eq_Suc) (35 ms)
+0.sledgehammer goal.by        16978ms Ordered_Resolution_Prover.Lazy_List_Chain 93:3017  some (SH 16978ms, ATP 4918ms): Try this: by (metis ldropn_eq_LNil ldropn_ldropn linorder_not_less one_enat_def plus_1_eq_Suc) (267 ms)
+0.sledgehammer goal.unfolding 32974ms Ordered_Resolution_Prover.Lazy_List_Chain 97:3197  some (SH 32974ms, ATP 962ms): Try this: by (metis Suc_ile_eq ldropn_Suc_conv_ldropn len order_less_le ys_def) (17 ms)
+0.sledgehammer goal.by        25861ms Ordered_Resolution_Prover.Lazy_List_Chain 97:3214  some (SH 25861ms, ATP 2590ms): Try this: by (metis \<open>1 < llength ys\<close> ldropn_Suc_conv_ldropn ldropn_eq_LNil len linorder_not_less llength_LNil order_less_imp_le ys_def zero_less_one) (28 ms)
+0.sledgehammer goal.unfolding 14216ms Ordered_Resolution_Prover.Lazy_List_Chain 99:3314  some (SH 14216ms, ATP 542ms): Try this: by (metis chain chain_ldropn eq_LConsD ldropn_eq_LNil linorder_not_less ys ys_def) (180 ms)
+0.sledgehammer goal.using     22541ms Ordered_Resolution_Prover.Lazy_List_Chain 99:3331  some (SH 22541ms, ATP 546ms): Try this: by (metis chain chain_ldropn ldropn_eq_LNil linorder_not_less llist.distinct(1) ys ys_def) (98 ms)
+0.sledgehammer goal.by         3509ms Ordered_Resolution_Prover.Lazy_List_Chain 99:3383  some (SH 3509ms, ATP 434ms): Try this: by blast (8 ms)
+0.sledgehammer goal.unfolding 29689ms Ordered_Resolution_Prover.Lazy_List_Chain 101:3418  some (SH 29689ms, ATP 756ms): Try this: using chain.cases ys by fastforce (28 ms)
+0.sledgehammer goal.by        29381ms Ordered_Resolution_Prover.Lazy_List_Chain 101:3431  some (SH 29381ms, ATP 614ms): Try this: using chain.cases by fastforce (25 ms)
+0.sledgehammer goal.using     26318ms Ordered_Resolution_Prover.Lazy_List_Chain 103:3483  some (SH 26318ms, ATP 1048ms): Try this: by (metis One_nat_def Suc_ile_eq add.commute len lhd_LCons lhd_ldropn lnth_0 lnth_Suc_LCons lnth_ldropn order_less_imp_le plus_1_eq_Suc ys ys_def) (107 ms)
+0.sledgehammer goal.unfolding 20052ms Ordered_Resolution_Prover.Lazy_List_Chain 103:3496  some (SH 20052ms, ATP 1022ms): Try this: by (metis One_nat_def Suc_ile_eq add.commute len lhd_LCons lhd_ldropn lnth_0 lnth_Suc_LCons lnth_ldropn order_less_imp_le plus_1_eq_Suc ys) (147 ms)
+0.sledgehammer goal.by        19378ms Ordered_Resolution_Prover.Lazy_List_Chain 103:3509  some (SH 19378ms, ATP 1039ms): Try this: by (metis One_nat_def Suc_ile_eq add.commute len lhd_LCons lhd_ldropn lnth_0 lnth_Suc_LCons lnth_ldropn order_less_imp_le plus_1_eq_Suc) (143 ms)
+0.sledgehammer goal.using     19254ms Ordered_Resolution_Prover.Lazy_List_Chain 109:3691  some (SH 19254ms, ATP 467ms): Try this: by (metis assms(1,2) chain_lnth_rel ldropn_eq_LNil lfinite_LNil lfinite_ldropn linorder_not_less) (27 ms)
+0.sledgehammer goal.by         7338ms Ordered_Resolution_Prover.Lazy_List_Chain 109:3744  some (SH 7338ms, ATP 488ms): Try this: by fastforce (88 ms)
+0.sledgehammer goal.using     34292ms Ordered_Resolution_Prover.Lazy_List_Chain 116:3900  timeout (SH 34292ms): Timed out
+0.sledgehammer goal.proof     33511ms Ordered_Resolution_Prover.Lazy_List_Chain 117:3912  timeout (SH 33511ms): Timed out
+0.sledgehammer goal.proof     80566ms Ordered_Resolution_Prover.Lazy_List_Chain 122:4042  some (SH 80565ms, ATP 1983ms): Try this: by (metis add.commute[of "1"] ldropn_0 ldropn_Suc_LCons[of "Suc _"] ldropn_Suc_LCons[of "0"] ldropn_eq_LNil[of "Suc _"] ldropn_eq_LNil[of "Suc (Suc _)" "LCons _ _"] ldropn_eq_LNil[of "0" "LCons _ _"] ldropn_eq_LNil[of "Suc (Suc 0)" "LCons undefined xs"] ldropn_eq_LNil[of "Suc (Suc 0)" "LCons _ _"] lhd_ldropn[of "Suc 0" "LCons _ _"] lhd_ldropn[of "0" "LCons _ _"] linorder_not_less[of "enat (Suc 0)" "llength xs"] linorder_not_less[of "enat (Suc 0)" "llength (LCons _ _)"] linorder_not_less[of "enat (Suc _)" "llength _"] linorder_not_less[of "enat (Suc (Suc _))" "llength (LCons _ _)"] linorder_not_less[of "enat 0" "llength (LCons _ _)"] llist.disc(1) llist.expand[of LNil] lnth_0 lnth_Suc_LCons nnul not_lnull_conv[of xs] nth_chain plus_1_eq_Suc) (224 ms)
+0.sledgehammer goal.using      9427ms Ordered_Resolution_Prover.Lazy_List_Chain 125:4129  some (SH 9427ms, ATP 517ms): Try this: by (simp add: True llist.expand nnul) (14 ms)
+0.sledgehammer goal.by         6757ms Ordered_Resolution_Prover.Lazy_List_Chain 125:4145  some (SH 6757ms, ATP 480ms): Try this: by (simp add: llist.expand) (15 ms)
+0.sledgehammer goal.by         3877ms Ordered_Resolution_Prover.Lazy_List_Chain 127:4201  some (SH 3877ms, ATP 433ms): Try this: by blast (1 ms)
+0.sledgehammer goal.using      6042ms Ordered_Resolution_Prover.Lazy_List_Chain 131:4294  some (SH 6042ms, ATP 443ms): Try this: by (simp add: nnul) (0.4 ms)
+0.sledgehammer goal.by         4595ms Ordered_Resolution_Prover.Lazy_List_Chain 131:4305  some (SH 4595ms, ATP 467ms): Try this: by force (1 ms)
+0.sledgehammer goal.using     25768ms Ordered_Resolution_Prover.Lazy_List_Chain 134:4427  some (SH 25768ms, ATP 994ms): Try this: by (metis add.commute ldropn_Suc_conv_ldropn ldropn_eq_LConsD ldropn_ltl lnth_ltl nnul nth_chain plus_1_eq_Suc) (37 ms)
+0.sledgehammer goal.by        20149ms Ordered_Resolution_Prover.Lazy_List_Chain 135:4454  some (SH 20149ms, ATP 1043ms): Try this: by (metis add.commute ldropn_Suc_conv_ldropn ldropn_eq_LConsD ldropn_ltl lnth_ltl plus_1_eq_Suc) (118 ms)
+0.sledgehammer goal.using     34667ms Ordered_Resolution_Prover.Lazy_List_Chain 137:4594  some (SH 34667ms, ATP 3481ms): Try this: by (metis Extended_Nat.eSuc_mono One_nat_def add.commute calculation(2) lhd_conv_lnth llength_LCons llength_eq_0 lnth_ltl nnul nnul' not_gr_zero nth_chain one_eSuc one_enat_def plus_1_eq_Suc) (163 ms)
+0.sledgehammer goal.by        21033ms Ordered_Resolution_Prover.Lazy_List_Chain 138:4658  some (SH 21033ms, ATP 3031ms): Try this: by (metis Extended_Nat.eSuc_mono One_nat_def calculation(2) i0_less lhd_conv_lnth llength_LCons llength_eq_0 lnth_Suc_LCons one_eSuc one_enat_def) (120 ms)
+0.sledgehammer goal.by         4311ms Ordered_Resolution_Prover.Lazy_List_Chain 141:4818  some (SH 4311ms, ATP 553ms): Try this: by blast (1 ms)
+0.sledgehammer goal.using     154343ms Ordered_Resolution_Prover.Lazy_List_Chain 148:4947  timeout (SH 154343ms):
+0.sledgehammer goal.proof     153285ms Ordered_Resolution_Prover.Lazy_List_Chain 149:4959  timeout (SH 153285ms):
+0.sledgehammer goal.using      8498ms Ordered_Resolution_Prover.Lazy_List_Chain 152:5103  some (SH 8498ms, ATP 561ms): Try this: by (metis chain.cases) (135 ms)
+0.sledgehammer goal.by         3922ms Ordered_Resolution_Prover.Lazy_List_Chain 152:5130  some (SH 3922ms, ATP 370ms): Try this: by force (1 ms)
+0.sledgehammer goal.proof     47647ms Ordered_Resolution_Prover.Lazy_List_Chain 154:5158  some (SH 47647ms, ATP 327ms): Try this: using chain(1) chain.cases by fastforce (172 ms)
+0.sledgehammer goal.using     21156ms Ordered_Resolution_Prover.Lazy_List_Chain 158:5372  some (SH 21156ms, ATP 1014ms): Try this: by (metis (no_types, lifting) chain(1) chain_not_lnull llist.map_sel(1) llist.simps(13)) (717 ms)
+0.sledgehammer goal.by        17856ms Ordered_Resolution_Prover.Lazy_List_Chain 159:5390  some (SH 17856ms, ATP 1053ms): Try this: by (metis (no_types, lifting) chain_not_lnull llist.map_sel(1) llist.simps(13)) (776 ms)
+0.sledgehammer goal.by         7279ms Ordered_Resolution_Prover.Lazy_List_Chain 162:5564  some (SH 7279ms, ATP 621ms): Try this: by blast (6 ms)
+0.sledgehammer goal.using     20860ms Ordered_Resolution_Prover.Lazy_List_Chain 169:5680  some (SH 20860ms, ATP 1860ms): Try this: by (metis add.commute assms(1,2) chain_lnth_rel chain_not_lnull lnth_rel_chain plus_1_eq_Suc) (183 ms)
+0.sledgehammer goal.by        17784ms Ordered_Resolution_Prover.Lazy_List_Chain 169:5692  some (SH 17784ms, ATP 555ms): Try this: by (metis add.commute chain_lnth_rel chain_not_lnull lnth_rel_chain plus_1_eq_Suc) (177 ms)
+0.sledgehammer goal.proof     33803ms Ordered_Resolution_Prover.Lazy_List_Chain 176:5945  timeout (SH 33803ms): Timed out
+0.sledgehammer goal.using     13371ms Ordered_Resolution_Prover.Lazy_List_Chain 178:6008  some (SH 13371ms, ATP 571ms): Try this: by (meson Suc_ile_eq ldropn_eq_LNil linorder_not_less lnull_def order_less_imp_le si_lt) (47 ms)
+0.sledgehammer goal.by        10374ms Ordered_Resolution_Prover.Lazy_List_Chain 178:6020  some (SH 10374ms, ATP 443ms): Try this: by (meson Suc_ile_eq ldropn_eq_LNil linorder_not_less lnull_def order_less_imp_le) (40 ms)
+0.sledgehammer goal.using     139362ms Ordered_Resolution_Prover.Lazy_List_Chain 182:6180  some (SH 139361ms, ATP 3977ms): Try this: by (smt (z3) Suc_ile_eq add.commute ldropn_eq_LNil ldropn_ldropn le_add1 linorder_not_less lnth_ldropn order_less_imp_le plus_1_eq_Suc rel) (297 ms)
+0.sledgehammer goal.proof     27338ms Ordered_Resolution_Prover.Lazy_List_Chain 192:6417  some (SH 27338ms, ATP 2076ms): Try this: by (metis (mono_tags, lifting) Suc_ile_eq chain_ldropnI llength_lmap lnth_lmap order_less_imp_le rel si_lt) (186 ms)
+0.sledgehammer goal.using     97744ms Ordered_Resolution_Prover.Lazy_List_Chain 194:6469  some (SH 97744ms, ATP 209ms): Try this: by (smt (cvc5, best) Suc_ile_eq chain_ldropnI ldropn_lmap llength_lmap lnth_lmap order_less_imp_le rel si_lt) (576 ms)
+0.sledgehammer goal.by         3975ms Ordered_Resolution_Prover.Lazy_List_Chain 195:6566  some (SH 3975ms, ATP 272ms): Try this: by fastforce (3 ms)
+0.sledgehammer goal.by         4242ms Ordered_Resolution_Prover.Lazy_List_Chain 197:6593  some (SH 4242ms, ATP 443ms): Try this: by simp (4 ms)
+0.sledgehammer goal.proof     33887ms Ordered_Resolution_Prover.Lazy_List_Chain 201:6704  timeout (SH 33887ms): Timed out
+0.sledgehammer goal.proof     57821ms Ordered_Resolution_Prover.Lazy_List_Chain 205:6846  some (SH 57821ms, ATP 644ms): Try this: by (metis (no_types, lifting) chain.cases converse_rtranclp_into_rtranclp ih lhd_LCons llast_LCons llist.disc(1) ltl_simps(2) r_x_xs rtranclp.simps) (2.2 s)
+0.sledgehammer goal.using      8028ms Ordered_Resolution_Prover.Lazy_List_Chain 208:6935  some (SH 8028ms, ATP 560ms): Try this: using chain.cases r_x_xs by blast (51 ms)
+0.sledgehammer goal.by         6058ms Ordered_Resolution_Prover.Lazy_List_Chain 208:6948  some (SH 6058ms, ATP 596ms): Try this: using chain.cases by blast (16 ms)
+0.sledgehammer goal.using     24766ms Ordered_Resolution_Prover.Lazy_List_Chain 210:7005  some (SH 24766ms, ATP 1284ms): Try this: by (metis chain.cases chain_not_lnull converse_rtranclp_into_rtranclp ih lhd_LCons llast_LCons ltl_simps(2) r_x_xs xs_nnil) (512 ms)
+0.sledgehammer goal.by        20272ms Ordered_Resolution_Prover.Lazy_List_Chain 211:7044  some (SH 20271ms, ATP 615ms): Try this: by (metis chain.cases chain_not_lnull converse_rtranclp_into_rtranclp lhd_LCons llast_LCons ltl_simps(2)) (554 ms)
+0.sledgehammer goal.proof     33300ms Ordered_Resolution_Prover.Lazy_List_Chain 218:7280  timeout (SH 33300ms): Timed out
+0.sledgehammer goal.by        47225ms Ordered_Resolution_Prover.Lazy_List_Chain 221:7395  some (SH 47224ms, ATP 761ms): Try this: by (simp add: chain.intros(1,2)) (1 ms)
+0.sledgehammer goal.by         3978ms Ordered_Resolution_Prover.Lazy_List_Chain 223:7447  some (SH 3978ms, ATP 482ms): Try this: by blast (0.4 ms)
+0.sledgehammer goal.using      4878ms Ordered_Resolution_Prover.Lazy_List_Chain 230:7624  some (SH 4878ms, ATP 414ms): Try this: using ih by force (2 ms)
+0.sledgehammer goal.by         3246ms Ordered_Resolution_Prover.Lazy_List_Chain 230:7633  some (SH 3246ms, ATP 406ms): Try this: by blast (3 ms)
+0.sledgehammer goal.unfolding 34543ms Ordered_Resolution_Prover.Lazy_List_Chain 235:7728  timeout (SH 34542ms): Timed out
+0.sledgehammer goal.using     34275ms Ordered_Resolution_Prover.Lazy_List_Chain 235:7745  timeout (SH 34275ms): Timed out
+0.sledgehammer goal.by        16564ms Ordered_Resolution_Prover.Lazy_List_Chain 236:7803  some (SH 16564ms, ATP 1552ms): Try this: by (metis append_Cons lappend_llist_of_llist_of lhd_LCons llast_llist_of llist_of.simps(1,2) snoc_eq_iff_butlast) (196 ms)
+0.sledgehammer goal.by         3938ms Ordered_Resolution_Prover.Lazy_List_Chain 238:7876  some (SH 3938ms, ATP 502ms): Try this: by blast (3 ms)
+0.sledgehammer goal.by        34313ms Ordered_Resolution_Prover.Lazy_List_Chain 252:8216  some (SH 34313ms, ATP 167ms): Try this: by (metis list.exhaust llist.disc(2) prepend.simps(1,2)) (22 ms)
+0.sledgehammer goal.by        13883ms Ordered_Resolution_Prover.Lazy_List_Chain 255:8324  some (SH 13883ms, ATP 572ms): Try this: by (metis list.collapse llist.sel(1) prepend.simps(1,2)) (45 ms)
+0.sledgehammer goal.by        33908ms Ordered_Resolution_Prover.Lazy_List_Chain 258:8405  timeout (SH 33908ms): Timed out
+0.sledgehammer goal.by        33561ms Ordered_Resolution_Prover.Lazy_List_Chain 261:8496  timeout (SH 33561ms): Timed out
+0.sledgehammer goal.by        30663ms Ordered_Resolution_Prover.Lazy_List_Chain 264:8599  timeout (SH 30663ms): Timed out
+0.sledgehammer goal.by        34017ms Ordered_Resolution_Prover.Lazy_List_Chain 267:8742  timeout (SH 34017ms): Timed out
+0.sledgehammer goal.by        33392ms Ordered_Resolution_Prover.Lazy_List_Chain 270:8860  timeout (SH 33392ms): Timed out
+0.sledgehammer goal.by        34140ms Ordered_Resolution_Prover.Lazy_List_Chain 274:8994  timeout (SH 34140ms): Timed out
+0.sledgehammer goal.by        33944ms Ordered_Resolution_Prover.Lazy_List_Chain 278:9199  timeout (SH 33944ms): Timed out
+0.sledgehammer goal.by        33644ms Ordered_Resolution_Prover.Lazy_List_Chain 281:9290  timeout (SH 33643ms): Timed out
+0.sledgehammer goal.by         8431ms Ordered_Resolution_Prover.Lazy_List_Chain 284:9384  some (SH 8431ms, ATP 1086ms): Try this: by (metis prepend.simps(1,2) prepend_prepend) (51 ms)
+0.sledgehammer goal.by        33279ms Ordered_Resolution_Prover.Lazy_List_Chain 288:9518  timeout (SH 33279ms): Timed out
+0.sledgehammer goal.using     35895ms Ordered_Resolution_Prover.Lazy_List_Chain 294:9762  timeout (SH 35895ms): Timed out
+0.sledgehammer goal.proof     29756ms Ordered_Resolution_Prover.Lazy_List_Chain 294:9772  timeout (SH 29756ms): Timed out
+0.sledgehammer goal.using     30114ms Ordered_Resolution_Prover.Lazy_List_Chain 297:9877  some (SH 30114ms, ATP 3993ms): Try this: by (metis less.hyps less.prems less_enatE lfinite_conv_llength_enat local.step the_enat.simps) (46 ms)
+0.sledgehammer goal.by        28010ms Ordered_Resolution_Prover.Lazy_List_Chain 297:9891  some (SH 28010ms, ATP 3781ms): Try this: by (metis (no_types, lifting) enat_ord_code(4) length_list_of less.hyps less_enatE local.step not_less_iff_gr_or_eq not_lfinite_llength the_enat.simps) (532 ms)
+0.sledgehammer goal.using     35710ms Ordered_Resolution_Prover.Lazy_List_Chain 306:10256  timeout (SH 35710ms): Timed out
+0.sledgehammer goal.proof     34243ms Ordered_Resolution_Prover.Lazy_List_Chain 306:10271  timeout (SH 34243ms): Timed out
+0.sledgehammer goal.by        34807ms Ordered_Resolution_Prover.Lazy_List_Chain 309:10362  timeout (SH 34807ms): Timed out
+0.sledgehammer goal.proof     36150ms Ordered_Resolution_Prover.Lazy_List_Chain 324:10844  timeout (SH 36150ms): Timed out
+0.sledgehammer goal.using     34808ms Ordered_Resolution_Prover.Lazy_List_Chain 326:10897  timeout (SH 34808ms): Timed out
+0.sledgehammer goal.by        34131ms Ordered_Resolution_Prover.Lazy_List_Chain 327:10913  timeout (SH 34130ms): Timed out
+0.sledgehammer goal.using     34406ms Ordered_Resolution_Prover.Lazy_List_Chain 331:11087  timeout (SH 34406ms): Timed out
+0.sledgehammer goal.proof     33509ms Ordered_Resolution_Prover.Lazy_List_Chain 332:11101  timeout (SH 33508ms): Timed out
+0.sledgehammer goal.by        111743ms Ordered_Resolution_Prover.Lazy_List_Chain 335:11231  some (SH 111742ms, ATP 2047ms): Try this: by (metis emb.cases[of xs ys] enat_le_plus_same(2)[of "llength (LCons _ _)" "enat (size _)"] enat_le_plus_same(2)[of "llength _" "enat (length (_ @ [_]))"] iless_Suc_eq[of "length (list_of (LCons undefined ys))" "llength ys"] length_list_of[of "LCons undefined ys"] less.IH lfinite.simps[of LNil] lfinite.simps[of "LCons _ _"] lfinite.simps[of "LCons undefined ys"] llength_LCons llength_prepend[of _ "LCons _ _"] llength_prepend[of "_ @ [_]"] order_less_le[of "eSuc (llength ys)" "eSuc (llength ys)"] order_less_le[of "llength _" "llength ys"] prepend_LCons) (1.6 s)
+0.sledgehammer goal.by        33696ms Ordered_Resolution_Prover.Lazy_List_Chain 346:11624  timeout (SH 33696ms): Timed out
+0.sledgehammer goal.proof     33805ms Ordered_Resolution_Prover.Lazy_List_Chain 355:12074  timeout (SH 33804ms): Timed out
+0.sledgehammer goal.by        36530ms Ordered_Resolution_Prover.Lazy_List_Chain 359:12202  some (SH 36530ms, ATP 855ms): Try this: by (metis (lifting) assms lfinite_prepend prepend_cong1_alt prepend_prepend) (3.7 s)
+0.sledgehammer goal.by        35272ms Ordered_Resolution_Prover.Lazy_List_Chain 363:12350  some (SH 35271ms, ATP 639ms): Try this: by (metis emb.simps lfinite_prepend prepend_prepend) (3.4 s)
+0.sledgehammer goal.by        11212ms Ordered_Resolution_Prover.Lazy_List_Chain 367:12537  some (SH 11212ms, ATP 474ms): Try this: by (metis emb_prepend prepend_cong1.simps prepend_cong1_alt) (134 ms)
+0.sledgehammer goal.unfolding 15588ms Ordered_Resolution_Prover.Lazy_List_Chain 372:12743  some (SH 15588ms, ATP 1329ms): Try this: by (metis prepend_cong1_alt sup1CI sup1E) (404 ms)
+0.sledgehammer goal.by         5504ms Ordered_Resolution_Prover.Lazy_List_Chain 372:12771  some (SH 5504ms, ATP 505ms): Try this: by blast (3 ms)
+0.sledgehammer goal.using     34568ms Ordered_Resolution_Prover.Lazy_List_Chain 380:13050  some (SH 34568ms, ATP 1487ms): Try this: by (metis (no_types, lifting) assms(1,2) emb_prepend_coinduct_cong prepend_cong1_emb prepend_cong_distrib) (2.6 s)
+0.sledgehammer goal.unfolding 27574ms Ordered_Resolution_Prover.Lazy_List_Chain 380:13062  some (SH 27574ms, ATP 1934ms): Try this: by (metis (no_types, lifting) emb_prepend_coinduct_cong prepend_cong1_emb prepend_cong_distrib) (3.4 s)
+0.sledgehammer goal.by         5547ms Ordered_Resolution_Prover.Lazy_List_Chain 381:13113  some (SH 5547ms, ATP 532ms): Try this: using emb_prepend_coinduct_cong by blast (36 ms)
+0.sledgehammer goal.by        56360ms Ordered_Resolution_Prover.Lazy_List_Chain 389:13429  some (SH 56360ms, ATP 2025ms): Try this: by (smt (cvc5) assms emb_prepend_coinduct_aux prepend_cong1_base prepend_cong1_prepend prepend_cong_distrib)
+0.sledgehammer goal.proof     33775ms Ordered_Resolution_Prover.Lazy_List_Chain 401:13756  timeout (SH 33775ms): Timed out
+0.sledgehammer goal.proof     69774ms Ordered_Resolution_Prover.Lazy_List_Chain 404:13846  some (SH 69774ms, ATP 1110ms): Try this: by (metis append_self_conv2 chain.cases chain.chain_singleton chain_cons lhd_LCons llist_of.simps(1,2) prepend.simps(1)) (123 ms)
+0.sledgehammer goal.by        42517ms Ordered_Resolution_Prover.Lazy_List_Chain 407:13933  some (SH 42517ms, ATP 5252ms): Try this: by (metis (lifting) ext append.right_neutral chain.chain_cons chain.chain_singleton lfinite_LNil lhd_LCons list_of_LNil list_of_aux_def list_of_code llist_of.simps(1,2) prepend.simps(1) rev.simps(2) rev_singleton_conv) (1.2 s)
+0.sledgehammer goal.proof     33802ms Ordered_Resolution_Prover.Lazy_List_Chain 413:14103  timeout (SH 33802ms): Timed out
+0.sledgehammer goal.proof     33799ms Ordered_Resolution_Prover.Lazy_List_Chain 416:14191  timeout (SH 33799ms): Timed out
+0.sledgehammer goal.by        34182ms Ordered_Resolution_Prover.Lazy_List_Chain 419:14273  timeout (SH 34182ms): Timed out
+0.sledgehammer goal.unfolding 33714ms Ordered_Resolution_Prover.Lazy_List_Chain 426:14504  timeout (SH 33714ms): Timed out
+0.sledgehammer goal.by         3777ms Ordered_Resolution_Prover.Lazy_List_Chain 426:14525  some (SH 3777ms, ATP 425ms): Try this: using chain'_imp_chain chain_imp_chain' by blast (9 ms)
+0.sledgehammer goal.by        59039ms Ordered_Resolution_Prover.Lazy_List_Chain 433:14797  some (SH 59039ms, ATP 813ms): Try this: by (smt (z3) chain'.coinduct chain_chain') (2.6 s)
+0.sledgehammer goal.unfolding 33702ms Ordered_Resolution_Prover.Lazy_List_Chain 447:15113  timeout (SH 33701ms): Timed out
+0.sledgehammer goal.using     32797ms Ordered_Resolution_Prover.Lazy_List_Chain 447:15132  some (SH 32797ms, ATP 129ms): Try this: by (meson assms someI_ex tranclp_imp_exists_finite_chain_list) (5 ms)
+0.sledgehammer goal.by         4064ms Ordered_Resolution_Prover.Lazy_List_Chain 447:15200  some (SH 4064ms, ATP 505ms): Try this: by fastforce (0.4 ms)
+0.sledgehammer goal.by        63505ms Ordered_Resolution_Prover.Lazy_List_Chain 452:15379  some (SH 63505ms, ATP 1659ms): Try this: apply (metis list.case_eq_if list.collapse llist.case_eq_if llist.collapse(2) lnull_def prepend.simps(1,2)) (602 ms)
+0.sledgehammer goal.by         9438ms Ordered_Resolution_Prover.Lazy_List_Chain 463:15794  some (SH 9438ms, ATP 469ms): Try this: apply (simp add: wit.code) (0.8 ms)
+0.sledgehammer goal.by        73989ms Ordered_Resolution_Prover.Lazy_List_Chain 466:15883  some (SH 73989ms, ATP 1883ms): Try this: by (metis (lifting) enat_defs(1) i0_less ldropn_LNil ldropn_eq_LConsD llength_LNil llist.case_eq_if lnull_def wit.code) (212 ms)
+0.sledgehammer goal.by        165480ms Ordered_Resolution_Prover.Lazy_List_Chain 469:16017  timeout (SH 165480ms):
+0.sledgehammer goal.by         6328ms Ordered_Resolution_Prover.Lazy_List_Chain 472:16156  some (SH 6328ms, ATP 437ms): Try this: by (metis lnull_def) (23 ms)
+0.sledgehammer goal.proof     33818ms Ordered_Resolution_Prover.Lazy_List_Chain 475:16232  timeout (SH 33818ms): Timed out
+0.sledgehammer goal.proof     69795ms Ordered_Resolution_Prover.Lazy_List_Chain 478:16329  some (SH 69795ms, ATP 3738ms): Try this: by (smt (cvc5) chain.cases chain_length_pos chain_not_lnull emb.intros(1) enat_defs(1) ldropn_0 ldropn_Suc_conv_ldropn lfinite.intros(1) lhd_conv_lnth llist.case_eq_if ltl_simps(2) prepend.simps(1) wit.code wit_lsingleton)
+0.sledgehammer goal.by        34996ms Ordered_Resolution_Prover.Lazy_List_Chain 481:16416  some (SH 34996ms, ATP 2379ms): Try this: by (metis chain_length_pos enat_defs(1) ldropn_0 ldropn_Suc_conv_ldropn prepend.simps(1) wit_LCons2) (63 ms)
+0.sledgehammer goal.using     11425ms Ordered_Resolution_Prover.Lazy_List_Chain 490:16735  some (SH 11425ms, ATP 671ms): Try this: by (simp add: assms emb_lfinite) (4 ms)
+0.sledgehammer goal.by         3875ms Ordered_Resolution_Prover.Lazy_List_Chain 490:16767  some (SH 3875ms, ATP 500ms): Try this: by blast (5 ms)
+0.sledgehammer goal.proof     34782ms Ordered_Resolution_Prover.Lazy_List_Chain 495:16871  timeout (SH 34782ms): Timed out
+0.sledgehammer goal.proof     33335ms Ordered_Resolution_Prover.Lazy_List_Chain 498:16943  timeout (SH 33334ms): Timed out
+0.sledgehammer goal.by        182533ms Ordered_Resolution_Prover.Lazy_List_Chain 501:17036  some (SH 182533ms, ATP 4407ms): Try this: by (smt (z3) chain_consE chain_not_lnull lhd_LCons_ltl llast_LCons llast_prepend lnull_prepend lnull_wit wit_LCons2 wit_lsingleton) (313 ms)
+0.sledgehammer goal.proof     34020ms Ordered_Resolution_Prover.Lazy_List_Chain 508:17288  timeout (SH 34020ms): Timed out
+0.sledgehammer goal.by        48146ms Ordered_Resolution_Prover.Lazy_List_Chain 511:17418  some (SH 48146ms, ATP 1260ms): Try this: by (metis (no_types, lifting) ext chain.cases chain_not_lnull lhd_LCons_ltl lhd_wit pick wit_LCons2 wit_lsingleton) (714 ms)
+0.sledgehammer goal.by        33705ms Ordered_Resolution_Prover.Lazy_List_Chain 515:17584  timeout (SH 33705ms): Timed out
+0.sledgehammer goal.using      7962ms Ordered_Resolution_Prover.Lazy_List_Chain 520:17770  some (SH 7961ms, ATP 597ms): Try this: by (meson assms emb_lset_mono) (14 ms)
+0.sledgehammer goal.by         4276ms Ordered_Resolution_Prover.Lazy_List_Chain 520:17800  some (SH 4276ms, ATP 534ms): Try this: by blast (2 ms)
+0.sledgehammer goal.by         4340ms Ordered_Resolution_Prover.Lazy_List_Chain 523:17887  some (SH 4340ms, ATP 451ms): Try this: using emb_lfinite by blast (1 ms)
+0.sledgehammer goal.using     29632ms Ordered_Resolution_Prover.Lazy_List_Chain 529:18180  timeout (SH 29632ms): Timed out
+0.sledgehammer goal.proof     29158ms Ordered_Resolution_Prover.Lazy_List_Chain 529:18192  timeout (SH 29158ms): Timed out
+0.sledgehammer goal.proof     34234ms Ordered_Resolution_Prover.Lazy_List_Chain 532:18280  timeout (SH 34234ms): Timed out
+0.sledgehammer goal.using     34554ms Ordered_Resolution_Prover.Lazy_List_Chain 535:18335  timeout (SH 34554ms): Timed out
+0.sledgehammer goal.unfolding 33716ms Ordered_Resolution_Prover.Lazy_List_Chain 536:18396  timeout (SH 33716ms): Timed out
+0.sledgehammer goal.by         4422ms Ordered_Resolution_Prover.Lazy_List_Chain 538:18545  some (SH 4422ms, ATP 485ms): Try this: by blast (3 ms)
+0.sledgehammer goal.by         9670ms Ordered_Resolution_Prover.Lazy_List_Chain 543:18716  some (SH 9670ms, ATP 532ms): Try this: by (meson emb.cases less.prems(3)) (320 ms)
+0.sledgehammer goal.using     32610ms Ordered_Resolution_Prover.Lazy_List_Chain 545:18822  some (SH 32610ms, ATP 489ms): Try this: using \<open>emb xs bs\<close> less.hyps less.prems(2,3) that(1,2) by auto (46 ms)
+0.sledgehammer goal.by         8876ms Ordered_Resolution_Prover.Lazy_List_Chain 545:18869  some (SH 8876ms, ATP 505ms): Try this: by (metis \<open>Xs = LCons b xs\<close> \<open>emb xs bs\<close> emb_lfinite lfinite_code(2)) (48 ms)
+0.sledgehammer goal.by        33637ms Ordered_Resolution_Prover.Lazy_List_Chain 547:18943  timeout (SH 33637ms): Timed out
+0.sledgehammer goal.by        39336ms Ordered_Resolution_Prover.Lazy_List_Chain 550:19074  some (SH 39336ms, ATP 857ms): Try this: by (metis (no_types, lifting) ext Suc Suc_le_D \<open>Xs = LCons b xs\<close> diff_commute diff_diff_add diff_is_0_eq lnth_Suc_LCons plus_1_eq_Suc zero_diff) (140 ms)
+0.sledgehammer goal.proof     34438ms Ordered_Resolution_Prover.Lazy_List_Chain 557:19231  timeout (SH 34438ms): Timed out
+0.sledgehammer goal.using      3756ms Ordered_Resolution_Prover.Lazy_List_Chain 559:19276  some (SH 3756ms, ATP 470ms): Try this: using emb_lfinite by blast (2 ms)
+0.sledgehammer goal.by         3627ms Ordered_Resolution_Prover.Lazy_List_Chain 559:19303  some (SH 3627ms, ATP 438ms): Try this: by blast (2 ms)
+0.sledgehammer goal.unfolding 34549ms Ordered_Resolution_Prover.Lazy_List_Chain 561:19342  timeout (SH 34549ms): Timed out
+0.sledgehammer goal.by        34448ms Ordered_Resolution_Prover.Lazy_List_Chain 561:19369  timeout (SH 34448ms): Timed out
+0.sledgehammer goal.proof     33988ms Ordered_Resolution_Prover.Lazy_List_Chain 565:19500  timeout (SH 33988ms): Timed out
+0.sledgehammer goal.proof     128001ms Ordered_Resolution_Prover.Lazy_List_Chain 568:19582  some (SH 128001ms, ATP 3446ms): Try this: by (smt (cvc5, trigger_relev) emb emb.cases lfinite_lmap llist.simps(13) lmap_eq_LNil lmap_prepend) (2.0 s)
+0.sledgehammer goal.using      9544ms Ordered_Resolution_Prover.Lazy_List_Chain 574:19738  some (SH 9543ms, ATP 538ms): Try this: by (metis emb emb_LConsE xs) (84 ms)
+0.sledgehammer goal.by         5517ms Ordered_Resolution_Prover.Lazy_List_Chain 574:19776  some (SH 5517ms, ATP 527ms): Try this: by metis (36 ms)
+0.sledgehammer goal.unfolding  5325ms Ordered_Resolution_Prover.Lazy_List_Chain 582:19934  some (SH 5325ms, ATP 497ms): Try this: by (simp add: xs) (2 ms)
+0.sledgehammer goal.by         3792ms Ordered_Resolution_Prover.Lazy_List_Chain 582:19947  some (SH 3792ms, ATP 507ms): Try this: by auto (3 ms)
+0.sledgehammer goal.unfolding  9358ms Ordered_Resolution_Prover.Lazy_List_Chain 584:20022  some (SH 9358ms, ATP 677ms): Try this: using ys by fastforce (3 ms)
+0.sledgehammer goal.by         6765ms Ordered_Resolution_Prover.Lazy_List_Chain 584:20035  some (SH 6765ms, ATP 782ms): Try this: by force (2 ms)
+0.sledgehammer goal.using      4341ms Ordered_Resolution_Prover.Lazy_List_Chain 586:20131  some (SH 4340ms, ATP 483ms): Try this: using emb' by blast (0.6 ms)
+0.sledgehammer goal.by         3650ms Ordered_Resolution_Prover.Lazy_List_Chain 586:20142  some (SH 3650ms, ATP 476ms): Try this: by blast (0.5 ms)
+0.sledgehammer goal.by         4833ms Ordered_Resolution_Prover.Lazy_List_Chain 588:20185  some (SH 4833ms, ATP 553ms): Try this: by blast (13 ms)
+0.sledgehammer goal.using     19783ms Ordered_Resolution_Prover.Lazy_List_Chain 597:20390  some (SH 19783ms, ATP 612ms): Try this: by (simp add: assms lnth_rel_chain) (1 ms)
+0.sledgehammer goal.by        18976ms Ordered_Resolution_Prover.Lazy_List_Chain 597:20402  some (SH 18976ms, ATP 532ms): Try this: by (simp add: lnth_rel_chain) (1 ms)
+0.sledgehammer goal.using     61739ms Ordered_Resolution_Prover.Lazy_List_Chain 601:20559  some (SH 61738ms, ATP 930ms): Try this: by (metis chain_inf_llist_if_infinite_chain_function conversepD infinite_chain_lnth_rel) (19 ms)
+0.sledgehammer goal.by        55620ms Ordered_Resolution_Prover.Lazy_List_Chain 601:20632  some (SH 55619ms, ATP 311ms): Try this: by (metis conversep_iff) (18 ms)
+0.sledgehammer goal.proof     32978ms Ordered_Resolution_Prover.Lazy_List_Chain 604:20728  timeout (SH 32978ms): Timed out
+0.sledgehammer goal.unfolding  3641ms Ordered_Resolution_Prover.Lazy_List_Chain 606:20777  some (SH 3640ms, ATP 416ms): Try this: by (simp add: wfp_def) (1 ms)
+0.sledgehammer goal.by         3468ms Ordered_Resolution_Prover.Lazy_List_Chain 606:20795  some (SH 3468ms, ATP 363ms): Try this: by blast (0.4 ms)
+0.sledgehammer goal.using      6215ms Ordered_Resolution_Prover.Lazy_List_Chain 608:20870  some (SH 6214ms, ATP 505ms): Try this: by (simp add: wf_iff_no_infinite_down_chain) (8 ms)
+0.sledgehammer goal.by         5066ms Ordered_Resolution_Prover.Lazy_List_Chain 608:20906  some (SH 5066ms, ATP 517ms): Try this: by blast (11 ms)
+0.sledgehammer goal.by        34664ms Ordered_Resolution_Prover.Lazy_List_Chain 610:20967  timeout (SH 34664ms): Timed out
+0.sledgehammer goal.using     57358ms Ordered_Resolution_Prover.Lazy_List_Chain 612:21028  some (SH 57358ms, ATP 2244ms): Try this: by (metis chain_inf_llist_if_infinite_chain_function conversepD infinite_chain_lnth_rel) (18 ms)
+0.sledgehammer goal.by        24564ms Ordered_Resolution_Prover.Lazy_List_Chain 612:21083  some (SH 24564ms, ATP 1397ms): Try this: by blast (7 ms)
+0.sledgehammer goal.by         3959ms Ordered_Resolution_Prover.Lazy_List_Chain 614:21119  some (SH 3959ms, ATP 335ms): Try this: by meson (0.4 ms)
+0.sledgehammer goal.by         6585ms Ordered_Resolution_Prover.Lazy_List_Chain 627:21519  some (SH 6585ms, ATP 510ms): Try this: using full_chain.cases apply blast (14 ms)
+0.sledgehammer goal.using     33913ms Ordered_Resolution_Prover.Lazy_List_Chain 632:21677  timeout (SH 33912ms): Timed out
+0.sledgehammer goal.by        33712ms Ordered_Resolution_Prover.Lazy_List_Chain 633:21691  timeout (SH 33711ms): Timed out
+0.sledgehammer goal.proof     33363ms Ordered_Resolution_Prover.Lazy_List_Chain 638:21921  timeout (SH 33363ms): Timed out
+0.sledgehammer goal.using     27515ms Ordered_Resolution_Prover.Lazy_List_Chain 642:22036  some (SH 27515ms, ATP 758ms): Try this: by (smt (z3) chain.coinduct full full_chain.cases) (3.1 s)
+0.sledgehammer goal.by        26885ms Ordered_Resolution_Prover.Lazy_List_Chain 642:22047  some (SH 26885ms, ATP 807ms): Try this: by (smt (z3) chain.coinduct full_chain.cases) (3.3 s)
+0.sledgehammer goal.by        44991ms Ordered_Resolution_Prover.Lazy_List_Chain 649:22211  some (SH 44991ms, ATP 664ms): Try this: by (metis (full_types) chain chain_not_lnull eSuc_enat i0_less ldropn_0 ldropn_Suc_conv_ldropn lfinite_ldropn lfinite_llength_enat llength_LCons llength_eq_0 zero_enat_def) (1.0 s)
+0.sledgehammer goal.by        18289ms Ordered_Resolution_Prover.Lazy_List_Chain 652:22333  some (SH 18289ms, ATP 488ms): Try this: by (metis Suc_n_not_le_n enat_ord_simps(1) full full_chain_ldropn linorder_not_less suc_n) (45 ms)
+0.sledgehammer goal.using     67132ms Ordered_Resolution_Prover.Lazy_List_Chain 654:22464  some (SH 67132ms, ATP 130ms): Try this: by (metis calculation full_chain_LNil ldropn_Suc_conv_ldropn ldropn_eq_LNil linorder_not_less llast_ldropn llast_singleton order_refl suc_n) (51 ms)
+0.sledgehammer goal.by        45067ms Ordered_Resolution_Prover.Lazy_List_Chain 654:22476  some (SH 45067ms, ATP 244ms): Try this: by (metis (lifting) ext calculation eSuc_enat full_chain.cases iless_Suc_eq ldropn_Suc_conv_ldropn ldropn_eq_LConsD linorder_not_less llast_LCons llast_ldropn llist.sel(3) lnull_def) (1.9 s)
+0.sledgehammer goal.by        17386ms Ordered_Resolution_Prover.Lazy_List_Chain 657:22679  some (SH 17386ms, ATP 1021ms): Try this: using full_chain.cases by fastforce (108 ms)
+0.sledgehammer goal.by        35044ms Ordered_Resolution_Prover.Lazy_List_Chain 664:22827  timeout (SH 35044ms): Timed out
+0.sledgehammer goal.using      4044ms Ordered_Resolution_Prover.Lazy_List_Chain 668:22984  some (SH 4044ms, ATP 477ms): Try this: using full_chain_iff_chain by blast (3 ms)
+0.sledgehammer goal.by         4212ms Ordered_Resolution_Prover.Lazy_List_Chain 668:23011  some (SH 4212ms, ATP 568ms): Try this: by blast (1 ms)
+0.sledgehammer goal.by        10500ms Ordered_Resolution_Prover.Lazy_List_Chain 671:23087  some (SH 10500ms, ATP 480ms): Try this: by (simp add: full_chain_not_lnull) (0.9 ms)
+0.sledgehammer goal.by         5378ms Ordered_Resolution_Prover.Lazy_List_Chain 675:23251  some (SH 5378ms, ATP 629ms): Try this: using chain_lnth_rel full_chain_imp_chain by blast (6 ms)
+0.sledgehammer goal.proof     22462ms Ordered_Resolution_Prover.Lazy_List_Chain 682:23439  some (SH 22462ms, ATP 1854ms): Try this: by (metis eSuc_enat full full_chain_iff_chain llast_conv_lnth llength_eq_enat_lfiniteD sj) (61 ms)
+0.sledgehammer goal.by         4194ms Ordered_Resolution_Prover.Lazy_List_Chain 684:23471  some (SH 4194ms, ATP 379ms): Try this: by (metis llength_eq_enat_lfiniteD sj) (21 ms)
+0.sledgehammer goal.using      4280ms Ordered_Resolution_Prover.Lazy_List_Chain 686:23541  some (SH 4280ms, ATP 496ms): Try this: by (meson full full_chain_iff_chain) (19 ms)
+0.sledgehammer goal.by         3845ms Ordered_Resolution_Prover.Lazy_List_Chain 686:23573  some (SH 3845ms, ATP 608ms): Try this: by metis (27 ms)
+0.sledgehammer goal.by         6370ms Ordered_Resolution_Prover.Lazy_List_Chain 688:23601  some (SH 6370ms, ATP 524ms): Try this: by (metis eSuc_enat llast_conv_lnth sj) (37 ms)
+0.sledgehammer goal.proof     34964ms Ordered_Resolution_Prover.Lazy_List_Chain 697:23953  some (SH 34964ms, ATP 1173ms): Try this: by (metis chain_tranclp_imp_exists_chain emb_lfinite full full_chain_iff_chain tranclp.r_into_trancl) (128 ms)
+0.sledgehammer goal.using      6362ms Ordered_Resolution_Prover.Lazy_List_Chain 700:24056  some (SH 6362ms, ATP 588ms): Try this: using chain_tranclp_imp_exists_chain full full_chain_imp_chain by blast (14 ms)
+0.sledgehammer goal.by         4314ms Ordered_Resolution_Prover.Lazy_List_Chain 700:24123  some (SH 4314ms, ATP 529ms): Try this: by blast (4 ms)
+0.sledgehammer goal.using     12607ms Ordered_Resolution_Prover.Lazy_List_Chain 702:24161  some (SH 12607ms, ATP 886ms): Try this: by (metis emb_lfinite full full_chain_iff_chain tranclp.r_into_trancl ys(1,2,4)) (80 ms)
+0.sledgehammer goal.unfolding  9301ms Ordered_Resolution_Prover.Lazy_List_Chain 702:24202  some (SH 9300ms, ATP 1175ms): Try this: by (metis full_chain_iff_chain tranclp.r_into_trancl) (68 ms)
+0.sledgehammer goal.by         9865ms Ordered_Resolution_Prover.Lazy_List_Chain 702:24233  some (SH 9864ms, ATP 747ms): Try this: by auto (4 ms)
+0.sledgehammer goal.using      4327ms Ordered_Resolution_Prover.Lazy_List_Chain 704:24265  some (SH 4327ms, ATP 451ms): Try this: using ys(2,3,4) by blast (0.5 ms)
+0.sledgehammer goal.by         3428ms Ordered_Resolution_Prover.Lazy_List_Chain 704:24279  some (SH 3428ms, ATP 460ms): Try this: by blast (2 ms)
+0.sledgehammer finalize   Total number of sledgehammer calls: 217
+0.sledgehammer finalize   Number of successful sledgehammer calls: 154
+0.sledgehammer finalize   Number of sledgehammer lemmas: 842
+0.sledgehammer finalize   Max number of sledgehammer lemmas: 16
+0.sledgehammer finalize   Success rate: 71.0%
+0.sledgehammer finalize   Total number of nontrivial sledgehammer calls: 217
+0.sledgehammer finalize   Number of successful nontrivial sledgehammer calls: 154
+0.sledgehammer finalize   Total time for sledgehammer calls (Isabelle): 6165.215
+0.sledgehammer finalize   Total time for successful sledgehammer calls (ATP): 148.434
+0.sledgehammer finalize   Average time for sledgehammer calls (Isabelle): 28.411
+0.sledgehammer finalize   Average time for successful sledgehammer calls (ATP): 0.964

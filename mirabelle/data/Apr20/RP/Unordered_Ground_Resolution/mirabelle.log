@@ -1,0 +1,92 @@
+0.sledgehammer initialize Params for sledgehammer: {abduce = SOME 0, cache_dir = NONE, compress = NONE, debug = false, expect =
+0.sledgehammer initialize  "", fact_filter = NONE, fact_thresholds = (0.45, 0.85), falsify =
+0.sledgehammer initialize  SOME false, induction_rules = NONE, instantiate = NONE, isar_proofs = NONE,
+0.sledgehammer initialize  lam_trans = NONE, learn = true, max_facts = NONE, max_mono_iters = NONE,
+0.sledgehammer initialize  max_new_mono_instances = NONE, max_proofs = 4, minimize = true, overlord =
+0.sledgehammer initialize  false, preplay_provers = [], preplay_timeout = 1.000, provers =
+0.sledgehammer initialize  ["cvc5_proof"], slices = 96, smt_proofs = true, spy = false, strict =
+0.sledgehammer initialize  false, timeout = 30.000, try0 = true, type_enc = NONE, uncurried_aliases =
+0.sledgehammer initialize  NONE, verbose = false}
+0.sledgehammer goal.by        35149ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 31:901  timeout (SH 35149ms): Timed out
+0.sledgehammer goal.using     17464ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 37:1161  some (SH 17464ms, ATP 780ms): Try this: using ground_resolution_without_selection.unord_resolve.cases by blast (20 ms)
+0.sledgehammer goal.by        20390ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 37:1187  some (SH 20390ms, ATP 1096ms): Try this: by blast (20 ms)
+0.sledgehammer goal.proof     34659ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 57:1709  timeout (SH 34659ms): Timed out
+0.sledgehammer goal.using      3166ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 59:1744  some (SH 3165ms, ATP 373ms): Try this: using c_in_n ec_ni_n by blast (1 ms)
+0.sledgehammer goal.by         3184ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 59:1765  some (SH 3184ms, ATP 359ms): Try this: by blast (1 ms)
+0.sledgehammer goal.using      4101ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 61:1827  some (SH 4101ms, ATP 503ms): Try this: using Max_in c_ne by blast (1 ms)
+0.sledgehammer goal.by         3533ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 61:1838  some (SH 3533ms, ATP 470ms): Try this: using Max_in by blast (1 ms)
+0.sledgehammer goal.using     35276ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 63:1938  some (SH 35276ms, ATP 977ms): Try this: by (meson Interp_imp_INTERP assms(3,4) atm_imp_pos_or_neg_lit c_in_n max_atm_imp_Interp) (12 ms)
+0.sledgehammer goal.by         6102ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 64:2054  some (SH 6102ms, ATP 473ms): Try this: by metis (95 ms)
+0.sledgehammer goal.by         3395ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 66:2114  some (SH 3395ms, ATP 346ms): Try this: by blast (0.6 ms)
+0.sledgehammer goal.using      6718ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 68:2179  some (SH 6718ms, ATP 431ms): Try this: by (meson mset_add) (21 ms)
+0.sledgehammer goal.by         5402ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 68:2198  some (SH 5402ms, ATP 444ms): Try this: by metis (32 ms)
+0.sledgehammer goal.using      9396ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 70:2233  some (SH 9396ms, ATP 388ms): Try this: using c_cex neg_a_in_c by blast (0.4 ms)
+0.sledgehammer goal.by         3832ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 70:2279  some (SH 3832ms, ATP 386ms): Try this: by blast (1 ms)
+0.sledgehammer goal.unfolding 23079ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 72:2334  some (SH 23079ms, ATP 578ms): Try this: by (metis (mono_tags, lifting) INTERP_def UN_iff in_production_imp_produces) (325 ms)
+0.sledgehammer goal.by        16130ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 72:2355  some (SH 16130ms, ATP 118ms): Try this: using in_production_imp_produces by fastforce (71 ms)
+0.sledgehammer goal.unfolding  4631ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 74:2441  some (SH 4631ms, ATP 426ms): Try this: by (simp add: d0) (0.5 ms)
+0.sledgehammer goal.by         3139ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 74:2454  some (SH 3139ms, ATP 360ms): Try this: by auto (0.6 ms)
+0.sledgehammer goal.using      3651ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 76:2494  some (SH 3651ms, ATP 396ms): Try this: by (simp add: productive_in_N) (3 ms)
+0.sledgehammer goal.by         3246ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 76:2516  some (SH 3246ms, ATP 406ms): Try this: by blast (2 ms)
+0.sledgehammer goal.using      3729ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 78:2558  some (SH 3729ms, ATP 378ms): Try this: by (simp add: prod_d productive_imp_INTERP) (1 ms)
+0.sledgehammer goal.by         3365ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 78:2593  some (SH 3365ms, ATP 380ms): Try this: by blast (5 ms)
+0.sledgehammer goal.using      6114ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 84:2734  some (SH 6114ms, ATP 533ms): Try this: by auto (20 ms)
+0.sledgehammer goal.by         5528ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 84:2773  some (SH 5528ms, ATP 531ms): Try this: by auto (33 ms)
+0.sledgehammer goal.unfolding  7502ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 86:2829  some (SH 7502ms, ATP 481ms): Try this: by (simp add: d) (0.5 ms)
+0.sledgehammer goal.by         6061ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 86:2842  some (SH 6061ms, ATP 466ms): Try this: by simp (1 ms)
+0.sledgehammer goal.using      8452ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 88:2876  some (SH 8452ms, ATP 409ms): Try this: using d0 produces_imp_neg_notin_lits by blast (1 ms)
+0.sledgehammer goal.by         3399ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 88:2885  some (SH 3399ms, ATP 378ms): Try this: by (simp add: produces_imp_neg_notin_lits) (5 ms)
+0.sledgehammer goal.using      5710ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 90:2975  some (SH 5709ms, ATP 399ms): Try this: by (simp add: d) (1 ms)
+0.sledgehammer goal.by         4202ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 90:2989  some (SH 4202ms, ATP 392ms): Try this: by blast (1 ms)
+0.sledgehammer goal.using     82578ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 92:3034  some (SH 82578ms, ATP 4704ms): Try this: by (smt (cvc5) Max.boundedE Max.boundedE Max_eq_iff Max_eq_iff Max_in_lits Max_lit_eq_pos_or_neg_Max_atm atms_of_empty atms_of_empty d d' d0 finite_atms_of ground_resolution_with_selection.produces_imp_Max_atom ground_resolution_with_selection_axioms insert_absorb mem_Collect_eq multiset.set_finite neg_a_ni_d' pos_le_neg pos_le_neg_iff prod_d set_mset_eq_empty_iff set_mset_filter subset_mset.add_eq_0_iff_both_eq_0)
+0.sledgehammer goal.by        59664ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 92:3055  some (SH 59664ms, ATP 3826ms): Try this: by (metis (mono_tags, lifting) Max_in_lits Max_lit_eq_pos_or_neg_Max_atm \<open>\<And>thesis. (\<And>D' AAA. \<lbrakk>D = D' + AAA; D' = {#L \<in># D. L \<noteq> Pos A#}; AAA = {#L \<in># D. L = Pos A#}\<rbrakk> \<Longrightarrow> thesis) \<Longrightarrow> thesis\<close> atms_of_empty d0 ground_resolution_with_selection.produces_imp_Max_atom ground_resolution_with_selection_axioms insert_absorb le_add_same_cancel1 le_multiset_Max_in_imp_Max less_eq_multiset_empty_right mem_Collect_eq nle_le prod_d set_mset_filter) (2.1 s)
+0.sledgehammer goal.using     34188ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 94:3148  timeout (SH 34188ms): Timed out
+0.sledgehammer goal.by        34333ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 95:3212  timeout (SH 34333ms): Timed out
+0.sledgehammer goal.unfolding  6126ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 97:3329  some (SH 6126ms, ATP 324ms): Try this: by (metis c d ground_resolution_without_selection.unord_resolve.intros) (32 ms)
+0.sledgehammer goal.by         3425ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 97:3343  some (SH 3424ms, ATP 373ms): Try this: by (meson ground_resolution_without_selection.unord_resolve.intros) (11 ms)
+0.sledgehammer goal.unfolding  4818ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 100:3416  some (SH 4818ms, ATP 342ms): Try this: by (simp add: d) (1 ms)
+0.sledgehammer goal.by         4303ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 100:3428  some (SH 4303ms, ATP 389ms): Try this: by auto (0.4 ms)
+0.sledgehammer goal.using      9365ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 102:3478  some (SH 9365ms, ATP 365ms): Try this: using d0 ground_resolution_with_selection.produces_imp_Max_atom ground_resolution_with_selection_axioms by blast (5 ms)
+0.sledgehammer goal.by         3425ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 102:3520  some (SH 3425ms, ATP 373ms): Try this: by blast (2 ms)
+0.sledgehammer goal.using      3900ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 104:3578  some (SH 3900ms, ATP 350ms): Try this: using d'_le_d less_eq_Max_atms_of by blast (3 ms)
+0.sledgehammer goal.by         3384ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 104:3592  some (SH 3384ms, ATP 358ms): Try this: using less_eq_Max_atms_of by blast (7 ms)
+0.sledgehammer goal.using     14299ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 106:3684  some (SH 14299ms, ATP 439ms): Try this: by (simp add: Max_eq_iff a_ni_d') (1 ms)
+0.sledgehammer goal.by         3418ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 106:3705  some (SH 3418ms, ATP 430ms): Try this: by blast (2 ms)
+0.sledgehammer goal.using      9185ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 108:3825  some (SH 9185ms, ATP 336ms): Try this: using order_less_le by blast (2 ms)
+0.sledgehammer goal.by         4187ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 108:3859  some (SH 4187ms, ATP 361ms): Try this: by blast (4 ms)
+0.sledgehammer goal.using      3778ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 111:3899  some (SH 3778ms, ATP 386ms): Try this: by (simp add: prod_d productive_imp_not_interp) (2 ms)
+0.sledgehammer goal.by         3260ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 111:3934  some (SH 3260ms, ATP 388ms): Try this: by blast (1 ms)
+0.sledgehammer goal.unfolding 96376ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 113:3979  some (SH 96376ms, ATP 765ms): Try this: by (smt (z3) Interp_def Un_iff d' d0 insert_iff mem_Collect_eq set_mset_filter sup_bot.right_neutral true_cls_def true_lit_iff) (545 ms)
+0.sledgehammer goal.by        50169ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 113:4019  some (SH 50169ms, ATP 1350ms): Try this: by auto (61 ms)
+0.sledgehammer goal.using      8686ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 115:4104  some (SH 8686ms, ATP 374ms): Try this: using a_max_d d'_le_d ground_resolution_with_selection.not_Interp_imp_not_INTERP ground_resolution_with_selection_axioms max_d'_lt_a by blast (4 ms)
+0.sledgehammer goal.by         4832ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 115:4164  some (SH 4832ms, ATP 504ms): Try this: by blast (4 ms)
+0.sledgehammer goal.using     16976ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 117:4211  some (SH 16976ms, ATP 490ms): Try this: using c c_cex by blast (1 ms)
+0.sledgehammer goal.unfolding  7574ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 117:4223  some (SH 7574ms, ATP 353ms): Try this: using c by blast (0.7 ms)
+0.sledgehammer goal.by         3599ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 117:4235  some (SH 3599ms, ATP 403ms): Try this: by force (0.3 ms)
+0.sledgehammer goal.by         3649ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 119:4295  some (SH 3649ms, ATP 363ms): Try this: by fastforce (0.6 ms)
+0.sledgehammer goal.using     10456ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 122:4344  some (SH 10456ms, ATP 436ms): Try this: using \<open>D' \<noteq> {#} \<Longrightarrow> Max (atms_of D') \<le> A\<close> by force (10 ms)
+0.sledgehammer goal.by        19335ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 122:4430  some (SH 19335ms, ATP 503ms): Try this: by metis (69 ms)
+0.sledgehammer goal.using     12462ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 124:4481  some (SH 12462ms, ATP 519ms): Try this: by (metis a_ni_d' atm_of_lit_in_atms_of atms_less_eq_imp_lit_less_eq_neg literal.sel(2) order_le_imp_less_or_eq) (40 ms)
+0.sledgehammer goal.by         5505ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 124:4546  some (SH 5505ms, ATP 438ms): Try this: by metis (60 ms)
+0.sledgehammer goal.by        60297ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 126:4593  some (SH 60297ms, ATP 1427ms): Try this: using c by force (5 ms)
+0.sledgehammer goal.proof     29778ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 144:5134  timeout (SH 29778ms): Timed out
+0.sledgehammer goal.using     11927ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 153:5470  some (SH 11927ms, ATP 583ms): Try this: by (metis (mono_tags, lifting) unord_resolve_counterex_reducing) (543 ms)
+0.sledgehammer goal.by        11707ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 153:5509  some (SH 11707ms, ATP 582ms): Try this: by (metis (mono_tags, lifting)) (608 ms)
+0.sledgehammer goal.by         8959ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 155:5575  some (SH 8959ms, ATP 444ms): Try this: by auto (2 ms)
+0.sledgehammer goal.unfolding  7826ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 157:5631  some (SH 7826ms, ATP 466ms): Try this: using ground_resolution_without_selection.unord_\<Gamma>_def res_e by auto (2 ms)
+0.sledgehammer goal.using      7962ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 157:5653  some (SH 7961ms, ATP 562ms): Try this: using res_e by blast (0.7 ms)
+0.sledgehammer goal.by         7766ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 157:5665  some (SH 7766ms, ATP 486ms): Try this: by blast (0.8 ms)
+0.sledgehammer goal.using      7372ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 160:5792  some (SH 7372ms, ATP 480ms): Try this: using c_true e_cex e_lt_d by blast (1 ms)
+0.sledgehammer goal.by         4638ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 160:5825  some (SH 4638ms, ATP 504ms): Try this: by blast (2 ms)
+0.sledgehammer goal.by        133681ms Ordered_Resolution_Prover.Unordered_Ground_Resolution 165:5957  some (SH 133681ms, ATP 536ms): Try this: by (smt (z3) ground_resolution_without_selection.unord_\<Gamma>_def inference.sel(1,2,3) mem_Collect_eq true_cls_mset_singleton unord_resolve_sound) (779 ms)
+0.sledgehammer finalize   Total number of sledgehammer calls: 72
+0.sledgehammer finalize   Number of successful sledgehammer calls: 67
+0.sledgehammer finalize   Number of sledgehammer lemmas: 313
+0.sledgehammer finalize   Max number of sledgehammer lemmas: 21
+0.sledgehammer finalize   Success rate: 93.1%
+0.sledgehammer finalize   Total number of nontrivial sledgehammer calls: 72
+0.sledgehammer finalize   Number of successful nontrivial sledgehammer calls: 67
+0.sledgehammer finalize   Total time for sledgehammer calls (Isabelle): 1118.869
+0.sledgehammer finalize   Total time for successful sledgehammer calls (ATP): 39.969
+0.sledgehammer finalize   Average time for sledgehammer calls (Isabelle): 15.540
+0.sledgehammer finalize   Average time for successful sledgehammer calls (ATP): 0.597
