@@ -72,12 +72,13 @@ def main():
             call["nr_of_asserts"] = count_assertions(call.get("problem_path", ""))
             call["proof_size"] = count_lines(call.get("proof_path", ""))
 
-        by_solver = {}
+        by_solver_strategy = {}
         for call in surviving:
-            by_solver.setdefault(call.get("solver"), []).append(call)
+            key = (call.get("solver"), call.get("strategy"))
+            by_solver_strategy.setdefault(key, []).append(call)
 
         kept = []
-        for solver, group in by_solver.items():
+        for group in by_solver_strategy.values():
             best = min(group, key=lambda c: c["nr_of_asserts"])
             for call in group:
                 if call is best:
@@ -95,7 +96,7 @@ def main():
 
     print(
         f"removed {removed_outcome} sat/unknown entries; "
-        f"removed {removed_dedup} duplicate-solver entries; "
+        f"removed {removed_dedup} duplicate solver/strategy entries; "
         f"deleted {stats['deleted']} files; {stats['missing']} already missing."
     )
     print(f"remaining: {remaining_calls} calls, {remaining_files} files.")

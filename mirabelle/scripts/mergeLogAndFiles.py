@@ -19,7 +19,14 @@ def parse_args():
 
 def looks_like_files_json(entries):
     for entry in entries:
-        if isinstance(entry, dict) and "calls" in entry:
+        if isinstance(entry, dict) and "relative_path" in entry:
+            return True
+    return False
+
+
+def looks_like_log_json(entries):
+    for entry in entries:
+        if isinstance(entry, dict) and "line" in entry and "outcome" in entry:
             return True
     return False
 
@@ -32,15 +39,47 @@ def load_inputs(path_a, path_b):
 
     a_is_files = looks_like_files_json(data_a)
     b_is_files = looks_like_files_json(data_b)
+    a_is_log = looks_like_log_json(data_a)
+    b_is_log = looks_like_log_json(data_b)
 
-    if a_is_files and not b_is_files:
-        return data_b, data_a
-    if b_is_files and not a_is_files:
+    if a_is_log and b_is_files:
         return data_a, data_b
+    if b_is_log and a_is_files:
+        return data_b, data_a
     raise SystemExit(
         "Error: could not distinguish log JSON from files JSON. "
-        "Exactly one input must contain entries with a 'calls' field."
+        "One input must contain entries with 'relative_path' (files JSON) "
+        "and the other with 'line' + 'outcome' (log JSON)."
     )
+
+
+def _strategy_key(value):
+    if value is None or value == "default":
+        return None
+    return value
+
+
+def merge_calls(log_calls, files_calls):
+    files_by_key = {}
+    for call in files_calls:
+        key = (call.get("solver"), _strategy_key(call.get("strategy")))
+        files_by_key.setdefault(key, []).append(call)
+
+    merged = []
+    consumed = set()
+    for log_call in log_calls:
+        key = (log_call.get("solver"), _strategy_key(log_call.get("strategy")))
+        bucket = files_by_key.get(key)
+        if bucket:
+            files_call = bucket.pop(0)
+            consumed.add(id(files_call))
+            merged.append({**log_call, **files_call})
+        else:
+            merged.append(log_call)
+    for call in files_calls:
+        if id(call) not in consumed:
+            merged.append(call)
+    return merged
 
 
 def main():
@@ -60,7 +99,12 @@ def main():
     for log_entry in log_entries:
         key = (log_entry.get("session", ""), log_entry.get("theory", ""), log_entry.get("base", ""))
         if key in files_by_key:
-            combined = {**log_entry, **files_by_key[key]}
+            files_entry = files_by_key[key]
+            combined = {**log_entry, **files_entry}
+            log_calls = log_entry.get("calls") or []
+            files_calls = files_entry.get("calls") or []
+            if log_calls or files_calls:
+                combined["calls"] = merge_calls(log_calls, files_calls)
             merged.append(combined)
             matched_keys.add(key)
         else:
@@ -83,7 +127,10 @@ def main():
             merged.append(files_entry)
 
     from pathlib import Path
-    Path(args.output_json).write_text(json.dumps(merged, indent=2) + "\n")
+    output_path = Path(args.output_json)
+    if output_path.exists():
+        output_path.unlink()
+    output_path.write_text(json.dumps(merged, indent=2) + "\n")
     print(f"Written {len(merged)} entries to {args.output_json}")
     print(f"  {len(matched_keys)} matched, "
           f"{len(log_entries) - len(matched_keys)} log-only, "

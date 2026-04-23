@@ -23,7 +23,8 @@ SMT_BACKEND_RE = re.compile(
 SH_TIME_RE = re.compile(r"\(SH\s+(?P<sh>\d+)ms")
 ATP_TIME_RE = re.compile(r"ATP\s+(?P<atp>\d+)ms")
 PREPLAY_CMD_RE = re.compile(
-    r"(?:Try this:|Preplay:)\s+(?P<cmd>.+?)(?:\s+\(>?\s*\d+[\d.]*\s*(?:ms|s)\b[^)]*\)\s*)?$"
+    r"(?:Try this:|Preplay:)\s+(?P<cmd>.+?)"
+    r"(?:\s+\((?:>?\s*\d+[\d.]*\s*(?:ms|s)\b[^)]*|failed)\)\s*)?$"
 )
 PREPLAY_TIME_RE = re.compile(
     r"\(>?\s*(?P<time>\d+[\d.]*)\s*(?P<unit>ms|s)(?:,\s*timed out)?\)\s*$"
@@ -39,6 +40,15 @@ class ProblemRef:
 
 
 @dataclasses.dataclass
+class PreplayCall:
+    solver: str | None
+    strategy: str | None
+    preplay_command: str | None
+    preplay_time: int | None
+    outcome: str
+
+
+@dataclasses.dataclass
 class LogEntry:
     ref: ProblemRef
     line: int
@@ -49,6 +59,7 @@ class LogEntry:
     atp_time: int | None
     preplay_command: str | None
     preplay_time: int | None
+    calls: list[PreplayCall] = dataclasses.field(default_factory=list)
 
 
 def parse_mirabelle_log(log_path: Path) -> list[LogEntry]:
@@ -69,6 +80,54 @@ def parse_mirabelle_log(log_path: Path) -> list[LogEntry]:
             theory=theory,
             base=f"prob_{int(match.group('line')):05d}_{int(match.group('offset')):06d}",
         )
+        line_number = int(match.group("line"))
+        raw_outcome = match.group("outcome")
+
+        sh_match = SH_TIME_RE.search(line)
+        atp_match = ATP_TIME_RE.search(line)
+
+        is_preplay_continuation = (
+            raw_outcome == "some"
+            and sh_match is None
+            and atp_match is None
+            and "Preplay:" in line
+        )
+        if is_preplay_continuation:
+            if entries and entries[-1].ref == ref and entries[-1].line == line_number:
+                cmd_match = PREPLAY_CMD_RE.search(line)
+                cmd = cmd_match.group("cmd").strip() if cmd_match else None
+                backend_match = SMT_BACKEND_RE.search(line)
+                call_solver = None
+                call_strategy = None
+                if backend_match:
+                    parts = [p.strip() for p in backend_match.group("backend").split(",")]
+                    call_solver = parts[0]
+                    if len(parts) > 1:
+                        call_strategy = parts[1]
+                call_time = None
+                time_match = PREPLAY_TIME_RE.search(line)
+                if time_match:
+                    t = float(time_match.group("time"))
+                    if time_match.group("unit") == "s":
+                        t *= 1000
+                    call_time = int(t)
+                if line.rstrip().endswith("(failed)"):
+                    call_outcome = "failed"
+                elif PREPLAY_TIMED_OUT_RE.search(line):
+                    call_outcome = "timed out"
+                else:
+                    call_outcome = "success"
+                entries[-1].calls.append(
+                    PreplayCall(
+                        solver=call_solver,
+                        strategy=call_strategy,
+                        preplay_command=cmd,
+                        preplay_time=call_time,
+                        outcome=call_outcome,
+                    )
+                )
+            continue
+
         backend_match = SMT_BACKEND_RE.search(line)
         backend = None
         strategy = None
@@ -77,15 +136,10 @@ def parse_mirabelle_log(log_path: Path) -> list[LogEntry]:
             backend = parts[0]
             if len(parts) > 1:
                 strategy = parts[1]
-        line_number = int(match.group("line"))
 
-        sh_match = SH_TIME_RE.search(line)
         sh_time = int(sh_match.group("sh")) if sh_match else None
-
-        atp_match = ATP_TIME_RE.search(line)
         atp_time = int(atp_match.group("atp")) if atp_match else None
 
-        raw_outcome = match.group("outcome")
         preplay_command = None
         preplay_time = None
 
@@ -188,6 +242,16 @@ def json_payload(log_entries: list[LogEntry]) -> list[dict]:
             "atp_time": entry.atp_time,
             "preplay_command": entry.preplay_command,
             "preplay_time": entry.preplay_time,
+            "calls": [
+                {
+                    "solver": call.solver,
+                    "strategy": call.strategy,
+                    "preplay_command": call.preplay_command,
+                    "preplay_time": call.preplay_time,
+                    "outcome": call.outcome,
+                }
+                for call in entry.calls
+            ],
         }
         for entry in log_entries
     ]
