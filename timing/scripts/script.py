@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Originally written by Bruno Andreotti, UFMG.
+# Modified by Tiago Campos, UFMG.
 """Build one by-rule CSV and by-rule plots from a txt file or directory.
 
 Usage:
