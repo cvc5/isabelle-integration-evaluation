@@ -3,6 +3,7 @@ trap "cd \"${PWD}\"" EXIT
 
 #Defaults for options
 timeout=350
+config="cvc5"
 
 Help()
 {
@@ -12,16 +13,18 @@ Help()
    echo
    echo "options:"
    echo "t     Set timeout for solving and producing proof"
+   echo "c     Set solver config (default cvc5). Note this might fail for verit proofs"
    echo
 }
 
-while getopts ":ht:o:" option; do
+while getopts ":ht:o:s:c:" option; do
    case $option in
       h) # display Help
          Help
          exit;;
       t) timeout=$OPTARG;;
       o) declare_options=$OPTARG;;
+      c) config=$OPTARG;;
      \?) # Invalid option
          echo "Error: Invalid option"
          exit;;
@@ -47,8 +50,10 @@ if ! [[ -z "$declare_options" ]]; then
   declare_options_str="-o $declare_options"
 fi
 
+config_str="-s $config"
+
 start_time=$(date +%s%N)
-output=$(timeout $timeout $ISABELLE_PATH/isabelle smt_check $declare_options_str -i $input_problem_file -p $input_proof_file 2>&1)
+output=$(timeout $timeout $ISABELLE_PATH/isabelle smt_check $declare_options_str $config_str -i $input_problem_file -p $input_proof_file 2>&1)
 return_value=$?
 end_time=$(date +%s%N)
 

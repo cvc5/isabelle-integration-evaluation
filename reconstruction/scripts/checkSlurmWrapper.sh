@@ -5,6 +5,7 @@ trap "cd \"${PWD}\"" EXIT
 
 timeout=350
 partition="quad"
+declare_options=""
 
 Help()
 {
@@ -79,7 +80,7 @@ if [[ $nr_benchs -ne 0 ]]
 then
     TEMP_OUT="Results/cvc5test"
     name="runSolver"_"$lib_name"_"$config"
-    output=$(/barrett/scratch/local/bin/submit-job.sh --partition "$partition" --full-access-dir $input_problem_dir -t $slurm_timeout -n "$name" -b "$id" -d $TEMP_OUT -o "-t $timeout ${declare_options_str} ${input_problem_dir} ${input_proof_dir}" $SCRIPT_DIR/checkOneBenchWrapper.sh)
+    output=$(/barrett/scratch/local/bin/submit-job.sh --partition "$partition" --full-access-dir $input_problem_dir -t $slurm_timeout -n "$name" -b "$id" -d $TEMP_OUT -o "-t $timeout -c $config ${declare_options_str} ${input_problem_dir} ${input_proof_dir}" $SCRIPT_DIR/checkOneBenchWrapper.sh)
     if [[ $? -ne 0 ]]
     then
       echo "ERROR: Slurm could not be called on benchmarks"

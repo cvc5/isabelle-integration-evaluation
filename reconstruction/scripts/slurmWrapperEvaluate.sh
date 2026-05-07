@@ -1,4 +1,5 @@
 #!/bin/bash
+#source $HOME/my-venv/bin/activate
 trap "cd \"${PWD}\"" EXIT
 
 config="N/A"
@@ -49,6 +50,7 @@ fi
 rm -rf $output_dir
 mkdir $output_dir
 mkdir $output_dir/spying/
+has_spying=false
 
 output_file_json=$output_dir/$output_file".json"
 touch $output_file_json
@@ -106,14 +108,17 @@ error_reason=""
     mkdir -p $rel_dir
     cp $current_output_dir/spy.txt $SPY_PATH
     spy_path=", \"spy_file_path\": \"$SPY_PATH\""
+    has_spying=true
   fi
  
   echo "{\"benchmark_path\": \"$problem_file\", \"library_name\": \"$logic\", \"checking\":[{\"solver_config\": \"$config\", \"checking_outcome\": \"$result_code\", \"checking_time\": \"$checking_time\"$error_reason$spy_path}]}," >> $output_file_json
 done
 
-if [ -d $output_dir/spying ]
+if [ $has_spying == "true" ]
 then
+  SPY_SCRIPT=/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/timing/scripts/txt_to_by_rule_csv.py
   cd $output_dir
+  $HOME/my-venv/bin/python3 $SPY_SCRIPT spying all_spy.txt
   output_zip=$(zip -r spying.zip spying)
   rm -rf spying/
 fi

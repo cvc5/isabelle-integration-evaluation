@@ -5,6 +5,7 @@ trap "cd \"${PWD}\"" EXIT
 timeout=350
 config="N/A"
 library="N/A"
+declare_options=""
 
 Help()
 {
@@ -63,4 +64,10 @@ if ! [[ -z "$declare_options" ]]; then
   declare_options_str="-o $declare_options"
 fi
 
-$SCRIPT_DIR/checkOneBench.sh -t $timeout $declare_options_str $problem_path $input_file 
+config_str="-c $config"
+if [[ "$config" = "N/A" ]]; then
+  config_str=""
+fi
+
+
+$SCRIPT_DIR/checkOneBench.sh -t $timeout $config_str $declare_options_str $problem_path $input_file 
