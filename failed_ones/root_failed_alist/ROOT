@@ -1,3 +1,0 @@
-session Root_Failed_AList = HOL +
-  theories
-    Failed_AList_Distinct_Compose
