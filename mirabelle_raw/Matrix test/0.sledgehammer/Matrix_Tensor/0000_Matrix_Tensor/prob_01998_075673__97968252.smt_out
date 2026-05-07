@@ -1,7 +1,0 @@
-unsat
-(assume conjecture20 (! (not (! (fun_app$h (fun_app$i less$ (fun_app$b (fun_app$c minus$ j$) (! (size$ m2$) :named @p_1))) (fun_app$b (fun_app$c times$ (size$ m$)) @p_1)) :named @p_2)) :named @p_3))
-(assume a21 (! (fun_app$h (fun_app$i less_eq$ @p_1) j$) :named @p_4))
-(assume a22 (! (=> @p_4 @p_2) :named @p_5))
-(step t0 (cl (! (not @p_5) :named @p_6) (not @p_4) @p_2) :rule implies_pos)
-(step t1 (cl @p_6) :rule resolution :premises (t0 a21 conjecture20))
-(step t2 (cl) :rule resolution :premises (a22 t1))

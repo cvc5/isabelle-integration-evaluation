@@ -1,8 +1,0 @@
-unsat
-(assume conjecture6 (! (not (=> (! (fun_app$b (fun_app$c less$ i$) (size$c nil$)) :named @p_1) (= (fun_app$i (nth$d (fun_app$j (fun_app$k (times$ f$) a$) nil$a)) i$) (fun_app$l (fun_app$m f$ a$) (fun_app$i (nth$d nil$a) i$))))) :named @p_2))
-(assume a9 (! (=> @p_1 false) :named @p_3))
-(step t0 (cl @p_1) :rule not_implies1 :premises (conjecture6))
-(step t1 (cl (not (! (= @p_3 (! (not @p_1) :named @p_4)) :named @p_5)) (not @p_3) @p_4) :rule equiv_pos2)
-(step t2 (cl @p_5) :rule rare_rewrite :args ("bool-impl-false1" @p_1))
-(step t3 (cl @p_4) :rule resolution :premises (t1 t2 a9))
-(step t4 (cl) :rule resolution :premises (t0 t3))

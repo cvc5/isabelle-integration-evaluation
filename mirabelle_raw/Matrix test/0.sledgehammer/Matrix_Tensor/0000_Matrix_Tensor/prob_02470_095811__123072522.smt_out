@@ -1,4 +1,0 @@
-unsat
-(assume conjecture0 (! (not (! (= (divide$ (fun_app$ (modulo$ a$) (fun_app$ (times$ b$) c$)) c$) (fun_app$ (modulo$ (divide$ a$ c$)) b$)) :named @p_1)) :named @p_2))
-(assume a1 @p_1)
-(step t0 (cl) :rule resolution :premises (a1 conjecture0))

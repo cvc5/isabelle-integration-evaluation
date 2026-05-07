@@ -1,4 +1,0 @@
-unsat
-(assume conjecture11 (! (not (! (=> (fun_app$e (fun_app$f less$ i$) (fun_app$g (fun_app$h times$a (size$ (cons$ z$ zs$))) (! (size$a y$) :named @p_1))) (fun_app$e (fun_app$f less$ (fun_app$g (fun_app$h minus$ i$) @p_1)) (fun_app$g (fun_app$h times$a (size$ zs$)) @p_1))) :named @p_2)) :named @p_3))
-(assume a12 @p_2)
-(step t0 (cl) :rule resolution :premises (a12 conjecture11))

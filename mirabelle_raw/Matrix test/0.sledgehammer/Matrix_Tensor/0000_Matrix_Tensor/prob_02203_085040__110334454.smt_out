@@ -1,4 +1,0 @@
-unsat
-(assume conjecture2 (! (not (! (=> (and (less$ i$ (fun_app$b (times$ (size$ v$)) (! (row_length$ (! (cons$ w$ n$) :named @p_1)) :named @p_2))) (mat$ nr$ (size$a @p_1) @p_1)) (= (row$ (fun_app$c (fun_app$d (vec_mat_Tensor$ f$) v$) @p_1) i$) (fun_app$e (fun_app$f (times$a f$) (nth$a v$ (divide$ i$ @p_2))) (row$ @p_1 (fun_app$b (modulo$ i$) @p_2))))) :named @p_3)) :named @p_4))
-(assume a3 @p_3)
-(step t0 (cl) :rule resolution :premises (a3 conjecture2))

@@ -1,8 +1,0 @@
-unsat
-(assume conjecture5 (! (not (! (fun_app$f (! (fun_app$g less$ i$) :named @p_3) (fun_app$c (fun_app$h times$ (row_length$ (mat_multI$ zer$ g$ f$ (! (row_length$ a1$) :named @p_2) a1$ a2$))) (row_length$ (mat_multI$ zer$ g$ f$ (! (row_length$ b1$) :named @p_1) b1$ b2$)))) :named @p_4)) :named @p_5))
-(assume a26 (! (fun_app$f @p_3 (fun_app$c (fun_app$h times$ @p_2) @p_1)) :named @p_6))
-(assume a32 (! (= @p_6 @p_4) :named @p_7))
-(step t0 (cl (! (= @p_4 @p_6) :named @p_8)) :rule symm :premises (a32))
-(step t1 (cl (! (not @p_8) :named @p_9) @p_4 (not @p_6)) :rule equiv_pos1)
-(step t2 (cl @p_9) :rule resolution :premises (t1 conjecture5 a26))
-(step t3 (cl) :rule resolution :premises (t0 t2))

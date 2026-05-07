@@ -1,7 +1,0 @@
-unsat
-(assume conjecture16 (! (not (! (mat$ (fun_app$n (fun_app$u times$ (! (row_length$ ma$) :named @p_2)) (fun_app$i size$b v$)) (! (fun_app$c size$ ma$) :named @p_1) (fun_app$v (fun_app$w (vec_mat_Tensor$ f$) v$) ma$)) :named @p_3)) :named @p_4))
-(assume a21 (! (mat$ @p_2 @p_1 ma$) :named @p_5))
-(assume a22 (! (=> @p_5 @p_3) :named @p_6))
-(step t0 (cl (! (not @p_6) :named @p_7) (not @p_5) @p_3) :rule implies_pos)
-(step t1 (cl @p_7) :rule resolution :premises (t0 a21 conjecture16))
-(step t2 (cl) :rule resolution :premises (a22 t1))

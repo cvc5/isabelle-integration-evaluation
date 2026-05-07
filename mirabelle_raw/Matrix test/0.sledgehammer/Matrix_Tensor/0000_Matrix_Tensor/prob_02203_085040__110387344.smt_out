@@ -1,4 +1,0 @@
-unsat
-(assume conjecture44 (! (not (! (=> (and (fun_app$m (fun_app$n less$ i$) (fun_app$c (fun_app$d times$c (fun_app$ac size$ v$)) (! (row_length$ (! (cons$ w$ n$) :named @p_1)) :named @p_2))) (mat$ nr$ (size$a @p_1) @p_1)) (= (fun_app$g (row$d (fun_app$ad (vec_mat_Tensor$ f$ v$) @p_1)) i$) (fun_app$ae (times$d f$ (fun_app$j (nth$b v$) (fun_app$c (fun_app$d divide$ i$) @p_2))) (fun_app$g (row$d @p_1) (fun_app$c (fun_app$d modulo$ i$) @p_2))))) :named @p_3)) :named @p_4))
-(assume a45 @p_3)
-(step t0 (cl) :rule resolution :premises (a45 conjecture44))

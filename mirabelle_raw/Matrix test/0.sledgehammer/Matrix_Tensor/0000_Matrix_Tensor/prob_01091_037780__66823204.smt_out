@@ -1,4 +1,0 @@
-unsat
-(assume conjecture40 (! (not (! (=> (and (fun_app$c (fun_app$d less$ (! (fun_app$j size$b y$) :named @p_1)) i$) (fun_app$c (fun_app$d less$ i$) (fun_app$m (fun_app$x times$ (fun_app$j size$b (! (fun_app$an (cons$ z$) zs$) :named @p_2))) @p_1))) (= (fun_app$o (nth$b (fun_app$an (fun_app$ao (vec_vec_Tensor$ f$) @p_2) y$)) i$) (fun_app$ap (fun_app$aq f$ (fun_app$o (nth$b @p_2) (fun_app$m (fun_app$x divide$ i$) @p_1))) (fun_app$o (nth$b y$) (fun_app$m (fun_app$x modulo$ i$) @p_1))))) :named @p_3)) :named @p_4))
-(assume a41 @p_3)
-(step t0 (cl) :rule resolution :premises (a41 conjecture40))

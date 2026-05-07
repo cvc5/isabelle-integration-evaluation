@@ -1,5 +1,0 @@
-unsat
-(assume conjecture9 (! (not (! (mat$ (row_length$ (! (cons$ a$ m1a$) :named @p_1)) (size$ @p_1) @p_1) :named @p_2)) :named @p_3))
-(assume a12 (! (and @p_2 (mat$ (row_length$ m2$) (size$ m2$) m2$)) :named @p_4))
-(step t0 (cl @p_2) :rule and :premises (a12) :args (0))
-(step t1 (cl) :rule resolution :premises (t0 conjecture9))

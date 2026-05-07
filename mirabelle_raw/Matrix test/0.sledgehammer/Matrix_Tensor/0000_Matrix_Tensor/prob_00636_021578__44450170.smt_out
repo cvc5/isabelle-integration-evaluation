@@ -1,4 +1,0 @@
-unsat
-(assume conjecture3 (! (not (! (fun_app$ (mat$ (fun_app$d (times$ (row_length$ nil$)) (row_length$ m2$)) (fun_app$d (times$ (size$ nil$)) (size$ m2$))) (fun_app$e (fun_app$f (tensor$ f$) nil$) m2$)) :named @p_1)) :named @p_2))
-(assume a10 @p_1)
-(step t0 (cl) :rule resolution :premises (a10 conjecture3))

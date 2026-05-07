@@ -1,8 +1,0 @@
-unsat
-(assume conjecture0 (! (not (! (less$ i$ (times$ (row_length$ (mat_multI$ zer$ g$ f$ (! (row_length$ a1$) :named @p_2) a1$ a2$)) (row_length$ (mat_multI$ zer$ g$ f$ (! (row_length$ b1$) :named @p_1) b1$ b2$)))) :named @p_3)) :named @p_4))
-(assume a11 (! (= (! (less$ i$ (times$ @p_2 @p_1)) :named @p_5) @p_3) :named @p_6))
-(assume a14 @p_5)
-(step t0 (cl (= @p_3 @p_5)) :rule symm :premises (a11))
-(step t1 (cl @p_3 (! (not @p_5) :named @p_7)) :rule equiv2 :premises (t0))
-(step t2 (cl @p_7) :rule resolution :premises (t1 conjecture0))
-(step t3 (cl) :rule resolution :premises (a14 t2))

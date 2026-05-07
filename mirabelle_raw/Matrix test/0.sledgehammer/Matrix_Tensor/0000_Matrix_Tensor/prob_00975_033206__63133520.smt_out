@@ -1,8 +1,0 @@
-unsat
-(assume conjecture3 (! (not (=> (! (fun_app$c (fun_app$d less$ i$) (size$a (fun_app$f (fun_app$g (! (vec_vec_Tensor$ f$) :named @p_2) nil$) y$))) :named @p_3) (= (nth$a (fun_app$f (fun_app$g @p_2 x$) y$) i$) (fun_app$h (fun_app$i f$ (nth$a x$ (fun_app$j (divide$ i$) (! (size$a y$) :named @p_1)))) (nth$a y$ (fun_app$j (modulo$ i$) @p_1)))))) :named @p_4))
-(assume a10 (! (=> @p_3 false) :named @p_5))
-(step t0 (cl @p_3) :rule not_implies1 :premises (conjecture3))
-(step t1 (cl (not (! (= @p_5 (! (not @p_3) :named @p_6)) :named @p_7)) (not @p_5) @p_6) :rule equiv_pos2)
-(step t2 (cl @p_7) :rule rare_rewrite :args ("bool-impl-false1" @p_3))
-(step t3 (cl @p_6) :rule resolution :premises (t1 t2 a10))
-(step t4 (cl) :rule resolution :premises (t0 t3))

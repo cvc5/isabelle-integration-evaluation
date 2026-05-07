@@ -1,4 +1,0 @@
-unsat
-(assume conjecture0 (! (not (! (=> (less$ i$ (times$ (size$ (! (cons$ z$ zs$) :named @p_2)) (! (size$ y$) :named @p_1))) (= (nth$ (fun_app$ (fun_app$a (vec_vec_Tensor$ f$) @p_2) y$) i$) (fun_app$b (fun_app$c f$ (nth$ @p_2 (divide$ i$ @p_1))) (nth$ y$ (modulo$ i$ @p_1))))) :named @p_3)) :named @p_4))
-(assume a3 @p_3)
-(step t0 (cl) :rule resolution :premises (a3 conjecture0))

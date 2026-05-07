@@ -1,4 +1,0 @@
-unsat
-(assume conjecture14 (! (not (! (fun_app$o (mat$ zero$ nc$) m$) :named @p_1)) :named @p_2))
-(assume a15 @p_1)
-(step t0 (cl) :rule resolution :premises (a15 conjecture14))

@@ -1,4 +1,0 @@
-unsat
-(assume conjecture10 (! (not (! (=> (and (fun_app$d (fun_app$e less$ (! (fun_app$j size$b y$) :named @p_1)) i$) (fun_app$d (fun_app$e less$ i$) (fun_app$f (fun_app$k times$ (fun_app$j size$b (! (fun_app$l (cons$ z$) zs$) :named @p_2))) @p_1))) (= (fun_app$i (nth$b (fun_app$l (fun_app$m (vec_vec_Tensor$ f$) @p_2) y$)) i$) (fun_app$n (fun_app$o f$ (fun_app$i (nth$b @p_2) (fun_app$f (fun_app$k divide$ i$) @p_1))) (fun_app$i (nth$b y$) (fun_app$f (fun_app$k modulo$ i$) @p_1))))) :named @p_3)) :named @p_4))
-(assume a11 @p_3)
-(step t0 (cl) :rule resolution :premises (a11 conjecture10))

@@ -1,4 +1,0 @@
-unsat
-(assume conjecture0 (! (not (! (mat$ (row_length$ m$) (size$ m$) m$) :named @p_1)) :named @p_2))
-(assume a3 @p_1)
-(step t0 (cl) :rule resolution :premises (a3 conjecture0))

@@ -1,4 +1,0 @@
-unsat
-(assume a5 (! (= m$ nil$) :named @p_1))
-(assume a6 (! (not @p_1) :named @p_2))
-(step t0 (cl) :rule resolution :premises (a5 a6))

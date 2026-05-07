@@ -1,4 +1,0 @@
-unsat
-(assume conjecture17 (! (not (! (= (size$ (fun_app$o (fun_app$p (tensor$ f$) (! (cons$ a$ m1a$) :named @p_1)) m2$)) (fun_app$f (fun_app$g times$a (size$ @p_1)) (size$ m2$))) :named @p_2)) :named @p_3))
-(assume a18 @p_2)
-(step t0 (cl) :rule resolution :premises (a18 conjecture17))

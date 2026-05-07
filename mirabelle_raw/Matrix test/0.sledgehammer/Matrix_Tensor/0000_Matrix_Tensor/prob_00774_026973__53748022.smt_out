@@ -1,4 +1,0 @@
-unsat
-(assume conjecture69 (! (not (! (=> (fun_app$i (fun_app$l less$ i$) (fun_app$s size$f nil$)) (= (fun_app$z (nth$c (fun_app$ax (times$ f$ a$) nil$)) i$) (fun_app$az (fun_app$ba f$ a$) (fun_app$z (nth$c nil$) i$)))) :named @p_1)) :named @p_2))
-(assume a80 @p_1)
-(step t0 (cl) :rule resolution :premises (a80 conjecture69))
