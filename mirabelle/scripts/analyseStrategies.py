@@ -30,6 +30,15 @@ def main() -> int:
 
     entries = json.loads(Path(args.input_json).read_text())
 
+    all_goals: set = set()
+    for entry in entries:
+        bench = (entry.get("session"), entry.get("theory"), entry.get("base"))
+        if any(p is None for p in bench):
+            continue
+        if entry.get("outcome"):
+            all_goals.add(bench)
+    n_goals = len(all_goals)
+
     metrics = {
         "preplay_time": {
             "prefix": "preplay",
@@ -46,30 +55,25 @@ def main() -> int:
         field: collections.defaultdict(lambda: collections.defaultdict(list))
         for field in metrics
     }
-    success_counts: dict[str, dict[str, list[int]]] = collections.defaultdict(
-        lambda: collections.defaultdict(lambda: [0, 0])
+    attempted: dict[str, dict[str, set]] = collections.defaultdict(
+        lambda: collections.defaultdict(set)
     )
     solved: dict[str, dict[str, set]] = collections.defaultdict(
         lambda: collections.defaultdict(set)
     )
 
-    TIMEOUT_OUTCOMES = {"timeout", "timed out"}
-
     def record(solver, strategy, outcome, numeric, benchmark_id):
         if solver is None:
             return
-        key = strategy or "default"
+        key = strategy or "best"
         for field in metrics:
             value = numeric.get(field)
             if isinstance(value, (int, float)):
                 data[field][solver][key].append(float(value))
-        if outcome is not None:
-            bucket = success_counts[solver][key]
-            bucket[1] += 1
-            if outcome not in TIMEOUT_OUTCOMES:
-                bucket[0] += 1
-                if benchmark_id is not None:
-                    solved[solver][key].add(benchmark_id)
+        if outcome is not None and benchmark_id is not None:
+            attempted[solver][key].add(benchmark_id)
+            if outcome.startswith("success"):
+                solved[solver][key].add(benchmark_id)
 
     for entry in entries:
         bench = (entry.get("session"), entry.get("theory"), entry.get("base"))
@@ -114,7 +118,7 @@ def main() -> int:
             fig, ax = plt.subplots(figsize=(8, max(2.5, 0.4 * len(strategies) + 1.5)))
             ax.barh(strategies, values, color="steelblue")
             ax.set_xlabel(
-                f"{meta['xlabel']}, {args.aggregate} over {len(entries)} goals)"
+                f"{meta['xlabel']}, {args.aggregate} over {n_goals} goals)"
             )
             ax.set_ylabel("strategy")
             ax.set_title(f"{solver}: {meta['title']} by strategy")
@@ -128,13 +132,16 @@ def main() -> int:
             print(f"wrote {out_path} ({len(strategies)} strategies)")
             wrote_any = True
 
-    if not success_counts:
+    if not attempted:
         print("No calls found; skipping success plots.")
-    for solver in sorted(success_counts):
-        by_strategy = success_counts[solver]
+    for solver in sorted(attempted):
+        by_strategy = attempted[solver]
         solved_by_strategy = solved.get(solver, {})
         pairs = sorted(
-            ((strategy, counts[0], counts[1]) for strategy, counts in by_strategy.items()),
+            (
+                (strategy, len(solved_by_strategy.get(strategy, set())), len(benches))
+                for strategy, benches in by_strategy.items()
+            ),
             key=lambda p: p[1],
         )
         strategies = [p[0] for p in pairs]
@@ -157,9 +164,9 @@ def main() -> int:
                 u, i - bar_height / 2, i + bar_height / 2,
                 colors="black", linewidth=2,
             )
-        ax.set_xlabel("non-timeout calls (black tick: unique solves for this solver)")
+        ax.set_xlabel("goals solved (black tick: unique solves for this solver)")
         ax.set_ylabel("strategy")
-        ax.set_title(f"{solver}: non-timeout calls by strategy (of {len(entries)} goals)")
+        ax.set_title(f"{solver}: goals solved by strategy (of {n_goals} goals)")
         for i, (s, t, u) in enumerate(zip(successes, totals, uniques)):
             rate = s / t if t else 0.0
             ax.text(s, i, f" {s}/{t} ({rate:.0%}), {u} unique", va="center")
