@@ -1,5 +1,0 @@
-unsat
-(assume conjecture45 (! (not (! (mat$ (row_length$ m2$) (fun_app$j size$a m2$) m2$) :named @p_1)) :named @p_2))
-(assume a54 (! (and (mat$ (row_length$ (! (cons$ a$ m1a$) :named @p_3)) (fun_app$j size$a @p_3) @p_3) @p_1) :named @p_4))
-(step t0 (cl @p_1) :rule and :premises (a54) :args (1))
-(step t1 (cl) :rule resolution :premises (t0 conjecture45))

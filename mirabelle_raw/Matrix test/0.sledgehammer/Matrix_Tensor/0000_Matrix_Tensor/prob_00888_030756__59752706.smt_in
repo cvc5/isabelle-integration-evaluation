@@ -1,8 +1,0 @@
-; --decision=internal --simplification=none --full-saturate-quant --proof-format-mode=alethe --proof-granularity=dsl-rewrite --full-saturate-quant --proof-mode=full-proof-strict --no-stats --sat-random-seed=1 --lang=smt2 --proof-prune --proof-prune-input --proof-elim-subtypes --proof-alethe-define-skolems --proof-format-mode=alethe --tlimit 254
-(set-option :produce-proofs true)
-(set-logic AUFLIRA)
-(declare-fun a$ () Int)
-(declare-fun b$ () Int)
-(assert (! (not (<= 0 (- a$ b$))) :named conjecture0))
-(check-sat)
-(get-proof)

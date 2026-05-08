@@ -1,7 +1,0 @@
-unsat
-(assume conjecture10 (! (not (! (fun_app$e (fun_app$f less$ zero$) (size$b y$)) :named @p_1)) :named @p_2))
-(assume a11 (! (not (= y$ nil$)) :named @p_3))
-(assume a13 (! (=> @p_3 @p_1) :named @p_4))
-(step t0 (cl (! (not @p_4) :named @p_5) (not @p_3) @p_1) :rule implies_pos)
-(step t1 (cl @p_5) :rule resolution :premises (t0 a11 conjecture10))
-(step t2 (cl) :rule resolution :premises (a13 t1))

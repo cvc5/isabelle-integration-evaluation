@@ -1,9 +1,0 @@
-unsat
-(assume conjecture32 (! (not (! (mat$ (fun_app$q (fun_app$d times$b (! (row_length$ m1a$) :named @p_4)) (! (row_length$ m2$) :named @p_3)) (fun_app$q (fun_app$d times$b (! (fun_app$b size$ m1a$) :named @p_2)) (! (fun_app$b size$ m2$) :named @p_1)) (fun_app$aa (fun_app$ab (tensor$ f$) m1a$) m2$)) :named @p_5)) :named @p_6))
-(assume a33 (! (mat$ @p_3 @p_1 m2$) :named @p_7))
-(assume a34 (! (mat$ @p_4 @p_2 m1a$) :named @p_8))
-(assume a42 (! (=> (! (and @p_8 @p_7) :named @p_9) @p_5) :named @p_10))
-(step t0 (cl (not @p_9) @p_5) :rule implies :premises (a42))
-(step t1 (cl @p_9) :rule and_intro :premises (a34 a33))
-(step t2 (cl @p_5) :rule resolution :premises (t0 t1))
-(step t3 (cl) :rule resolution :premises (t2 conjecture32))

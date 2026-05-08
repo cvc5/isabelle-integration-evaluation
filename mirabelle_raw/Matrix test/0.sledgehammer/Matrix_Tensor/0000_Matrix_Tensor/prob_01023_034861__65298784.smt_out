@@ -1,7 +1,0 @@
-unsat
-(assume conjecture22 (! (not (! (fun_app$b (fun_app$c less$ zero$a) (fun_app$i size$b y$)) :named @p_1)) :named @p_2))
-(assume a30 (! (=> (! (not (= y$ nil$)) :named @p_3) @p_1) :named @p_4))
-(assume a34 @p_3)
-(step t0 (cl (not @p_3) @p_1) :rule implies :premises (a30))
-(step t1 (cl @p_1) :rule resolution :premises (t0 a34))
-(step t2 (cl) :rule resolution :premises (t1 conjecture22))

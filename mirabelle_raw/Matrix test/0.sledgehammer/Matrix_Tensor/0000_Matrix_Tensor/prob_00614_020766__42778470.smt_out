@@ -1,7 +1,0 @@
-unsat
-(assume conjecture0 (! (not (! (mat$ (row_length$ m2$) (size$ m2$) m2$) :named @p_1)) :named @p_2))
-(assume a1 (! (mat$ (row_length$ (! (append$ m1a$ m2$) :named @p_3)) (size$ @p_3) @p_3) :named @p_4))
-(assume a2 (! (=> @p_4 @p_1) :named @p_5))
-(step t0 (cl (! (not @p_4) :named @p_6) @p_1) :rule implies :premises (a2))
-(step t1 (cl @p_1 @p_6) :rule reordering :premises (t0))
-(step t2 (cl) :rule resolution :premises (t1 a1 conjecture0))

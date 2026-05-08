@@ -1,4 +1,0 @@
-unsat
-(assume conjecture49 (! (not (! (vec$ (fun_app$ (fun_app$a times$ nr$) k$) x$) :named @p_1)) :named @p_2))
-(assume a50 @p_1)
-(step t0 (cl) :rule resolution :premises (a50 conjecture49))

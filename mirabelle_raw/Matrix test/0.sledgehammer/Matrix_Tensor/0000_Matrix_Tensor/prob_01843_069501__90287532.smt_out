@@ -1,7 +1,0 @@
-unsat
-(assume hypothesis1 (! (= y$ one$) :named @p_1))
-(assume a2 (! (=> @p_1 (! (less$ (fun_app$ (divide$ x$) z$) y$) :named @p_2)) :named @p_3))
-(assume a3 (! (not @p_2) :named @p_4))
-(step t0 (cl (not @p_1) @p_2) :rule implies :premises (a2))
-(step t1 (cl @p_2) :rule resolution :premises (t0 hypothesis1))
-(step t2 (cl) :rule resolution :premises (t1 a3))

@@ -1,4 +1,0 @@
-unsat
-(assume conjecture15 (! (not (! (fun_app$c (fun_app$d less$ (fun_app$m (fun_app$n modulo$ a$) (! (fun_app$m (fun_app$n times$ b$) c$) :named @p_1))) (! (fun_app$m (fun_app$n times$ b$) c$) :named @p_1)) :named @p_2)) :named @p_3))
-(assume a18 @p_2)
-(step t0 (cl) :rule resolution :premises (a18 conjecture15))

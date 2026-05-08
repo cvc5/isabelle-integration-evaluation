@@ -1,4 +1,0 @@
-unsat
-(assume conjecture51 (! (not (! (= (fun_app$b size$ (fun_app$am (fun_app$an (tensor$ f$) m1a$) m2$)) (fun_app$f (fun_app$d times$b (fun_app$b size$ m1a$)) (fun_app$b size$ m2$))) :named @p_1)) :named @p_2))
-(assume a56 @p_1)
-(step t0 (cl) :rule resolution :premises (a56 conjecture51))

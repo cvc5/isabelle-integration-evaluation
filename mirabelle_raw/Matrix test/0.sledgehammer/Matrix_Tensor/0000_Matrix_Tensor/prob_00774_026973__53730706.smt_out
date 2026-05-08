@@ -1,4 +1,0 @@
-unsat
-(assume conjecture1 (! (not (! (=> (fun_app$a (less$ i$) (size$ nil$)) (= (nth$ (fun_app$b (fun_app$c (times$ f$) a$) nil$) i$) (fun_app$d (fun_app$e f$ a$) (nth$ nil$ i$)))) :named @p_1)) :named @p_2))
-(assume a17 @p_1)
-(step t0 (cl) :rule resolution :premises (a17 conjecture1))

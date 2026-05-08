@@ -1,4 +1,0 @@
-unsat
-(assume conjecture22 (! (not (! (= (fun_app$a size$ (fun_app$f (fun_app$w (tensor$ f$) (! (fun_app$f (fun_app$d cons$ a$) m1a$) :named @p_1)) m2$)) (fun_app$v (times$ (fun_app$a size$ @p_1)) (fun_app$a size$ m2$))) :named @p_2)) :named @p_3))
-(assume a23 @p_2)
-(step t0 (cl) :rule resolution :premises (a23 conjecture22))

@@ -1,7 +1,0 @@
-unsat
-(assume conjecture0 (! (not (! (fun_app$ (less$ (fun_app$a (minus$ j$) (! (size$ m2$) :named @p_1))) (fun_app$a (times$ (size$ m$)) @p_1)) :named @p_2)) :named @p_3))
-(assume a1 (! (fun_app$ (less_eq$ @p_1) j$) :named @p_4))
-(assume a3 (! (=> @p_4 @p_2) :named @p_5))
-(step t0 (cl (! (not @p_5) :named @p_6) (not @p_4) @p_2) :rule implies_pos)
-(step t1 (cl @p_6) :rule resolution :premises (t0 a1 conjecture0))
-(step t2 (cl) :rule resolution :premises (a3 t1))

@@ -1,2 +1,0 @@
-cvc5 interrupted by timeout.
-/tmp/isabelle-caotic/bash_script8091021182674778142: line 1: 1937980 Aborted                 (core dumped) /home/caotic/isabelle/cvc5/build/bin/cvc5 --term-db-mode\=relevant --full-saturate-quant --proof-format-mode\=alethe --proof-granularity\=dsl-rewrite --full-saturate-quant --proof-mode\=full-proof-strict --no-stats --sat-random-seed\=1 --lang\=smt2 --proof-prune --proof-prune-input --proof-elim-subtypes --proof-alethe-define-skolems --proof-format-mode\=alethe --tlimit 5000

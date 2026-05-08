@@ -1,7 +1,0 @@
-unsat
-(assume conjecture42 (! (not (! (= c$ zero$) :named @p_1)) :named @p_2))
-(assume a87 (! (or (! (= b$ zero$) :named @p_3) @p_1) :named @p_4))
-(assume a392 (! (not @p_3) :named @p_5))
-(step t0 (cl @p_3 @p_1) :rule or :premises (a87))
-(step t1 (cl @p_3) :rule resolution :premises (t0 conjecture42))
-(step t2 (cl) :rule resolution :premises (t1 a392))

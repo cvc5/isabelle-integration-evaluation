@@ -1,4 +1,0 @@
-unsat
-(assume conjecture29 (! (not (! (mat$ (fun_app$r (fun_app$f times$a (row_length$ nil$)) (row_length$ m2$)) (fun_app$r (fun_app$f times$a (fun_app$d size$ nil$)) (fun_app$d size$ m2$)) (fun_app$aa (fun_app$ab (tensor$ f$) nil$) m2$)) :named @p_1)) :named @p_2))
-(assume a30 @p_1)
-(step t0 (cl) :rule resolution :premises (a30 conjecture29))

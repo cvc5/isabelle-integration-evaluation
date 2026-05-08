@@ -1,4 +1,0 @@
-unsat
-(assume conjecture1 (! (not (! (= (fun_app$a (divide$ a$) b$) (plus$ (fun_app$a (divide$ (fun_app$a (minus$ a$) b$)) b$) one$)) :named @p_1)) :named @p_2))
-(assume a2 @p_1)
-(step t0 (cl) :rule resolution :premises (a2 conjecture1))

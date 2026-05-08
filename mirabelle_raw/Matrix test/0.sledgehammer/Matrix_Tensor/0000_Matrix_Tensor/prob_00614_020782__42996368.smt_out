@@ -1,7 +1,0 @@
-unsat
-(assume conjecture45 (! (not (! (fun_app$n (mat$ (row_length$ m2$) (fun_app$j size$a m2$)) m2$) :named @p_1)) :named @p_2))
-(assume a46 (! (fun_app$n (mat$ (row_length$ (! (fun_app$ak (append$ m1a$) m2$) :named @p_3)) (fun_app$j size$a @p_3)) @p_3) :named @p_4))
-(assume a51 (! (=> @p_4 @p_1) :named @p_5))
-(step t0 (cl (! (not @p_5) :named @p_6) (not @p_4) @p_1) :rule implies_pos)
-(step t1 (cl @p_6) :rule resolution :premises (t0 a46 conjecture45))
-(step t2 (cl) :rule resolution :premises (a51 t1))

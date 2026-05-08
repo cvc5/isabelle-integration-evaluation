@@ -1,8 +1,0 @@
-unsat
-(assume conjecture57 (! (not (=> (! (and (fun_app$l (fun_app$m less$ i$) (fun_app$j (fun_app$h times$a (fun_app$r size$d v$)) (! (row_length$ (! (cons$a nil$c ma$) :named @p_1)) :named @p_2))) (fun_app$l (fun_app$m less$ j$) (fun_app$f size$ @p_1))) :named @p_3) (= (fun_app$u (nth$b (fun_app$c (nth$ (fun_app$z (vec_mat_Tensor$ f$ v$) @p_1)) j$)) i$) (fun_app$aw (fun_app$ax f$ (fun_app$u (nth$b v$) (fun_app$j (fun_app$h divide$ i$) @p_2))) (fun_app$u (nth$b (fun_app$c (nth$ nil$a) j$)) (fun_app$j (fun_app$h modulo$ i$) @p_2)))))) :named @p_4))
-(assume a104 (! (=> @p_3 false) :named @p_5))
-(step t0 (cl @p_3) :rule not_implies1 :premises (conjecture57))
-(step t1 (cl (not (! (= @p_5 (! (not @p_3) :named @p_6)) :named @p_7)) (not @p_5) @p_6) :rule equiv_pos2)
-(step t2 (cl @p_7) :rule rare_rewrite :args ("bool-impl-false1" @p_3))
-(step t3 (cl @p_6) :rule resolution :premises (t1 t2 a104))
-(step t4 (cl) :rule resolution :premises (t0 t3))

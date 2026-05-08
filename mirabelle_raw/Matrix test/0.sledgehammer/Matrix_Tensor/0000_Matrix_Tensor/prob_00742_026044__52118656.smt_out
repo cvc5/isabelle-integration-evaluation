@@ -1,4 +1,0 @@
-unsat
-(assume conjecture11 (! (not (! (fun_app$f (mat$ (fun_app$b (fun_app$n times$ (row_length$ (! (fun_app$h (cons$ a$) m1a$) :named @p_1))) (row_length$ m2$)) (fun_app$b (fun_app$n times$ (size$ @p_1)) (size$ m2$))) (fun_app$h (fun_app$o (tensor$ f$) @p_1) m2$)) :named @p_2)) :named @p_3))
-(assume a12 @p_2)
-(step t0 (cl) :rule resolution :premises (a12 conjecture11))

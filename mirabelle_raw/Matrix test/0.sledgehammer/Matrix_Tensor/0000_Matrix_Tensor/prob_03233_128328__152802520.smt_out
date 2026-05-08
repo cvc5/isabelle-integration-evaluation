@@ -1,1 +1,0 @@
-(error "Term of kind int.pow2 requires the logic to include non-linear arithmetic")

@@ -1,6 +1,0 @@
-unsat
-(assume conjecture8 (! (not (! (= (! (size$d nil$) :named @p_1) zero$) :named @p_2)) :named @p_3))
-(assume a25 @p_2)
-(step t0 (cl (! (= zero$ @p_1) :named @p_4)) :rule symm :premises (a25))
-(step t1 (cl (not @p_4)) :rule not_symm :premises (conjecture8))
-(step t2 (cl) :rule resolution :premises (t0 t1))

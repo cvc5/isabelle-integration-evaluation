@@ -1,3 +1,0 @@
-session Root_Failed_Int_Pow2 = Matrix +
-  theories
-    Failed_Matrix_Tensor_Length_Tensor
