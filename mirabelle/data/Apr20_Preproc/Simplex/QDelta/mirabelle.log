@@ -1,0 +1,66 @@
+0.sledgehammer initialize Params for sledgehammer: {abduce = SOME 0, cache_dir = NONE, compress = NONE, debug = false, expect =
+0.sledgehammer initialize  "", fact_filter = SOME "mepo", fact_thresholds = (0.45, 0.85), falsify =
+0.sledgehammer initialize  SOME false, induction_rules = NONE, instantiate = NONE, isar_proofs = NONE,
+0.sledgehammer initialize  lam_trans = NONE, learn = true, max_facts = NONE, max_mono_iters = NONE,
+0.sledgehammer initialize  max_new_mono_instances = NONE, max_proofs = 4, minimize = true, overlord =
+0.sledgehammer initialize  false, preplay_provers = [], preplay_timeout = 1.000, provers =
+0.sledgehammer initialize  ["cvc5_proof"], slices = 96, smt_proofs = true, spy = false, strict =
+0.sledgehammer initialize  false, timeout = 30.000, try0 = true, type_enc = NONE, uncurried_aliases =
+0.sledgehammer initialize  NONE, verbose = false}
+0.sledgehammer goal.by        13844ms Simplex.QDelta 18:409  some (SH 13843ms, ATP 98ms): Try this: by (metis QDelta.exhaust qdfst.simps qdsnd.simps) (32 ms)
+0.sledgehammer goal.by        13599ms Simplex.QDelta 21:522  some (SH 13599ms, ATP 150ms): Try this: by (metis QDelta.exhaust qdfst.simps qdsnd.simps) (81 ms)
+0.sledgehammer goal.proof      1444ms Simplex.QDelta 47:1155  none (SH 1444ms): Prover error:
+0.sledgehammer goal.proof      1444ms Simplex.QDelta 47:1155  none cannot atomize goal
+0.sledgehammer goal.proof      1208ms Simplex.QDelta 61:1642  none (SH 1208ms): Prover error:
+0.sledgehammer goal.proof      1208ms Simplex.QDelta 61:1642  none cannot atomize goal
+0.sledgehammer goal.proof      1215ms Simplex.QDelta 66:1774  none (SH 1215ms): Prover error:
+0.sledgehammer goal.proof      1215ms Simplex.QDelta 66:1774  none cannot atomize goal
+0.sledgehammer goal.proof      1285ms Simplex.QDelta 73:2005  none (SH 1285ms): Prover error:
+0.sledgehammer goal.proof      1285ms Simplex.QDelta 73:2005  none cannot atomize goal
+0.sledgehammer goal.by        34427ms Simplex.QDelta 92:2482  some (SH 34427ms, ATP 623ms): Try this: using plus_QDelta_def ring_class.ring_distribs(1) val_def by force (66 ms)
+0.sledgehammer goal.by        11338ms Simplex.QDelta 96:2591  some (SH 11338ms, ATP 390ms): Try this: by (simp add: distrib_left scaleRat_QDelta_def val_def) (2 ms)
+0.sledgehammer goal.by        11967ms Simplex.QDelta 100:2724  timeout (SH 11967ms): Timed out
+0.sledgehammer goal.by        11895ms Simplex.QDelta 104:2885  timeout (SH 11895ms): Timed out
+0.sledgehammer goal.using     11549ms Simplex.QDelta 108:3051  timeout (SH 11549ms): Timed out
+0.sledgehammer goal.by        11506ms Simplex.QDelta 109:3075  timeout (SH 11506ms): Timed out
+0.sledgehammer goal.unfolding 11667ms Simplex.QDelta 113:3222  timeout (SH 11667ms): Timed out
+0.sledgehammer goal.using     11611ms Simplex.QDelta 114:3254  timeout (SH 11611ms): Timed out
+0.sledgehammer goal.using     11824ms Simplex.QDelta 115:3390  timeout (SH 11824ms): Timed out
+0.sledgehammer goal.by        12530ms Simplex.QDelta 116:3414  timeout (SH 12530ms): Timed out
+0.sledgehammer goal.proof     11631ms Simplex.QDelta 121:3622  timeout (SH 11631ms): Timed out
+0.sledgehammer goal.proof     16146ms Simplex.QDelta 123:3714  some (SH 16146ms, ATP 749ms): Try this: by (metis add_mono less_eq_rat_def mult.commute mult_cancel_left mult_le_cancel_right_pos) (633 ms)
+0.sledgehammer goal.using     16136ms Simplex.QDelta 126:3817  some (SH 16136ms, ATP 759ms): Try this: by (metis add_mono less_eq_rat_def mult.commute mult_cancel_left mult_le_cancel_right_pos) (678 ms)
+0.sledgehammer goal.using      8314ms Simplex.QDelta 127:3862  some (SH 8314ms, ATP 447ms): Try this: by linarith (4 ms)
+0.sledgehammer goal.by         7742ms Simplex.QDelta 128:3919  some (SH 7742ms, ATP 338ms): Try this: using less_eq_rat_def by blast (1 ms)
+0.sledgehammer goal.using     11614ms Simplex.QDelta 131:3957  timeout (SH 11614ms): Timed out
+0.sledgehammer goal.by        11899ms Simplex.QDelta 132:3973  timeout (SH 11899ms): Timed out
+0.sledgehammer goal.by        11420ms Simplex.QDelta 142:4236  timeout (SH 11420ms): Timed out
+0.sledgehammer goal.by        11566ms Simplex.QDelta 146:4335  timeout (SH 11566ms): Timed out
+0.sledgehammer goal.by        12370ms Simplex.QDelta 150:4430  timeout (SH 12369ms): Timed out
+0.sledgehammer goal.proof     11578ms Simplex.QDelta 153:4543  timeout (SH 11578ms): Timed out
+0.sledgehammer goal.using      2416ms Simplex.QDelta 155:4590  some (SH 2416ms, ATP 361ms): Try this: by (simp add: delta_le_one) (0.5 ms)
+0.sledgehammer goal.by         2303ms Simplex.QDelta 155:4609  some (SH 2303ms, ATP 356ms): Try this: by auto (0.7 ms)
+0.sledgehammer goal.by         4746ms Simplex.QDelta 158:4674  some (SH 4746ms, ATP 422ms): Try this: by simp (1 ms)
+0.sledgehammer goal.by        12913ms Simplex.QDelta 160:4759  timeout (SH 12913ms): Timed out
+0.sledgehammer goal.unfolding 11897ms Simplex.QDelta 161:4808  timeout (SH 11897ms): Timed out
+0.sledgehammer goal.by         6727ms Simplex.QDelta 161:4838  some (SH 6727ms, ATP 602ms): Try this: by linarith (45 ms)
+0.sledgehammer goal.unfolding 12635ms Simplex.QDelta 162:4859  timeout (SH 12635ms): Timed out
+0.sledgehammer goal.using     11839ms Simplex.QDelta 162:4872  timeout (SH 11839ms): Timed out
+0.sledgehammer goal.by        11890ms Simplex.QDelta 162:4888  timeout (SH 11890ms): Timed out
+0.sledgehammer goal.using     11696ms Simplex.QDelta 169:5071  timeout (SH 11696ms): Timed out
+0.sledgehammer goal.using     12543ms Simplex.QDelta 170:5085  timeout (SH 12543ms): Timed out
+0.sledgehammer goal.by        11645ms Simplex.QDelta 171:5100  timeout (SH 11645ms): Timed out
+0.sledgehammer goal.by         1850ms Simplex.QDelta 173:5157  some (SH 1850ms, ATP 217ms): Try this: by (simp add: zero_QDelta_def) (0.8 ms)
+0.sledgehammer goal.by         1959ms Simplex.QDelta 174:5199  some (SH 1959ms, ATP 274ms): Try this: by (simp add: zero_QDelta_def) (0.3 ms)
+0.sledgehammer goal.by         2117ms Simplex.QDelta 175:5241  some (SH 2117ms, ATP 346ms): Try this: by (simp add: zero_QDelta_def) (0.4 ms)
+0.sledgehammer finalize   Total number of sledgehammer calls: 42
+0.sledgehammer finalize   Number of successful sledgehammer calls: 15
+0.sledgehammer finalize   Number of sledgehammer lemmas: 51
+0.sledgehammer finalize   Max number of sledgehammer lemmas: 7
+0.sledgehammer finalize   Success rate: 35.7%
+0.sledgehammer finalize   Total number of nontrivial sledgehammer calls: 42
+0.sledgehammer finalize   Number of successful nontrivial sledgehammer calls: 15
+0.sledgehammer finalize   Total time for sledgehammer calls (Isabelle): 422.499
+0.sledgehammer finalize   Total time for successful sledgehammer calls (ATP): 6.132
+0.sledgehammer finalize   Average time for sledgehammer calls (Isabelle): 10.059
+0.sledgehammer finalize   Average time for successful sledgehammer calls (ATP): 0.409

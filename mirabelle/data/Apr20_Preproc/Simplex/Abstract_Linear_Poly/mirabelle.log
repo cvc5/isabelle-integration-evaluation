@@ -1,0 +1,243 @@
+0.sledgehammer initialize Params for sledgehammer: {abduce = SOME 0, cache_dir = NONE, compress = NONE, debug = false, expect =
+0.sledgehammer initialize  "", fact_filter = SOME "mepo", fact_thresholds = (0.45, 0.85), falsify =
+0.sledgehammer initialize  SOME false, induction_rules = NONE, instantiate = NONE, isar_proofs = NONE,
+0.sledgehammer initialize  lam_trans = NONE, learn = true, max_facts = NONE, max_mono_iters = NONE,
+0.sledgehammer initialize  max_new_mono_instances = NONE, max_proofs = 4, minimize = true, overlord =
+0.sledgehammer initialize  false, preplay_provers = [], preplay_timeout = 1.000, provers =
+0.sledgehammer initialize  ["cvc5_proof"], slices = 96, smt_proofs = true, spy = false, strict =
+0.sledgehammer initialize  false, timeout = 30.000, try0 = true, type_enc = NONE, uncurried_aliases =
+0.sledgehammer initialize  NONE, verbose = false}
+0.sledgehammer goal.by         8478ms Simplex.Abstract_Linear_Poly 36:1337  some (SH 8478ms, ATP 1009ms): Try this: by simp (1 ms)
+0.sledgehammer goal.proof     12751ms Simplex.Abstract_Linear_Poly 40:1444  timeout (SH 12751ms): Timed out
+0.sledgehammer goal.by        12812ms Simplex.Abstract_Linear_Poly 42:1544  some (SH 12812ms, ATP 2439ms): Try this: by force (1 ms)
+0.sledgehammer goal.using     11814ms Simplex.Abstract_Linear_Poly 45:1603  timeout (SH 11814ms): Timed out
+0.sledgehammer goal.by        11962ms Simplex.Abstract_Linear_Poly 46:1615  timeout (SH 11962ms): Timed out
+0.sledgehammer goal.proof     11385ms Simplex.Abstract_Linear_Poly 51:1735  timeout (SH 11385ms): Timed out
+0.sledgehammer goal.by         4029ms Simplex.Abstract_Linear_Poly 53:1793  some (SH 4029ms, ATP 371ms): Try this: by force (5 ms)
+0.sledgehammer goal.using     11646ms Simplex.Abstract_Linear_Poly 56:1842  timeout (SH 11646ms): Timed out
+0.sledgehammer goal.by        11617ms Simplex.Abstract_Linear_Poly 57:1854  timeout (SH 11617ms): Timed out
+0.sledgehammer goal.by         6757ms Simplex.Abstract_Linear_Poly 64:2025  some (SH 6757ms, ATP 500ms): Try this: using inv_fun_zero by blast (0.3 ms)
+0.sledgehammer goal.by         2298ms Simplex.Abstract_Linear_Poly 86:2985  some (SH 2297ms, ATP 432ms): Try this: using inv_fun_zero by blast (0.3 ms)
+0.sledgehammer goal.by         2161ms Simplex.Abstract_Linear_Poly 89:3101  some (SH 2160ms, ATP 533ms): Try this: using inv_fun_plus by blast (0.7 ms)
+0.sledgehammer goal.by         1953ms Simplex.Abstract_Linear_Poly 92:3214  some (SH 1953ms, ATP 412ms): Try this: using inv_fun_scale by blast (1 ms)
+0.sledgehammer goal.proof      1081ms Simplex.Abstract_Linear_Poly 101:3481  none (SH 1081ms): Prover error:
+0.sledgehammer goal.proof      1081ms Simplex.Abstract_Linear_Poly 101:3481  none cannot atomize goal
+0.sledgehammer goal.by        11501ms Simplex.Abstract_Linear_Poly 103:3545  timeout (SH 11501ms): Timed out
+0.sledgehammer goal.by        11508ms Simplex.Abstract_Linear_Poly 104:3588  timeout (SH 11508ms): Timed out
+0.sledgehammer goal.by         6562ms Simplex.Abstract_Linear_Poly 105:3627  timeout (SH 6562ms): Timed out
+0.sledgehammer goal.unfolding  7318ms Simplex.Abstract_Linear_Poly 106:3667  timeout (SH 7318ms): Timed out
+0.sledgehammer goal.by        11307ms Simplex.Abstract_Linear_Poly 106:3700  timeout (SH 11307ms): Timed out
+0.sledgehammer goal.unfolding  1953ms Simplex.Abstract_Linear_Poly 107:3747  some (SH 1953ms, ATP 268ms): Try this: by (simp add: minus_linear_poly_def) (3 ms)
+0.sledgehammer goal.by        11590ms Simplex.Abstract_Linear_Poly 110:3865  timeout (SH 11590ms): Timed out
+0.sledgehammer goal.by        11587ms Simplex.Abstract_Linear_Poly 113:3982  timeout (SH 11587ms): Timed out
+0.sledgehammer goal.by        12368ms Simplex.Abstract_Linear_Poly 114:4056  timeout (SH 12368ms): Timed out
+0.sledgehammer goal.by        11374ms Simplex.Abstract_Linear_Poly 117:4140  timeout (SH 11374ms): Timed out
+0.sledgehammer goal.by        13762ms Simplex.Abstract_Linear_Poly 126:4339  some (SH 13762ms, ATP 127ms): Try this: by (simp add: coeff.rep_eq plus_linear_poly.rep_eq) (1 ms)
+0.sledgehammer goal.by         8081ms Simplex.Abstract_Linear_Poly 129:4431  some (SH 8081ms, ATP 742ms): Try this: by (simp add: coeff.rep_eq scaleRat_linear_poly.rep_eq) (2 ms)
+0.sledgehammer goal.unfolding  8688ms Simplex.Abstract_Linear_Poly 132:4513  some (SH 8688ms, ATP 319ms): Try this: by (metis coeff_scaleRat mult_minus1 uminus_linear_poly_def) (43 ms)
+0.sledgehammer goal.by         5035ms Simplex.Abstract_Linear_Poly 133:4549  some (SH 5035ms, ATP 371ms): Try this: by (metis coeff_scaleRat mult_minus1) (30 ms)
+0.sledgehammer goal.unfolding  9342ms Simplex.Abstract_Linear_Poly 136:4651  some (SH 9342ms, ATP 463ms): Try this: by (metis coeff_plus coeff_uminus uminus_add_conv_diff) (48 ms)
+0.sledgehammer goal.by        10978ms Simplex.Abstract_Linear_Poly 137:4708  some (SH 10978ms, ATP 359ms): Try this: by (metis ab_group_add_class.ab_diff_conv_add_uminus coeff_plus coeff_uminus rational_vector.scale_minus_left scaleRat_one) (81 ms)
+0.sledgehammer goal.by        11427ms Simplex.Abstract_Linear_Poly 144:4863  timeout (SH 11427ms): Timed out
+0.sledgehammer goal.by        11600ms Simplex.Abstract_Linear_Poly 148:4922  timeout (SH 11599ms): Timed out
+0.sledgehammer goal.by        12452ms Simplex.Abstract_Linear_Poly 155:5093  timeout (SH 12452ms): Timed out
+0.sledgehammer goal.by        11404ms Simplex.Abstract_Linear_Poly 158:5208  timeout (SH 11404ms): Timed out
+0.sledgehammer goal.by        11708ms Simplex.Abstract_Linear_Poly 171:5558  timeout (SH 11708ms): Timed out
+0.sledgehammer goal.by        12672ms Simplex.Abstract_Linear_Poly 175:5650  timeout (SH 12672ms): Timed out
+0.sledgehammer goal.using     11463ms Simplex.Abstract_Linear_Poly 180:5826  timeout (SH 11463ms): Timed out
+0.sledgehammer goal.by        11542ms Simplex.Abstract_Linear_Poly 181:5864  timeout (SH 11542ms): Timed out
+0.sledgehammer goal.using     12492ms Simplex.Abstract_Linear_Poly 187:6080  timeout (SH 12492ms): Timed out
+0.sledgehammer goal.proof     11589ms Simplex.Abstract_Linear_Poly 188:6092  timeout (SH 11589ms): Timed out
+0.sledgehammer goal.by        10419ms Simplex.Abstract_Linear_Poly 190:6201  some (SH 10419ms, ATP 281ms): Try this: using Abstract_Linear_Poly.inv_def by blast (8 ms)
+0.sledgehammer goal.proof     11839ms Simplex.Abstract_Linear_Poly 192:6260  timeout (SH 11839ms): Timed out
+0.sledgehammer goal.by         6807ms Simplex.Abstract_Linear_Poly 193:6321  some (SH 6807ms, ATP 405ms): Try this: by simp (0.7 ms)
+0.sledgehammer goal.unfolding 11923ms Simplex.Abstract_Linear_Poly 196:6373  timeout (SH 11922ms): Timed out
+0.sledgehammer goal.proof     47118ms Simplex.Abstract_Linear_Poly 197:6414  some (SH 47118ms, ATP 586ms): Try this: by (metis (mono_tags, lifting) "1"(2) add_cancel_right_left add_mono fun_coeff_def fun_vars_def insert.hyps(3) linorder_cases mem_Collect_eq rational_vector.scale_eq_0_iff scaleRat_leq1 scaleRat_leq2) (387 ms)
+0.sledgehammer goal.using     17871ms Simplex.Abstract_Linear_Poly 198:6498  some (SH 17871ms, ATP 555ms): Try this: by (metis (mono_tags, lifting) "1"(2) Orderings.order_eq_iff fun_coeff_def fun_vars_def linorder_neq_iff mem_Collect_eq rational_vector.scale_eq_0_iff scaleRat_leq1 scaleRat_leq2) (307 ms)
+0.sledgehammer goal.using     21644ms Simplex.Abstract_Linear_Poly 199:6544  some (SH 21644ms, ATP 493ms): Try this: by (metis (mono_tags, lifting) "1"(2) Orderings.order_eq_iff fun_coeff_def fun_vars_def linorder_le_less_linear mem_Collect_eq order_less_imp_le rational_vector.scale_eq_0_iff scaleRat_less2) (375 ms)
+0.sledgehammer goal.by        14016ms Simplex.Abstract_Linear_Poly 200:6595  some (SH 14016ms, ATP 1335ms): Try this: by force (16 ms)
+0.sledgehammer goal.using     11557ms Simplex.Abstract_Linear_Poly 209:6845  timeout (SH 11557ms): Timed out
+0.sledgehammer goal.using     11624ms Simplex.Abstract_Linear_Poly 210:6859  timeout (SH 11624ms): Timed out
+0.sledgehammer goal.using     11855ms Simplex.Abstract_Linear_Poly 211:6896  timeout (SH 11855ms): Timed out
+0.sledgehammer goal.using     11724ms Simplex.Abstract_Linear_Poly 212:6938  timeout (SH 11724ms): Timed out
+0.sledgehammer goal.using     34030ms Simplex.Abstract_Linear_Poly 213:6979  some (SH 34029ms, ATP 518ms): Try this: by (metis add.inverse_neutral divide_geq1 divide_minus1 less_minus_one_simps(1) scaleRat_uminus) (646 ms)
+0.sledgehammer goal.by        23401ms Simplex.Abstract_Linear_Poly 214:7020  some (SH 23400ms, ATP 576ms): Try this: by force (126 ms)
+0.sledgehammer goal.unfolding 12324ms Simplex.Abstract_Linear_Poly 217:7077  timeout (SH 12324ms): Timed out
+0.sledgehammer goal.by        11703ms Simplex.Abstract_Linear_Poly 218:7113  timeout (SH 11703ms): Timed out
+0.sledgehammer goal.proof     11991ms Simplex.Abstract_Linear_Poly 226:7404  timeout (SH 11991ms): Timed out
+0.sledgehammer goal.by        12887ms Simplex.Abstract_Linear_Poly 229:7535  some (SH 12887ms, ATP 1172ms): Try this: by fastforce (4 ms)
+0.sledgehammer goal.using     12582ms Simplex.Abstract_Linear_Poly 232:7575  timeout (SH 12582ms): Timed out
+0.sledgehammer goal.by        12186ms Simplex.Abstract_Linear_Poly 233:7591  timeout (SH 12185ms): Timed out
+0.sledgehammer goal.by        13007ms Simplex.Abstract_Linear_Poly 237:7841  some (SH 13007ms, ATP 810ms): Try this: by (simp add: sum.union_inter_neutral) (25 ms)
+0.sledgehammer goal.by         2454ms Simplex.Abstract_Linear_Poly 239:7956  some (SH 2454ms, ATP 468ms): Try this: using \<open>{v. f1 v + f2 v \<noteq> 0} \<union> {v. f1 v + f2 v = 0 \<and> (f1 v \<noteq> 0 \<or> f2 v \<noteq> 0)} = {v. f1 v \<noteq> 0 \<or> f2 v \<noteq> 0}\<close> by argo (1 ms)
+0.sledgehammer goal.by        11933ms Simplex.Abstract_Linear_Poly 242:8116  timeout (SH 11933ms): Timed out
+0.sledgehammer goal.proof     12691ms Simplex.Abstract_Linear_Poly 244:8254  timeout (SH 12691ms): Timed out
+0.sledgehammer goal.by        12689ms Simplex.Abstract_Linear_Poly 249:8423  timeout (SH 12689ms): Timed out
+0.sledgehammer goal.by         3889ms Simplex.Abstract_Linear_Poly 252:8635  some (SH 3888ms, ATP 788ms): Try this: by presburger (1 ms)
+0.sledgehammer goal.using     12744ms Simplex.Abstract_Linear_Poly 254:8707  timeout (SH 12744ms): Timed out
+0.sledgehammer goal.by        12938ms Simplex.Abstract_Linear_Poly 255:8766  timeout (SH 12938ms): Timed out
+0.sledgehammer goal.by         2637ms Simplex.Abstract_Linear_Poly 258:8931  some (SH 2636ms, ATP 487ms): Try this: by argo (2 ms)
+0.sledgehammer goal.using     12842ms Simplex.Abstract_Linear_Poly 262:8986  timeout (SH 12842ms): Timed out
+0.sledgehammer goal.using     11790ms Simplex.Abstract_Linear_Poly 263:9004  timeout (SH 11789ms): Timed out
+0.sledgehammer goal.using     11846ms Simplex.Abstract_Linear_Poly 264:9028  timeout (SH 11846ms): Timed out
+0.sledgehammer goal.by        19657ms Simplex.Abstract_Linear_Poly 265:9052  some (SH 19657ms, ATP 825ms): Try this: by (smt (verit, best) Collect_cong) (249 ms)
+0.sledgehammer goal.by         2120ms Simplex.Abstract_Linear_Poly 268:9162  some (SH 2120ms, ATP 466ms): Try this: by argo (0.8 ms)
+0.sledgehammer goal.by        16670ms Simplex.Abstract_Linear_Poly 272:9235  timeout (SH 16670ms): Timed out
+0.sledgehammer goal.unfolding 12795ms Simplex.Abstract_Linear_Poly 275:9340  some (SH 12795ms, ATP 794ms): Try this: by (metis add_diff_cancel_right' diff_add_cancel valuate_add) (13 ms)
+0.sledgehammer goal.by         6180ms Simplex.Abstract_Linear_Poly 276:9387  some (SH 6180ms, ATP 303ms): Try this: by (simp add: valuate_uminus) (2 ms)
+0.sledgehammer goal.proof     11500ms Simplex.Abstract_Linear_Poly 281:9480  timeout (SH 11500ms): Timed out
+0.sledgehammer goal.by         3207ms Simplex.Abstract_Linear_Poly 284:9536  some (SH 3207ms, ATP 431ms): Try this: by (simp add: valuate_zero) (1 ms)
+0.sledgehammer goal.unfolding  6302ms Simplex.Abstract_Linear_Poly 288:9711  some (SH 6302ms, ATP 463ms): Try this: by (simp add: scaleRat_linear_poly.rep_eq) (0.8 ms)
+0.sledgehammer goal.using      5181ms Simplex.Abstract_Linear_Poly 289:9750  some (SH 5181ms, ATP 481ms): Try this: using scaleRat_linear_poly.rep_eq scaleRat_linear_poly_def by fastforce (6 ms)
+0.sledgehammer goal.using     11206ms Simplex.Abstract_Linear_Poly 290:9819  some (SH 11206ms, ATP 664ms): Try this: using scaleRat_linear_poly.rep_eq scaleRat_linear_poly_def by auto (16 ms)
+0.sledgehammer goal.by         7267ms Simplex.Abstract_Linear_Poly 291:9845  some (SH 7267ms, ATP 644ms): Try this: by simp (21 ms)
+0.sledgehammer goal.unfolding 11446ms Simplex.Abstract_Linear_Poly 293:9877  timeout (SH 11446ms): Timed out
+0.sledgehammer goal.using     11791ms Simplex.Abstract_Linear_Poly 294:9903  timeout (SH 11791ms): Timed out
+0.sledgehammer goal.by        11571ms Simplex.Abstract_Linear_Poly 295:9921  timeout (SH 11571ms): Timed out
+0.sledgehammer goal.by        11440ms Simplex.Abstract_Linear_Poly 299:10021  timeout (SH 11440ms): Timed out
+0.sledgehammer goal.by        12567ms Simplex.Abstract_Linear_Poly 302:10107  timeout (SH 12567ms): Timed out
+0.sledgehammer goal.by        11513ms Simplex.Abstract_Linear_Poly 306:10244  timeout (SH 11513ms): Timed out
+0.sledgehammer goal.by        11405ms Simplex.Abstract_Linear_Poly 310:10356  timeout (SH 11405ms): Timed out
+0.sledgehammer goal.proof     11650ms Simplex.Abstract_Linear_Poly 315:10488  timeout (SH 11650ms): Timed out
+0.sledgehammer goal.proof     11653ms Simplex.Abstract_Linear_Poly 318:10562  timeout (SH 11653ms): Timed out
+0.sledgehammer goal.using      1980ms Simplex.Abstract_Linear_Poly 321:10632  some (SH 1980ms, ATP 362ms): Try this: using coeff_zero by blast (0.8 ms)
+0.sledgehammer goal.by         1850ms Simplex.Abstract_Linear_Poly 322:10663  some (SH 1850ms, ATP 309ms): Try this: by meson (0.3 ms)
+0.sledgehammer goal.using      5325ms Simplex.Abstract_Linear_Poly 326:10732  some (SH 5325ms, ATP 168ms): Try this: by (simp add: lrv_class.zero_neq_one) (2 ms)
+0.sledgehammer goal.by         5762ms Simplex.Abstract_Linear_Poly 327:10757  some (SH 5762ms, ATP 287ms): Try this: by blast (0.4 ms)
+0.sledgehammer goal.using     49743ms Simplex.Abstract_Linear_Poly 331:10882  some (SH 49743ms, ATP 318ms): Try this: using assms by fastforce (51 ms)
+0.sledgehammer goal.by        39416ms Simplex.Abstract_Linear_Poly 332:10900  some (SH 39416ms, ATP 265ms): Try this: by fastforce (26 ms)
+0.sledgehammer goal.by         1893ms Simplex.Abstract_Linear_Poly 334:11019  some (SH 1893ms, ATP 264ms): Try this: apply meson (0.3 ms)
+0.sledgehammer goal.using     163038ms Simplex.Abstract_Linear_Poly 338:11119  timeout (SH 163038ms):
+0.sledgehammer goal.unfolding 153235ms Simplex.Abstract_Linear_Poly 338:11138  timeout (SH 153235ms):
+0.sledgehammer goal.proof     152591ms Simplex.Abstract_Linear_Poly 339:11161  timeout (SH 152590ms):
+0.sledgehammer goal.using      6651ms Simplex.Abstract_Linear_Poly 343:11282  some (SH 6651ms, ATP 717ms): Try this: by (metis \<open>\<forall>x'\<in>vars p. v' x' = (if x = x' then 1 else 0)\<close> coeff.rep_eq coeff_zero fun_coeff_def) (74 ms)
+0.sledgehammer goal.unfolding 11410ms Simplex.Abstract_Linear_Poly 344:11347  some (SH 11410ms, ATP 644ms): Try this: by (metis coeff.rep_eq coeff_zero fun_coeff_def) (80 ms)
+0.sledgehammer goal.by        13308ms Simplex.Abstract_Linear_Poly 345:11374  some (SH 13308ms, ATP 533ms): Try this: by (metis coeff.rep_eq coeff_zero fun_coeff_def vars_def) (95 ms)
+0.sledgehammer goal.using      5889ms Simplex.Abstract_Linear_Poly 349:11522  some (SH 5889ms, ATP 399ms): Try this: using True \<open>0 \<noteq> 1\<close> \<open>\<forall>x'\<in>vars p. v' x' = (if x = x' then 1 else 0)\<close> by auto (6 ms)
+0.sledgehammer goal.using     19495ms Simplex.Abstract_Linear_Poly 350:11587  some (SH 19495ms, ATP 321ms): Try this: using True \<open>0 \<noteq> 1\<close> by fastforce (4 ms)
+0.sledgehammer goal.unfolding  4749ms Simplex.Abstract_Linear_Poly 351:11609  some (SH 4749ms, ATP 344ms): Try this: by (simp add: True) (7 ms)
+0.sledgehammer goal.by        29480ms Simplex.Abstract_Linear_Poly 352:11636  some (SH 29479ms, ATP 578ms): Try this: by simp (9 ms)
+0.sledgehammer goal.unfolding 18280ms Simplex.Abstract_Linear_Poly 356:11714  some (SH 18280ms, ATP 460ms): Try this: by (metis (full_types) fun_valuate_def valuate.rep_eq) (36 ms)
+0.sledgehammer goal.by        12471ms Simplex.Abstract_Linear_Poly 357:11742  some (SH 12471ms, ATP 547ms): Try this: by fastforce (9 ms)
+0.sledgehammer goal.apply     14553ms Simplex.Abstract_Linear_Poly 359:11824  timeout (SH 14553ms): Timed out
+0.sledgehammer goal.using     11820ms Simplex.Abstract_Linear_Poly 360:11875  timeout (SH 11820ms): Timed out
+0.sledgehammer goal.by        15292ms Simplex.Abstract_Linear_Poly 361:11909  timeout (SH 15292ms): Timed out
+0.sledgehammer goal.using     18433ms Simplex.Abstract_Linear_Poly 363:11959  some (SH 18433ms, ATP 1470ms): Try this: using \<open>{x. Rep_linear_poly p x \<noteq> 0 \<and> v' x \<noteq> 0} = {x}\<close> by force (9 ms)
+0.sledgehammer goal.by        11907ms Simplex.Abstract_Linear_Poly 364:12013  timeout (SH 11907ms): Timed out
+0.sledgehammer goal.using      3625ms Simplex.Abstract_Linear_Poly 366:12060  some (SH 3625ms, ATP 585ms): Try this: using True \<open>\<forall>x'\<in>vars p. v' x' = (if x = x' then 1 else 0)\<close> by fastforce (4 ms)
+0.sledgehammer goal.using      6962ms Simplex.Abstract_Linear_Poly 367:12085  some (SH 6962ms, ATP 567ms): Try this: by (simp add: \<open>\<forall>x'\<in>vars p. v' x' = (if x = x' then 1 else 0)\<close>) (4 ms)
+0.sledgehammer goal.by         3693ms Simplex.Abstract_Linear_Poly 368:12148  some (SH 3693ms, ATP 608ms): Try this: by fastforce (6 ms)
+0.sledgehammer goal.by        13303ms Simplex.Abstract_Linear_Poly 371:12208  some (SH 13303ms, ATP 435ms): Try this: by order (1 ms)
+0.sledgehammer goal.using     15385ms Simplex.Abstract_Linear_Poly 373:12262  some (SH 15385ms, ATP 438ms): Try this: by (simp add: \<open>p \<lbrace> v' \<rbrace> = 0\<close> coeff.rep_eq) (2 ms)
+0.sledgehammer goal.unfolding  9460ms Simplex.Abstract_Linear_Poly 374:12287  some (SH 9460ms, ATP 435ms): Try this: by (simp add: coeff.rep_eq) (2 ms)
+0.sledgehammer goal.by        23166ms Simplex.Abstract_Linear_Poly 375:12313  some (SH 23166ms, ATP 593ms): Try this: by simp (2 ms)
+0.sledgehammer goal.using      6921ms Simplex.Abstract_Linear_Poly 377:12349  some (SH 6921ms, ATP 326ms): Try this: using \<open>0 \<noteq> 1\<close> by auto (3 ms)
+0.sledgehammer goal.using      8537ms Simplex.Abstract_Linear_Poly 378:12392  some (SH 8537ms, ATP 540ms): Try this: using \<open>0 \<noteq> 1\<close> by auto (7 ms)
+0.sledgehammer goal.by         4006ms Simplex.Abstract_Linear_Poly 379:12412  some (SH 4006ms, ATP 374ms): Try this: by auto (7 ms)
+0.sledgehammer goal.by        26973ms Simplex.Abstract_Linear_Poly 384:12524  timeout (SH 26973ms): Timed out
+0.sledgehammer goal.proof     13792ms Simplex.Abstract_Linear_Poly 387:12593  timeout (SH 13792ms): Timed out
+0.sledgehammer goal.by        55138ms Simplex.Abstract_Linear_Poly 389:12718  some (SH 55138ms, ATP 242ms): Try this: by auto (4 ms)
+0.sledgehammer goal.unfolding 24779ms Simplex.Abstract_Linear_Poly 390:12739  some (SH 24779ms, ATP 2189ms): Try this: using id by auto (14 ms)
+0.sledgehammer goal.by        12945ms Simplex.Abstract_Linear_Poly 391:12756  some (SH 12945ms, ATP 542ms): Try this: by simp (11 ms)
+0.sledgehammer goal.by        17352ms Simplex.Abstract_Linear_Poly 395:12849  timeout (SH 17352ms): Timed out
+0.sledgehammer goal.by         9116ms Simplex.Abstract_Linear_Poly 399:12961  some (SH 9116ms, ATP 2582ms): Try this: by (simp add: coeff.rep_eq lp_monom.rep_eq) (4 ms)
+0.sledgehammer goal.unfolding 14456ms Simplex.Abstract_Linear_Poly 402:13031  timeout (SH 14456ms): Timed out
+0.sledgehammer goal.by        17918ms Simplex.Abstract_Linear_Poly 403:13066  some (SH 17918ms, ATP 561ms): Try this: by (metis (mono_tags, lifting) Collect_cong Collect_mem_eq coeff_uminus coeff_zero neg_0_equal_iff_equal uminus_linear_poly_def) (444 ms)
+0.sledgehammer goal.by        120822ms Simplex.Abstract_Linear_Poly 406:13147  some (SH 120822ms, ATP 312ms): Try this: by (metis (no_types, lifting) ext UnI1 UnI2 add_0 coeff_plus coeff_zero subsetI) (2.1 s)
+0.sledgehammer goal.unfolding 13205ms Simplex.Abstract_Linear_Poly 409:13229  some (SH 13205ms, ATP 463ms): Try this: by (metis minus_linear_poly_def vars_plus vars_uminus) (27 ms)
+0.sledgehammer goal.using      5110ms Simplex.Abstract_Linear_Poly 410:13263  some (SH 5110ms, ATP 411ms): Try this: using vars_plus vars_uminus by blast (12 ms)
+0.sledgehammer goal.by         2987ms Simplex.Abstract_Linear_Poly 411:13313  some (SH 2987ms, ATP 299ms): Try this: by blast (1 ms)
+0.sledgehammer goal.by        36224ms Simplex.Abstract_Linear_Poly 414:13398  some (SH 36224ms, ATP 265ms): Try this: by (metis coeff_lp_monom coeff_zero is_singletonI' is_singleton_some_elem some_elem_nonempty) (144 ms)
+0.sledgehammer goal.by        28571ms Simplex.Abstract_Linear_Poly 417:13468  some (SH 28571ms, ATP 736ms): Try this: by (metis coeff_scaleRat coeff_zero mult_zero_right subsetI) (30 ms)
+0.sledgehammer goal.by        13729ms Simplex.Abstract_Linear_Poly 420:13541  timeout (SH 13729ms): Timed out
+0.sledgehammer goal.by        11618ms Simplex.Abstract_Linear_Poly 423:13605  timeout (SH 11618ms): Timed out
+0.sledgehammer goal.by         7526ms Simplex.Abstract_Linear_Poly 426:13672  some (SH 7526ms, ATP 698ms): Try this: by (simp add: Var.rep_eq coeff.rep_eq) (2 ms)
+0.sledgehammer goal.by        20732ms Simplex.Abstract_Linear_Poly 429:13740  some (SH 20732ms, ATP 2618ms): Try this: by (simp add: Var.rep_eq coeff.rep_eq) (8 ms)
+0.sledgehammer goal.using     18301ms Simplex.Abstract_Linear_Poly 434:13848  timeout (SH 18301ms): Timed out
+0.sledgehammer goal.by        13561ms Simplex.Abstract_Linear_Poly 435:13862  timeout (SH 13561ms): Timed out
+0.sledgehammer goal.proof     12896ms Simplex.Abstract_Linear_Poly 444:14136  timeout (SH 12896ms): Timed out
+0.sledgehammer goal.using      2719ms Simplex.Abstract_Linear_Poly 447:14216  some (SH 2719ms, ATP 725ms): Try this: using assms(1) by blast (3 ms)
+0.sledgehammer goal.by        21073ms Simplex.Abstract_Linear_Poly 447:14231  some (SH 21073ms, ATP 485ms): Try this: by blast (4 ms)
+0.sledgehammer goal.using     15321ms Simplex.Abstract_Linear_Poly 448:14259  some (SH 15321ms, ATP 542ms): Try this: using True by force (34 ms)
+0.sledgehammer goal.by        62173ms Simplex.Abstract_Linear_Poly 448:14275  some (SH 62173ms, ATP 631ms): Try this: by force (18 ms)
+0.sledgehammer goal.using     24023ms Simplex.Abstract_Linear_Poly 453:14388  timeout (SH 24023ms): Timed out
+0.sledgehammer goal.by        14874ms Simplex.Abstract_Linear_Poly 453:14404  timeout (SH 14874ms): Timed out
+0.sledgehammer goal.using     112461ms Simplex.Abstract_Linear_Poly 456:14554  some (SH 112461ms, ATP 2214ms): Try this: apply (smt (verit) ID.set_finite Un_Diff_cancel Un_Int_eq(2) Un_infinite add.commute add.right_neutral assms(2) disjoint_insert(2) empty_Diff finite.emptyI insert_Diff1 mem_Collect_eq singletonD sum.empty sum.insert_remove sum.union_disjoint sup_bot_right) (193 ms)
+0.sledgehammer goal.by        108590ms Simplex.Abstract_Linear_Poly 456:14569  some (SH 108590ms, ATP 2049ms): Try this: apply (smt (verit, best) Diff_insert_absorb ID.set_finite Un_Diff_cancel Un_Int_eq(2) Un_infinite add.commute add.right_neutral bot_set_def disjoint_insert(2) empty_Collect_eq empty_Diff finite.emptyI inf_sup_ord(4) insert_Collect insert_Diff1 insert_absorb mem_Collect_eq singletonD sum.empty sum.insert_remove sum.union_disjoint sup_bot_right) (200 ms)
+0.sledgehammer goal.using      2494ms Simplex.Abstract_Linear_Poly 459:14624  some (SH 2494ms, ATP 510ms): Try this: using assms(1) by blast (1 ms)
+0.sledgehammer goal.by        10653ms Simplex.Abstract_Linear_Poly 459:14636  some (SH 10653ms, ATP 481ms): Try this: by blast (1 ms)
+0.sledgehammer goal.by        49770ms Simplex.Abstract_Linear_Poly 462:14717  some (SH 49770ms, ATP 514ms): Try this: by (simp add: rational_vector.scale_right_diff_distrib) (2 ms)
+0.sledgehammer goal.by        33874ms Simplex.Abstract_Linear_Poly 464:14802  some (SH 33874ms, ATP 791ms): Try this: by fastforce (272 ms)
+0.sledgehammer goal.using     46713ms Simplex.Abstract_Linear_Poly 471:14995  timeout (SH 46713ms): Timed out
+0.sledgehammer goal.unfolding 11914ms Simplex.Abstract_Linear_Poly 472:15010  timeout (SH 11914ms): Timed out
+0.sledgehammer goal.using     12244ms Simplex.Abstract_Linear_Poly 473:15053  timeout (SH 12244ms): Timed out
+0.sledgehammer goal.by        23617ms Simplex.Abstract_Linear_Poly 474:15133  some (SH 23617ms, ATP 734ms): Try this: by simp (110 ms)
+0.sledgehammer goal.using     16476ms Simplex.Abstract_Linear_Poly 477:15175  some (SH 16476ms, ATP 87ms): Try this: by (meson coeff_zero equals0I zero_coeff_zero) (11 ms)
+0.sledgehammer goal.by         7778ms Simplex.Abstract_Linear_Poly 477:15208  some (SH 7778ms, ATP 2296ms): Try this: by blast (5 ms)
+0.sledgehammer goal.using     29892ms Simplex.Abstract_Linear_Poly 480:15266  some (SH 29892ms, ATP 737ms): Try this: by (metis coeff_zero vars_zero zero_coeff_zero) (58 ms)
+0.sledgehammer goal.by        13712ms Simplex.Abstract_Linear_Poly 480:15299  some (SH 13712ms, ATP 153ms): Try this: by blast (14 ms)
+0.sledgehammer goal.using     11579ms Simplex.Abstract_Linear_Poly 488:15479  timeout (SH 11579ms): Timed out
+0.sledgehammer goal.by        12628ms Simplex.Abstract_Linear_Poly 489:15493  timeout (SH 12628ms): Timed out
+0.sledgehammer goal.proof     11694ms Simplex.Abstract_Linear_Poly 494:15685  timeout (SH 11694ms): Timed out
+0.sledgehammer goal.using     12719ms Simplex.Abstract_Linear_Poly 497:15759  timeout (SH 12719ms): Timed out
+0.sledgehammer goal.by        13204ms Simplex.Abstract_Linear_Poly 498:15790  timeout (SH 13204ms): Timed out
+0.sledgehammer goal.using     12824ms Simplex.Abstract_Linear_Poly 502:15874  timeout (SH 12824ms): Timed out
+0.sledgehammer goal.using     13095ms Simplex.Abstract_Linear_Poly 503:15915  timeout (SH 13095ms): Timed out
+0.sledgehammer goal.unfolding 13348ms Simplex.Abstract_Linear_Poly 504:15948  timeout (SH 13348ms): Timed out
+0.sledgehammer goal.using     13060ms Simplex.Abstract_Linear_Poly 505:15983  timeout (SH 13060ms): Timed out
+0.sledgehammer goal.by        13240ms Simplex.Abstract_Linear_Poly 506:16053  timeout (SH 13240ms): Timed out
+0.sledgehammer goal.by        11811ms Simplex.Abstract_Linear_Poly 520:16457  timeout (SH 11811ms): Timed out
+0.sledgehammer goal.using     13586ms Simplex.Abstract_Linear_Poly 524:16596  some (SH 13586ms, ATP 533ms): Try this: using finite_vars is_monom_vars_not_empty max_var_def monom_var_def vars_empty_zero by force (14 ms)
+0.sledgehammer goal.by        14099ms Simplex.Abstract_Linear_Poly 525:16614  some (SH 14099ms, ATP 2180ms): Try this: using finite_vars is_monom_vars_not_empty max_var_def monom_var_def by force (16 ms)
+0.sledgehammer goal.using      2429ms Simplex.Abstract_Linear_Poly 528:16757  some (SH 2429ms, ATP 429ms): Try this: using is_monom_vars_not_empty vars_zero by blast (3 ms)
+0.sledgehammer goal.by        20921ms Simplex.Abstract_Linear_Poly 528:16797  some (SH 20921ms, ATP 360ms): Try this: by blast (0.6 ms)
+0.sledgehammer goal.by        15059ms Simplex.Abstract_Linear_Poly 532:16881  some (SH 15059ms, ATP 595ms): Try this: by (simp add: coeff_zero monom_coeff_def monom_var_in_vars) (1 ms)
+0.sledgehammer goal.by        22765ms Simplex.Abstract_Linear_Poly 536:17029  timeout (SH 22765ms): Timed out
+0.sledgehammer goal.proof     44829ms Simplex.Abstract_Linear_Poly 541:17136  timeout (SH 44829ms): Timed out
+0.sledgehammer goal.proof     16218ms Simplex.Abstract_Linear_Poly 543:17201  timeout (SH 16218ms): Timed out
+0.sledgehammer goal.using      1992ms Simplex.Abstract_Linear_Poly 547:17299  some (SH 1992ms, ATP 402ms): Try this: using set_vars_list by blast (1 ms)
+0.sledgehammer goal.by        28818ms Simplex.Abstract_Linear_Poly 548:17323  some (SH 28818ms, ATP 415ms): Try this: by (simp add: set_vars_list) (1 ms)
+0.sledgehammer goal.proof     66279ms Simplex.Abstract_Linear_Poly 550:17397  timeout (SH 66279ms): Timed out
+0.sledgehammer goal.by         1863ms Simplex.Abstract_Linear_Poly 553:17501  some (SH 1863ms, ATP 280ms): Try this: by blast (0.5 ms)
+0.sledgehammer goal.by        23959ms Simplex.Abstract_Linear_Poly 555:17569  some (SH 23959ms, ATP 296ms): Try this: by blast (2 ms)
+0.sledgehammer goal.using     19047ms Simplex.Abstract_Linear_Poly 557:17627  some (SH 19047ms, ATP 527ms): Try this: using assms coeff.rep_eq is_monom_monom_coeff_not_zero monom_coeff_def by auto (12 ms)
+0.sledgehammer goal.by        23094ms Simplex.Abstract_Linear_Poly 558:17672  some (SH 23094ms, ATP 473ms): Try this: using coeff.rep_eq is_monom_monom_coeff_not_zero monom_coeff_def by auto (19 ms)
+0.sledgehammer goal.using      5685ms Simplex.Abstract_Linear_Poly 560:17749  some (SH 5685ms, ATP 358ms): Try this: using \<open>monom_var l = y\<close> assms monom_var_in_vars set_vars_list by blast (2 ms)
+0.sledgehammer goal.by         2536ms Simplex.Abstract_Linear_Poly 561:17775  some (SH 2536ms, ATP 356ms): Try this: using \<open>monom_var l = y\<close> assms monom_var_in_vars set_vars_list by blast (3 ms)
+0.sledgehammer goal.using     11594ms Simplex.Abstract_Linear_Poly 563:17848  timeout (SH 11594ms): Timed out
+0.sledgehammer goal.using     12731ms Simplex.Abstract_Linear_Poly 564:17907  timeout (SH 12731ms): Timed out
+0.sledgehammer goal.by        10334ms Simplex.Abstract_Linear_Poly 565:17939  some (SH 10334ms, ATP 421ms): Try this: by (metis One_nat_def is_monom_def) (48 ms)
+0.sledgehammer goal.using     28621ms Simplex.Abstract_Linear_Poly 569:18022  some (SH 28621ms, ATP 328ms): Try this: by (metis assms is_monom_vars_not_empty is_singletonI' is_singleton_some_elem some_elem_nonempty) (52 ms)
+0.sledgehammer goal.by        27112ms Simplex.Abstract_Linear_Poly 570:18038  some (SH 27112ms, ATP 216ms): Try this: by (metis is_monom_vars_not_empty is_singletonI' is_singleton_some_elem some_elem_nonempty) (48 ms)
+0.sledgehammer goal.using     43711ms Simplex.Abstract_Linear_Poly 576:18179  timeout (SH 43711ms): Timed out
+0.sledgehammer goal.using     15458ms Simplex.Abstract_Linear_Poly 577:18193  timeout (SH 15458ms): Timed out
+0.sledgehammer goal.by        11645ms Simplex.Abstract_Linear_Poly 578:18225  timeout (SH 11645ms): Timed out
+0.sledgehammer goal.using      2229ms Simplex.Abstract_Linear_Poly 582:18338  some (SH 2229ms, ATP 342ms): Try this: using zero_coeff_zero by blast (1 ms)
+0.sledgehammer goal.by         5834ms Simplex.Abstract_Linear_Poly 582:18360  some (SH 5834ms, ATP 339ms): Try this: by blast (5 ms)
+0.sledgehammer goal.by        34377ms Simplex.Abstract_Linear_Poly 585:18430  timeout (SH 34377ms): Timed out
+0.sledgehammer goal.using     18343ms Simplex.Abstract_Linear_Poly 590:18520  some (SH 18343ms, ATP 110ms): Try this: by (simp add: assms poly_eq_iff) (2 ms)
+0.sledgehammer goal.by        18326ms Simplex.Abstract_Linear_Poly 590:18544  some (SH 18326ms, ATP 104ms): Try this: by presburger (4 ms)
+0.sledgehammer goal.using     12764ms Simplex.Abstract_Linear_Poly 595:18682  timeout (SH 12764ms): Timed out
+0.sledgehammer goal.by        11935ms Simplex.Abstract_Linear_Poly 595:18694  timeout (SH 11935ms): Timed out
+0.sledgehammer goal.by        12813ms Simplex.Abstract_Linear_Poly 599:18787  timeout (SH 12813ms): Timed out
+0.sledgehammer goal.using     12540ms Simplex.Abstract_Linear_Poly 603:18892  some (SH 12540ms, ATP 202ms): Try this: using all_val assms by blast (4 ms)
+0.sledgehammer goal.by        13539ms Simplex.Abstract_Linear_Poly 603:18912  some (SH 13539ms, ATP 2001ms): Try this: by blast (3 ms)
+0.sledgehammer goal.using     17108ms Simplex.Abstract_Linear_Poly 607:19016  timeout (SH 17108ms): Timed out
+0.sledgehammer goal.proof     12753ms Simplex.Abstract_Linear_Poly 608:19029  timeout (SH 12753ms): Timed out
+0.sledgehammer goal.using      5838ms Simplex.Abstract_Linear_Poly 610:19095  some (SH 5838ms, ATP 416ms): Try this: by (simp add: assms valuate_minus) (2 ms)
+0.sledgehammer goal.by         6913ms Simplex.Abstract_Linear_Poly 610:19107  some (SH 6913ms, ATP 402ms): Try this: by (simp add: valuate_minus) (5 ms)
+0.sledgehammer goal.by        48183ms Simplex.Abstract_Linear_Poly 612:19165  some (SH 48183ms, ATP 180ms): Try this: using all_valuate_zero by blast (2 ms)
+0.sledgehammer goal.by         3715ms Simplex.Abstract_Linear_Poly 614:19222  some (SH 3715ms, ATP 491ms): Try this: by force (0.6 ms)
+0.sledgehammer goal.by        30910ms Simplex.Abstract_Linear_Poly 620:19343  timeout (SH 30910ms): Timed out
+0.sledgehammer goal.by        11988ms Simplex.Abstract_Linear_Poly 623:19504  timeout (SH 11988ms): Timed out
+0.sledgehammer finalize   Total number of sledgehammer calls: 222
+0.sledgehammer finalize   Number of successful sledgehammer calls: 117
+0.sledgehammer finalize   Number of sledgehammer lemmas: 520
+0.sledgehammer finalize   Max number of sledgehammer lemmas: 26
+0.sledgehammer finalize   Success rate: 52.7%
+0.sledgehammer finalize   Total number of nontrivial sledgehammer calls: 222
+0.sledgehammer finalize   Number of successful nontrivial sledgehammer calls: 117
+0.sledgehammer finalize   Total time for sledgehammer calls (Isabelle): 3915.563
+0.sledgehammer finalize   Total time for successful sledgehammer calls (ATP): 72.400
+0.sledgehammer finalize   Average time for sledgehammer calls (Isabelle): 17.638
+0.sledgehammer finalize   Average time for successful sledgehammer calls (ATP): 0.619

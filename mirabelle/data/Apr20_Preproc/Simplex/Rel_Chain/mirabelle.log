@@ -1,0 +1,139 @@
+0.sledgehammer initialize Params for sledgehammer: {abduce = SOME 0, cache_dir = NONE, compress = NONE, debug = false, expect =
+0.sledgehammer initialize  "", fact_filter = SOME "mepo", fact_thresholds = (0.45, 0.85), falsify =
+0.sledgehammer initialize  SOME false, induction_rules = NONE, instantiate = NONE, isar_proofs = NONE,
+0.sledgehammer initialize  lam_trans = NONE, learn = true, max_facts = NONE, max_mono_iters = NONE,
+0.sledgehammer initialize  max_new_mono_instances = NONE, max_proofs = 4, minimize = true, overlord =
+0.sledgehammer initialize  false, preplay_provers = [], preplay_timeout = 1.000, provers =
+0.sledgehammer initialize  ["cvc5_proof"], slices = 96, smt_proofs = true, spy = false, strict =
+0.sledgehammer initialize  false, timeout = 30.000, try0 = true, type_enc = NONE, uncurried_aliases =
+0.sledgehammer initialize  NONE, verbose = false}
+0.sledgehammer goal.by        12958ms Simplex.Rel_Chain 15:381  some (SH 12958ms, ATP 1367ms): Try this: apply (simp add: rel_chain_def) (2 ms)
+0.sledgehammer goal.unfolding 13282ms Simplex.Rel_Chain 19:537  timeout (SH 13282ms): Timed out
+0.sledgehammer goal.by        11809ms Simplex.Rel_Chain 20:563  timeout (SH 11809ms): Timed out
+0.sledgehammer goal.unfolding 11534ms Simplex.Rel_Chain 24:641  timeout (SH 11534ms): Timed out
+0.sledgehammer goal.by        11618ms Simplex.Rel_Chain 25:667  timeout (SH 11618ms): Timed out
+0.sledgehammer goal.unfolding 13469ms Simplex.Rel_Chain 29:749  some (SH 13468ms, ATP 741ms): Try this: by (simp add: butlast_conv_take rel_chain_take) (11 ms)
+0.sledgehammer goal.by        55677ms Simplex.Rel_Chain 30:775  some (SH 55677ms, ATP 443ms): Try this: by (simp add: nth_butlast) (128 ms)
+0.sledgehammer goal.unfolding 13133ms Simplex.Rel_Chain 34:871  some (SH 13133ms, ATP 542ms): Try this: by (metis Nil_tl list.collapse rel_chain_Cons rel_chain_Nil) (60 ms)
+0.sledgehammer goal.by        24855ms Simplex.Rel_Chain 35:897  some (SH 24854ms, ATP 703ms): Try this: by (simp add: less_diff_conv nth_tl) (30 ms)
+0.sledgehammer goal.using     12109ms Simplex.Rel_Chain 40:1064  timeout (SH 12109ms): Timed out
+0.sledgehammer goal.by        12710ms Simplex.Rel_Chain 41:1078  timeout (SH 12709ms): Timed out
+0.sledgehammer goal.using     11829ms Simplex.Rel_Chain 46:1284  timeout (SH 11829ms): Timed out
+0.sledgehammer goal.by        12851ms Simplex.Rel_Chain 47:1298  timeout (SH 12851ms): Timed out
+0.sledgehammer goal.proof     11731ms Simplex.Rel_Chain 52:1496  timeout (SH 11730ms): Timed out
+0.sledgehammer goal.by        11837ms Simplex.Rel_Chain 55:1537  timeout (SH 11837ms): Timed out
+0.sledgehammer goal.by         3789ms Simplex.Rel_Chain 59:1705  some (SH 3789ms, ATP 1968ms): Try this: by blast (5 ms)
+0.sledgehammer goal.by        32143ms Simplex.Rel_Chain 61:1734  timeout (SH 32143ms): Timed out
+0.sledgehammer goal.proof     13927ms Simplex.Rel_Chain 66:1936  timeout (SH 13927ms): Timed out
+0.sledgehammer goal.by         5344ms Simplex.Rel_Chain 69:2010  some (SH 5344ms, ATP 682ms): Try this: by (meson tranclD) (45 ms)
+0.sledgehammer goal.by         6913ms Simplex.Rel_Chain 71:2110  some (SH 6913ms, ATP 628ms): Try this: by (meson rtrancl_rel_chain) (82 ms)
+0.sledgehammer goal.using     12923ms Simplex.Rel_Chain 73:2169  timeout (SH 12923ms): Timed out
+0.sledgehammer goal.by        39855ms Simplex.Rel_Chain 74:2192  timeout (SH 39855ms): Timed out
+0.sledgehammer goal.by         2230ms Simplex.Rel_Chain 78:2364  some (SH 2230ms, ATP 473ms): Try this: by blast (15 ms)
+0.sledgehammer goal.using     23205ms Simplex.Rel_Chain 81:2460  timeout (SH 23205ms): Timed out
+0.sledgehammer goal.by        26764ms Simplex.Rel_Chain 82:2485  timeout (SH 26764ms): Timed out
+0.sledgehammer goal.using      1940ms Simplex.Rel_Chain 84:2582  some (SH 1940ms, ATP 448ms): Try this: apply blast (0.5 ms)
+0.sledgehammer goal.by        23095ms Simplex.Rel_Chain 85:2605  some (SH 23095ms, ATP 572ms): Try this: apply blast (1 ms)
+0.sledgehammer goal.by        38037ms Simplex.Rel_Chain 87:2664  some (SH 38036ms, ATP 781ms): Try this: by simp (2 ms)
+0.sledgehammer goal.proof     46462ms Simplex.Rel_Chain 93:2789  timeout (SH 46462ms): Timed out
+0.sledgehammer goal.by         6790ms Simplex.Rel_Chain 96:2847  some (SH 6790ms, ATP 451ms): Try this: by simp (0.5 ms)
+0.sledgehammer goal.using     18018ms Simplex.Rel_Chain 100:2897  some (SH 18018ms, ATP 353ms): Try this: by (simp add: assms(2) le_neq_implies_less) (3 ms)
+0.sledgehammer goal.by         9243ms Simplex.Rel_Chain 101:2915  some (SH 9243ms, ATP 326ms): Try this: using le_neq_implies_less by blast (2 ms)
+0.sledgehammer goal.using     28322ms Simplex.Rel_Chain 103:2948  some (SH 28322ms, ATP 354ms): Try this: using assms(3) by force (1 ms)
+0.sledgehammer goal.by        19007ms Simplex.Rel_Chain 104:2973  some (SH 19007ms, ATP 329ms): Try this: by force (0.9 ms)
+0.sledgehammer goal.using     36881ms Simplex.Rel_Chain 109:3041  timeout (SH 36881ms): Timed out
+0.sledgehammer goal.by        11550ms Simplex.Rel_Chain 110:3074  timeout (SH 11550ms): Timed out
+0.sledgehammer goal.using     16848ms Simplex.Rel_Chain 113:3120  some (SH 16848ms, ATP 444ms): Try this: by (metis assms(2) calculation drop_all hd_drop_conv_nth less_eq_iff_succ_less linorder_le_less_linear nth_take) (50 ms)
+0.sledgehammer goal.by        15726ms Simplex.Rel_Chain 114:3148  some (SH 15725ms, ATP 384ms): Try this: by (metis assms(2) drop_all hd_drop_conv_nth less_eq_iff_succ_less linorder_le_less_linear nth_take) (51 ms)
+0.sledgehammer goal.using     25603ms Simplex.Rel_Chain 117:3220  some (SH 25603ms, ATP 415ms): Try this: by (metis add_diff_cancel_right' add_gr_0 assms(3) calculation(1) drop_all interval_class.less_imp_in_less_eq last_drop last_take_conv_nth less_numeral_extra(1) linorder_le_less_linear) (107 ms)
+0.sledgehammer goal.by        21011ms Simplex.Rel_Chain 118:3272  some (SH 21011ms, ATP 404ms): Try this: by (metis add_diff_cancel_right' add_gr_0 drop_eq_Nil2 last_drop last_take_conv_nth less_iff_succ_less_eq less_numeral_extra(1) linorder_le_less_linear) (52 ms)
+0.sledgehammer goal.using      5887ms Simplex.Rel_Chain 121:3380  some (SH 5887ms, ATP 364ms): Try this: using assms(1) rel_chain_drop rel_chain_take by blast (8 ms)
+0.sledgehammer goal.by        12641ms Simplex.Rel_Chain 122:3406  some (SH 12641ms, ATP 328ms): Try this: using rel_chain_drop rel_chain_take by blast (4 ms)
+0.sledgehammer goal.by        20519ms Simplex.Rel_Chain 125:3485  some (SH 20519ms, ATP 365ms): Try this: by (metis rtrancl_rel_chain) (111 ms)
+0.sledgehammer goal.proof     23203ms Simplex.Rel_Chain 135:3870  timeout (SH 23203ms): Timed out
+0.sledgehammer goal.using     14929ms Simplex.Rel_Chain 137:3898  some (SH 14929ms, ATP 1168ms): Try this: using assms(3) by force (1 ms)
+0.sledgehammer goal.by        14275ms Simplex.Rel_Chain 138:3923  some (SH 14275ms, ATP 843ms): Try this: by fastforce (1 ms)
+0.sledgehammer goal.using     15074ms Simplex.Rel_Chain 141:3976  timeout (SH 15074ms): Timed out
+0.sledgehammer goal.by        11604ms Simplex.Rel_Chain 142:4002  some (SH 11603ms, ATP 390ms): Try this: apply force (20 ms)
+0.sledgehammer goal.proof     24318ms Simplex.Rel_Chain 150:4207  some (SH 24318ms, ATP 851ms): Try this: using assms(4) hd_drop_conv_nth hd_tl by fastforce (153 ms)
+0.sledgehammer goal.using     24276ms Simplex.Rel_Chain 152:4281  some (SH 24276ms, ATP 563ms): Try this: by (metis One_nat_def Suc_lessD \<open>1 < length (tl l)\<close> \<open>tl l \<noteq> []\<close> hd_conv_nth nth_tl) (38 ms)
+0.sledgehammer goal.by        18997ms Simplex.Rel_Chain 153:4314  some (SH 18997ms, ATP 682ms): Try this: by (metis One_nat_def Suc_lessD \<open>1 < length (tl l)\<close> hd_conv_nth nth_tl) (46 ms)
+0.sledgehammer goal.using     26285ms Simplex.Rel_Chain 157:4451  some (SH 26285ms, ATP 902ms): Try this: using assms(4) hd_drop_conv_nth by fastforce (61 ms)
+0.sledgehammer goal.by        53533ms Simplex.Rel_Chain 158:4492  some (SH 53533ms, ATP 891ms): Try this: by (metis Suc_diff_Suc Suc_eq_plus1 hd_append2 hd_drop_conv_nth length_drop less_Suc_eq_0_disj less_numeral_extra(3) list.size(3)) (68 ms)
+0.sledgehammer goal.proof     46930ms Simplex.Rel_Chain 164:4587  some (SH 46930ms, ATP 582ms): Try this: by (smt (z3) List.last_tl \<open>tl l \<noteq> []\<close> add_diff_cancel_right' add_gr_0 assms(1,2,4) hd_conv_nth last_append last_take_conv_nth less_imp_le_nat take_eq_Nil tl_take zero_less_one) (102 ms)
+0.sledgehammer goal.using      6180ms Simplex.Rel_Chain 166:4657  some (SH 6180ms, ATP 501ms): Try this: by (metis List.last_tl \<open>l \<noteq> []\<close> \<open>tl l \<noteq> []\<close> assms(1,2) hd_conv_nth) (60 ms)
+0.sledgehammer goal.by         7916ms Simplex.Rel_Chain 167:4717  some (SH 7916ms, ATP 282ms): Try this: by (simp add: List.last_tl \<open>tl l \<noteq> []\<close> hd_conv_nth) (8 ms)
+0.sledgehammer goal.using     41500ms Simplex.Rel_Chain 171:4856  some (SH 41500ms, ATP 1264ms): Try this: by (metis List.last_tl \<open>tl l \<noteq> []\<close> add.commute add_diff_cancel_left' assms(4) last_appendR last_take_conv_nth less_numeral_extra(3) less_or_eq_imp_le plus_1_eq_Suc take_eq_Nil2 take_tl zero_less_Suc) (1.0 s)
+0.sledgehammer goal.by        23910ms Simplex.Rel_Chain 172:4909  some (SH 23910ms, ATP 1004ms): Try this: by (metis List.last_tl Suc_eq_plus1 add_diff_cancel_right' last_appendR last_take_conv_nth less_numeral_extra(3) less_or_eq_imp_le take_eq_Nil2 take_tl zero_less_Suc) (631 ms)
+0.sledgehammer goal.proof     86804ms Simplex.Rel_Chain 178:5030  some (SH 86804ms, ATP 1482ms): Try this: by (smt (z3) append_take_drop_id assms(1,2,4,5) diff_diff_cancel diff_is_0_eq' hd_conv_nth hd_take hd_tl last_drop le_add2 le_numeral_extra(4) le_trans less_add_same_cancel2 linordered_semidom_class.add_diff_inverse list.size(3) nat_less_le rel_chain_append rel_chain_appendD(2) rel_chain_def rel_chain_take rel_chain_tl tl_take) (399 ms)
+0.sledgehammer goal.using      2274ms Simplex.Rel_Chain 181:5113  some (SH 2274ms, ATP 513ms): Try this: by (simp add: assms(5) rel_chain_tl) (1 ms)
+0.sledgehammer goal.by        15757ms Simplex.Rel_Chain 182:5141  some (SH 15757ms, ATP 561ms): Try this: by (simp add: rel_chain_tl) (1 ms)
+0.sledgehammer goal.proof     16627ms Simplex.Rel_Chain 186:5267  timeout (SH 16627ms): Timed out
+0.sledgehammer goal.using      7615ms Simplex.Rel_Chain 188:5348  some (SH 7615ms, ATP 460ms): Try this: using assms(5) rel_chain_drop by blast (0.7 ms)
+0.sledgehammer goal.by         6029ms Simplex.Rel_Chain 189:5378  some (SH 6029ms, ATP 526ms): Try this: using rel_chain_drop by blast (3 ms)
+0.sledgehammer goal.using     12111ms Simplex.Rel_Chain 192:5475  some (SH 12111ms, ATP 530ms): Try this: by (simp add: assms(5) rel_chain_take rel_chain_tl) (7 ms)
+0.sledgehammer goal.by        30653ms Simplex.Rel_Chain 193:5505  some (SH 30652ms, ATP 668ms): Try this: by (simp add: rel_chain_take rel_chain_tl) (7 ms)
+0.sledgehammer goal.using     26860ms Simplex.Rel_Chain 196:5611  some (SH 26860ms, ATP 323ms): Try this: using \<open>l \<noteq> []\<close> assms(1,2,4) hd_conv_nth by auto (17 ms)
+0.sledgehammer goal.by        52991ms Simplex.Rel_Chain 197:5678  some (SH 52991ms, ATP 679ms): Try this: by (simp add: hd_conv_nth) (9 ms)
+0.sledgehammer goal.using     31876ms Simplex.Rel_Chain 200:5781  some (SH 31875ms, ATP 634ms): Try this: by (simp add: \<open>tl l \<noteq> []\<close> tl_take) (6 ms)
+0.sledgehammer goal.by        22603ms Simplex.Rel_Chain 201:5836  some (SH 22603ms, ATP 630ms): Try this: by (simp add: tl_take) (15 ms)
+0.sledgehammer goal.using     80994ms Simplex.Rel_Chain 203:5934  some (SH 80994ms, ATP 465ms): Try this: by (metis add.right_neutral add_diff_cancel_right' add_strict_mono assms(4) hd_take hd_tl less_add_same_cancel2 less_imp_add_positive tl_take) (142 ms)
+0.sledgehammer goal.by        39177ms Simplex.Rel_Chain 204:5957  some (SH 39177ms, ATP 464ms): Try this: by (metis add.right_neutral add_diff_cancel_right' add_strict_mono assms(4) hd_take hd_tl less_add_same_cancel2 less_imp_add_positive tl_take) (112 ms)
+0.sledgehammer goal.using     21357ms Simplex.Rel_Chain 207:6099  some (SH 21357ms, ATP 821ms): Try this: by (metis Nitpick.size_list_simp(2) One_nat_def Suc_eq_plus1 \<open>0 < sl\<close> \<open>l \<noteq> []\<close> \<open>tl l \<noteq> []\<close> add.commute add_diff_cancel_left' assms(5) length_greater_0_conv rel_chain_def) (307 ms)
+0.sledgehammer goal.unfolding 21567ms Simplex.Rel_Chain 208:6153  some (SH 21567ms, ATP 545ms): Try this: by (metis One_nat_def Suc_eq_plus1 \<open>tl l \<noteq> []\<close> length_greater_0_conv length_tl rel_chain_def) (129 ms)
+0.sledgehammer goal.by        26907ms Simplex.Rel_Chain 209:6185  some (SH 26906ms, ATP 724ms): Try this: by (metis One_nat_def Suc_eq_plus1 \<open>tl l \<noteq> []\<close> length_greater_0_conv length_tl) (124 ms)
+0.sledgehammer goal.by        20616ms Simplex.Rel_Chain 216:6260  some (SH 20616ms, ATP 2545ms): Try this: by auto (153 ms)
+0.sledgehammer goal.by         2387ms Simplex.Rel_Chain 221:6405  some (SH 2387ms, ATP 354ms): Try this: by blast (9 ms)
+0.sledgehammer goal.proof     18206ms Simplex.Rel_Chain 225:6531  timeout (SH 18206ms): Timed out
+0.sledgehammer goal.proof     16465ms Simplex.Rel_Chain 229:6668  timeout (SH 16465ms): Timed out
+0.sledgehammer goal.using     15056ms Simplex.Rel_Chain 232:6739  some (SH 15055ms, ATP 1086ms): Try this: using "*"(1) \<open>\<And>thesis. (\<And>l'. \<lbrakk>l' = (if sl = 0 then tl l else drop (sl + 1) l @ tl (take (sl + 1) l)); hd l' = l ! (sl + 1); last l' = l ! sl; rel_chain l' r; length l' = length l - 1\<rbrakk> \<Longrightarrow> thesis) \<Longrightarrow> thesis\<close> \<open>i + 1 < length l'\<close> \<open>l \<noteq> []\<close> less_diff_conv tl_nth by auto (80 ms)
+0.sledgehammer goal.using     20883ms Simplex.Rel_Chain 233:6773  some (SH 20883ms, ATP 1029ms): Try this: using "*"(1) \<open>\<And>thesis. (\<And>l'. \<lbrakk>l' = (if sl = 0 then tl l else drop (sl + 1) l @ tl (take (sl + 1) l)); hd l' = l ! (sl + 1); last l' = l ! sl; rel_chain l' r; length l' = length l - 1\<rbrakk> \<Longrightarrow> thesis) \<Longrightarrow> thesis\<close> \<open>l \<noteq> []\<close> less_diff_conv tl_nth by auto (90 ms)
+0.sledgehammer goal.by        141945ms Simplex.Rel_Chain 234:6807  some (SH 141945ms, ATP 1056ms): Try this: using \<open>\<And>thesis. (\<And>l'. \<lbrakk>l' = (if sl = 0 then tl l else drop (sl + 1) l @ tl (take (sl + 1) l)); hd l' = l ! (sl + 1); last l' = l ! sl; rel_chain l' r; length l' = length l - 1\<rbrakk> \<Longrightarrow> thesis) \<Longrightarrow> thesis\<close> less_diff_conv tl_nth by auto (90 ms)
+0.sledgehammer goal.using      2186ms Simplex.Rel_Chain 238:6912  some (SH 2186ms, ATP 249ms): Try this: using "*"(5) by blast (0.2 ms)
+0.sledgehammer goal.by        14822ms Simplex.Rel_Chain 239:6957  some (SH 14822ms, ATP 278ms): Try this: using "*"(5) by fastforce (0.4 ms)
+0.sledgehammer goal.using     15721ms Simplex.Rel_Chain 241:7023  some (SH 15721ms, ATP 506ms): Try this: using \<open>i + 1 < length l'\<close> by linarith (29 ms)
+0.sledgehammer goal.by        21413ms Simplex.Rel_Chain 242:7057  some (SH 21413ms, ATP 431ms): Try this: by linarith (29 ms)
+0.sledgehammer goal.proof     59590ms Simplex.Rel_Chain 245:7091  timeout (SH 59590ms): Timed out
+0.sledgehammer goal.using     14361ms Simplex.Rel_Chain 248:7194  timeout (SH 14361ms): Timed out
+0.sledgehammer goal.by        13031ms Simplex.Rel_Chain 249:7230  timeout (SH 13031ms): Timed out
+0.sledgehammer goal.proof     12115ms Simplex.Rel_Chain 253:7321  timeout (SH 12115ms): Timed out
+0.sledgehammer goal.by         7893ms Simplex.Rel_Chain 256:7452  some (SH 7893ms, ATP 325ms): Try this: by force (6 ms)
+0.sledgehammer goal.using     26922ms Simplex.Rel_Chain 260:7613  timeout (SH 26922ms): Timed out
+0.sledgehammer goal.using     12779ms Simplex.Rel_Chain 261:7670  timeout (SH 12779ms): Timed out
+0.sledgehammer goal.using     12868ms Simplex.Rel_Chain 262:7718  timeout (SH 12868ms): Timed out
+0.sledgehammer goal.using     12604ms Simplex.Rel_Chain 263:7765  timeout (SH 12604ms): Timed out
+0.sledgehammer goal.using     112791ms Simplex.Rel_Chain 264:7838  some (SH 112791ms, ATP 2032ms): Try this: apply (smt (z3) Nitpick.size_list_simp(2) \<open>i + 1 < length l'\<close> add.commute add_diff_inverse_nat add_lessD1 append_take_drop_id length_append length_drop nat_add_left_cancel_less not_less_eq nth_append plus_1_eq_Suc self_append_conv) (147 ms)
+0.sledgehammer goal.by        120154ms Simplex.Rel_Chain 265:7915  some (SH 120154ms, ATP 2093ms): Try this: apply (smt (z3) False Nitpick.size_list_simp(2) Suc_eq_plus1 Suc_lessI \<open>i + 1 < length l'\<close> add.commute add_diff_inverse_nat add_lessD1 append_take_drop_id length_append length_drop nat_add_left_cancel_less nth_append self_append_conv) (248 ms)
+0.sledgehammer goal.using     36631ms Simplex.Rel_Chain 270:8171  some (SH 36631ms, ATP 1075ms): Try this: using Nat.diff_diff_right Suc_eq_plus1 assms(4) less_imp_le_nat apply presburger (15 ms)
+0.sledgehammer goal.using     19966ms Simplex.Rel_Chain 271:8209  some (SH 19965ms, ATP 917ms): Try this: using Nat.diff_diff_right Suc_eq_plus1 less_imp_le_nat apply presburger (12 ms)
+0.sledgehammer goal.using     16433ms Simplex.Rel_Chain 272:8257  some (SH 16433ms, ATP 886ms): Try this: using Nat.diff_diff_right Suc_eq_plus1 less_imp_le_nat apply presburger (12 ms)
+0.sledgehammer goal.by        12923ms Simplex.Rel_Chain 273:8294  some (SH 12923ms, ATP 1089ms): Try this: using Nat.diff_diff_right Suc_eq_plus1 less_or_eq_imp_le apply presburger (9 ms)
+0.sledgehammer goal.using      2607ms Simplex.Rel_Chain 276:8373  some (SH 2607ms, ATP 348ms): Try this: using \<open>Suc (i - (length l - Suc sl)) = i + sl + 1 - length l + 1\<close> \<open>l' ! i = l ! Suc (i - (length l - Suc sl))\<close> by presburger (0.8 ms)
+0.sledgehammer goal.by        15714ms Simplex.Rel_Chain 277:8436  some (SH 15714ms, ATP 339ms): Try this: using \<open>Suc (i - (length l - Suc sl)) = i + sl + 1 - length l + 1\<close> by presburger (1 ms)
+0.sledgehammer goal.using     38877ms Simplex.Rel_Chain 280:8618  some (SH 38877ms, ATP 379ms): Try this: using \<open>Suc (Suc i - (length l - Suc sl)) = i + sl + 1 - length l + 1 + 1\<close> \<open>l' ! (i + 1) = l ! Suc (Suc i - (length l - Suc sl))\<close> by presburger (4 ms)
+0.sledgehammer goal.by        25524ms Simplex.Rel_Chain 281:8691  some (SH 25524ms, ATP 356ms): Try this: using \<open>Suc (Suc i - (length l - Suc sl)) = i + sl + 1 - length l + 1 + 1\<close> by argo (4 ms)
+0.sledgehammer goal.using     22680ms Simplex.Rel_Chain 284:8838  some (SH 22680ms, ATP 765ms): Try this: using \<open>i + sl + 1 - length l + 1 + 1 < length l\<close> by blast (2 ms)
+0.sledgehammer goal.by         3623ms Simplex.Rel_Chain 285:8899  some (SH 3623ms, ATP 781ms): Try this: by blast (1 ms)
+0.sledgehammer goal.using     51198ms Simplex.Rel_Chain 289:9002  timeout (SH 51198ms): Timed out
+0.sledgehammer goal.by        25281ms Simplex.Rel_Chain 290:9057  some (SH 25281ms, ATP 436ms): Try this: by auto (27 ms)
+0.sledgehammer goal.by        43319ms Simplex.Rel_Chain 292:9125  some (SH 43319ms, ATP 1207ms): Try this: by auto (78 ms)
+0.sledgehammer goal.using     18149ms Simplex.Rel_Chain 294:9193  some (SH 18149ms, ATP 376ms): Try this: by (simp add: \<open>l \<noteq> []\<close> last_conv_nth) (3 ms)
+0.sledgehammer goal.by        15845ms Simplex.Rel_Chain 295:9250  some (SH 15845ms, ATP 517ms): Try this: by simp (7 ms)
+0.sledgehammer goal.using     25125ms Simplex.Rel_Chain 297:9298  timeout (SH 25125ms): Timed out
+0.sledgehammer goal.using     12644ms Simplex.Rel_Chain 298:9344  timeout (SH 12644ms): Timed out
+0.sledgehammer goal.using     13174ms Simplex.Rel_Chain 299:9391  timeout (SH 13174ms): Timed out
+0.sledgehammer goal.using     12934ms Simplex.Rel_Chain 300:9440  timeout (SH 12934ms): Timed out
+0.sledgehammer goal.by        13178ms Simplex.Rel_Chain 301:9482  timeout (SH 13178ms): Timed out
+0.sledgehammer goal.using     12589ms Simplex.Rel_Chain 308:9586  some (SH 12588ms, ATP 5248ms): Try this: using "*"(1) \<open>\<And>thesis. (\<And>l'. \<lbrakk>l' = (if sl = 0 then tl l else drop (sl + 1) l @ tl (take (sl + 1) l)); hd l' = l ! (sl + 1); last l' = l ! sl; rel_chain l' r; length l' = length l - 1\<rbrakk> \<Longrightarrow> thesis) \<Longrightarrow> thesis\<close> that by blast (273 ms)
+0.sledgehammer goal.apply     14418ms Simplex.Rel_Chain 309:9603  some (SH 14418ms, ATP 139ms): Try this: using that by blast (8 ms)
+0.sledgehammer finalize   Total number of sledgehammer calls: 119
+0.sledgehammer finalize   Number of successful sledgehammer calls: 81
+0.sledgehammer finalize   Number of sledgehammer lemmas: 501
+0.sledgehammer finalize   Max number of sledgehammer lemmas: 24
+0.sledgehammer finalize   Success rate: 68.1%
+0.sledgehammer finalize   Total number of nontrivial sledgehammer calls: 119
+0.sledgehammer finalize   Number of successful nontrivial sledgehammer calls: 81
+0.sledgehammer finalize   Total time for sledgehammer calls (Isabelle): 2768.834
+0.sledgehammer finalize   Total time for successful sledgehammer calls (ATP): 60.655
+0.sledgehammer finalize   Average time for sledgehammer calls (Isabelle): 23.268
+0.sledgehammer finalize   Average time for successful sledgehammer calls (ATP): 0.749

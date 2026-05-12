@@ -1,0 +1,318 @@
+0.sledgehammer initialize Params for sledgehammer: {abduce = SOME 0, cache_dir = NONE, compress = NONE, debug = false, expect =
+0.sledgehammer initialize  "", fact_filter = SOME "mepo", fact_thresholds = (0.45, 0.85), falsify =
+0.sledgehammer initialize  SOME false, induction_rules = NONE, instantiate = NONE, isar_proofs = NONE,
+0.sledgehammer initialize  lam_trans = NONE, learn = true, max_facts = NONE, max_mono_iters = NONE,
+0.sledgehammer initialize  max_new_mono_instances = NONE, max_proofs = 4, minimize = true, overlord =
+0.sledgehammer initialize  false, preplay_provers = [], preplay_timeout = 1.000, provers =
+0.sledgehammer initialize  ["cvc5_proof"], slices = 96, smt_proofs = true, spy = false, strict =
+0.sledgehammer initialize  false, timeout = 30.000, try0 = true, type_enc = NONE, uncurried_aliases =
+0.sledgehammer initialize  NONE, verbose = false}
+0.sledgehammer goal.proof     13267ms Simplex.Simplex_Incremental 52:2245  timeout (SH 13267ms): Timed out
+0.sledgehammer goal.by        44837ms Simplex.Simplex_Incremental 55:2410  some (SH 44836ms, ATP 3993ms): Try this: by (smt (z3) assert_all_s.simps(2) case_sum_inject obj_sumE surjective_sum) (171 ms)
+0.sledgehammer goal.by         9232ms Simplex.Simplex_Incremental 57:2502  some (SH 9232ms, ATP 600ms): Try this: by simp (3 ms)
+0.sledgehammer goal.proof     28894ms Simplex.Simplex_Incremental 62:2658  timeout (SH 28894ms): Timed out
+0.sledgehammer goal.proof     14475ms Simplex.Simplex_Incremental 65:2731  timeout (SH 14475ms): Timed out
+0.sledgehammer goal.by        10289ms Simplex.Simplex_Incremental 67:2814  some (SH 10289ms, ATP 788ms): Try this: by auto (12 ms)
+0.sledgehammer goal.by         9674ms Simplex.Simplex_Incremental 69:2936  some (SH 9674ms, ATP 638ms): Try this: by force (0.9 ms)
+0.sledgehammer goal.by        18079ms Simplex.Simplex_Incremental 71:2972  some (SH 18079ms, ATP 1117ms): Try this: by (metis J Un_insert_right \<open>minimal_unsat_core_tabl_atoms (set J) t (insert b as)\<close> insert_mono list.simps(15) minimal_unsat_core_tabl_atoms_mono sup.cobounded1) (44 ms)
+0.sledgehammer goal.by        15350ms Simplex.Simplex_Incremental 74:3132  some (SH 15350ms, ATP 653ms): Try this: by auto (6 ms)
+0.sledgehammer goal.using      7286ms Simplex.Simplex_Incremental 125:4746  some (SH 7286ms, ATP 608ms): Try this: using assms invariant_s_def apply force (7 ms)
+0.sledgehammer goal.unfolding  5078ms Simplex.Simplex_Incremental 125:4758  some (SH 5078ms, ATP 466ms): Try this: using invariant_s_def apply blast (4 ms)
+0.sledgehammer goal.by        10345ms Simplex.Simplex_Incremental 125:4783  some (SH 10345ms, ATP 503ms): Try this: apply fastforce (0.3 ms)
+0.sledgehammer goal.using     12549ms Simplex.Simplex_Incremental 131:5011  some (SH 12549ms, ATP 1339ms): Try this: using assms weak_invariant_s_def apply blast (1 ms)
+0.sledgehammer goal.unfolding 12370ms Simplex.Simplex_Incremental 131:5023  some (SH 12369ms, ATP 1322ms): Try this: using weak_invariant_s_def apply blast (1 ms)
+0.sledgehammer goal.by         4054ms Simplex.Simplex_Incremental 131:5048  some (SH 4054ms, ATP 442ms): Try this: apply meson (0.3 ms)
+0.sledgehammer goal.unfolding 28098ms Simplex.Simplex_Incremental 140:5366  timeout (SH 28098ms): Timed out
+0.sledgehammer goal.proof     12908ms Simplex.Simplex_Incremental 141:5410  timeout (SH 12908ms): Timed out
+0.sledgehammer goal.by         4154ms Simplex.Simplex_Incremental 145:5622  some (SH 4154ms, ATP 847ms): Try this: apply blast (0.9 ms)
+0.sledgehammer goal.by         6054ms Simplex.Simplex_Incremental 147:5762  some (SH 6054ms, ATP 321ms): Try this: apply meson (0.4 ms)
+0.sledgehammer goal.using     16129ms Simplex.Simplex_Incremental 149:5814  some (SH 16128ms, ATP 504ms): Try this: using index_valid_indices_state by blast (5 ms)
+0.sledgehammer goal.by         6159ms Simplex.Simplex_Incremental 149:5846  some (SH 6159ms, ATP 490ms): Try this: by blast (2 ms)
+0.sledgehammer goal.by         4156ms Simplex.Simplex_Incremental 153:5962  some (SH 4156ms, ATP 565ms): Try this: by blast (3 ms)
+0.sledgehammer goal.using     16802ms Simplex.Simplex_Incremental 154:6005  timeout (SH 16802ms): Timed out
+0.sledgehammer goal.using      7591ms Simplex.Simplex_Incremental 155:6025  some (SH 7591ms, ATP 706ms): Try this: by (meson atoms_imply_bounds_index.elims(2) satisfies_state_index.simps) (45 ms)
+0.sledgehammer goal.by         7972ms Simplex.Simplex_Incremental 155:6090  some (SH 7972ms, ATP 501ms): Try this: by blast (15 ms)
+0.sledgehammer goal.by         7075ms Simplex.Simplex_Incremental 156:6125  some (SH 7075ms, ATP 604ms): Try this: by blast (1 ms)
+0.sledgehammer goal.by         5178ms Simplex.Simplex_Incremental 162:6269  some (SH 5177ms, ATP 580ms): Try this: by order (0.6 ms)
+0.sledgehammer goal.by         4617ms Simplex.Simplex_Incremental 163:6329  some (SH 4617ms, ATP 576ms): Try this: using index_valid_distinct_indices by blast (1 ms)
+0.sledgehammer goal.by         3494ms Simplex.Simplex_Incremental 166:6529  some (SH 3494ms, ATP 359ms): Try this: by blast (4 ms)
+0.sledgehammer goal.by         7022ms Simplex.Simplex_Incremental 168:6660  some (SH 7022ms, ATP 425ms): Try this: by blast (2 ms)
+0.sledgehammer goal.proof     12161ms Simplex.Simplex_Incremental 174:6802  timeout (SH 12161ms): Timed out
+0.sledgehammer goal.by         3971ms Simplex.Simplex_Incremental 177:6986  some (SH 3970ms, ATP 499ms): Try this: apply fastforce (3 ms)
+0.sledgehammer goal.unfolding 11549ms Simplex.Simplex_Incremental 180:7117  some (SH 11549ms, ATP 690ms): Try this: using s' by blast (3 ms)
+0.sledgehammer goal.by         3330ms Simplex.Simplex_Incremental 180:7130  some (SH 3330ms, ATP 470ms): Try this: by presburger (2 ms)
+0.sledgehammer goal.unfolding  3369ms Simplex.Simplex_Incremental 182:7210  some (SH 3369ms, ATP 471ms): Try this: using T apply argo (2 ms)
+0.sledgehammer goal.by         3221ms Simplex.Simplex_Incremental 182:7222  some (SH 3221ms, ATP 378ms): Try this: apply blast (0.3 ms)
+0.sledgehammer goal.unfolding  3447ms Simplex.Simplex_Incremental 184:7317  some (SH 3447ms, ATP 413ms): Try this: using s' apply blast (1 ms)
+0.sledgehammer goal.by         3114ms Simplex.Simplex_Incremental 184:7330  some (SH 3114ms, ATP 463ms): Try this: apply blast (0.7 ms)
+0.sledgehammer goal.unfolding 10482ms Simplex.Simplex_Incremental 186:7452  some (SH 10482ms, ATP 597ms): Try this: using s' by auto (10 ms)
+0.sledgehammer goal.by         9947ms Simplex.Simplex_Incremental 186:7465  some (SH 9947ms, ATP 683ms): Try this: by fastforce (5 ms)
+0.sledgehammer goal.unfolding  4306ms Simplex.Simplex_Incremental 188:7577  some (SH 4306ms, ATP 635ms): Try this: using s' by blast (4 ms)
+0.sledgehammer goal.unfolding 13352ms Simplex.Simplex_Incremental 190:7669  some (SH 13352ms, ATP 703ms): Try this: using s' by presburger (3 ms)
+0.sledgehammer goal.unfolding  3176ms Simplex.Simplex_Incremental 192:7782  some (SH 3176ms, ATP 511ms): Try this: by (simp add: s') (3 ms)
+0.sledgehammer goal.by         3361ms Simplex.Simplex_Incremental 192:7795  some (SH 3361ms, ATP 492ms): Try this: by blast (2 ms)
+0.sledgehammer goal.by         7628ms Simplex.Simplex_Incremental 194:7841  some (SH 7628ms, ATP 461ms): Try this: by meson (0.4 ms)
+0.sledgehammer goal.unfolding  7444ms Simplex.Simplex_Incremental 195:7873  some (SH 7444ms, ATP 655ms): Try this: using invariant_s_def weak_invariant_s_def by blast (6 ms)
+0.sledgehammer goal.by         3764ms Simplex.Simplex_Incremental 195:7898  some (SH 3764ms, ATP 392ms): Try this: by meson (1 ms)
+0.sledgehammer goal.by         9724ms Simplex.Simplex_Incremental 201:8106  some (SH 9724ms, ATP 525ms): Try this: by (metis sum.distinct(1) sum.inject(1)) (64 ms)
+0.sledgehammer goal.unfolding  9117ms Simplex.Simplex_Incremental 204:8237  some (SH 9117ms, ATP 519ms): Try this: using s' by blast (1 ms)
+0.sledgehammer goal.by         9954ms Simplex.Simplex_Incremental 204:8250  some (SH 9954ms, ATP 580ms): Try this: by presburger (3 ms)
+0.sledgehammer goal.unfolding  5507ms Simplex.Simplex_Incremental 206:8325  some (SH 5506ms, ATP 733ms): Try this: using T by presburger (4 ms)
+0.sledgehammer goal.by         6697ms Simplex.Simplex_Incremental 206:8337  some (SH 6697ms, ATP 618ms): Try this: by blast (1 ms)
+0.sledgehammer goal.by         4893ms Simplex.Simplex_Incremental 208:8441  some (SH 4893ms, ATP 699ms): Try this: by force (1 ms)
+0.sledgehammer goal.unfolding 11158ms Simplex.Simplex_Incremental 210:8545  some (SH 11158ms, ATP 466ms): Try this: using s' by blast (5 ms)
+0.sledgehammer goal.by         5673ms Simplex.Simplex_Incremental 210:8558  some (SH 5673ms, ATP 456ms): Try this: by blast (1 ms)
+0.sledgehammer goal.unfolding  4156ms Simplex.Simplex_Incremental 212:8666  some (SH 4156ms, ATP 555ms): Try this: using s' by presburger (3 ms)
+0.sledgehammer goal.by         5796ms Simplex.Simplex_Incremental 218:8899  some (SH 5796ms, ATP 770ms): Try this: apply force (4 ms)
+0.sledgehammer goal.unfolding  3572ms Simplex.Simplex_Incremental 222:9067  some (SH 3572ms, ATP 570ms): Try this: using s' by blast (5 ms)
+0.sledgehammer goal.by         4252ms Simplex.Simplex_Incremental 222:9080  some (SH 4252ms, ATP 609ms): Try this: by force (4 ms)
+0.sledgehammer goal.unfolding  3284ms Simplex.Simplex_Incremental 224:9169  some (SH 3284ms, ATP 548ms): Try this: using s' by blast (4 ms)
+0.sledgehammer goal.by         3624ms Simplex.Simplex_Incremental 224:9182  some (SH 3624ms, ATP 612ms): Try this: by presburger (3 ms)
+0.sledgehammer goal.unfolding  3270ms Simplex.Simplex_Incremental 226:9256  some (SH 3270ms, ATP 515ms): Try this: using s' by fastforce (3 ms)
+0.sledgehammer goal.unfolding  3250ms Simplex.Simplex_Incremental 228:9331  some (SH 3250ms, ATP 473ms): Try this: using s' by force (1 ms)
+0.sledgehammer goal.unfolding  3382ms Simplex.Simplex_Incremental 230:9395  some (SH 3382ms, ATP 509ms): Try this: using s' by blast (0.9 ms)
+0.sledgehammer goal.by         3731ms Simplex.Simplex_Incremental 232:9527  some (SH 3731ms, ATP 512ms): Try this: apply blast (0.5 ms)
+0.sledgehammer goal.unfolding 16756ms Simplex.Simplex_Incremental 234:9613  timeout (SH 16756ms): Timed out
+0.sledgehammer goal.by        13468ms Simplex.Simplex_Incremental 234:9626  timeout (SH 13468ms): Timed out
+0.sledgehammer goal.unfolding 12735ms Simplex.Simplex_Incremental 236:9732  timeout (SH 12735ms): Timed out
+0.sledgehammer goal.by        12905ms Simplex.Simplex_Incremental 236:9745  timeout (SH 12905ms): Timed out
+0.sledgehammer goal.unfolding  3645ms Simplex.Simplex_Incremental 238:9842  some (SH 3645ms, ATP 475ms): Try this: using s' by blast (1 ms)
+0.sledgehammer goal.unfolding 11910ms Simplex.Simplex_Incremental 239:9881  some (SH 11910ms, ATP 770ms): Try this: using checked_s_def invariant_s_def weak_invariant_s_def by presburger (21 ms)
+0.sledgehammer goal.by         4995ms Simplex.Simplex_Incremental 239:9906  some (SH 4995ms, ATP 517ms): Try this: by meson (4 ms)
+0.sledgehammer goal.by         6833ms Simplex.Simplex_Incremental 245:10084  some (SH 6833ms, ATP 571ms): Try this: apply (metis prod.inject) (71 ms)
+0.sledgehammer goal.unfolding 19502ms Simplex.Simplex_Incremental 249:10241  some (SH 19502ms, ATP 676ms): Try this: using s' by blast (4 ms)
+0.sledgehammer goal.by         7970ms Simplex.Simplex_Incremental 249:10254  some (SH 7970ms, ATP 444ms): Try this: by blast (0.6 ms)
+0.sledgehammer goal.unfolding  4209ms Simplex.Simplex_Incremental 251:10351  some (SH 4209ms, ATP 568ms): Try this: using s' by presburger (5 ms)
+0.sledgehammer goal.by         3337ms Simplex.Simplex_Incremental 251:10364  some (SH 3337ms, ATP 607ms): Try this: by force (6 ms)
+0.sledgehammer goal.unfolding  4378ms Simplex.Simplex_Incremental 253:10451  some (SH 4377ms, ATP 493ms): Try this: using s' by presburger (3 ms)
+0.sledgehammer goal.by         3432ms Simplex.Simplex_Incremental 253:10464  some (SH 3432ms, ATP 486ms): Try this: by presburger (2 ms)
+0.sledgehammer goal.unfolding 12913ms Simplex.Simplex_Incremental 255:10534  timeout (SH 12913ms): Timed out
+0.sledgehammer goal.by        12804ms Simplex.Simplex_Incremental 255:10547  timeout (SH 12804ms): Timed out
+0.sledgehammer goal.unfolding 13233ms Simplex.Simplex_Incremental 257:10684  timeout (SH 13233ms): Timed out
+0.sledgehammer goal.by        12967ms Simplex.Simplex_Incremental 257:10697  timeout (SH 12966ms): Timed out
+0.sledgehammer goal.unfolding  9230ms Simplex.Simplex_Incremental 258:10771  some (SH 9230ms, ATP 1457ms): Try this: using "**"(1,2,3,4,5) bequiv check_bounds_consistent check_tableau check_tableau_normalized check_tableau_valuated imp index s' tabl weak_invariant_s_def by fastforce (134 ms)
+0.sledgehammer goal.using     12104ms Simplex.Simplex_Incremental 259:10801  some (SH 12104ms, ATP 1222ms): Try this: by (metis "**"(1,2,3,4,5) bequiv check_tableau imp index s' tabl) (35 ms)
+0.sledgehammer goal.unfolding  5295ms Simplex.Simplex_Incremental 263:10914  some (SH 5295ms, ATP 541ms): Try this: by (metis bequiv imp index s' tabl) (115 ms)
+0.sledgehammer goal.by         7196ms Simplex.Simplex_Incremental 264:10942  some (SH 7196ms, ATP 551ms): Try this: using bequiv imp index tabl by presburger (12 ms)
+0.sledgehammer goal.by         3790ms Simplex.Simplex_Incremental 266:11071  some (SH 3790ms, ATP 567ms): Try this: by blast (1 ms)
+0.sledgehammer goal.unfolding  7483ms Simplex.Simplex_Incremental 269:11124  some (SH 7483ms, ATP 1324ms): Try this: by (simp add: "*" checked_s_def invariant_s_def local.init_atoms_equiv_bounds local.init_atoms_imply_bounds_index local.init_index_valid local.init_satisfies local.init_tableau_id local.init_tableau_valuated local.init_unsat_flag satisfies_consistent satisfies_satisfies_no_lhs weak_invariant_s_def) (2 ms)
+0.sledgehammer goal.using     26951ms Simplex.Simplex_Incremental 270:11153  some (SH 26951ms, ATP 578ms): Try this: by (metis "*" image_is_empty local.init'_atoms_equiv_bounds local.init'_tableau_equiv local.init_atoms_imply_bounds_index local.init_index_valid local.init_satisfies local.init_tableau_normalized local.init_tableau_valuated local.init_unsat_flag satisfies_consistent satisfies_satisfies_no_lhs) (163 ms)
+0.sledgehammer goal.by         4958ms Simplex.Simplex_Incremental 280:11507  some (SH 4958ms, ATP 476ms): Try this: by simp (25 ms)
+0.sledgehammer goal.unfolding 14975ms Simplex.Simplex_Incremental 283:11573  some (SH 14975ms, ATP 1477ms): Try this: using atoms_equiv_bounds_simps checked_s_def curr_val_satisfies_state_def invariant_s_def satisfies_state_def weak_invariant_s_def by blast (17 ms)
+0.sledgehammer goal.by         8839ms Simplex.Simplex_Incremental 284:11602  some (SH 8839ms, ATP 565ms): Try this: using atoms_equiv_bounds_simps curr_val_satisfies_state_def satisfies_state_def by blast (10 ms)
+0.sledgehammer goal.by         3636ms Simplex.Simplex_Incremental 288:11837  some (SH 3636ms, ATP 445ms): Try this: apply force (0.5 ms)
+0.sledgehammer goal.unfolding  3568ms Simplex.Simplex_Incremental 289:11877  some (SH 3568ms, ATP 439ms): Try this: using checkpoint_s_def by blast (2 ms)
+0.sledgehammer goal.by         3508ms Simplex.Simplex_Incremental 289:11904  some (SH 3508ms, ATP 442ms): Try this: by simp (1 ms)
+0.sledgehammer goal.unfolding 12150ms Simplex.Simplex_Incremental 291:12010  some (SH 12150ms, ATP 682ms): Try this: apply (metis "7"(4) backtrack_s.simps c state.collapse state.inject) (103 ms)
+0.sledgehammer goal.by        22912ms Simplex.Simplex_Incremental 292:12042  some (SH 22912ms, ATP 691ms): Try this: apply (metis backtrack_s.simps state.collapse state.inject) (110 ms)
+0.sledgehammer goal.by        13104ms Simplex.Simplex_Incremental 293:12121  timeout (SH 13104ms): Timed out
+0.sledgehammer goal.unfolding  3642ms Simplex.Simplex_Incremental 296:12275  some (SH 3642ms, ATP 475ms): Try this: using s''(4) by blast (1 ms)
+0.sledgehammer goal.by         2562ms Simplex.Simplex_Incremental 296:12289  some (SH 2562ms, ATP 282ms): Try this: by simp (0.4 ms)
+0.sledgehammer goal.unfolding  3806ms Simplex.Simplex_Incremental 298:12339  some (SH 3806ms, ATP 471ms): Try this: by (simp add: s''(1)) (0.8 ms)
+0.sledgehammer goal.unfolding  9275ms Simplex.Simplex_Incremental 300:12392  some (SH 9275ms, ATP 1121ms): Try this: by (simp add: s''(1,2) tableau_valuated_def) (5 ms)
+0.sledgehammer goal.unfolding  4740ms Simplex.Simplex_Incremental 302:12496  some (SH 4740ms, ATP 495ms): Try this: using s''(1) by auto (2 ms)
+0.sledgehammer goal.unfolding  3993ms Simplex.Simplex_Incremental 304:12566  some (SH 3993ms, ATP 407ms): Try this: using BI(1) by argo (2 ms)
+0.sledgehammer goal.unfolding  4085ms Simplex.Simplex_Incremental 306:12625  some (SH 4085ms, ATP 533ms): Try this: using BI(1,2) by presburger (2 ms)
+0.sledgehammer goal.unfolding  9121ms Simplex.Simplex_Incremental 308:12689  timeout (SH 9121ms): Timed out
+0.sledgehammer goal.using     21204ms Simplex.Simplex_Incremental 308:12715  some (SH 21204ms, ATP 575ms): Try this: using s''(3) by force (12 ms)
+0.sledgehammer goal.by         5646ms Simplex.Simplex_Incremental 308:12725  some (SH 5646ms, ATP 540ms): Try this: by auto (26 ms)
+0.sledgehammer goal.unfolding  3526ms Simplex.Simplex_Incremental 310:12770  some (SH 3525ms, ATP 383ms): Try this: using calculation(3) by blast (0.9 ms)
+0.sledgehammer goal.unfolding 10199ms Simplex.Simplex_Incremental 312:12867  some (SH 10199ms, ATP 1445ms): Try this: by (metis BI(1) curr_val_satisfies_state_def satisfies_bounds_consistent satisfies_state_def) (15 ms)
+0.sledgehammer goal.using      4833ms Simplex.Simplex_Incremental 312:12899  some (SH 4833ms, ATP 557ms): Try this: using BI(1) by force (12 ms)
+0.sledgehammer goal.by         5311ms Simplex.Simplex_Incremental 312:12908  some (SH 5311ms, ATP 600ms): Try this: by force (16 ms)
+0.sledgehammer goal.unfolding 13015ms Simplex.Simplex_Incremental 316:12999  timeout (SH 13015ms): Timed out
+0.sledgehammer goal.by        13934ms Simplex.Simplex_Incremental 317:13064  some (SH 13934ms, ATP 694ms): Try this: by (metis Un_iff image_Un sup.order_iff) (26 ms)
+0.sledgehammer goal.unfolding  9026ms Simplex.Simplex_Incremental 320:13162  some (SH 9026ms, ATP 1141ms): Try this: apply (simp add: curr_val_satisfies_no_lhs_def) (1 ms)
+0.sledgehammer goal.by         3305ms Simplex.Simplex_Incremental 320:13202  some (SH 3305ms, ATP 326ms): Try this: apply meson (0.5 ms)
+0.sledgehammer goal.unfolding 13168ms Simplex.Simplex_Incremental 322:13341  timeout (SH 13168ms): Timed out
+0.sledgehammer goal.proof     12961ms Simplex.Simplex_Incremental 323:13376  timeout (SH 12961ms): Timed out
+0.sledgehammer goal.proof     12798ms Simplex.Simplex_Incremental 326:13449  timeout (SH 12798ms): Timed out
+0.sledgehammer goal.by        13000ms Simplex.Simplex_Incremental 329:13585  timeout (SH 12999ms): Timed out
+0.sledgehammer goal.unfolding 12661ms Simplex.Simplex_Incremental 333:13715  timeout (SH 12661ms): Timed out
+0.sledgehammer goal.by        12627ms Simplex.Simplex_Incremental 333:13752  timeout (SH 12627ms): Timed out
+0.sledgehammer goal.unfolding 12744ms Simplex.Simplex_Incremental 337:13861  timeout (SH 12744ms): Timed out
+0.sledgehammer goal.proof     51953ms Simplex.Simplex_Incremental 338:13900  some (SH 51953ms, ATP 1303ms): Try this: by (smt (verit, best) Compl_iff in_bounds.elims(3) satisfies_bounds_iff v) (712 ms)
+0.sledgehammer goal.by        12874ms Simplex.Simplex_Incremental 342:14056  timeout (SH 12874ms): Timed out
+0.sledgehammer goal.unfolding  4610ms Simplex.Simplex_Incremental 344:14102  some (SH 4610ms, ATP 419ms): Try this: by (simp add: curr_val_satisfies_no_lhs_def s''(1,2)) (12 ms)
+0.sledgehammer goal.by         3209ms Simplex.Simplex_Incremental 345:14150  some (SH 3209ms, ATP 389ms): Try this: by force (0.6 ms)
+0.sledgehammer goal.unfolding  4497ms Simplex.Simplex_Incremental 346:14182  some (SH 4497ms, ATP 676ms): Try this: using invariant_s_def weak_invariant_s_def by blast (9 ms)
+0.sledgehammer goal.by         3896ms Simplex.Simplex_Incremental 346:14207  some (SH 3896ms, ATP 502ms): Try this: by force (5 ms)
+0.sledgehammer goal.proof     15648ms Simplex.Simplex_Incremental 394:16533  timeout (SH 15648ms): Timed out
+0.sledgehammer goal.unfolding 13699ms Simplex.Simplex_Incremental 396:16576  timeout (SH 13699ms): Timed out
+0.sledgehammer goal.by        12728ms Simplex.Simplex_Incremental 396:16606  timeout (SH 12728ms): Timed out
+0.sledgehammer goal.by        12732ms Simplex.Simplex_Incremental 399:16676  some (SH 12732ms, ATP 356ms): Try this: using surjective_pairing by blast (0.9 ms)
+0.sledgehammer goal.proof     12908ms Simplex.Simplex_Incremental 401:16700  timeout (SH 12908ms): Timed out
+0.sledgehammer goal.unfolding 13440ms Simplex.Simplex_Incremental 404:16843  timeout (SH 13440ms): Timed out
+0.sledgehammer goal.by        13066ms Simplex.Simplex_Incremental 405:16882  timeout (SH 13066ms): Timed out
+0.sledgehammer goal.unfolding 23767ms Simplex.Simplex_Incremental 406:16944  some (SH 23767ms, ATP 1021ms): Try this: using False id ja local.Cons by force (12 ms)
+0.sledgehammer goal.unfolding 17831ms Simplex.Simplex_Incremental 406:16962  some (SH 17831ms, ATP 588ms): Try this: by (simp add: False ja) (1 ms)
+0.sledgehammer goal.using     11067ms Simplex.Simplex_Incremental 406:16975  some (SH 11067ms, ATP 649ms): Try this: using False by auto (2 ms)
+0.sledgehammer goal.by        10984ms Simplex.Simplex_Incremental 406:16987  some (SH 10984ms, ATP 548ms): Try this: by auto (2 ms)
+0.sledgehammer goal.by         2941ms Simplex.Simplex_Incremental 409:17050  some (SH 2941ms, ATP 355ms): Try this: by meson (0.7 ms)
+0.sledgehammer goal.unfolding 12771ms Simplex.Simplex_Incremental 411:17164  timeout (SH 12771ms): Timed out
+0.sledgehammer goal.by        13345ms Simplex.Simplex_Incremental 412:17203  timeout (SH 13345ms): Timed out
+0.sledgehammer goal.unfolding 19681ms Simplex.Simplex_Incremental 413:17265  some (SH 19681ms, ATP 959ms): Try this: using id ja local.Cons by auto (11 ms)
+0.sledgehammer goal.using     17665ms Simplex.Simplex_Incremental 413:17278  some (SH 17665ms, ATP 932ms): Try this: by (simp add: ja local.Cons) (2 ms)
+0.sledgehammer goal.unfolding 16880ms Simplex.Simplex_Incremental 413:17289  some (SH 16880ms, ATP 921ms): Try this: by (simp add: ja) (2 ms)
+0.sledgehammer goal.by        21587ms Simplex.Simplex_Incremental 413:17302  some (SH 21587ms, ATP 813ms): Try this: by auto (2 ms)
+0.sledgehammer goal.unfolding 13076ms Simplex.Simplex_Incremental 422:17581  timeout (SH 13076ms): Timed out
+0.sledgehammer goal.by        34839ms Simplex.Simplex_Incremental 422:17607  some (SH 34839ms, ATP 708ms): Try this: by (metis (mono_tags, lifting) fst_map_prod id_apply snd_map_prod split_beta surjective_pairing) (1.7 s)
+0.sledgehammer goal.unfolding 13337ms Simplex.Simplex_Incremental 471:20041  timeout (SH 13337ms): Timed out
+0.sledgehammer goal.by         7570ms Simplex.Simplex_Incremental 472:20080  some (SH 7570ms, ATP 479ms): Try this: by (simp add: Sigma_Int_distrib1 inf_commute inf_left_commute) (29 ms)
+0.sledgehammer goal.proof     13808ms Simplex.Simplex_Incremental 478:20311  timeout (SH 13808ms): Timed out
+0.sledgehammer goal.by         9461ms Simplex.Simplex_Incremental 480:20438  some (SH 9461ms, ATP 247ms): Try this: using solution_nsc.cases by blast (4 ms)
+0.sledgehammer goal.by        12130ms Simplex.Simplex_Incremental 481:20534  some (SH 12130ms, ATP 313ms): Try this: using prod_cases4 by blast (4 ms)
+0.sledgehammer goal.by        13993ms Simplex.Simplex_Incremental 485:20749  timeout (SH 13993ms): Timed out
+0.sledgehammer goal.by         4630ms Simplex.Simplex_Incremental 488:20993  some (SH 4630ms, ATP 447ms): Try this: apply fastforce (0.7 ms)
+0.sledgehammer goal.unfolding 10033ms Simplex.Simplex_Incremental 490:21072  timeout (SH 10033ms): Timed out
+0.sledgehammer goal.by        20931ms Simplex.Simplex_Incremental 491:21120  some (SH 20931ms, ATP 926ms): Try this: by (metis Int_Un_distrib Int_insert_left Sigma_Un_distrib1 insert_def singleton_conv) (110 ms)
+0.sledgehammer goal.by         9220ms Simplex.Simplex_Incremental 494:21294  some (SH 9220ms, ATP 254ms): Try this: using solution_nsc.cases by blast (4 ms)
+0.sledgehammer goal.by        12117ms Simplex.Simplex_Incremental 495:21390  some (SH 12117ms, ATP 328ms): Try this: using prod_cases4 by blast (2 ms)
+0.sledgehammer goal.proof     13469ms Simplex.Simplex_Incremental 498:21481  timeout (SH 13469ms): Timed out
+0.sledgehammer goal.by        13765ms Simplex.Simplex_Incremental 501:21610  timeout (SH 13765ms): Timed out
+0.sledgehammer goal.by        14717ms Simplex.Simplex_Incremental 504:21774  some (SH 14717ms, ATP 3968ms): Try this: apply auto[1] (7 ms)
+0.sledgehammer goal.by        17236ms Simplex.Simplex_Incremental 507:22018  some (SH 17236ms, ATP 713ms): Try this: by blast (2 ms)
+0.sledgehammer goal.unfolding 13636ms Simplex.Simplex_Incremental 509:22158  timeout (SH 13636ms): Timed out
+0.sledgehammer goal.by        13039ms Simplex.Simplex_Incremental 509:22202  timeout (SH 13039ms): Timed out
+0.sledgehammer goal.by        13788ms Simplex.Simplex_Incremental 510:22265  timeout (SH 13788ms): Timed out
+0.sledgehammer goal.by        13967ms Simplex.Simplex_Incremental 512:22339  timeout (SH 13967ms): Timed out
+0.sledgehammer goal.using      3027ms Simplex.Simplex_Incremental 515:22536  some (SH 3027ms, ATP 293ms): Try this: using I by blast (0.9 ms)
+0.sledgehammer goal.by         2985ms Simplex.Simplex_Incremental 515:22544  some (SH 2985ms, ATP 288ms): Try this: by blast (1 ms)
+0.sledgehammer goal.by         8497ms Simplex.Simplex_Incremental 518:22608  some (SH 8497ms, ATP 866ms): Try this: by auto (3 ms)
+0.sledgehammer goal.by         7584ms Simplex.Simplex_Incremental 520:22724  some (SH 7584ms, ATP 576ms): Try this: by meson (0.6 ms)
+0.sledgehammer goal.by         2952ms Simplex.Simplex_Incremental 521:22768  some (SH 2952ms, ATP 509ms): Try this: by argo (2 ms)
+0.sledgehammer goal.unfolding 14695ms Simplex.Simplex_Incremental 523:22836  some (SH 14695ms, ATP 473ms): Try this: using I by force (2 ms)
+0.sledgehammer goal.by        11532ms Simplex.Simplex_Incremental 523:22848  some (SH 11532ms, ATP 515ms): Try this: by auto (2 ms)
+0.sledgehammer goal.using     13733ms Simplex.Simplex_Incremental 527:22922  timeout (SH 13733ms): Timed out
+0.sledgehammer goal.unfolding 13703ms Simplex.Simplex_Incremental 527:22939  timeout (SH 13702ms): Timed out
+0.sledgehammer goal.by        14153ms Simplex.Simplex_Incremental 528:22967  timeout (SH 14153ms): Timed out
+0.sledgehammer goal.by         8569ms Simplex.Simplex_Incremental 531:23111  some (SH 8568ms, ATP 297ms): Try this: using solution_nsc.cases by blast (2 ms)
+0.sledgehammer goal.by        12221ms Simplex.Simplex_Incremental 532:23207  some (SH 12221ms, ATP 294ms): Try this: using prod_cases4 by blast (4 ms)
+0.sledgehammer goal.by        18391ms Simplex.Simplex_Incremental 535:23378  some (SH 18391ms, ATP 3338ms): Try this: by (metis (no_types, lifting) Pair_inject case_prod_conv surj_pair) (1.1 s)
+0.sledgehammer goal.by         5804ms Simplex.Simplex_Incremental 539:23534  some (SH 5803ms, ATP 1748ms): Try this: by meson (3 ms)
+0.sledgehammer goal.by         6061ms Simplex.Simplex_Incremental 542:23712  some (SH 6061ms, ATP 1736ms): Try this: apply blast (0.8 ms)
+0.sledgehammer goal.unfolding 13662ms Simplex.Simplex_Incremental 543:23743  timeout (SH 13662ms): Timed out
+0.sledgehammer goal.by        12613ms Simplex.Simplex_Incremental 543:23787  timeout (SH 12613ms): Timed out
+0.sledgehammer goal.by        14422ms Simplex.Simplex_Incremental 544:23842  some (SH 14421ms, ATP 791ms): Try this: by blast (10 ms)
+0.sledgehammer goal.by        14397ms Simplex.Simplex_Incremental 546:23912  some (SH 14397ms, ATP 2839ms): Try this: by (meson inf.cobounded1 minimal_unsat_core_tabl_atoms_mono unsat) (5 ms)
+0.sledgehammer goal.using     13611ms Simplex.Simplex_Incremental 549:24101  timeout (SH 13611ms): Timed out
+0.sledgehammer goal.unfolding 13467ms Simplex.Simplex_Incremental 549:24114  timeout (SH 13466ms): Timed out
+0.sledgehammer goal.using     15582ms Simplex.Simplex_Incremental 549:24127  timeout (SH 15582ms): Timed out
+0.sledgehammer goal.by        15184ms Simplex.Simplex_Incremental 549:24137  timeout (SH 15184ms): Timed out
+0.sledgehammer goal.by        14400ms Simplex.Simplex_Incremental 552:24253  some (SH 14400ms, ATP 313ms): Try this: using prod_cases4 by blast (2 ms)
+0.sledgehammer goal.unfolding 14305ms Simplex.Simplex_Incremental 553:24294  timeout (SH 14305ms): Timed out
+0.sledgehammer goal.using     14851ms Simplex.Simplex_Incremental 554:24323  timeout (SH 14851ms): Timed out
+0.sledgehammer goal.by        15117ms Simplex.Simplex_Incremental 555:24380  timeout (SH 15117ms): Timed out
+0.sledgehammer goal.by        10061ms Simplex.Simplex_Incremental 558:24516  some (SH 10061ms, ATP 114ms): Try this: using solution_nsc.cases by blast (8 ms)
+0.sledgehammer goal.by         9459ms Simplex.Simplex_Incremental 559:24612  some (SH 9459ms, ATP 336ms): Try this: using prod_cases4 by blast (5 ms)
+0.sledgehammer goal.using     14424ms Simplex.Simplex_Incremental 561:24711  timeout (SH 14424ms): Timed out
+0.sledgehammer goal.by        14150ms Simplex.Simplex_Incremental 561:24742  timeout (SH 14150ms): Timed out
+0.sledgehammer goal.using     14100ms Simplex.Simplex_Incremental 563:24803  timeout (SH 14100ms): Timed out
+0.sledgehammer goal.by        14231ms Simplex.Simplex_Incremental 563:24813  timeout (SH 14231ms): Timed out
+0.sledgehammer goal.by         9817ms Simplex.Simplex_Incremental 566:24949  some (SH 9817ms, ATP 284ms): Try this: using prod_cases4 by blast (4 ms)
+0.sledgehammer goal.by         8126ms Simplex.Simplex_Incremental 567:25029  some (SH 8126ms, ATP 235ms): Try this: using solution_nsc.cases by blast (8 ms)
+0.sledgehammer goal.by         9039ms Simplex.Simplex_Incremental 568:25110  some (SH 9039ms, ATP 539ms): Try this: using solution_nsc.cases by blast (4 ms)
+0.sledgehammer goal.by         7409ms Simplex.Simplex_Incremental 569:25202  some (SH 7409ms, ATP 680ms): Try this: using "7"(4) S' by auto (10 ms)
+0.sledgehammer goal.using     14452ms Simplex.Simplex_Incremental 571:25277  timeout (SH 14452ms): Timed out
+0.sledgehammer goal.by        14107ms Simplex.Simplex_Incremental 571:25294  timeout (SH 14107ms): Timed out
+0.sledgehammer goal.using     13780ms Simplex.Simplex_Incremental 574:25344  timeout (SH 13780ms): Timed out
+0.sledgehammer goal.by        13567ms Simplex.Simplex_Incremental 574:25367  timeout (SH 13567ms): Timed out
+0.sledgehammer goal.using     14544ms Simplex.Simplex_Incremental 577:25428  timeout (SH 14544ms): Timed out
+0.sledgehammer goal.by        14435ms Simplex.Simplex_Incremental 577:25454  timeout (SH 14435ms): Timed out
+0.sledgehammer goal.proof     13178ms Simplex.Simplex_Incremental 659:28994  timeout (SH 13178ms): Timed out
+0.sledgehammer goal.by         3933ms Simplex.Simplex_Incremental 661:29122  some (SH 3932ms, ATP 840ms): Try this: using invariant_cs.elims(2) by blast (81 ms)
+0.sledgehammer goal.by        76460ms Simplex.Simplex_Incremental 665:29292  some (SH 76460ms, ATP 325ms): Try this: by (smt (z3) Inr_not_Inl old.sum.simps(5,6) sum.inject(2) sumE) (276 ms)
+0.sledgehammer goal.by         5132ms Simplex.Simplex_Incremental 667:29377  some (SH 5132ms, ATP 924ms): Try this: by force (0.8 ms)
+0.sledgehammer goal.unfolding  7891ms Simplex.Simplex_Incremental 669:29431  some (SH 7891ms, ATP 688ms): Try this: by (simp add: S') (0.9 ms)
+0.sledgehammer goal.by         4012ms Simplex.Simplex_Incremental 669:29469  some (SH 4012ms, ATP 840ms): Try this: by meson (1 ms)
+0.sledgehammer goal.by         5132ms Simplex.Simplex_Incremental 672:29578  some (SH 5131ms, ATP 946ms): Try this: using invariant_cs.elims(2) by blast (141 ms)
+0.sledgehammer goal.by        16746ms Simplex.Simplex_Incremental 675:29699  some (SH 16745ms, ATP 502ms): Try this: by (metis Inl_inject old.sum.simps(5,6) sum.distinct(1) sumE) (96 ms)
+0.sledgehammer goal.by         5027ms Simplex.Simplex_Incremental 676:29782  some (SH 5026ms, ATP 1304ms): Try this: by simp (3 ms)
+0.sledgehammer goal.by         4921ms Simplex.Simplex_Incremental 679:29910  some (SH 4921ms, ATP 1317ms): Try this: apply meson (0.5 ms)
+0.sledgehammer goal.by         4085ms Simplex.Simplex_Incremental 681:29970  some (SH 4085ms, ATP 1055ms): Try this: by meson (0.4 ms)
+0.sledgehammer goal.using     13452ms Simplex.Simplex_Incremental 684:30038  timeout (SH 13452ms): Timed out
+0.sledgehammer goal.unfolding 14649ms Simplex.Simplex_Incremental 684:30057  timeout (SH 14649ms): Timed out
+0.sledgehammer goal.by        13888ms Simplex.Simplex_Incremental 685:30084  timeout (SH 13888ms): Timed out
+0.sledgehammer goal.by         4873ms Simplex.Simplex_Incremental 688:30222  some (SH 4873ms, ATP 1153ms): Try this: using invariant_cs.elims(2) by blast (206 ms)
+0.sledgehammer goal.by        14806ms Simplex.Simplex_Incremental 692:30394  timeout (SH 14806ms): Timed out
+0.sledgehammer goal.by         4843ms Simplex.Simplex_Incremental 693:30478  some (SH 4842ms, ATP 854ms): Try this: by simp (3 ms)
+0.sledgehammer goal.unfolding  4610ms Simplex.Simplex_Incremental 697:30638  some (SH 4610ms, ATP 1011ms): Try this: apply meson (0.6 ms)
+0.sledgehammer goal.by         4578ms Simplex.Simplex_Incremental 697:30674  some (SH 4578ms, ATP 548ms): Try this: apply meson (3 ms)
+0.sledgehammer goal.unfolding 10404ms Simplex.Simplex_Incremental 699:30736  some (SH 10404ms, ATP 983ms): Try this: by (simp add: S') (3 ms)
+0.sledgehammer goal.using      4763ms Simplex.Simplex_Incremental 699:30749  some (SH 4763ms, ATP 809ms): Try this: by auto (4 ms)
+0.sledgehammer goal.by         4590ms Simplex.Simplex_Incremental 699:30757  some (SH 4590ms, ATP 788ms): Try this: by auto (4 ms)
+0.sledgehammer goal.unfolding 13466ms Simplex.Simplex_Incremental 702:30808  some (SH 13466ms, ATP 1141ms): Try this: by (metis checked_cs.simps init_cs_def init_nsc) (42 ms)
+0.sledgehammer goal.using      4221ms Simplex.Simplex_Incremental 702:30838  some (SH 4221ms, ATP 696ms): Try this: by (simp add: init_nsc) (1 ms)
+0.sledgehammer goal.by         3737ms Simplex.Simplex_Incremental 702:30853  some (SH 3737ms, ATP 629ms): Try this: by simp (1 ms)
+0.sledgehammer goal.by         4784ms Simplex.Simplex_Incremental 705:30955  some (SH 4784ms, ATP 883ms): Try this: using checked_cs.elims(2) by blast (96 ms)
+0.sledgehammer goal.by         4289ms Simplex.Simplex_Incremental 706:31015  some (SH 4289ms, ATP 997ms): Try this: by simp (1 ms)
+0.sledgehammer goal.by         3897ms Simplex.Simplex_Incremental 710:31182  some (SH 3897ms, ATP 1197ms): Try this: apply auto[1] (1 ms)
+0.sledgehammer goal.unfolding  5181ms Simplex.Simplex_Incremental 713:31305  some (SH 5180ms, ATP 1095ms): Try this: using v by blast (1 ms)
+0.sledgehammer goal.using     18223ms Simplex.Simplex_Incremental 716:31387  some (SH 18223ms, ATP 1073ms): Try this: by (metis backtrack_cs.simps backtrack_nsc checked_cs.elims(2) checkpoint_cs.simps invariant_cs.simps weak_invariant_cs.elims(2)) (682 ms)
+0.sledgehammer goal.by        16410ms Simplex.Simplex_Incremental 717:31428  some (SH 16410ms, ATP 1067ms): Try this: by (metis backtrack_cs.simps checked_cs.elims(2) checkpoint_cs.simps invariant_cs.simps weak_invariant_cs.elims(2)) (755 ms)
+0.sledgehammer goal.using      9032ms Simplex.Simplex_Incremental 720:31509  some (SH 9032ms, ATP 1189ms): Try this: by (metis invariant_cs.simps weak_invariant_cs.elims(3) weak_invariant_nsc) (284 ms)
+0.sledgehammer goal.by         8243ms Simplex.Simplex_Incremental 720:31534  some (SH 8243ms, ATP 1198ms): Try this: by (metis invariant_cs.simps weak_invariant_cs.elims(3)) (215 ms)
+0.sledgehammer goal.using      8708ms Simplex.Simplex_Incremental 723:31594  some (SH 8708ms, ATP 1046ms): Try this: by (metis checked_cs.simps checked_invariant_nsc invariant_cs.elims(3)) (250 ms)
+0.sledgehammer goal.by         8175ms Simplex.Simplex_Incremental 723:31622  some (SH 8175ms, ATP 1053ms): Try this: by (metis checked_cs.simps invariant_cs.elims(3)) (423 ms)
+0.sledgehammer goal.by         4242ms Simplex.Simplex_Incremental 749:32773  some (SH 4242ms, ATP 507ms): Try this: by (simp add: assert_all_s_def assert_s_def) (1 ms)
+0.sledgehammer goal.proof      3973ms Simplex.Simplex_Incremental 791:34999  some (SH 3972ms, ATP 787ms): Try this: by (simp add: Incremental_Atom_Ops_For_NS_Constraint_Ops_Default.ns_constraints_ops Incremental_NS_Constraint_Ops_To_Ns_For_Incremental_Simplex_def SolveExec'Default.To_ns_axioms) (7 ms)
+0.sledgehammer goal.using      3481ms Simplex.Simplex_Incremental 794:35174  some (SH 3481ms, ATP 499ms): Try this: using Incremental_Atom_Ops_For_NS_Constraint_Ops_Default.ns_constraints_ops by blast (3 ms)
+0.sledgehammer goal.by        13610ms Simplex.Simplex_Incremental 836:37330  timeout (SH 13610ms): Timed out
+0.sledgehammer goal.by        12730ms Simplex.Simplex_Incremental 839:37561  timeout (SH 12730ms): Timed out
+0.sledgehammer goal.by        14161ms Simplex.Simplex_Incremental 843:37807  timeout (SH 14161ms): Timed out
+0.sledgehammer goal.by        12405ms Simplex.Simplex_Incremental 847:38040  some (SH 12405ms, ATP 2334ms): Try this: by (metis (lifting) ext Incremental_Atom_Ops_For_NS_Constraint_Ops_Default.solution_nsc.elims Incremental_Simplex.solution_cs.elims solution_simplex.simps) (711 ms)
+0.sledgehammer goal.by        33988ms Simplex.Simplex_Incremental 850:38174  some (SH 33988ms, ATP 635ms): Try this: by (metis Incremental_Atom_Ops_For_NS_Constraint_Ops_Default.checkpoint_nsc.simps Incremental_Simplex.checkpoint_cs.elims checkpoint_simplex.elims prod.inject simplex_state.inject) (1.5 s)
+0.sledgehammer goal.by        97112ms Simplex.Simplex_Incremental 853:38343  some (SH 97112ms, ATP 667ms): Try this: by (smt (verit) Incremental_Atom_Ops_For_NS_Constraint_Ops_Default.backtrack_nsc.simps Incremental_Simplex.backtrack_cs.elims backtrack_simplex.simps prod.inject prod_cases3) (1.6 s)
+0.sledgehammer goal.using      9085ms Simplex.Simplex_Incremental 877:39059  timeout (SH 9085ms): Timed out
+0.sledgehammer goal.by         6001ms Simplex.Simplex_Incremental 877:39093  some (SH 6001ms, ATP 480ms): Try this: by (metis checked_simplex.elims(3) init_simplex' simplex_state.inject) (99 ms)
+0.sledgehammer goal.proof     12792ms Simplex.Simplex_Incremental 881:39248  timeout (SH 12792ms): Timed out
+0.sledgehammer goal.unfolding 13885ms Simplex.Simplex_Incremental 884:39400  timeout (SH 13885ms): Timed out
+0.sledgehammer goal.using     33574ms Simplex.Simplex_Incremental 884:39452  some (SH 33574ms, ATP 1100ms): Try this: by (metis (no_types, lifting) Incremental_Simplex.assert_cs_ok invariant_simplex.elims(3) isl_map_sum map_sum_sel(2) simplex_state.inject sum.collapse(2) sum.discI(2) sum.sel(2)) (389 ms)
+0.sledgehammer goal.by        40542ms Simplex.Simplex_Incremental 885:39509  some (SH 40542ms, ATP 875ms): Try this: by (metis invariant_simplex.elims(3) isl_map_sum map_sum_sel(2) simplex_state.inject sum.collapse(2) sum.discI(2) sum.sel(2)) (499 ms)
+0.sledgehammer goal.proof     15058ms Simplex.Simplex_Incremental 891:39702  timeout (SH 15058ms): Timed out
+0.sledgehammer goal.unfolding 13413ms Simplex.Simplex_Incremental 895:39872  timeout (SH 13413ms): Timed out
+0.sledgehammer goal.using     158595ms Simplex.Simplex_Incremental 896:39929  timeout (SH 158595ms):
+0.sledgehammer goal.by        112051ms Simplex.Simplex_Incremental 897:39989  some (SH 112051ms, ATP 526ms): Try this: by (metis id_apply image_id setl.simps sum.set_map(1)) (133 ms)
+0.sledgehammer goal.proof     12712ms Simplex.Simplex_Incremental 902:40144  timeout (SH 12712ms): Timed out
+0.sledgehammer goal.unfolding 13706ms Simplex.Simplex_Incremental 905:40283  timeout (SH 13706ms): Timed out
+0.sledgehammer goal.using     99364ms Simplex.Simplex_Incremental 905:40354  some (SH 99364ms, ATP 430ms): Try this: by (metis (no_types, lifting) Incremental_Simplex.check_cs_ok apfst_convE apfst_convE apfst_def checked_simplex.elims(3) id_apply id_apply prod.inject simplex_state.exhaust simplex_state.inject) (580 ms)
+0.sledgehammer goal.by        58058ms Simplex.Simplex_Incremental 906:40408  some (SH 58058ms, ATP 342ms): Try this: by (metis (no_types, lifting) Pair_inject checked_simplex.simps id_apply map_prod_simp surj_pair) (173 ms)
+0.sledgehammer goal.proof     13397ms Simplex.Simplex_Incremental 912:40622  timeout (SH 13397ms): Timed out
+0.sledgehammer goal.unfolding 14773ms Simplex.Simplex_Incremental 916:40819  timeout (SH 14773ms): Timed out
+0.sledgehammer goal.using     91970ms Simplex.Simplex_Incremental 917:40895  some (SH 91970ms, ATP 626ms): Try this: by (smt (z3) Incremental_Simplex.check_cs_unsat apfst_convE apfst_convE apfst_def apfst_id apsnd_id checkpoint_simplex.elims id_apply id_apply prod.inject prod.map_id0 simplex_state.exhaust simplex_state.inject weak_invariant_simplex.elims(1)) (301 ms)
+0.sledgehammer goal.by        28594ms Simplex.Simplex_Incremental 918:40956  some (SH 28594ms, ATP 242ms): Try this: by (metis (no_types, lifting) Pair_inject id_apply map_prod_simp surj_pair weak_invariant_simplex.simps) (92 ms)
+0.sledgehammer goal.using      7498ms Simplex.Simplex_Incremental 923:41101  some (SH 7498ms, ATP 738ms): Try this: by (metis Incremental_Simplex.solution_cs checked_simplex.elims(2) solution_simplex') (136 ms)
+0.sledgehammer goal.by         7463ms Simplex.Simplex_Incremental 924:41150  some (SH 7463ms, ATP 787ms): Try this: by (metis checked_simplex.elims(2) solution_simplex') (133 ms)
+0.sledgehammer goal.proof     12213ms Simplex.Simplex_Incremental 933:41393  timeout (SH 12213ms): Timed out
+0.sledgehammer goal.by         7559ms Simplex.Simplex_Incremental 934:41446  some (SH 7559ms, ATP 82ms): Try this: using simplex_state.exhaust by blast (3 ms)
+0.sledgehammer goal.by         7432ms Simplex.Simplex_Incremental 935:41514  some (SH 7432ms, ATP 139ms): Try this: using simplex_state.exhaust by blast (4 ms)
+0.sledgehammer goal.by         7410ms Simplex.Simplex_Incremental 936:41587  some (SH 7410ms, ATP 185ms): Try this: using simplex_state.exhaust by blast (2 ms)
+0.sledgehammer goal.by         8532ms Simplex.Simplex_Incremental 937:41658  some (SH 8532ms, ATP 296ms): Try this: using simplex_checkpoint.exhaust by blast (3 ms)
+0.sledgehammer goal.unfolding 149339ms Simplex.Simplex_Incremental 944:41860  some (SH 149339ms, ATP 873ms): Try this: by (metis (no_types, lifting) Incremental_Simplex.backtrack_cs backtrack_simplex' checked_simplex.simps checkpoint_simplex' invariant_simplex.elims(3) simplex_state.inject ss ss' weak_invariant_simplex.simps) (235 ms)
+0.sledgehammer goal.using      9936ms Simplex.Simplex_Incremental 945:41974  some (SH 9936ms, ATP 720ms): Try this: by (simp add: Incremental_Simplex.backtrack_cs) (6 ms)
+0.sledgehammer goal.by         5282ms Simplex.Simplex_Incremental 945:42039  some (SH 5282ms, ATP 537ms): Try this: by fastforce (9 ms)
+0.sledgehammer goal.using      7907ms Simplex.Simplex_Incremental 950:42146  some (SH 7907ms, ATP 636ms): Try this: by (metis Incremental_Simplex.weak_invariant_cs invariant_simplex.elims(2) simplex_state.inject weak_invariant_simplex.elims(3)) (139 ms)
+0.sledgehammer goal.by         7930ms Simplex.Simplex_Incremental 950:42199  some (SH 7930ms, ATP 634ms): Try this: by (metis invariant_simplex.elims(2) simplex_state.inject weak_invariant_simplex.elims(3)) (634 ms)
+0.sledgehammer goal.using     11565ms Simplex.Simplex_Incremental 954:42309  some (SH 11565ms, ATP 520ms): Try this: by (metis Incremental_Simplex.checked_invariant_cs checked_simplex.elims(2) invariant_simplex.elims(3) simplex_state.inject) (161 ms)
+0.sledgehammer goal.by         8219ms Simplex.Simplex_Incremental 954:42365  some (SH 8219ms, ATP 611ms): Try this: by (metis checked_simplex.elims(2) invariant_simplex.elims(3) simplex_state.inject) (215 ms)
+0.sledgehammer goal.proof     12195ms Simplex.Simplex_Incremental 973:43111  timeout (SH 12195ms): Timed out
+0.sledgehammer goal.by        120237ms Simplex.Simplex_Incremental 976:43283  some (SH 120237ms, ATP 130ms): Try this: by (smt (z3) assert_all_simplex.simps(2) obj_sumE old.sum.simps(5,6)) (98 ms)
+0.sledgehammer goal.by         7437ms Simplex.Simplex_Incremental 978:43381  some (SH 7437ms, ATP 466ms): Try this: by auto (2 ms)
+0.sledgehammer goal.proof     13070ms Simplex.Simplex_Incremental 983:43550  timeout (SH 13069ms): Timed out
+0.sledgehammer goal.proof     13583ms Simplex.Simplex_Incremental 986:43619  timeout (SH 13583ms): Timed out
+0.sledgehammer goal.by        13062ms Simplex.Simplex_Incremental 988:43711  some (SH 13061ms, ATP 234ms): Try this: by simp (4 ms)
+0.sledgehammer goal.by         3034ms Simplex.Simplex_Incremental 990:43831  some (SH 3034ms, ATP 382ms): Try this: apply meson (0.6 ms)
+0.sledgehammer goal.unfolding 12510ms Simplex.Simplex_Incremental 991:43861  some (SH 12510ms, ATP 714ms): Try this: using J' by auto (8 ms)
+0.sledgehammer goal.by        11320ms Simplex.Simplex_Incremental 992:43901  some (SH 11320ms, ATP 669ms): Try this: by auto (6 ms)
+0.sledgehammer goal.by        13727ms Simplex.Simplex_Incremental 995:44014  some (SH 13727ms, ATP 319ms): Try this: by force (3 ms)
+0.sledgehammer finalize   Total number of sledgehammer calls: 298
+0.sledgehammer finalize   Number of successful sledgehammer calls: 209
+0.sledgehammer finalize   Number of sledgehammer lemmas: 825
+0.sledgehammer finalize   Max number of sledgehammer lemmas: 15
+0.sledgehammer finalize   Success rate: 70.1%
+0.sledgehammer finalize   Total number of nontrivial sledgehammer calls: 298
+0.sledgehammer finalize   Number of successful nontrivial sledgehammer calls: 209
+0.sledgehammer finalize   Total time for sledgehammer calls (Isabelle): 4036.530
+0.sledgehammer finalize   Total time for successful sledgehammer calls (ATP): 148.589
+0.sledgehammer finalize   Average time for sledgehammer calls (Isabelle): 13.545
+0.sledgehammer finalize   Average time for successful sledgehammer calls (ATP): 0.711
