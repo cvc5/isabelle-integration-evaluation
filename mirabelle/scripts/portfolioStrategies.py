@@ -5,21 +5,76 @@ from __future__ import annotations
 import argparse
 import collections
 import json
+import sys
 from pathlib import Path
 
-import matplotlib.pyplot as plt
-import numpy as np
+try:
+    import matplotlib.pyplot as plt
+    import numpy as np
+except ImportError as exc:
+    print(
+        f"error: a required plotting dependency is missing ({exc.name}). "
+        f"Install it with: pip install matplotlib numpy",
+        file=sys.stderr,
+    )
+    raise SystemExit(1)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Strategy coverage heatmap (rows = strategies, cols = goals)."
+        description="Strategy coverage heatmap (rows = strategies, cols = goals).",
+        epilog=(
+            "example:\n"
+            "  ./portfolioStrategies.py merged.json plots/\n\n"
+            "The input JSON is the output of evaluateMirabelleLog.sh (a list of "
+            "log entries); one heatmap PNG is written per SMT solver."
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument("input_json", help="Path to merged JSON")
     parser.add_argument("output_dir", help="Directory for output PNGs")
     args = parser.parse_args()
 
-    entries = json.loads(Path(args.input_json).read_text())
+    input_path = Path(args.input_json)
+    if not input_path.exists():
+        print(f"error: input JSON does not exist: {input_path}", file=sys.stderr)
+        return 1
+    if not input_path.is_file():
+        print(
+            f"error: input JSON is not a regular file (is it a directory?): "
+            f"{input_path}",
+            file=sys.stderr,
+        )
+        return 1
+
+    try:
+        raw_text = input_path.read_text()
+    except OSError as exc:
+        print(f"error: could not read {input_path}: {exc}", file=sys.stderr)
+        return 1
+
+    try:
+        entries = json.loads(raw_text)
+    except json.JSONDecodeError as exc:
+        print(
+            f"error: {input_path} is not valid JSON: {exc}",
+            file=sys.stderr,
+        )
+        return 1
+
+    if not isinstance(entries, list):
+        print(
+            f"error: expected {input_path} to contain a JSON list of log entries, "
+            f"but got {type(entries).__name__}.",
+            file=sys.stderr,
+        )
+        return 1
+
+    if not entries:
+        print(
+            f"warning: {input_path} contains no entries; no plots will be written.",
+            file=sys.stderr,
+        )
 
     solved: dict[str, dict[str, set]] = collections.defaultdict(
         lambda: collections.defaultdict(set)
@@ -32,7 +87,14 @@ def main() -> int:
         if outcome and outcome.startswith("success"):
             solved[solver][strategy or "best"].add(bench)
 
-    for entry in entries:
+    for index, entry in enumerate(entries):
+        if not isinstance(entry, dict):
+            print(
+                f"warning: skipping entry {index}: expected an object, "
+                f"got {type(entry).__name__}.",
+                file=sys.stderr,
+            )
+            continue
         bench = (entry.get("session"), entry.get("theory"), entry.get("base"))
         if any(p is None for p in bench):
             bench = None
@@ -53,8 +115,16 @@ def main() -> int:
             )
 
     output_dir = Path(args.output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        output_dir.mkdir(parents=True, exist_ok=True)
+    except OSError as exc:
+        print(
+            f"error: could not create output directory {output_dir}: {exc}",
+            file=sys.stderr,
+        )
+        return 1
 
+    plots_written = 0
     for solver in sorted(solved):
         by_strategy = {s: set(b) for s, b in solved[solver].items() if b}
         if not by_strategy:
@@ -110,9 +180,22 @@ def main() -> int:
         ax.set_title(f"{solver}: coverage heatmap")
         fig.tight_layout()
         out_path = output_dir / f"portfolio_heatmap_{solver}.png"
-        fig.savefig(out_path, dpi=150)
+        try:
+            fig.savefig(out_path, dpi=150)
+        except OSError as exc:
+            print(f"error: could not write {out_path}: {exc}", file=sys.stderr)
+            plt.close(fig)
+            return 1
         plt.close(fig)
+        plots_written += 1
         print(f"wrote {out_path}")
+
+    if plots_written == 0:
+        print(
+            f"warning: no plots were written (no solver had any solved goals in "
+            f"{input_path}).",
+            file=sys.stderr,
+        )
 
     return 0
 
