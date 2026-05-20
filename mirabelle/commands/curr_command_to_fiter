@@ -1,0 +1,2 @@
+cat data/Apr20/RP/Abstract_Substitution/mirabelle.log | grep "SH" | grep -vP "auto|simp|blast|presburger|metis|meson|force"
+
