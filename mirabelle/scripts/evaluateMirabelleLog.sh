@@ -14,7 +14,7 @@ from typing import Iterable
 
 LOG_RE = re.compile(
     r"^\d+\.sledgehammer\s+goal\.[^\s]+\s+\d+ms\s+"
-    r"(?P<theory>[A-Za-z0-9_.']+)\s+(?P<line>\d+):(?P<offset>\d+)\s+"
+    r"(?P<theory>[A-Za-z0-9_.'-]+)\s+(?P<line>\d+):(?P<offset>\d+)\s+"
     r"(?P<outcome>some|timeout|none)\b"
 )
 SMT_BACKEND_RE = re.compile(
