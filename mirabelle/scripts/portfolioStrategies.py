@@ -25,19 +25,32 @@ def main() -> int:
         lambda: collections.defaultdict(set)
     )
     all_goals: set = set()
+
+    def record(solver, strategy, outcome, bench):
+        if solver is None or bench is None:
+            return
+        if outcome and outcome.startswith("success"):
+            solved[solver][strategy or "best"].add(bench)
+
     for entry in entries:
         bench = (entry.get("session"), entry.get("theory"), entry.get("base"))
         if any(p is None for p in bench):
-            continue
-        if entry.get("outcome"):
+            bench = None
+        if bench is not None and entry.get("outcome"):
             all_goals.add(bench)
-        solver = entry.get("suggested_backend")
-        if solver is None:
-            continue
-        strategy = entry.get("strategy") or "best"
-        outcome = entry.get("outcome") or ""
-        if outcome.startswith("success"):
-            solved[solver][strategy].add(bench)
+        record(
+            entry.get("suggested_backend"),
+            entry.get("strategy"),
+            entry.get("outcome"),
+            bench,
+        )
+        for call in entry.get("calls") or []:
+            record(
+                call.get("solver"),
+                call.get("strategy"),
+                call.get("outcome"),
+                bench,
+            )
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
