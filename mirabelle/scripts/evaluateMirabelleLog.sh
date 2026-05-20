@@ -63,14 +63,32 @@ class LogEntry:
 
 
 def parse_mirabelle_log(log_path: Path) -> list[LogEntry]:
+    if not log_path.exists():
+        raise FileNotFoundError(f"log file does not exist: {log_path}")
     if not log_path.is_file():
-        return []
+        raise IsADirectoryError(
+            f"log path is not a regular file (is it a directory?): {log_path}"
+        )
+
+    try:
+        raw_text = log_path.read_text(errors="replace")
+    except OSError as exc:
+        raise OSError(f"could not read log file {log_path}: {exc}") from exc
+
+    all_lines = raw_text.splitlines()
+    if not all_lines:
+        print(
+            f"warning: log file is empty: {log_path}",
+            file=sys.stderr,
+        )
 
     entries: list[LogEntry] = []
-    for line in log_path.read_text(errors="replace").splitlines():
+    matched_lines = 0
+    for line in all_lines:
         match = LOG_RE.match(line)
         if match is None:
             continue
+        matched_lines += 1
         theory_long_name = match.group("theory")
         session, _, theory = theory_long_name.rpartition(".")
         if not session:
@@ -179,6 +197,14 @@ def parse_mirabelle_log(log_path: Path) -> list[LogEntry]:
                 preplay_time=preplay_time,
             )
         )
+
+    if all_lines and matched_lines == 0:
+        print(
+            f"warning: none of the {len(all_lines)} lines in {log_path} matched the "
+            f"expected sledgehammer log format; produced 0 entries. "
+            f"Is this actually a mirabelle.log?",
+            file=sys.stderr,
+        )
     return entries
 
 
@@ -275,16 +301,42 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
 
-    log_entries = parse_mirabelle_log(Path(args.mirabelle_log))
+    log_path = Path(args.mirabelle_log)
+    try:
+        log_entries = parse_mirabelle_log(log_path)
+    except (FileNotFoundError, IsADirectoryError, OSError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
+
+    if not log_entries:
+        print(
+            f"warning: no log entries were parsed from {log_path}; "
+            f"output will be empty.",
+            file=sys.stderr,
+        )
 
     summary = render_summary(log_entries)
     sys.stdout.write(summary)
 
-    Path(args.json_output).write_text(
-        json.dumps(json_payload(log_entries), indent=2, sort_keys=True),
-        encoding="utf-8",
-    )
+    output_path = Path(args.json_output)
+    try:
+        if output_path.parent and not output_path.parent.exists():
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(
+            json.dumps(json_payload(log_entries), indent=2, sort_keys=True),
+            encoding="utf-8",
+        )
+    except OSError as exc:
+        print(
+            f"error: could not write JSON output to {output_path}: {exc}",
+            file=sys.stderr,
+        )
+        return 1
 
+    print(
+        f"wrote {len(log_entries)} entries to {output_path}",
+        file=sys.stderr,
+    )
     return 0
 
 
