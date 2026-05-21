@@ -129,7 +129,12 @@ def select_ranked_rules(
 ) -> pandas.DataFrame:
     by_rule = read_by_rule_csv(input_csv)
     if excluded_rules:
-        by_rule = by_rule.loc[~by_rule["rule"].isin(excluded_rules)].copy()
+        exact_rules = {rule for rule in excluded_rules if not rule.endswith("*")}
+        prefix_rules = {rule[:-1] for rule in excluded_rules if rule.endswith("*")}
+        by_rule = by_rule.loc[~by_rule["rule"].isin(exact_rules)].copy()
+        if prefix_rules:
+            by_rule = by_rule.loc[~by_rule["rule"].str.startswith(tuple(prefix_rules))].copy()
+
     if by_rule.empty:
         raise SystemExit("error: no rules remain after applying plotting filters")
     if max_rules is None:
