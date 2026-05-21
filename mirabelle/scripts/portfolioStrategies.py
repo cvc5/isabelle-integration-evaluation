@@ -33,7 +33,23 @@ def main() -> int:
     )
     parser.add_argument("input_json", help="Path to merged JSON")
     parser.add_argument("output_dir", help="Directory for output PNGs")
+    parser.add_argument(
+        "--max-width",
+        type=float,
+        default=40.0,
+        help=(
+            "Maximum figure width in inches (default: 40). With many goals the "
+            "per-cell width shrinks to fit instead of producing an enormous figure."
+        ),
+    )
     args = parser.parse_args()
+
+    if args.max_width <= 0:
+        print(
+            f"error: --max-width must be positive, got {args.max_width}",
+            file=sys.stderr,
+        )
+        return 1
 
     input_path = Path(args.input_json)
     if not input_path.exists():
@@ -153,9 +169,13 @@ def main() -> int:
             for b in by_strategy[name]:
                 matrix[r, goal_index[b]] = 1.0
 
+        # Width grows with the number of goals, but is capped so that a large
+        # benchmark does not produce an unviewably wide figure. Because imshow
+        # uses aspect="auto", capping the width simply shrinks each cell to fit.
+        width = min(args.max_width, max(14.0, 0.25 * len(goals) + 5.0))
         fig, ax = plt.subplots(
             figsize=(
-                max(14.0, 0.25 * len(goals) + 5.0),
+                width,
                 max(3.0, 0.3 * len(names) + 1.5),
             )
         )
