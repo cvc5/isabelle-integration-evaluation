@@ -1,0 +1,27 @@
+session rareRewritesRegressions (main) = HOL +
+  description "
+    Regression tests for alethe rare_rules.
+  "
+  options [quick_and_dirty,strict_facts]
+  directories
+   "Benchmarks/Arith_Rewrites"
+   "Benchmarks/Bool_Rewrites"
+   "Benchmarks/Builtin_Rewrites"
+   "Benchmarks/BV_Rewrites"
+   "Benchmarks/BV_Rewrites_Simplification"
+   "Benchmarks/CVC5_Rewrites"
+   "Benchmarks/UF_BV_Rewrites"
+   "Benchmarks/UF_Rewrites"
+   "Benchmarks/Alethe_Proof_Rules"
+  theories
+    Arith_Rewrites
+    Builtin_Rewrites
+    BV_Rewrites_Simplification
+    CVC5_Rewrites
+    UF_Rewrites
+    UF_BV_Rewrites
+    Bool_Rewrites
+    BV_Rewrites_Elimination
+    BV_Rewrites
+
+

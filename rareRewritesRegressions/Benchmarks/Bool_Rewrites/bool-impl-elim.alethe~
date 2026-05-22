@@ -1,0 +1,6 @@
+unsat
+(assume nt1.0 (not (not (forall ((X tptp.student) (Y tptp.course) (BOUND_VARIABLE_8593 tptp.professor)) (or (not (tptp.enrolled X Y)) (not (tptp.teaches BOUND_VARIABLE_8593 Y)) (tptp.taughtby X BOUND_VARIABLE_8593))))))
+(assume nt1.1 (not (or (not (tptp.enrolled tptp.michael tptp.csc410)) (not (tptp.teaches (tptp.coordinatorof tptp.csc410) tptp.csc410)) (tptp.taughtby tptp.michael (tptp.coordinatorof tptp.csc410)))))
+(step t1 (cl (= (=> (tptp.teaches Z Y) (tptp.taughtby X Z)) (or (not (tptp.teaches Z Y)) (tptp.taughtby X Z)))) :rule rare_rewrite :args ("bool-impl-elim" (tptp.teaches Z Y) (tptp.taughtby X Z)))
+(step t2 (cl (not (forall ((X tptp.student) (Y tptp.course) (BOUND_VARIABLE_8593 tptp.professor)) (or (not (tptp.enrolled X Y)) (not (tptp.teaches BOUND_VARIABLE_8593 Y)) (tptp.taughtby X BOUND_VARIABLE_8593)))) (or (not (tptp.enrolled tptp.michael tptp.csc410)) (not (tptp.teaches (tptp.coordinatorof tptp.csc410) tptp.csc410)) (tptp.taughtby tptp.michael (tptp.coordinatorof tptp.csc410)))) :rule trust :premises (t1))
+(step t.end (cl) :rule resolution :premises (nt1.0 nt1.1 t2))

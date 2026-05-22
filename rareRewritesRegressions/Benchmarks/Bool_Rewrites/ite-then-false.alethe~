@@ -1,0 +1,6 @@
+(anchor :step t1477 :args ((_M Int) (:= (_M Int) _M)))
+(step t1477.t3 (cl (= (ite (! (= (! true :named @p_1) @p_1) :named @p_0) (! false :named @p_2) (___z71z___ (- _M 1))) (and (! (not @p_0) :named @p_3) (___z71z___ (- _M 1))))) :rule rare_rewrite :args ("ite-then-false" @p_0 (___z71z___ (- _M 1))))
+(step t1477.t24 (cl (= (= (___z71z___ _M) (ite (= _M _base) @p_1 (ite @p_0 @p_2 (___z71z___ (- _M 1))))) (= (= _base _M) (___z71z___ _M)))) :rule hole :premises (t1477.t3) :args ("trust"))
+(step t1477 (cl (! (= (! (lambda ((_M Int)) (= (___z71z___ _M) (ite (= _M _base) @p_1 (ite @p_0 @p_2 (___z71z___ (- _M 1)))))) :named @p_5) (! (lambda ((_M Int)) (= (= _base _M) (___z71z___ _M))) :named @p_6)) :named @p_4)) :rule bind)
+(step slice_end (cl) :rule hole :premises (t1477) :args ("trust"))
+
