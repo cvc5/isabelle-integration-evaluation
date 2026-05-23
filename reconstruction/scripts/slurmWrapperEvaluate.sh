@@ -67,7 +67,16 @@ error_reason=""
   while IFS= read -r line; do
      case "$line" in
         '("RESULT_CODE"'*)
-	     result_code=$(echo "$line" | grep -oP '(?<="RESULT_CODE", )\d+')
+	     # Isabelle may split the tuple across lines, e.g.
+	     #   ("RESULT_CODE",
+	     #    0) (line 126 of "...")
+	     # so accumulate until the closing paren before parsing.
+	     tuple="$line"
+	     while [[ "$tuple" != *")"* ]]; do
+	         IFS= read -r cont_line || break
+	         tuple="$tuple $cont_line"
+	     done
+	     result_code=$(echo "$tuple" | grep -oP '"RESULT_CODE",\s*\K-?\d+')
             ;;
         '("PROOF_FILE"'*)
             proof_file=$(echo "$line" | grep -oP '"[^"]+"' | tail -1 | tr -d '"')
@@ -76,7 +85,12 @@ error_reason=""
             problem_file=$(echo "$line" | grep -oP '"[^"]+"' | tail -1 | tr -d '"')
             ;;
         '("CHECKING_TIME"'*)
-	    checking_time=$(echo "$line" | grep -oP '(?<="CHECKING_TIME", )\d+')
+	     tuple="$line"
+	     while [[ "$tuple" != *")"* ]]; do
+	         IFS= read -r cont_line || break
+	         tuple="$tuple $cont_line"
+	     done
+	     checking_time=$(echo "$tuple" | grep -oP '"CHECKING_TIME",\s*\K\d+')
             ;;
 	 *) #echo "line $line" 
 	 if [[ "$line" == *"Error replaying step"* ]]; then
