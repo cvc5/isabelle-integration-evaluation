@@ -1,0 +1,4 @@
+session SMTCheckExternal = HOL +
+  options [quick_and_dirty]
+  theories
+    SMT_Check_External
