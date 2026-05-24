@@ -1,0 +1,4 @@
+unsat
+(step t229 (cl (= (>= (ite (>= g 4) g 4) g) true)) :rule rare_rewrite :args ("arith-max-geq1" g 4))
+(step slice_end (cl) :rule trust :premises (t229) :args ("trust"))
+

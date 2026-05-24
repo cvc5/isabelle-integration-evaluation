@@ -1,0 +1,11 @@
+unsat
+(anchor :step t33 :args ((y Int) (:= (y Int) y)))
+(anchor :step t33.t8)
+(assume t33.t8.a0 (forall ((x Int)) (=> (and (< x (* -1 (+ -1 (* -1 y)))) (<= x b) (not (= x (* -1 -2)))) false)))
+(step t33.t8.t11 (cl (= (<= (ite (< (+ (* -1 (+ -1 (* -1 y))) -1) (ite (< b (+ (* -1 -2) -1)) b (+ (* -1 -2) -1))) (+ (* -1 (+ -1 (* -1 y))) -1) (ite (< b (+ (* -1 -2) -1)) b (+ (* -1 -2) -1))) (+ (* -1 (+ -1 (* -1 y))) -1)) true)) :rule rare_rewrite :args ("arith-min-lt1" (+ (* -1 (+ -1 (* -1 y))) -1) (ite (< b (+ (* -1 -2) -1)) b (+ (* -1 -2) -1))))
+(step t33.t8.t47 (cl false) :rule trust :premises (t33.t8.t11) :args ("trust"))
+(step t33.t8 (cl (not (forall ((x Int)) (=> (and (< x (* -1 (+ -1 (* -1 y)))) (<= x b) (not (= x (* -1 -2)))) false))) false) :rule subproof :discharge (t33.t8.a0))
+(step t33.t21 (cl (= (forall ((x Int)) (or (>= (+ x (* -1 y)) 1) (not (>= (+ b (* -1 x)) 0)) (= x 2) (>= y 1))) (>= y 1))) :rule trust :premises (t33.t8) :args ("trust"))
+(step t33 (cl (= (forall ((y Int)) (forall ((x Int)) (or (>= (+ x (* -1 y)) 1) (not (>= (+ b (* -1 x)) 0)) (= x 2) (>= y 1)))) (forall ((y Int)) (>= y 1)))) :rule bind)
+(step slice_end (cl) :rule trust :premises (t33) :args ("trust"))
+

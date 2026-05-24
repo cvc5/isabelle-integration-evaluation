@@ -1,6 +1,6 @@
 unsat
-(assume nst494.0 (not (= (>= (to_real (str.len x)) 1/2) (>= (str.len x) 1))))
-(assume t491 (= (= (to_real (to_int 1/2)) 1/2) false))
-(assume t493 (= 1 (+ (to_int 1/2) 1)))
-(step st494 (cl (= (>= (to_real (str.len x)) 1/2) (>= (str.len x) 1))) :rule rare_rewrite :premises (t491 t493) :args ("arith-int-geq-tighten" (str.len x) 1/2 1))
-(step t.end (cl) :rule resolution :premises (nst494.0 st494))
+(step t122 (cl (= (= (to_real (to_int -11/2)) -11/2) false)) :rule trust :args ("trust"))
+(step t124 (cl (= -5 (+ (to_int -11/2) 1))) :rule trust :args ("trust"))
+(step t125 (cl (= (>= (to_real (+ (* -1 (x_count (+ -2 fmt1))) (* -1 (s_count (+ -2 fmt1))))) -11/2) (>= (+ (* -1 (x_count (+ -2 fmt1))) (* -1 (s_count (+ -2 fmt1)))) -5))) :rule rare_rewrite :premises (t122 t124) :args ("arith-int-geq-tighten" (+ (* -1 (x_count (+ -2 fmt1))) (* -1 (s_count (+ -2 fmt1)))) -11/2 -5))
+(step slice_end (cl) :rule trust :premises (t125) :args ("trust"))
+

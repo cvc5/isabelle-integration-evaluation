@@ -1,0 +1,11 @@
+unsat
+(anchor :step t13 :args ((x Int) (:= (x Int) x)))
+(anchor :step t13.t8)
+(assume t13.t8.a0 (forall ((y Int)) (=> (and (>= y (* -1 -7)) (> y (+ -1 x))) false)))
+(step t13.t8.t23 (cl (= (>= (ite (>= (* -1 -7) (+ (+ -1 x) 1)) (* -1 -7) (+ (+ -1 x) 1)) (+ (+ -1 x) 1)) true)) :rule rare_rewrite :args ("arith-max-geq2" (* -1 -7) (+ (+ -1 x) 1)))
+(step t13.t8.t33 (cl false) :rule trust :premises (t13.t8.t23) :args ("trust"))
+(step t13.t8 (cl (not (forall ((y Int)) (=> (and (>= y (* -1 -7)) (> y (+ -1 x))) false))) false) :rule subproof :discharge (t13.t8.a0))
+(step t13.t21 (cl (= (forall ((y Int)) (or (not (>= y 7)) (>= (+ x (* -1 y)) 1) (P x))) (P x))) :rule trust :premises (t13.t8) :args ("trust"))
+(step t13 (cl (= (forall ((x Int)) (forall ((y Int)) (or (not (>= y 7)) (>= (+ x (* -1 y)) 1) (P x)))) (forall ((x Int)) (P x)))) :rule bind)
+(step slice_end (cl) :rule trust :premises (t13) :args ("trust"))
+

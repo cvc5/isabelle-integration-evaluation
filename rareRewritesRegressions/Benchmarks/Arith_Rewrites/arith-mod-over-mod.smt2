@@ -1,0 +1,5 @@
+(set-logic ALL)
+(declare-fun x () Bool)
+(declare-fun x3 () Int)
+(check-sat)
+(exit)

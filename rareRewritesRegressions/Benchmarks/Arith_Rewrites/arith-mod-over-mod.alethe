@@ -1,0 +1,5 @@
+unsat
+(step t3 (cl (= (= 3 0) false)) :rule trust :args ("trust"))
+(step t8 (cl (= (mod (mod x3 3) 3) (mod x3 3))) :rule rare_rewrite :premises (t3) :args ("arith-mod-over-mod-1" 3 x3))
+(step slice_end (cl) :rule trust :premises (t8) :args ("trust"))
+

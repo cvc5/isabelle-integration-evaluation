@@ -1,5 +1,5 @@
 unsat
-(assume nst9.0 (not (= (mod x -101) (mod x (- -101)))))
-(assume t8 (= (< -101 0) true))
-(step st9 (cl (= (mod x -101) (mod x (- -101)))) :rule rare_rewrite :premises (t8) :args ("arith-int-mod-total-neg" x -101))
-(step t.end (cl) :rule resolution :premises (nst9.0 st9))
+(step t7 (cl (= (< -101 0) true)) :rule trust :args ("trust"))
+(step t8 (cl (= (mod x -101) (mod x (- -101)))) :rule rare_rewrite :premises (t7) :args ("arith-int-mod-total-neg" x -101))
+(step slice_end (cl) :rule trust :premises (t8) :args ("trust"))
+
