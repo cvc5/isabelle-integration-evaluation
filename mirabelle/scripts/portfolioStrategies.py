@@ -42,7 +42,21 @@ def main() -> int:
             "per-cell width shrinks to fit instead of producing an enormous figure."
         ),
     )
+    parser.add_argument(
+        "-s",
+        "--exclude-strategy",
+        action="append",
+        default=[],
+        metavar="STRATEGY",
+        dest="exclude_strategies",
+        help=(
+            "Exclude a strategy from the heatmap. May be given multiple times, "
+            "e.g. -s strat1 -s strat2."
+        ),
+    )
     args = parser.parse_args()
+
+    excluded = set(args.exclude_strategies)
 
     if args.max_width <= 0:
         print(
@@ -100,8 +114,11 @@ def main() -> int:
     def record(solver, strategy, outcome, bench):
         if solver is None or bench is None:
             return
+        name = strategy or "best"
+        if name in excluded:
+            return
         if outcome and outcome.startswith("success"):
-            solved[solver][strategy or "best"].add(bench)
+            solved[solver][name].add(bench)
 
     for index, entry in enumerate(entries):
         if not isinstance(entry, dict):
