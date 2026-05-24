@@ -4,11 +4,11 @@
 *)
 
 theory Arith_Rewrites
-  imports HOL.SMT_CVC HOL.Real "../IsabelleCheckExternal/SMT_Check_External"
+  imports HOL.SMT_CVC Complex_Main "../IsabelleCheckExternal/SMT_Check_External" 
 begin
 
 declare[[rare_rec_mode=1]]
-
+                                                                     
 declare[[smt_trace=false,smt_verbose=false]]
 
 check_smt_dir ("cvc5_proof") "./Benchmarks/Arith_Rewrites/"
@@ -19,12 +19,14 @@ declare[[smt_expert_debug_alethe_level=3]]
 declare[[smt_expert_debug_alethe_files="alethe_replay_rare"]]
 
 (*(define-rule arith-div-total-zero-real ((t ?)) (/_total t 0/1) 0/1)*)
+(*Unsupported rn*)
 check_smt ("cvc5_proof")
   "./Benchmarks/Arith_Rewrites/arith-div-total-zero-real.smt2"
   "./Benchmarks/Arith_Rewrites/arith-div-total-zero-real.alethe"
 
 
 (*(define-rule arith-div-total-zero-int ((t ?)) (/_total t 0) 0/1)*)
+(*Unsupported rn*)
 check_smt ("cvc5_proof")
   "./Benchmarks/Arith_Rewrites/arith-div-total-zero-int.smt2"
   "./Benchmarks/Arith_Rewrites/arith-div-total-zero-int.alethe"
@@ -43,7 +45,6 @@ check_smt ("cvc5_proof")
 check_smt ("cvc5_proof")
   "./Benchmarks/Arith_Rewrites/arith-int-div-total-zero.smt2"
   "./Benchmarks/Arith_Rewrites/arith-int-div-total-zero.alethe"
-
 
 (*(define-cond-rule arith-int-div-total-neg ((t Int) (s Int)) (< s 0) (div_total t s) (- (div_total t (- s))))*)
 check_smt ("cvc5_proof")
@@ -71,7 +72,6 @@ check_smt ("cvc5_proof")
 check_smt ("cvc5_proof")
   "./Benchmarks/Arith_Rewrites/arith-int-mod-total-neg.smt2"
   "./Benchmarks/Arith_Rewrites/arith-int-mod-total-neg.alethe"
-
 
 (*(define-rule arith-elim-gt ((t ?) (s ?)) (> t s) (not (>= s t)))*)
 check_smt ("cvc5_proof")
@@ -109,7 +109,6 @@ check_smt ("cvc5_proof")
   "./Benchmarks/Arith_Rewrites/arith-geq-tighten.smt2"
   "./Benchmarks/Arith_Rewrites/arith-geq-tighten.alethe"
 
-
 (*(define-rule arith-geq-norm1-int ((t Int) (s Int)) (>= t s) (>= (- t s) 0))*)
 check_smt ("cvc5_proof")
   "./Benchmarks/Arith_Rewrites/arith-geq-norm1-int.smt2"
@@ -128,8 +127,8 @@ check_smt ("cvc5_proof")
 
 (*(define-rule arith-eq-elim-int ((t Int) (s Int)) (= t s) (and (>= t s) (<= t s)))*)
 check_smt ("cvc5_proof")
-  "./Benchmarks/Arith_Rewrites/arith-eq-elim-in.smt2"
-  "./Benchmarks/Arith_Rewrites/arith-eq-elim-in.alethe"
+  "./Benchmarks/Arith_Rewrites/arith-eq-elim-int.smt2"
+  "./Benchmarks/Arith_Rewrites/arith-eq-elim-int.alethe"
 
 
 (*(define-rule* arith-plus-flatten ((xs ? :list) (w1 ?) (w2 ?) (ys ? :list) (zs ? :list))
@@ -176,7 +175,6 @@ check_smt ("cvc5_proof")
 check_smt ("cvc5_proof")
   "./Benchmarks/Arith_Rewrites/arith-int-eq-conflict.smt2"
   "./Benchmarks/Arith_Rewrites/arith-int-eq-conflict.alethe"
-
 
 (*(define-cond-rule arith-int-geq-tighten ((t Int) (c Real) (cc Int))
   (and (not (= (to_real (to_int c)) c)) (= cc (+ (to_int c) 1)))
@@ -266,8 +264,6 @@ check_smt ("cvc5_proof")
   "./Benchmarks/Arith_Rewrites/arith-lt-ite-lift.alethe"
 
 
-
-
 (*(define-rule arith-min-lt1 ((t ?) (s ?))
   (<= (ite (< t s) t s) t)
   true)*)
@@ -290,7 +286,6 @@ check_smt ("cvc5_proof")
 check_smt ("cvc5_proof")
   "./Benchmarks/Arith_Rewrites/arith-max-geq1.smt2"
   "./Benchmarks/Arith_Rewrites/arith-max-geq1.alethe"
-
 
 (*(define-rule arith-max-geq2 ((t ?) (s ?))
   (>= (ite (>= t s) t s) s)

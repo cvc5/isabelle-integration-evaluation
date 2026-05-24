@@ -6,7 +6,7 @@
 *)
 
 theory BV_Rewrites_Simplification
-  imports HOL.SMT_CVC HOL.SMT_CVC_Word "../IsabelleCheckExternal/SMT_Check_External"
+  imports HOL.SMT_CVC "HOL-Library.SMT_CVC_Word" "../IsabelleCheckExternal/SMT_Check_External"
 begin
 
 declare[[smt_trace=true,smt_verbose=true]]
