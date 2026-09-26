@@ -228,9 +228,31 @@ in
       resolve_tac ctxt @{thms TrueI})
 end
 
+(* Rules the cvc5 replay has no method of its own for: it looks them up in the declared-rule table
+   (Other_Rule), and without an entry sends them to its hole tactic. *)
+
+(*evaluate: the tactic a rare_rewrite step named "evaluate" gets*)
+fun evaluate_step ctxt _ _ t = try_evaluate ctxt t
+
+(*The ite selection axioms, which Carcara's elaboration of ite_intro and of the rewrites emits:
+  ite_then_intro (cl (not c) (= (ite c t s) t)) and ite_else_intro (cl c (= (ite c t s) s))*)
+local
+  val ite_then_intro_thm = @{lemma \<open>\<not> c \<or> (if c then a else b) = a\<close> by (cases c) simp_all}
+  val ite_else_intro_thm = @{lemma \<open>c \<or> (if c then a else b) = b\<close> by (cases c) simp_all}
+  fun ite_intro thm ctxt _ _ t =
+    SMT_Replay_Methods.prove ctxt t (fn ctxt =>
+      resolve_tac ctxt [thm] ORELSE' simp_tac ctxt)
+in
+  val ite_then_intro = ite_intro ite_then_intro_thm
+  val ite_else_intro = ite_intro ite_else_intro_thm
+end
+
 val rules = [
    ("rare_rewrite", rare_rewrite),
-   ("true", true_tac)]
+   ("true", true_tac),
+   ("evaluate", evaluate_step),
+   ("ite_then_intro", ite_then_intro),
+   ("ite_else_intro", ite_else_intro)]
 
 val _ = Theory.setup (Context.theory_map (
    fold (uncurry Alethe_Replay_Methods.declare_alethe_rule) rules))
