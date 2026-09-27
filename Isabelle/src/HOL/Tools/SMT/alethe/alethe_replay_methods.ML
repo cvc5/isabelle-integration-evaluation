@@ -1121,15 +1121,21 @@ val or_neg_rule = prove_abstract SMT_Replay_Methods.abstract_bool (fn ctxt => fn
       (SOLVED' (match_tac ctxt @{thms disjI1} THEN_ALL_NEW assume_tac ctxt)
        ORELSE' (match_tac ctxt @{thms disjI2} THEN' TRY' (assume_tac ctxt)))))
 
+(*After the k conjuncts before the selected one are peeled off, the selected conjunct is an
+  assumption: close the goal with it first. The lemmas are for what assumption cannot close; tried
+  first, the second one also matches a goal that is just the clause's other literal whenever that
+  literal is itself a disjunction starting with a negated conjunction, (cl (not (and p q)) l) with
+  l = (or (not (and x y)) ...) and q = l, and turns it into an unprovable one.*)
 fun and_pos ctxt _ t (SOME (Index k)) =
   SMT_Replay_Methods.prove ctxt t (fn _ =>
-  REPEAT_DETERM_N' k (resolve_tac ctxt @{thms alethe_and_pos})  
-  THEN' TRY' (
-    resolve_tac ctxt @{thms excluded_middle}
-    ORELSE'
-    resolve_tac ctxt [@{lemma "(a \<Longrightarrow> A) \<Longrightarrow> \<not>(a \<and> b) \<or> A" by blast}]
-  )
-  THEN' TRY' (assume_tac ctxt)) |
+  REPEAT_DETERM_N' k (resolve_tac ctxt @{thms alethe_and_pos})
+  THEN' (assume_tac ctxt ORELSE' (
+    TRY' (
+      resolve_tac ctxt @{thms excluded_middle}
+      ORELSE'
+      resolve_tac ctxt [@{lemma "(a \<Longrightarrow> A) \<Longrightarrow> \<not>(a \<and> b) \<or> A" by blast}]
+    )
+    THEN' TRY' (assume_tac ctxt)))) |
 and_pos ctxt _ t _ = (*legacy*)
   SMT_Replay_Methods.prove ctxt t (fn _ =>
   REPEAT_CHANGED (resolve_tac ctxt @{thms alethe_and_pos})
