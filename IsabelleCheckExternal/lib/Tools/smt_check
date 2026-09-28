@@ -18,7 +18,7 @@ function usage() {
 }
 
 parse_options() {
-    while getopts ":d:l:o:s:p:i:" option; do
+    while getopts ":d:l:o:s:p:i:t:" option; do
         case ${option} in
             d)
                 directory_include="${OPTARG}"
@@ -74,7 +74,16 @@ if [[ -z $ISABELLE_HOME ]] then
 echo "todo: ISABELLE_HOME empty. here add functionality to set this, probably init script"
 exit -1
 fi
-$ISABELLE_HOME/bin/isabelle build ${directory_include} -b $session
+
+isabelle="$ISABELLE_HOME/bin/isabelle"
+
+if ! "$isabelle" components -l | grep -qF 'IsabelleCheckExternal'; then
+    dir="$(cd -P -- "$(dirname -- "$0")/../.." && pwd)" || exit 1
+    "$isabelle" components -u "$dir"
+fi
+
+
+$isabelle build ${directory_include} -b $session
 
 echo -e "theory $SCRATCH\n\timports \"$import_session\"\nbegin\n\
  declare[[$declare_options]]\n\
@@ -82,7 +91,7 @@ echo -e "theory $SCRATCH\n\timports \"$import_session\"\nbegin\n\
  > ${SCRATCH_FILE}
 
 cat ${SCRATCH_FILE}
-$ISABELLE_HOME/bin/isabelle process_theories $directory_include -O -U -v -l $session -f "${SCRATCH_FILE}" "${SCRATCH}"
+$isabelle process_theories $directory_include -O -U -v -l $session -f "${SCRATCH_FILE}" "${SCRATCH}"
 
 echo "deleting theory file"
 rm ${SCRATCH_FILE}
