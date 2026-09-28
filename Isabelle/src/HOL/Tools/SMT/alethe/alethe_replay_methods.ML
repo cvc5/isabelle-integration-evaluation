@@ -1749,7 +1749,19 @@ val la_rw_eq_thm = @{lemma \<open>((a :: 'a :: linorder) = b) = ((a \<le> b) \<a
 in
 fun la_rw_eq ctxt _ t = SMT_Replay_Methods.match_instantiate ctxt t la_rw_eq_thm
 
-fun la_generic_prove args ctxt _ = SMT_Replay_Arith.la_farkas args ctxt
+(*la_farkas combines the literals with the step's coefficients and normalizes the sum with a fixed
+  simp set, which does not always reach False (rational coefficients such as 1000000/1000001 over
+  nested sums), and it cannot combine literals of different types (the integer literals of a step
+  with a real one over of_int terms): it raises List.Empty there instead of failing. linarith,
+  which ignores the coefficients, is tried only in those cases.*)
+fun la_generic_prove args ctxt _ =
+  let
+    fun farkas i st =
+      (case Seq.pull (SMT_Replay_Arith.la_farkas args ctxt i st) of
+        NONE => Seq.empty
+      | SOME (r, rs) => Seq.cons r rs)
+      handle List.Empty => Seq.empty | THM _ => Seq.empty | TERM _ => Seq.empty
+  in farkas ORELSE' Lin_Arith.tac ctxt end
 
 fun la_generic ctxt thms t args =
   prove_abstract (SMT_Replay_Methods.abstract_arith_shallow ctxt) (la_generic_prove args) ctxt [] t
@@ -1958,13 +1970,13 @@ fun qnt_var_reordering ctxt _ t =
   SMT_Replay_Methods.prove ctxt t (fn _ => (
     blast_tac ctxt))
 
-fun and_intro ctxt thms t = 
+(*A premise may itself be a conjunction, and when it is the last one the conclusion ends in it:
+  (and A (and B C)) is A \<and> (B \<and> C). Close each goal by a premise before splitting it, so that such a
+  conjunct is not taken apart into pieces no premise states on its own.*)
+fun and_intro ctxt thms t =
   SMT_Replay_Methods.prove ctxt t (fn _ =>
   Method.insert_tac ctxt thms
-  THEN' REPEAT'
-   ((match_tac ctxt [@{thm conjI}])
-     THEN' TRY' (assume_tac ctxt))
-  THEN' TRY' (assume_tac ctxt))
+  THEN' REPEAT' (assume_tac ctxt ORELSE' match_tac ctxt [@{thm conjI}]))
 
 fun trust ctxt _ t = 
   SMT_Replay_Methods.prove ctxt t (fn _ => (
