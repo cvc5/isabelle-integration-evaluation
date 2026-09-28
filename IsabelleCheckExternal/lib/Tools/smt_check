@@ -54,8 +54,8 @@ parse_options() {
 }
 
 directory_include=""
-session=HOL
-import_session=Main
+session=SMTCheckExternal
+import_session=SMTCheckExternal.SMT_Check_External
 solver=cvc5
 parse_options "$@"
 
