@@ -1,0 +1,4 @@
+bv-sign-extend-eq-const-1
+bv-sign-extend-eq-const-2
+bv-zero-extend-eq-const-1
+bv-zero-extend-eq-const-2
