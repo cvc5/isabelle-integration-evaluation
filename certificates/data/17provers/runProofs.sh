@@ -1,0 +1,114 @@
+#!/bin/bash
+
+SCRIPT_DIR="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/scripts/proofs/"
+BENCH_PATH="/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/certificates/data/17provers/"
+cd $BENCH_PATH
+
+declare -a logics=("SMT2_0016" "SMT2_0032" "SMT2_0064" "SMT2_0128" "SMT2_0256" "SMT2_0512" "SMT2_1024")
+declare -a configs=("verit" "cvc5")
+
+
+#------------------------------------------------------------------------------------
+#-------------------------------------Read Input-------------------------------------
+#------------------------------------------------------------------------------------
+
+#Default values for options
+timeout=350
+partition=quad
+
+# Flag to detect if -l or -c was used
+override_logics=false
+override_configs=false
+
+Help()
+{
+   # Display Help
+   echo "Runs cvc5 and veriT on all SMT-LIB libraries unless option -l or -c is used"
+   echo
+   echo "options:"
+   echo "l     Run on specific logic (e.g., QF_LRA). Can give several arguments with -l"
+   echo "c     Run a specific config (verit or cvc5). Can give several arguments with -c"
+   echo "t     Set timeout for slurm (each separate call to slurm has to use this timeout not this script itself)"
+   echo "p     Override partition for calls to slurm"
+   echo "h     Print this Help."
+   echo
+}
+
+while getopts ":hp:t:l:c:" option; do
+   case $option in
+      h) # display Help
+         Help
+         exit;;
+      l)
+      # On first -l, clear default array
+      if [ "$override_logics" = false ]; then
+        logics=()
+        override_logics=true
+      fi
+      if [ -z "$OPTARG" ]; then
+        echo "Error: -l requires a non-empty argument"
+        exit 1
+      fi
+      logics+=("$OPTARG")
+      ;;
+      c)
+      # On first -c, clear default array
+      if [ "$override_configs" = false ]; then
+        configs=()
+        override_configs=true
+      fi
+      if [ -z "$OPTARG" ]; then
+        echo "Error: -c requires a non-empty argument"
+        exit 1
+      fi
+      configs+=("$OPTARG")
+      ;;
+
+      p)
+        if [ -z "$OPTARG" ]; then
+          echo "Error: -p requires a non-empty argument"
+          exit 1
+        fi
+        partition=$OPTARG
+        ;;
+      t)
+        if [ -z "$OPTARG" ]; then
+          echo "Error: -t requires a non-empty argument"
+          exit 1
+        fi
+        timeout=$OPTARG;;
+     \?) # Invalid option
+         echo "Error: Invalid option"
+         exit;;
+   esac
+done
+
+echo -e "\nAbout to run configurations:\n ${configs[@]}"
+echo -e "on sets\n ${logics[@]}\n"
+
+read -p "Do you want to run on all benchmarks (a) or just on the already proven ones (p)? " check
+if [[ $check -ne "a" && $check -ne "p" ]]
+then
+  echo "no input read"
+  exit
+fi
+
+prev_solved_str=""
+for l in "${logics[@]}"
+do
+   echo "$l"
+   CURRENT_DIR="${BENCH_PATH}$l/"
+   CURRENT_PROBLEM_DIR="${CURRENT_DIR}$l/"
+   cd $CURRENT_DIR
+   for c in "${configs[@]}"
+   do
+     if [[ $check == "p" ]]
+     then
+       prev_solved_str="-i ${CURRENT_DIR}/prev_solved_${c}.txt"
+     fi
+     output=$(${SCRIPT_DIR}/runSolversWrapper.sh -p $partition -t $timeout $prev_solved_str $CURRENT_PROBLEM_DIR proofs/"$c"_alethe_tmp $l $c)
+   done
+done
+
+
+
