@@ -9,6 +9,7 @@ session rareRewritesRegressions (main) = HOL +
    "Benchmarks/Builtin_Rewrites"
    "Benchmarks/BV_Rewrites"
    "Benchmarks/BV_Rewrites_Simplification"
+   "Benchmarks/BV_Rewrites_Elimination"
    "Benchmarks/CVC5_Rewrites"
    "Benchmarks/UF_BV_Rewrites"
    "Benchmarks/UF_Rewrites"
