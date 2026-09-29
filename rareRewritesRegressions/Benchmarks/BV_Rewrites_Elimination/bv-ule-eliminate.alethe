@@ -1,4 +1,4 @@
 unsat
-(step t5132 (cl (= (bvule (_ bv18 32) x25) (not (bvult x25 (_ bv18 32))))) :rule rare_rewrite :args ("bv-ule-eliminate" (_ bv18 32) x25))
-(step slice_end (cl) :rule trust :premises (t5132) :args ("trust"))
+(step t689 (cl (! (= (! (bvule (! ((_ zero_extend 3) (! (ite (! (bvsle v1 (! (bvnand (_ bv5 4) (! (bvxnor v3 (_ bv5 4)) :named @p_6)) :named @p_5)) :named @p_4) (_ bv1 1) (_ bv0 1)) :named @p_3)) :named @p_2) (! (bvneg v0) :named @p_7)) :named @p_1) (! (not (! (bvult @p_7 @p_2) :named @p_9)) :named @p_8)) :named @p_0)) :rule rare_rewrite :args ("bv-ule-eliminate" @p_2 @p_7))
+(step slice_end (cl) :rule trust :premises (t689) :args ("trust"))
 

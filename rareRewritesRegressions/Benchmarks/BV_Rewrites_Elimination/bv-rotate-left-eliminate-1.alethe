@@ -1,0 +1,8 @@
+unsat
+(step t1236 (cl (! (= (! (= (! (mod 1 (! (@bvsize v3) :named @p_3)) :named @p_2) 0) :named @p_1) (! false :named @p_4)) :named @p_0)) :rule trust :args ("trust"))
+(step t1238 (cl (! (= 2 (! (- @p_3 (! (+ 1 @p_2) :named @p_7)) :named @p_6)) :named @p_5)) :rule trust :args ("trust"))
+(step t1240 (cl (! (= 3 (! (- @p_3 1) :named @p_9)) :named @p_8)) :rule trust :args ("trust"))
+(step t1242 (cl (! (= 3 (! (- @p_3 @p_2) :named @p_11)) :named @p_10)) :rule trust :args ("trust"))
+(step t1243 (cl (! (= (! ((_ rotate_left 1) v3) :named @p_13) (! (concat (! ((_ extract 2 0) v3) :named @p_15) (! ((_ extract 3 3) v3) :named @p_16)) :named @p_14)) :named @p_12)) :rule rare_rewrite :premises (t1236 t1238 t1240 t1242) :args ("bv-rotate-left-eliminate-1" v3 1 2 3 3))
+(step slice_end (cl) :rule trust :premises (t1243) :args ("trust"))
+

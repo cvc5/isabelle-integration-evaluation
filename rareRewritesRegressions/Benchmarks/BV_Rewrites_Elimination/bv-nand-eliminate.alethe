@@ -1,4 +1,4 @@
 unsat
-(step t8 (cl (= (bvnand s t) (bvnot (bvand s t)))) :rule rare_rewrite :args ("bv-nand-eliminate" s t))
-(step slice_end (cl) :rule trust :premises (t8) :args ("trust"))
+(step t72 (cl (! (= (! (bvnand (_ bv5 4) (! (bvxnor v3 (_ bv5 4)) :named @p_2)) :named @p_1) (! (bvnot (! (bvand (_ bv5 4) @p_2) :named @p_4)) :named @p_3)) :named @p_0)) :rule rare_rewrite :args ("bv-nand-eliminate" (_ bv5 4) @p_2))
+(step slice_end (cl) :rule trust :premises (t72) :args ("trust"))
 

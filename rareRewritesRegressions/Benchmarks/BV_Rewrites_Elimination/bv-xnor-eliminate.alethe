@@ -1,4 +1,4 @@
 unsat
-(step t21 (cl (= (bvxnor s t) (bvnot (bvxor s t)))) :rule rare_rewrite :args ("bv-xnor-eliminate" s t))
-(step slice_end (cl) :rule trust :premises (t21) :args ("trust"))
+(step t749 (cl (! (= (! (bvxnor v12 (! ((_ sign_extend 2) (! ((_ sign_extend 1) v1) :named @p_3)) :named @p_2)) :named @p_1) (! (bvnot (! (bvxor v12 @p_2) :named @p_5)) :named @p_4)) :named @p_0)) :rule rare_rewrite :args ("bv-xnor-eliminate" v12 @p_2))
+(step slice_end (cl) :rule trust :premises (t749) :args ("trust"))
 

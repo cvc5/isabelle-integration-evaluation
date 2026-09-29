@@ -1,5 +1,3 @@
-(set-logic QF_BV)
-(declare-fun a_0x15ff960 () (_ BitVec 32))
-(declare-fun b_0x15ffa10 () (_ BitVec 32))
+(set-logic ALL)
 (check-sat)
 (exit)

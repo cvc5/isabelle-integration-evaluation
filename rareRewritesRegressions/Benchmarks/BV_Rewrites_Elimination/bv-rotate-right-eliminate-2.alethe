@@ -1,0 +1,5 @@
+unsat
+(step t197 (cl (! (= (! (mod 0 (! (@bvsize (! (ite (! (bvslt (! (bvxnor (! ((_ zero_extend 0) v1) :named @p_6) v1) :named @p_5) (! ((_ sign_extend 3) (! (ite (! (bvule v0 (! (@bv 2 4) :named @p_10)) :named @p_9) (! (@bv 1 1) :named @p_11) (! (@bv 0 1) :named @p_12)) :named @p_8)) :named @p_7)) :named @p_4) @p_11 @p_12) :named @p_3)) :named @p_2)) :named @p_1) 0) :named @p_0)) :rule trust :args ("trust"))
+(step t198 (cl (! (= (! ((_ rotate_right 0) @p_3) :named @p_14) @p_3) :named @p_13)) :rule rare_rewrite :premises (t197) :args ("bv-rotate-right-eliminate-2" @p_3 0))
+(step slice_end (cl) :rule trust :premises (t198) :args ("trust"))
+
