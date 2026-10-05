@@ -1,0 +1,4 @@
+unsat
+(step t220 (cl (! (= (! (bvuge x (! ((_ int_to_bv 32) (! (- 0) :named @p_3)) :named @p_2)) :named @p_1) (! (bvule @p_2 x) :named @p_4)) :named @p_0)) :rule rare_rewrite :args ("bv-uge-eliminate" x @p_2))
+(step slice_end (cl) :rule trust :premises (t220) :args ("trust"))
+

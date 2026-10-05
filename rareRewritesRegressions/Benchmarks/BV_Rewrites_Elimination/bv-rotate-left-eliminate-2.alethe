@@ -1,0 +1,5 @@
+unsat
+(step t379 (cl (! (= (! (mod 0 (! (@bvsize v0) :named @p_2)) :named @p_1) 0) :named @p_0)) :rule trust :args ("trust"))
+(step t380 (cl (! (= (! ((_ rotate_left 0) v0) :named @p_4) v0) :named @p_3)) :rule rare_rewrite :premises (t379) :args ("bv-rotate-left-eliminate-2" v0 0))
+(step slice_end (cl) :rule trust :premises (t380) :args ("trust"))
+

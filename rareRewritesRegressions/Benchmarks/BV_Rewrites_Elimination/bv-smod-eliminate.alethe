@@ -1,0 +1,6 @@
+unsat
+(step t8 (cl (! (= 13 (! (@bvsize (_ bv30 13)) :named @p_1)) :named @p_0)) :rule trust :args ("trust"))
+(step t10 (cl (! (= 12 (! (- @p_1 1) :named @p_3)) :named @p_2)) :rule trust :args ("trust"))
+(step t11 (cl (! (= (! (bvsmod (_ bv30 13) (_ bv8190 13)) :named @p_5) (! (ite (! (= (! (bvurem (! (ite (! (= (! ((_ extract 12 12) (_ bv30 13)) :named @p_11) (! (@bv 0 1) :named @p_12)) :named @p_10) (_ bv30 13) (! (bvneg (_ bv30 13)) :named @p_13)) :named @p_9) (! (ite (! (= (! ((_ extract 12 12) (_ bv8190 13)) :named @p_16) @p_12) :named @p_15) (_ bv8190 13) (! (bvneg (_ bv8190 13)) :named @p_17)) :named @p_14)) :named @p_8) (! (@bv 0 13) :named @p_18)) :named @p_7) @p_8 (! (ite (! (and @p_10 @p_15) :named @p_20) @p_8 (! (ite (! (and (! (= @p_11 (! (@bv 1 1) :named @p_24)) :named @p_23) @p_15) :named @p_22) (! (bvadd (! (bvneg @p_8) :named @p_26) (_ bv8190 13)) :named @p_25) (! (ite (! (and @p_10 (! (= @p_16 @p_24) :named @p_29)) :named @p_28) (! (bvadd @p_8 (_ bv8190 13)) :named @p_30) @p_26) :named @p_27)) :named @p_21)) :named @p_19)) :named @p_6)) :named @p_4)) :rule rare_rewrite :premises (t8 t10) :args ("bv-smod-eliminate" (_ bv30 13) (_ bv8190 13) 13 12))
+(step slice_end (cl) :rule trust :premises (t11) :args ("trust"))
+

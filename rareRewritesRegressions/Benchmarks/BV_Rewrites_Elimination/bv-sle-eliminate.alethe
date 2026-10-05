@@ -1,0 +1,7 @@
+unsat
+(anchor :step t27 :args ((t (_ BitVec 32)) (:= (t (_ BitVec 32)) t)))
+(step t27.t0 (cl (= (bvsle (_ bv0 32) (bvmul t (! (bvneg (_ bv2 32)) :named @p_0))) (not (bvslt (bvmul t @p_0) (_ bv0 32))))) :rule rare_rewrite :args ("bv-sle-eliminate" (_ bv0 32) (bvmul t @p_0)))
+(step t27.t23 (cl (= (bvsle (_ bv0 32) (bvmul t @p_0)) (not (bvslt (concat ((_ extract 30 0) (bvneg t)) (_ bv0 1)) (_ bv0 32))))) :rule trust :premises (t27.t0) :args ("trust"))
+(step t27 (cl (! (= (! (forall ((t (_ BitVec 32))) (bvsle (_ bv0 32) (bvmul t @p_0))) :named @p_2) (! (forall ((t (_ BitVec 32))) (not (bvslt (concat ((_ extract 30 0) (bvneg t)) (_ bv0 1)) (_ bv0 32)))) :named @p_3)) :named @p_1)) :rule bind)
+(step slice_end (cl) :rule trust :premises (t27) :args ("trust"))
+

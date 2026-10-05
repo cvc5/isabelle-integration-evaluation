@@ -7,7 +7,7 @@ Note that we don't have examples for every rule, some of them might not be used 
 *)
 
 theory Bool_Rewrites
-  imports HOL.SMT_CVC HOL.Real "../IsabelleCheckExternal/SMT_Check_External" (*TODO: Why do I need to import Reals to have strings parse correctly?!*)
+  imports HOL.SMT_CVC HOL.Real "SMT_Check_External" (*TODO: Why do I need to import Reals to have strings parse correctly?!*)
 begin
 
 declare[[rare_rec_mode=1]]
