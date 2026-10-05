@@ -8,6 +8,8 @@
 #CVC5_HOME=${CVC5_HOME:-~/Sources/cvc5/build/bin/cvc5}
 CVC5_HOME=${CVC5_HOME:-/barrett/scratch/lachnitt/Binaries/cvc5/build/bin/cvc5}
 VERIT_HOME=${VERIT_HOME:-/barrett/scratch/lachnitt/Binaries/verit/veriT}
+ISABELLE_PATH=${ISABELLE_PATH:-/barrett/scratch/lachnitt/Binaries/dist-Isabelle_24-Sep-2026/Isabelle_24-Sep-2026/}
+
 CHECK_SMT_PATH=${CHECK_SMT_PATH:-/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/IsabelleCheckExternal/lib/Tools/smt_check}
 #Isabelle keeps heaps, settings and registered components in $USER_HOME/.isabelle (for a distribution in
 #$USER_HOME/.isabelle/<ISABELLE_IDENTIFIER>). The heaps have to be built there once beforehand, see check_heap.
@@ -270,7 +272,7 @@ check() {
 
   local start_time end_time
   start_time=$(date +%s%N)
-  { run_child timeout "$check_timeout" "$ISABELLE_PATH" "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$PWD/$proof_file" < /dev/null > "$log_file" 2>&1; } 2> /dev/null
+  { run_child timeout "$check_timeout" "$CHECK_SMT_PATH" "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$PWD/$proof_file" < /dev/null > "$log_file" 2>&1; } 2> /dev/null
   local return_value=$?
   end_time=$(date +%s%N)
   checking_time=$((end_time - start_time))
