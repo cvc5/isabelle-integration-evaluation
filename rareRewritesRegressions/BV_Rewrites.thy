@@ -85,9 +85,10 @@ check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-extract-sign-extend-3.alethe"
 
 (* bv-not-xor *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-not-xor.smt2"
-"./Benchmarks/BV_Rewrites/bv-not-xor.alethe"
+"./Benchmarks/BV_Rewrites/bv-not-xor.alethe" *)
 
 (* bv-and-simplify-1 *)
 check_smt ("cvc5_proof")
@@ -110,19 +111,22 @@ check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-or-simplify-2.alethe"
 
 (* bv-xor-simplify-1 *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-xor-simplify-1.smt2"
-"./Benchmarks/BV_Rewrites/bv-xor-simplify-1.alethe"
+"./Benchmarks/BV_Rewrites/bv-xor-simplify-1.alethe" *)
 
 (* bv-xor-simplify-2 *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-xor-simplify-2.smt2"
-"./Benchmarks/BV_Rewrites/bv-xor-simplify-2.alethe"
+"./Benchmarks/BV_Rewrites/bv-xor-simplify-2.alethe" *)
 
 (* bv-xor-simplify-3 *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-xor-simplify-3.smt2"
-"./Benchmarks/BV_Rewrites/bv-xor-simplify-3.alethe"
+"./Benchmarks/BV_Rewrites/bv-xor-simplify-3.alethe" *)
 
 (* bv-ult-add-one *)
 check_smt ("cvc5_proof")
@@ -140,9 +144,10 @@ check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-mult-slt-mult-2.alethe"
 
 (* bv-commutative-xor *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-commutative-xor.smt2"
-"./Benchmarks/BV_Rewrites/bv-commutative-xor.alethe"
+"./Benchmarks/BV_Rewrites/bv-commutative-xor.alethe" *)
 
 (* bv-commutative-comp *)
 check_smt ("cvc5_proof")
@@ -150,24 +155,28 @@ check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-commutative-comp.alethe"
 
 (* bv-zero-extend-eliminate-0 *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-zero-extend-eliminate-0.smt2"
-"./Benchmarks/BV_Rewrites/bv-zero-extend-eliminate-0.alethe"
+"./Benchmarks/BV_Rewrites/bv-zero-extend-eliminate-0.alethe" *)
 
 (* bv-sign-extend-eliminate-0 *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-sign-extend-eliminate-0.smt2"
-"./Benchmarks/BV_Rewrites/bv-sign-extend-eliminate-0.alethe"
+"./Benchmarks/BV_Rewrites/bv-sign-extend-eliminate-0.alethe" *)
 
 (* bv-not-neq *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-not-neq.smt2"
-"./Benchmarks/BV_Rewrites/bv-not-neq.alethe"
+"./Benchmarks/BV_Rewrites/bv-not-neq.alethe" *)
 
 (* bv-ult-ones *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-ult-ones.smt2"
-"./Benchmarks/BV_Rewrites/bv-ult-ones.alethe"
+"./Benchmarks/BV_Rewrites/bv-ult-ones.alethe" *)
 
 (* bv-concat-merge-const *)
 check_smt ("cvc5_proof")
@@ -175,14 +184,16 @@ check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-concat-merge-const.alethe"
 
 (* bv-commutative-add *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-commutative-add.smt2"
-"./Benchmarks/BV_Rewrites/bv-commutative-add.alethe"
+"./Benchmarks/BV_Rewrites/bv-commutative-add.alethe" *)
 
 (* bv-sub-eliminate *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-sub-eliminate.smt2"
-"./Benchmarks/BV_Rewrites/bv-sub-eliminate.alethe"
+"./Benchmarks/BV_Rewrites/bv-sub-eliminate.alethe" *)
 
 (* bv-ite-width-one *)
 check_smt ("cvc5_proof")
@@ -190,18 +201,21 @@ check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-ite-width-one.alethe"
 
 (* bv-ite-width-one-not *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-ite-width-one-not.smt2"
-"./Benchmarks/BV_Rewrites/bv-ite-width-one-not.alethe"
+"./Benchmarks/BV_Rewrites/bv-ite-width-one-not.alethe" *)
 
 (* bv-eq-xor-solve *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-eq-xor-solve.smt2"
-"./Benchmarks/BV_Rewrites/bv-eq-xor-solve.alethe"
+"./Benchmarks/BV_Rewrites/bv-eq-xor-solve.alethe" *)
 
 (* bv-eq-not-solve *)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
 "./Benchmarks/BV_Rewrites/bv-eq-not-solve.smt2"
-"./Benchmarks/BV_Rewrites/bv-eq-not-solve.alethe"
+"./Benchmarks/BV_Rewrites/bv-eq-not-solve.alethe" *)
 
 end

@@ -1,0 +1,11 @@
+/home/lachnitt/Sources/isabelle-integration-evaluation/rareRewritesRegressions/scripts/../../IsabelleCheckExternal/lib/Tools/smt_check: line 80: /home/lachnitt/Sources/isabelle-mercurial/isabelle/bin/isabelle/bin/isabelle: Not a directory
+/home/lachnitt/Sources/isabelle-integration-evaluation/rareRewritesRegressions/scripts/../../IsabelleCheckExternal/lib/Tools/smt_check: line 82: /home/lachnitt/Sources/isabelle-mercurial/isabelle/bin/isabelle/bin/isabelle: Not a directory
+/home/lachnitt/Sources/isabelle-integration-evaluation/rareRewritesRegressions/scripts/../../IsabelleCheckExternal/lib/Tools/smt_check: line 86: /home/lachnitt/Sources/isabelle-mercurial/isabelle/bin/isabelle/bin/isabelle: Not a directory
+theory Scratch_smt_check_22725_25835
+	imports "SMTCheckExternal.SMT_Check_External"
+begin
+ declare[[rare_rec_mode=1]]
+ check_smt ("cvc5") "/home/lachnitt/Sources/isabelle-integration-evaluation/rareRewritesRegressions/Benchmarks/Bool_Rewrites/ite-expand.smt2" "/home/lachnitt/Sources/isabelle-integration-evaluation/rareRewritesRegressions/Benchmarks/Bool_Rewrites/ite-expand.alethe"
+end
+/home/lachnitt/Sources/isabelle-integration-evaluation/rareRewritesRegressions/scripts/../../IsabelleCheckExternal/lib/Tools/smt_check: line 94: /home/lachnitt/Sources/isabelle-mercurial/isabelle/bin/isabelle/bin/isabelle: Not a directory
+deleting theory file

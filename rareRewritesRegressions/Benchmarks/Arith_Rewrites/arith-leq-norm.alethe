@@ -1,0 +1,3 @@
+unsat
+(step t21 (cl (= (<= x 0) (not (>= x (+ 0 1))))) :rule rare_rewrite :args ("arith-leq-norm" x 0))
+(step slice_end (cl) :rule trust :premises (t21) :args ("trust"))

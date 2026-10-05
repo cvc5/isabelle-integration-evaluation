@@ -1,0 +1,5 @@
+eq-refl
+eq-symm
+eq-cond-deq
+eq-ite-lift
+distinct-binary-elim

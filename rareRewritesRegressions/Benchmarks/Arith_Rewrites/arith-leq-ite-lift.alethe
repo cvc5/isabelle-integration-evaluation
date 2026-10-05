@@ -1,0 +1,3 @@
+unsat
+(step t58 (cl (= (<= (ite (d 0 0) 0/1 1/1) 1/1) (ite (d 0 0) (<= 0/1 1/1) (<= 1/1 1/1)))) :rule rare_rewrite :args ("arith-leq-ite-lift" (d 0 0) 0/1 1/1 1/1))
+(step slice_end (cl) :rule trust :premises (t58) :args ("trust"))

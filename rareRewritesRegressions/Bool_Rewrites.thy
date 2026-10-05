@@ -22,7 +22,7 @@ declare[[smt_expert_debug_alethe_level=3]]
 declare[[smt_expert_debug_alethe_files="alethe_replay_rare"]]
 
 
-(*(define-rule bool-double-not-elim ((t Bool)) (not (not t)) t))*)
+(*(define-rule bool-double-not-elim ((t Bool)) (not (not t)) t)*)
 (*Note: currently not using the lemma to reconstruct*)
 check_smt ("cvc5_proof")
   "./Benchmarks/Bool_Rewrites/bool-double-not-elim.smt2"
@@ -234,8 +234,8 @@ check_smt ("cvc5_proof")
 
 (*(define-rule ite-then-lookahead-not-self ((c Bool) (x Bool)) (ite c (not c) x) (ite c false x))*)
 check_smt ("cvc5_proof")
-  "./Benchmarks/Bool_Rewrites/ite-else-lookahead-not-self.smt2"
-  "./Benchmarks/Bool_Rewrites/ite-else-lookahead-not-self.alethe"
+  "./Benchmarks/Bool_Rewrites/ite-then-lookahead-not-self.smt2"
+  "./Benchmarks/Bool_Rewrites/ite-then-lookahead-not-self.alethe"
 
 (*(define-rule ite-else-lookahead-not-self ((c Bool) (x Bool)) (ite c x (not c)) (ite c x true))*)
 check_smt ("cvc5_proof")

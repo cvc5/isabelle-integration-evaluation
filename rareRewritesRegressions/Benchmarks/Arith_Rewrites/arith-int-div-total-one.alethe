@@ -1,0 +1,5 @@
+unsat
+(anchor :step t1266 :args ((_M Int) (:= (_M Int) _M)))
+(step t1266.t4 (cl (= (div (f _M) 1) (f _M))) :rule rare_rewrite :args ("arith-int-div-total-one" (f _M)))
+(step t1266 (cl (= (lambda ((_M Int)) (= (g _M) (div (div (f _M) 1) 60))) (lambda ((_M Int)) (= (g _M) (div (f _M) 60))))) :rule bind)
+(step slice_end (cl) :rule trust :premises (t1266) :args ("trust"))

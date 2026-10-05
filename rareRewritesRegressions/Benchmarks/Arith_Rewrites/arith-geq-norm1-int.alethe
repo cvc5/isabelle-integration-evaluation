@@ -1,0 +1,8 @@
+unsat
+(anchor :step t7 :args ((b Bool) (:= (b Bool) b)))
+(anchor :step t7.t5)
+(assume t7.t5.a0 (forall ((a Int)) (= a (ite b 0 1))))
+(step t7.t5.t2 (cl (= (>= (+ (* -1 (* -1 (ite b 0 1))) -1) (ite b 0 1)) (>= (- (+ (* -1 (* -1 (ite b 0 1))) -1) (ite b 0 1)) 0))) :rule rare_rewrite :args ("arith-geq-norm1-int" (+ (* -1 (* -1 (ite b 0 1))) -1) (ite b 0 1)))
+(step t7.t5 (cl (not (forall ((a Int)) (= a (ite b 0 1)))) false) :rule subproof :discharge (t7.t5.a0))
+(step t7 (cl (= (forall ((b Bool)) (forall ((a Int)) (= a (ite b 0 1)))) (forall ((b Bool)) false))) :rule bind)
+(step slice_end (cl) :rule trust :premises (t7) :args ("trust"))

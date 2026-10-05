@@ -23,3 +23,10 @@ declare[[smt_expert_debug_alethe_files="all"]]
 check_smt ("cvc5_proof")
   "./Benchmarks/CVC5_Rewrites/prob_00429_016041__12898890-t201.t7.t1.t1.smt2"
   "./Benchmarks/CVC5_Rewrites/prob_00429_016041__12898890-t201.t7.t1.t1.alethe"
+
+(*full problem that the slice above is taken from*)
+check_smt ("cvc5_proof")
+  "./Benchmarks/CVC5_Rewrites/prob_00429_016041__12898890.smt2"
+  "./Benchmarks/CVC5_Rewrites/prob_00429_016041__12898890.alethe"
+
+end

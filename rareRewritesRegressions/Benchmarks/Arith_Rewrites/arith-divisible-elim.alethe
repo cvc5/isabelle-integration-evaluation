@@ -1,0 +1,4 @@
+unsat
+(step t79 (cl (= (= 7 0) false)) :rule trust)
+(step t80 (cl (= (divisible 7 x) (= (mod x 7) 0))) :rule rare_rewrite :premises (t79) :args ("arith-divisible-elim" 7 x))
+(step slice_end (cl) :rule trust :premises (t80) :args ("trust"))

@@ -1,0 +1,3 @@
+unsat
+(step t25 (cl (= (mod z 0) z)) :rule rare_rewrite :args ("arith-int-mod-total-zero" z))
+(step slice_end (cl) :rule trust :premises (t25) :args ("trust"))

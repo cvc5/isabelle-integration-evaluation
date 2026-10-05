@@ -1,0 +1,9 @@
+unsat
+(anchor :step t523)
+(assume t523.a0 (ite (>= c 0/1) (ite (>= 1/1 0/1) (> c 1/1) (> c (- 1/1))) (ite (>= 1/1 0/1) (> (- c) 1/1) (> (- c) (- 1/1)))))
+(assume t523.a1 (not (= a 0/1)))
+(assume t523.a2 (not (= c 0/1)))
+(assume t523.a3 (not (= b 0/1)))
+(step t523.t1 (cl (= (> (abs (* a b c)) (abs (* a b))) (ite (>= (* a b c) 0/1) (ite (>= (* a b) 0/1) (> (* a b c) (* a b)) (> (* a b c) (- (* a b)))) (ite (>= (* a b) 0/1) (> (- (* a b c)) (* a b)) (> (- (* a b c)) (- (* a b))))))) :rule rare_rewrite :args ("arith-abs-real-gt" (* a b c) (* a b)))
+(step t523 (cl (not (ite (>= c 0/1) (ite (>= 1/1 0/1) (> c 1/1) (> c (- 1/1))) (ite (>= 1/1 0/1) (> (- c) 1/1) (> (- c) (- 1/1))))) (not (not (= a 0/1))) (not (not (= c 0/1))) (not (not (= b 0/1))) (ite (>= (* a b c) 0/1) (ite (>= (* a b) 0/1) (> (* a b c) (* a b)) (> (* a b c) (- (* a b)))) (ite (>= (* a b) 0/1) (> (- (* a b c)) (* a b)) (> (- (* a b c)) (- (* a b)))))) :rule subproof :discharge (t523.a0 t523.a1 t523.a2 t523.a3))
+(step slice_end (cl) :rule trust :premises (t523) :args ("trust"))

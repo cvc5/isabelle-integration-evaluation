@@ -1,0 +1,8 @@
+unsat
+(anchor :step t310)
+(assume t310.a0 (ite (>= s 0) (ite (>= 1 0) (> s 1) (> s (- 1))) (ite (>= 1 0) (> (- s) 1) (> (- s) (- 1)))))
+(assume t310.a1 (not (= pi 0/1)))
+(assume t310.a2 (not (= s 0)))
+(step t310.t29 (cl (= (> (abs s) (abs 1)) (ite (>= s 0) (ite (>= 1 0) (> s 1) (> s (- 1))) (ite (>= 1 0) (> (- s) 1) (> (- s) (- 1)))))) :rule rare_rewrite :args ("arith-abs-int-gt" s 1))
+(step t310 (cl (not (ite (>= s 0) (ite (>= 1 0) (> s 1) (> s (- 1))) (ite (>= 1 0) (> (- s) 1) (> (- s) (- 1))))) (not (not (= pi 0/1))) (not (not (= s 0))) (ite (>= (* pi (to_real s)) 0/1) (ite (>= pi 0/1) (> (* pi (to_real s)) pi) (> (* pi (to_real s)) (- pi))) (ite (>= pi 0/1) (> (- (* pi (to_real s))) pi) (> (- (* pi (to_real s))) (- pi))))) :rule subproof :discharge (t310.a0 t310.a1 t310.a2))
+(step slice_end (cl) :rule trust :premises (t310) :args ("trust"))

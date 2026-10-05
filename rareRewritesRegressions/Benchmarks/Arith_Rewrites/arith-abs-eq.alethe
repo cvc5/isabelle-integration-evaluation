@@ -1,0 +1,6 @@
+unsat
+(anchor :step t1880)
+(assume t1880.a0 (or (= k 1/1) (= k (- 1/1))))
+(step t1880.t1 (cl (= (= (abs (* k k)) (abs 1/1)) (or (= (* k k) 1/1) (= (* k k) (- 1/1))))) :rule rare_rewrite :args ("arith-abs-eq" (* k k) 1/1))
+(step t1880 (cl (not (or (= k 1/1) (= k (- 1/1)))) (or (= (* k k) 1/1) (= (* k k) (- 1/1)))) :rule subproof :discharge (t1880.a0))
+(step slice_end (cl) :rule trust :premises (t1880) :args ("trust"))

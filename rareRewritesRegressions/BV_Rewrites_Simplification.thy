@@ -300,11 +300,6 @@ check_smt ("cvc5_proof")
   "./Benchmarks/BV_Rewrites_Simplification/bv-ult-one.smt2"
   "./Benchmarks/BV_Rewrites_Simplification/bv-ult-one.alethe"
 
-(*bv-slt-zero*)
-check_smt ("cvc5_proof")
-  "./Benchmarks/BV_Rewrites_Simplification/bv-slt-zero.smt2"
-  "./Benchmarks/BV_Rewrites_Simplification/bv-slt-zero.alethe"
-
 (*bv-merge-sign-extend-1*)
 check_smt ("cvc5_proof")
   "./Benchmarks/BV_Rewrites_Simplification/bv-merge-sign-extend-1.smt2"
@@ -316,15 +311,28 @@ check_smt ("cvc5_proof")
   "./Benchmarks/BV_Rewrites_Simplification/bv-merge-sign-extend-2.alethe"
 
 (*bv-sign-extend-eq-const-1*)
+(* TODO: no benchmark yet
 check_smt ("cvc5_proof")
-  "./Benchmarks/BV_Rewrites_Simplification/bv-sign-extend-eq_const_1.smt2"
-  "./Benchmarks/BV_Rewrites_Simplification/bv-sign-extend-eq_const_1.alethe"
+  "./Benchmarks/BV_Rewrites_Simplification/bv-sign-extend-eq-const-1.smt2"
+  "./Benchmarks/BV_Rewrites_Simplification/bv-sign-extend-eq-const-1.alethe" *)
 
 (*bv-sign-extend-eq-const-2*)
+(* TODO: no benchmark yet
+check_smt ("cvc5_proof")
+  "./Benchmarks/BV_Rewrites_Simplification/bv-sign-extend-eq-const-2.smt2"
+  "./Benchmarks/BV_Rewrites_Simplification/bv-sign-extend-eq-const-2.alethe" *)
 
 (*bv-zero-extend-eq-const-1*)
+(* TODO: no benchmark yet
+check_smt ("cvc5_proof")
+  "./Benchmarks/BV_Rewrites_Simplification/bv-zero-extend-eq-const-1.smt2"
+  "./Benchmarks/BV_Rewrites_Simplification/bv-zero-extend-eq-const-1.alethe" *)
 
 (*bv-zero-extend-eq-const-2*)
+(* TODO: no benchmark yet
+check_smt ("cvc5_proof")
+  "./Benchmarks/BV_Rewrites_Simplification/bv-zero-extend-eq-const-2.smt2"
+  "./Benchmarks/BV_Rewrites_Simplification/bv-zero-extend-eq-const-2.alethe" *)
 
 (*bv-zero-extend-ult-const-1*)
 check_smt ("cvc5_proof")

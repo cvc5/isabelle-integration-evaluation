@@ -1,0 +1,3 @@
+unsat
+(step t17 (cl (= (/ x 0) 0/1)) :rule rare_rewrite :args ("arith-div-total-zero-int" x))
+(step slice_end (cl) :rule trust :premises (t17) :args ("trust"))
