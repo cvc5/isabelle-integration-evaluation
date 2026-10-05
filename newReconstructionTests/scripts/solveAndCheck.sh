@@ -8,8 +8,12 @@
 #CVC5_HOME=${CVC5_HOME:-~/Sources/cvc5/build/bin/cvc5}
 CVC5_HOME=${CVC5_HOME:-/barrett/scratch/lachnitt/Binaries/cvc5/build/bin/cvc5}
 VERIT_HOME=${VERIT_HOME:-/barrett/scratch/lachnitt/Binaries/verit/veriT}
-ISABELLE_PATH=${ISABELLE_PATH:-/barrett/scratch/lachnitt/Binaries/dist-Isabelle_24-Sep-2026/Isabelle_24-Sep-2026/bin/isabelle}
+#ISABELLE_PATH=${ISABELLE_PATH:-/barrett/scratch/lachnitt/Binaries/dist-Isabelle_24-Sep-2026/Isabelle_24-Sep-2026/bin/}
+ISABELLE_PATH=${ISABELLE_PATH:-/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/IsabelleCheckExternal/lib/Tools/smt_check}
 export USER_HOME=${USER_HOME:-/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/}
+export ISA_HEAPS_SYSTEM=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/.isabelle/heaps/
+export ISA_HEAPS=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/.isabelle/heaps/
+export ISA_TMP=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/.isabelle/heaps/
 
 #Defaults for options
 declare -a configs=("cvc5" "verit")
@@ -245,7 +249,7 @@ check() {
 
   local start_time end_time
   start_time=$(date +%s%N)
-  { run_child timeout "$check_timeout" "$ISABELLE_PATH/isabelle" smt_check "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$proof_file" < /dev/null > "$log_file" 2>&1; } 2> /dev/null
+  { run_child timeout "$check_timeout" "$ISABELLE_PATH" "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$proof_file" < /dev/null > "$log_file" 2>&1; } 2> /dev/null
   local return_value=$?
   end_time=$(date +%s%N)
   checking_time=$((end_time - start_time))
