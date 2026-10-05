@@ -8,8 +8,9 @@
 #CVC5_HOME=${CVC5_HOME:-~/Sources/cvc5/build/bin/cvc5}
 CVC5_HOME=${CVC5_HOME:-/barrett/scratch/lachnitt/Binaries/cvc5/build/bin/cvc5}
 VERIT_HOME=${VERIT_HOME:-/barrett/scratch/lachnitt/Binaries/verit/veriT}
-ISABELLE_PATH=${ISABELLE_PATH:-/barrett/scratch/lachnitt/Binaries/dist-Isabelle_24-Sep-2026/Isabelle_24-Sep-2026/}
 CHECK_SMT_PATH=${CHECK_SMT_PATH:-/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/IsabelleCheckExternal/lib/Tools/smt_check}
+#Isabelle keeps heaps, settings and registered components in $USER_HOME/.isabelle (for a distribution in
+#$USER_HOME/.isabelle/<ISABELLE_IDENTIFIER>). The heaps have to be built there once beforehand, see check_heap.
 export USER_HOME=${USER_HOME:-/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/}
 export ISA_HEAPS_SYSTEM=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/.isabelle/heaps/
 export ISA_HEAPS=/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/.isabelle/heaps/
@@ -237,6 +238,25 @@ read_tuple() {
   echo "$tuple"
 }
 
+#The smt_check tool builds its session if the heap is missing. This takes longer than the checking timeout,
+#so the build gets killed, no heap is written and every job starts again. Instead, fail without running Isabelle.
+#This only checks that the heap exists, not that it is up to date (rebuild after changing IsabelleCheckExternal).
+heap_session=SMTCheckExternal
+check_heap() {
+  if [[ -z "$ISABELLE_HOME" ]]; then
+    echo "Error: ISABELLE_HOME is not set" >&2
+    return 1
+  fi
+  local heaps heaps_system
+  heaps=$("$ISABELLE_HOME/bin/isabelle" getenv -b ISABELLE_HEAPS)
+  heaps_system=$("$ISABELLE_HOME/bin/isabelle" getenv -b ISABELLE_HEAPS_SYSTEM)
+  if ! compgen -G "$heaps/*/$heap_session" > /dev/null && ! compgen -G "$heaps_system/*/$heap_session" > /dev/null; then
+    echo "Error: no $heap_session heap in $heaps or $heaps_system. Build it once outside slurm with" >&2
+    echo "  USER_HOME=$USER_HOME $ISABELLE_HOME/bin/isabelle build -b $heap_session" >&2
+    return 1
+  fi
+}
+
 #Sets: checking_outcome, checking_status, checking_signal, checking_time, error_rule, error_msg
 check() {
   local config=$1
@@ -250,7 +270,7 @@ check() {
 
   local start_time end_time
   start_time=$(date +%s%N)
-  { run_child timeout "$check_timeout" "$CHECK_SMT_PATH" "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$proof_file" < /dev/null > "$log_file" 2>&1; } 2> /dev/null
+  { run_child timeout "$check_timeout" "$ISABELLE_PATH" "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$PWD/$proof_file" < /dev/null > "$log_file" 2>&1; } 2> /dev/null
   local return_value=$?
   end_time=$(date +%s%N)
   checking_time=$((end_time - start_time))
@@ -301,6 +321,14 @@ check() {
 #------------------------------------------------------------------------------------
 
 failed=0
+heap_ok=1
+for config in "${configs[@]}"; do
+  if [[ "$config" == "cvc5" || "$config" == "verit" ]]; then
+    check_heap || { heap_ok=0; failed=1; }
+    break
+  fi
+done
+
 for config in "${configs[@]}"; do
   if ! solve "$config"; then
     failed=1
@@ -315,7 +343,9 @@ for config in "${configs[@]}"; do
      + (if $g == "" then {} else {signal: ($g | tonumber)} end)')
 
   checking_json='{"status":"skipped"}'
-  if [[ $solving_outcome -eq 0 ]] && [[ "$config" == "cvc5" || "$config" == "verit" ]]; then
+  if [[ $solving_outcome -eq 0 ]] && [[ "$config" == "cvc5" || "$config" == "verit" ]] && [[ $heap_ok -eq 0 ]]; then
+    checking_json='{"status":"no_heap"}'
+  elif [[ $solving_outcome -eq 0 ]] && [[ "$config" == "cvc5" || "$config" == "verit" ]]; then
     check "$config"
     checking_json=$(jq -cn --arg s "$checking_status" --argjson o "$checking_outcome" --argjson t "$checking_time" \
       --arg r "$error_rule" --arg m "$error_msg" --arg g "$checking_signal" \
