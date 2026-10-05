@@ -2,7 +2,7 @@
 
 #Solve a benchmark and immediately reconstruct the proof in Isabelle.
 #Prints one line "RESULT_JSON: {...}" per solver config to stdout, everything else goes to stderr.
-#Proofs and spy files are written to the current (slurm job) directory and are not cleaned up here.
+#Proofs and logs are written to the current (slurm job) directory, with -r to a temporary directory that is deleted at the end.
 
 #Binaries (can be overridden from the environment for local testing)
 #CVC5_HOME=${CVC5_HOME:-~/Sources/cvc5/build/bin/cvc5}
@@ -18,6 +18,8 @@ solve_timeout=300
 check_timeout=350
 declare_options=""
 library="N/A"
+memory_limit=""
+cleanup=0
 
 Help()
 {
@@ -32,11 +34,13 @@ Help()
    echo "T     Set timeout for reconstruction in Isabelle (default $check_timeout)"
    echo "o     Set declare options for smt_check"
    echo "l     Set library name"
+   echo "m     Set memory limit for the solver in MB (default: no limit)"
+   echo "r     Remove proofs and logs at the end (default: keep them in the current directory)"
    echo "h     Print this Help."
    echo
 }
 
-while getopts ":hc:t:T:o:l:" option; do
+while getopts ":hrc:t:T:o:l:m:" option; do
    case $option in
       h) # display Help
          Help
@@ -53,6 +57,8 @@ while getopts ":hc:t:T:o:l:" option; do
       T) check_timeout=$OPTARG;;
       o) declare_options=$OPTARG;;
       l) library=$OPTARG;;
+      m) memory_limit=$OPTARG;;
+      r) cleanup=1;;
      \?) # Invalid option
          echo "Error: Invalid option" >&2
          exit 1;;
@@ -85,6 +91,32 @@ path="${input_file#$input_dir/}"
 raw_name=$(basename -- "$input_file")
 raw_name="${raw_name%.*}"
 
+#Children are run in the background and waited for, so that on SIGTERM/SIGINT (e.g. scancel or a
+#slurm timeout) the traps run immediately instead of after the child finishes.
+#timeout passes the signal on to the solver/Isabelle.
+child_pid=""
+run_child() {
+  "$@" &
+  child_pid=$!
+  wait "$child_pid"
+  local return_value=$?
+  child_pid=""
+  return $return_value
+}
+on_signal() {
+  [[ -n "$child_pid" ]] && kill -TERM "$child_pid" 2> /dev/null && wait "$child_pid"
+  exit "$1"
+}
+trap 'on_signal 143' TERM
+trap 'on_signal 130' INT
+
+#Work in a temporary directory that is removed on exit
+if [[ $cleanup -eq 1 ]]; then
+  work_dir=$(mktemp -d "${TMPDIR:-/tmp}/solveAndCheck.XXXXXX") || exit 1
+  trap 'rm -rf "$work_dir"' EXIT
+  cd "$work_dir" || exit 1
+fi
+
 declare_options_str=()
 if ! [[ -z "$declare_options" ]]; then
   declare_options_str=(-o "$declare_options")
@@ -94,13 +126,24 @@ fi
 #-------------------------------------Solving----------------------------------------
 #------------------------------------------------------------------------------------
 
-#Sets: proof_file, proof_producing, solving_outcome, solving_status, solving_time, nr_of_lines
+#Run the solver with timeout and memory limit, stdout goes to $proof_file
+run_solver() {
+  local stderr_file=$1
+  shift
+  if [[ -n "$memory_limit" ]]; then
+    ulimit -v $((memory_limit * 1024)) || exit 125
+  fi
+  exec timeout "$solve_timeout" "$@" < /dev/null > "$proof_file" 2> "$stderr_file"
+}
+
+#Sets: proof_file, proof_producing, solving_outcome, solving_status, solving_signal, solving_time, nr_of_lines
 solve() {
   local config=$1
   local stderr_file="${raw_name}_${config}.stderr"
   proof_file="${raw_name}_${config}.alethe"
   proof_producing=1
   nr_of_lines=""
+  solving_signal=""
 
   local cmd
   case "$config" in
@@ -129,33 +172,46 @@ solve() {
 
   local start_time end_time
   start_time=$(date +%s%N)
-  timeout "$solve_timeout" "${cmd[@]}" < /dev/null > "$proof_file" 2> "$stderr_file"
+  #The 2>/dev/null suppresses bash's message if the solver is killed by a signal
+  { run_child run_solver "$stderr_file" "${cmd[@]}"; } 2> /dev/null
   local return_value=$?
   end_time=$(date +%s%N)
   solving_time=$((end_time - start_time))
+
+  #The solver has to print sat, unsat or unknown in the first line, everything else is an error
   local first_line
-  first_line=$(head -n 1 "$proof_file")
+  first_line=$(head -n 1 "$proof_file" | tr -d '[:space:]')
   if [ $return_value -eq 124 ]; then
     solving_outcome=-1
     solving_status="timeout"
-  elif ! [ $return_value -eq 0 ] || ! [ -s "$proof_file" ]; then
+  elif grep -q -i -E "bad_alloc|out of memory|cannot allocate" "$stderr_file"; then
+    solving_outcome=-1
+    solving_status="memout"
+  elif [ $return_value -gt 128 ]; then
+    solving_outcome=-1
+    solving_status="killed"
+    solving_signal=$((return_value - 128))
+  elif ! [ $return_value -eq 0 ]; then
     solving_outcome=-1
     solving_status="error"
-  elif [[ $first_line == *"unknown"* ]]; then
-    solving_outcome=-3
-    solving_status="unknown"
   elif grep -q "(error " "$proof_file" "$stderr_file"; then
     solving_outcome=-4
     solving_status="error"
-  elif [[ $first_line == "sat"* ]]; then
-    solving_outcome=-2
-    solving_status="sat"
-  else
+  elif [[ $first_line == "unsat" ]]; then
     solving_outcome=0
     solving_status="unsat"
     if [[ $proof_producing -eq 1 ]]; then
       nr_of_lines=$(grep -c -E "^\((assume|step|anchor)" "$proof_file") # ignore define-fun
     fi
+  elif [[ $first_line == "sat" ]]; then
+    solving_outcome=-2
+    solving_status="sat"
+  elif [[ $first_line == "unknown" ]]; then
+    solving_outcome=-3
+    solving_status="unknown"
+  else
+    solving_outcome=-4
+    solving_status="error"
   fi
 }
 
@@ -176,18 +232,20 @@ read_tuple() {
   echo "$tuple"
 }
 
-#Sets: checking_outcome, checking_status, checking_time, error_rule, error_msg
+#Sets: checking_outcome, checking_status, checking_signal, checking_time, error_rule, error_msg
 check() {
   local config=$1
   local log_file="${raw_name}_${config}_isabelle.log"
-  export ISABELLE_SMT_CVC_SPY="${PWD}/${raw_name}_${config}_spy.txt"
+  #No spying, it is not used and would slow down the reconstruction
+  unset ISABELLE_SMT_CVC_SPY
   checking_outcome=10
+  checking_signal=""
   error_rule=""
   error_msg=""
 
   local start_time end_time
   start_time=$(date +%s%N)
-  timeout "$check_timeout" "$ISABELLE_PATH/isabelle" smt_check "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$proof_file" < /dev/null > "$log_file" 2>&1
+  { run_child timeout "$check_timeout" "$ISABELLE_PATH/isabelle" smt_check "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$proof_file" < /dev/null > "$log_file" 2>&1; } 2> /dev/null
   local return_value=$?
   end_time=$(date +%s%N)
   checking_time=$((end_time - start_time))
@@ -221,7 +279,15 @@ check() {
     4|5) checking_status="parse_error";;
     6) checking_status="replay_error";;
     7) checking_status="replay_timeout";;
-    *) if [ $return_value -eq 124 ]; then checking_status="timeout"; else checking_status="no_result"; fi;;
+    *)
+      if [ $return_value -eq 124 ]; then
+        checking_status="timeout"
+      elif [ $return_value -gt 128 ]; then
+        checking_status="killed"
+        checking_signal=$((return_value - 128))
+      else
+        checking_status="no_result"
+      fi;;
   esac
 }
 
@@ -238,16 +304,18 @@ for config in "${configs[@]}"; do
 
   #Times are given in seconds, rounded to milliseconds
   solving_json=$(jq -cn --arg s "$solving_status" --argjson o "$solving_outcome" --argjson t "$solving_time" \
-    --arg n "$nr_of_lines" \
+    --arg n "$nr_of_lines" --arg g "$solving_signal" \
     '{status: $s, outcome: $o, time_s: (($t / 1e6 | round) / 1e3)}
-     + (if $n == "" then {} else {nr_of_lines: ($n | tonumber)} end)')
+     + (if $n == "" then {} else {nr_of_lines: ($n | tonumber)} end)
+     + (if $g == "" then {} else {signal: ($g | tonumber)} end)')
 
   checking_json='{"status":"skipped"}'
   if [[ $solving_outcome -eq 0 ]] && [[ "$config" == "cvc5" || "$config" == "verit" ]]; then
     check "$config"
     checking_json=$(jq -cn --arg s "$checking_status" --argjson o "$checking_outcome" --argjson t "$checking_time" \
-      --arg r "$error_rule" --arg m "$error_msg" \
+      --arg r "$error_rule" --arg m "$error_msg" --arg g "$checking_signal" \
       '{status: $s, outcome: $o, time_s: (($t / 1e6 | round) / 1e3)}
+       + (if $g == "" then {} else {signal: ($g | tonumber)} end)
        + (if $r == "" then {} else {error_rule: $r} end)
        + (if $m == "" then {} else {error_msg: $m} end)')
   fi
