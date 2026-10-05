@@ -5,9 +5,10 @@
 #Proofs and spy files are written to the current (slurm job) directory and are not cleaned up here.
 
 #Binaries (can be overridden from the environment for local testing)
-CVC5_HOME=${CVC5_HOME:-~/Sources/cvc5/build/bin/cvc5}
+#CVC5_HOME=${CVC5_HOME:-~/Sources/cvc5/build/bin/cvc5}
+CVC5_HOME=${CVC5_HOME:-/barrett/scratch/lachnitt/Binaries/cvc5/build/bin/cvc5}
 VERIT_HOME=${VERIT_HOME:-/barrett/scratch/lachnitt/Binaries/verit/veriT}
-ISABELLE_PATH=${ISABELLE_PATH:-/barrett/scratch/lachnitt/Binaries/Isabelle/bin/}
+ISABELLE_PATH=${ISABELLE_PATH:-/barrett/scratch/lachnitt/Binaries/dist-Isabelle_24-Sep-2026/Isabelle_24-Sep-2026/bin/isabelle}
 export USER_HOME=${USER_HOME:-/barrett/scratch/lachnitt/Binaries/IsabelleSetUp/}
 
 #Defaults for options
@@ -132,7 +133,6 @@ solve() {
   local return_value=$?
   end_time=$(date +%s%N)
   solving_time=$((end_time - start_time))
-
   local first_line
   first_line=$(head -n 1 "$proof_file")
   if [ $return_value -eq 124 ]; then
