@@ -41,15 +41,26 @@ def reconstructed(result):
     return result is not None and result.get("checking", {}).get("status") == "success"
 
 
-def compare(results, a, b):
+def slowest(results, reconstructed_set, config, fraction):
+    """The given fraction of benchmarks in reconstructed_set with the longest reconstruction time."""
+    n = int(len(reconstructed_set) * fraction)
+    by_time = sorted(reconstructed_set, key=lambda p: results[p][config]["checking"]["time_s"], reverse=True)
+    return set(by_time[:n])
+
+
+def compare(results, a, b, exclude_slowest):
     """results: benchmark_path -> config -> result. Returns one row of the table."""
     rec_a = {p for p, r in results.items() if reconstructed(r.get(a))}
     rec_b = {p for p, r in results.items() if reconstructed(r.get(b))}
     both = rec_a & rec_b
 
     #Only compare times on benchmarks both configs reconstructed, otherwise the sets differ.
+    #Leave out outliers (e.g. garbage collection): the slowest reconstructions of each config separately,
+    #a benchmark is left out if it is among the slowest of either config
+    outliers = slowest(results, rec_a, a, exclude_slowest) | slowest(results, rec_b, b, exclude_slowest)
+    compared = both - outliers
     #Average per benchmark difference, the Isabelle startup time is the same for both and cancels out
-    differences = [total_time(results[p][a]) - total_time(results[p][b]) for p in both]
+    differences = [total_time(results[p][a]) - total_time(results[p][b]) for p in compared]
 
     return {
         "benchmarks": len(results),
@@ -65,6 +76,9 @@ def main():
     parser.add_argument("-a", default="cvc5", help="first config (default cvc5)")
     parser.add_argument("-b", default="verit", help="second config (default verit)")
     parser.add_argument("--latex", action="store_true", help="print a LaTeX table instead of a Markdown table")
+    parser.add_argument("--exclude-slowest", type=float, default=0.05,
+                        help="fraction of the slowest reconstructions of each config left out of the time "
+                             "difference (default 0.05)")
     args = parser.parse_args()
     a, b = args.a, args.b
     name_a, name_b = DISPLAY_NAMES.get(a, a), DISPLAY_NAMES.get(b, b)
@@ -96,12 +110,12 @@ def main():
         print("No benchmarks with results for both configs", file=sys.stderr)
         sys.exit(1)
 
-    rows = [(lib, compare(results, a, b)) for lib, results in sorted(by_library.items())]
+    rows = [(lib, compare(results, a, b, args.exclude_slowest)) for lib, results in sorted(by_library.items())]
     if len(rows) > 1:
         everything = {}
         for lib, results in by_library.items():
             everything.update({(lib, p): r for p, r in results.items()})
-        rows.append(("Total", compare(everything, a, b)))
+        rows.append(("Total", compare(everything, a, b, args.exclude_slowest)))
 
     header = ["Library", "Benchmarks", f"Reconstructed {name_a}", f"Reconstructed {name_b}",
               f"Reconstructed {name_a} - {name_b}", f"Only {name_a}", f"Only {name_b}", f"Avg. time difference {name_a} - {name_b}"]
@@ -130,7 +144,9 @@ def main():
 
     print()
     print(f"Avg. time difference: time for solving and reconstruction of {name_a} minus that of {name_b}, "
-          f"averaged only over the benchmarks that both solved and reconstructed (positive: {name_a} is slower).")
+          f"averaged only over the benchmarks that both solved and reconstructed (positive: {name_a} is slower). "
+          f"Benchmarks among the {args.exclude_slowest * 100:g}% slowest reconstructions of {name_a} or of "
+          f"{name_b} are left out.")
 
 
 if __name__ == "__main__":
