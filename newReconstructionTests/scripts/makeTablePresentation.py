@@ -4,8 +4,8 @@
 Reads the results.json written by submit-job and prints, per library and in total:
   a) how many benchmarks could be reconstructed (solved and checked successfully) with each config,
      and how many more with the first config than with the second
-  b) how many times slower the first config is than the second (total solving + reconstruction time,
-     on the benchmarks that both configs solved and reconstructed)
+  b) how many seconds slower the first config is than the second on average (solving + reconstruction
+     time, on the benchmarks that both configs solved and reconstructed)
 
 Only benchmarks with a result for both configs are compared. Benchmarks where a result is missing
 (e.g. the job crashed or hit the slurm timeout) are left out and their number is reported.
@@ -48,15 +48,14 @@ def compare(results, a, b):
     both = rec_a & rec_b
 
     #Only compare times on benchmarks both configs reconstructed, otherwise the sets differ.
-    #Ratio of the total (equivalently average) times: how many times slower a is than b
-    time_a = sum(total_time(results[p][a]) for p in both)
-    time_b = sum(total_time(results[p][b]) for p in both)
+    #Average per benchmark difference, the Isabelle startup time is the same for both and cancels out
+    differences = [total_time(results[p][a]) - total_time(results[p][b]) for p in both]
 
     return {
         "benchmarks": len(results),
         "rec_a": len(rec_a), "rec_b": len(rec_b), "diff": len(rec_a) - len(rec_b),
         "only_a": len(rec_a - rec_b), "only_b": len(rec_b - rec_a),
-        "slowdown": time_a / time_b if both and time_b > 0 else None,
+        "avg_difference": sum(differences) / len(differences) if differences else None,
     }
 
 
@@ -105,12 +104,12 @@ def main():
         rows.append(("Total", compare(everything, a, b)))
 
     header = ["Library", "Benchmarks", f"Reconstructed {name_a}", f"Reconstructed {name_b}",
-              f"Reconstructed {name_a} - {name_b}", f"Only {name_a}", f"Only {name_b}", f"Slowdown {name_a}"]
+              f"Reconstructed {name_a} - {name_b}", f"Only {name_a}", f"Only {name_b}", f"Avg. time difference {name_a} - {name_b}"]
     lines = []
     for lib, c in rows:
         lines.append([lib, str(c["benchmarks"]), str(c["rec_a"]), str(c["rec_b"]), f"{c['diff']:+d}",
                       str(c["only_a"]), str(c["only_b"]),
-                      "-" if c["slowdown"] is None else f"{c['slowdown']:.2f}x"])
+                      "-" if c["avg_difference"] is None else f"{c['avg_difference']:+.2f}s"])
 
     if args.latex:
         print("\\begin{tabular}{l" + "r" * (len(header) - 1) + "}")
@@ -130,8 +129,8 @@ def main():
             print("| " + " | ".join(line) + " |")
 
     print()
-    print(f"Slowdown {name_a}: time for solving and reconstruction of {name_a} divided by that of {name_b}, "
-          f"measured only on the benchmarks that both solved and reconstructed.")
+    print(f"Avg. time difference: time for solving and reconstruction of {name_a} minus that of {name_b}, "
+          f"averaged only over the benchmarks that both solved and reconstructed (positive: {name_a} is slower).")
 
 
 if __name__ == "__main__":
