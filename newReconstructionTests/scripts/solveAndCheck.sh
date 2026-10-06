@@ -26,6 +26,8 @@ declare_options=""
 library="N/A"
 memory_limit=""
 cleanup=0
+#After the timeout, timeout sends SIGTERM. Processes still running kill_after seconds later get SIGKILL.
+kill_after=10
 
 Help()
 {
@@ -116,7 +118,12 @@ on_signal() {
 trap 'on_signal 143' TERM
 trap 'on_signal 130' INT
 
-#Work in a temporary directory that is removed on exit
+#Work in a temporary directory that is removed on exit. This is also needed if the current directory
+#is not writable, e.g. in a slurm sandbox that only gives write access to some directories.
+if [[ $cleanup -eq 0 ]] && ! [[ -w "$PWD" ]]; then
+  echo "Warning: $PWD is not writable, using a temporary directory that is removed at the end" >&2
+  cleanup=1
+fi
 if [[ $cleanup -eq 1 ]]; then
   work_dir=$(mktemp -d "${TMPDIR:-/tmp}/solveAndCheck.XXXXXX") || exit 1
   trap 'rm -rf "$work_dir"' EXIT
@@ -139,7 +146,13 @@ run_solver() {
   if [[ -n "$memory_limit" ]]; then
     ulimit -v $((memory_limit * 1024)) || exit 125
   fi
-  exec timeout "$solve_timeout" "$@" < /dev/null > "$proof_file" 2> "$stderr_file"
+  exec timeout -k "$kill_after" "$solve_timeout" "$@" < /dev/null > "$proof_file" 2> "$stderr_file"
+}
+
+#True if timeout ran out: 124, or 137 (SIGKILL) if the process did not stop on SIGTERM within kill_after
+#Arguments: return value, elapsed time in ns, timeout in seconds
+is_timeout() {
+  [ "$1" -eq 124 ] || { [ "$1" -eq 137 ] && awk -v t="$2" -v limit="$3" 'BEGIN { exit !(t >= limit * 1e9) }'; }
 }
 
 #Sets: proof_file, proof_producing, solving_outcome, solving_status, solving_signal, solving_time, nr_of_lines
@@ -178,6 +191,12 @@ solve() {
 
   local start_time end_time
   start_time=$(date +%s%N)
+  #Check this here, the error would be hidden by the 2>/dev/null below
+  if ! { : > "$proof_file" && : > "$stderr_file"; }; then
+    echo "Error: cannot create output files in $PWD" >&2
+    return 1
+  fi
+
   #The 2>/dev/null suppresses bash's message if the solver is killed by a signal
   { run_child run_solver "$stderr_file" "${cmd[@]}"; } 2> /dev/null
   local return_value=$?
@@ -187,7 +206,7 @@ solve() {
   #The solver has to print sat, unsat or unknown in the first line, everything else is an error
   local first_line
   first_line=$(head -n 1 "$proof_file" | tr -d '[:space:]')
-  if [ $return_value -eq 124 ]; then
+  if is_timeout $return_value $solving_time "$solve_timeout"; then
     solving_outcome=-1
     solving_status="timeout"
   elif grep -q -i -E "bad_alloc|out of memory|cannot allocate" "$stderr_file"; then
@@ -270,7 +289,7 @@ check() {
 
   local start_time end_time
   start_time=$(date +%s%N)
-  { run_child timeout "$check_timeout" "$CHECK_SMT_PATH" "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$PWD/$proof_file" < /dev/null > "$log_file" 2>&1; } 2> /dev/null
+  { run_child timeout -k "$kill_after" "$check_timeout" "$CHECK_SMT_PATH" "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$PWD/$proof_file" < /dev/null > "$log_file" 2>&1; } 2> /dev/null
   local return_value=$?
   end_time=$(date +%s%N)
   checking_time=$((end_time - start_time))
@@ -295,6 +314,12 @@ check() {
     fi
   done < "$log_file"
 
+  #Without RESULT_CODE, check_smt failed with an exception that smt_check_external.ML does not handle.
+  #Keep Isabelle's first error line, the log itself is usually deleted with the job directory.
+  if [[ -z "$error_msg" ]] && ! grep -q '^("RESULT_CODE"' "$log_file"; then
+    error_msg=$(grep -m 1 '^\*\*\* ' "$log_file" | sed 's/^\*\*\* *//' | cut -c 1-300)
+  fi
+
   #Codes are set in IsabelleCheckExternal/ML/smt_check_external.ML
   case "$checking_outcome" in
     0) checking_status="success";;
@@ -305,7 +330,7 @@ check() {
     6) checking_status="replay_error";;
     7) checking_status="replay_timeout";;
     *)
-      if [ $return_value -eq 124 ]; then
+      if is_timeout $return_value $checking_time "$check_timeout"; then
         checking_status="timeout"
       elif [ $return_value -gt 128 ]; then
         checking_status="killed"

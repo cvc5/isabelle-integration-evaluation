@@ -3,6 +3,9 @@ trap "cd \"${PWD}\"" EXIT
 
 #Submit solveAndCheck.sh to slurm for all .smt2 benchmarks in a directory (including subdirectories).
 #All benchmarks are listed in a single benchmark_set_<name> file, every line becomes one call of solveAndCheck.sh.
+#If evaluate.py saved the benchmarks a solver solved (prev_solved_<config>.txt in the input directory), the
+#user is asked whether to run on all benchmarks or only on the previously solved ones. The latter submits one
+#job per config, each on the benchmarks that config solved.
 
 SUBMIT_JOB=${SUBMIT_JOB:-/barrett/scratch/local/bin/submit-job.sh}
 
@@ -83,34 +86,88 @@ mkdir -p "$output_dir"
 output_dir=$(cd "$output_dir" && pwd)
 cd "$output_dir"
 
-#One line per benchmark
-bench_file="benchmark_set_$library"
-find "$input_dir" -type f -name "*.smt2" | sort > "$bench_file"
-nr_benchs=$(wc -l < "$bench_file")
-if [[ $nr_benchs -eq 0 ]]; then
-  echo "No benchmarks found in $input_dir"
-  exit 1
-fi
-echo "Created $bench_file with $nr_benchs benchmarks"
+#Submit one job array
+#Arguments: benchmark file, results directory, configs
+submit() {
+  local bench_file=$1 results_dir=$2
+  shift 2
+  local job_configs=("$@")
 
-#Every job runs all configs one after the other, each can take up to solve + check timeout
-slurm_timeout=$(( ${#configs[@]} * (solve_timeout + check_timeout) + 100 ))
+  #Every job runs all configs one after the other, each can take up to solve + check timeout plus
+  #10s each until timeout kills processes that ignore SIGTERM (kill_after in solveAndCheck.sh)
+  local slurm_timeout=$(( ${#job_configs[@]} * (solve_timeout + check_timeout + 20) + 100 ))
 
-config_str=""
-for c in "${configs[@]}"; do
-  config_str="$config_str -c $c"
-done
-job_options="$cleanup_str$config_str -t $solve_timeout -T $check_timeout -l $library $input_dir"
+  local config_str="" c
+  for c in "${job_configs[@]}"; do
+    config_str="$config_str -c $c"
+  done
+  local job_options="$cleanup_str$config_str -t $solve_timeout -T $check_timeout -l $library $input_dir"
 
-name="solveAndCheck_${library}_$(IFS=_; echo "${configs[*]}")"
-echo "Submitting $name to partition $partition (slurm timeout ${slurm_timeout}s)"
-echo "  $SCRIPT_DIR/solveAndCheck.sh $job_options <benchmark>"
+  local name="solveAndCheck_${library}_$(IFS=_; echo "${job_configs[*]}")"
+  echo "Submitting $name with $(wc -l < "$bench_file") benchmarks to partition $partition (slurm timeout ${slurm_timeout}s)"
+  echo "  $SCRIPT_DIR/solveAndCheck.sh $job_options <benchmark>"
 
-output=$("$SUBMIT_JOB" --partition "$partition" --full-access-dir "$input_dir" -t $slurm_timeout -n "$name" -b "$bench_file" -d "Results" -o "$job_options" "$SCRIPT_DIR/solveAndCheck.sh")
-if [[ $? -ne 0 ]]; then
-  echo "ERROR: Slurm could not be called"
+  local output
+  output=$("$SUBMIT_JOB" --partition "$partition" --full-access-dir "$input_dir" -t $slurm_timeout -n "$name" -b "$bench_file" -d "$results_dir" -o "$job_options" "$SCRIPT_DIR/solveAndCheck.sh")
+  if [[ $? -ne 0 ]]; then
+    echo "ERROR: Slurm could not be called"
+    echo "$output"
+    exit 1
+  fi
   echo "$output"
-  exit 1
+  echo "Send to slurm"
+}
+
+#Ask whether to run on all or on the previously solved benchmarks, if such lists exist
+mode="a"
+found_prev=false
+for c in "${configs[@]}"; do
+  [[ -f "$input_dir/prev_solved_$c.txt" ]] && found_prev=true
+done
+if [[ $found_prev == true ]]; then
+  echo "Found lists of previously solved benchmarks in $input_dir:"
+  for c in "${configs[@]}"; do
+    prev_file="$input_dir/prev_solved_$c.txt"
+    if [[ -f "$prev_file" ]]; then
+      echo "  $c: $(wc -l < "$prev_file") benchmarks"
+    else
+      echo "  $c: no list"
+    fi
+  done
+  while true; do
+    read -r -p "Do you want to run on all benchmarks (a) or just on the previously solved ones (p)? " mode || exit 1
+    [[ $mode == "a" || $mode == "p" ]] && break
+  done
 fi
-echo "$output"
-echo "Send to slurm"
+
+if [[ $mode == "a" ]]; then
+  #One line per benchmark
+  bench_file="benchmark_set_$library"
+  find "$input_dir" -type f -name "*.smt2" | sort > "$bench_file"
+  if [[ ! -s "$bench_file" ]]; then
+    echo "No benchmarks found in $input_dir"
+    exit 1
+  fi
+  echo "Created $bench_file"
+  submit "$bench_file" "Results" "${configs[@]}"
+else
+  #One job per config, each on the benchmarks this config solved before
+  for c in "${configs[@]}"; do
+    prev_file="$input_dir/prev_solved_$c.txt"
+    if ! [[ -f "$prev_file" ]]; then
+      echo "Skipping $c: no list of previously solved benchmarks"
+      continue
+    fi
+    bench_file="benchmark_set_${library}_$c"
+    #Only keep benchmarks that still exist
+    while IFS= read -r bench; do
+      [[ -f "$bench" ]] && echo "$bench"
+    done < "$prev_file" > "$bench_file"
+    if [[ ! -s "$bench_file" ]]; then
+      echo "Skipping $c: no previously solved benchmarks"
+      continue
+    fi
+    echo "Created $bench_file"
+    submit "$bench_file" "Results_$c" "$c"
+  done
+fi
