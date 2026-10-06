@@ -10,7 +10,7 @@ SUBMIT_JOB=${SUBMIT_JOB:-/barrett/scratch/local/bin/submit-job.sh}
 partition="quad"
 declare -a configs=()
 solve_timeout=300
-check_timeout=350
+check_timeout=600
 library=""
 cleanup_str=""
 
@@ -106,7 +106,7 @@ name="solveAndCheck_${library}_$(IFS=_; echo "${configs[*]}")"
 echo "Submitting $name to partition $partition (slurm timeout ${slurm_timeout}s)"
 echo "  $SCRIPT_DIR/solveAndCheck.sh $job_options <benchmark>"
 
-output=$("$SUBMIT_JOB" --partition "$partition" --full-access-dir "$input_dir" -t $slurm_timeout -n "$name" -b "$bench_file" -d "Results" -o "$job_options" "$SCRIPT_DIR/solveAndCheck.sh")
+output=$("$SUBMIT_JOB" --log-dirs --partition "$partition" --full-access-dir "$input_dir" -t $slurm_timeout -n "$name" -b "$library" -d "Results" -o "$job_options" "$SCRIPT_DIR/solveAndCheck.sh")
 if [[ $? -ne 0 ]]; then
   echo "ERROR: Slurm could not be called"
   echo "$output"
