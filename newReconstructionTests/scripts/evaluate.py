@@ -6,6 +6,9 @@ either one object per file, one per line, or a JSON array) below the given direc
 "RESULT_JSON: {...}" line in a task's output_log becomes one result. Configs that were requested
 with -c but have no result (crash, slurm timeout, missing binary, ...) are added with status "missing".
 
+At the end it asks whether to save the benchmarks each config solved (unsat) to prev_solved_<config>.txt
+in the benchmark input directory. solveAndCheckWrapper.sh then offers to run only on those.
+
 Usage: evaluate.py [-o combined.json] [--csv results.csv] <results dir or file>...
 """
 
@@ -187,6 +190,37 @@ def print_summary(results, nr_tasks):
         print()
 
 
+def save_solved(results):
+    """Write prev_solved_<config>.txt with the benchmarks each config solved (unsat) into the input directory,
+    where solveAndCheckWrapper.sh picks them up."""
+    #(input directory, config) -> solved benchmarks. The input directory is the benchmark path without
+    #the path relative to it
+    solved = defaultdict(set)
+    for r in results:
+        path, rel = r.get("benchmark_path", ""), r.get("relative_benchmark_path") or ""
+        if not rel or not path.endswith(rel):
+            continue
+        input_dir = path[:-len(rel)].rstrip("/")
+        solved[(input_dir, r.get("config"))]
+        if r["solving"].get("status") == "unsat":
+            solved[(input_dir, r.get("config"))].add(path)
+
+    for (input_dir, config), paths in sorted(solved.items()):
+        out = Path(input_dir) / f"prev_solved_{config}.txt"
+        try:
+            out.write_text("".join(p + "\n" for p in sorted(paths)))
+            print(f"Wrote {out} with {len(paths)} benchmarks")
+        except OSError as e:
+            print(f"Error: cannot write {out}: {e}", file=sys.stderr)
+
+
+def ask(question):
+    try:
+        return input(question).strip().lower() in ("y", "yes")
+    except EOFError:
+        return False
+
+
 def write_csv(results, path):
     fields = ["library_name", "config", "relative_benchmark_path", "benchmark_path",
               "solving_status", "solving_outcome", "solving_time_s", "nr_of_lines",
@@ -230,6 +264,9 @@ def main():
     if args.csv:
         write_csv(results, args.csv)
         print(f"Wrote {args.csv}")
+
+    if ask("Save the benchmarks each solver solved (unsat) to prev_solved_<config>.txt in the input directory? [y/N] "):
+        save_solved(results)
 
 
 if __name__ == "__main__":
