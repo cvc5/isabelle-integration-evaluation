@@ -4,8 +4,8 @@
 Reads the results.json written by submit-job and prints, per library and in total:
   a) how many benchmarks could be reconstructed (solved and checked successfully) with each config,
      and how many more with the first config than with the second
-  b) the average solving + reconstruction time per config on the benchmarks that both configs solved
-     and reconstructed, and how much faster/slower the first config is
+  b) how many times slower the first config is than the second (total solving + reconstruction time,
+     on the benchmarks that both configs solved and reconstructed)
 
 Only benchmarks with a result for both configs are compared. Benchmarks where a result is missing
 (e.g. the job crashed or hit the slurm timeout) are left out and their number is reported.
@@ -14,7 +14,6 @@ Usage: makeTablePresentation.py [-a cvc5] [-b verit] [--latex] <results.json>
 """
 
 import argparse
-import math
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -28,6 +27,10 @@ import evaluate
 def complete(configs, a, b):
     """True if both configs have a result for this benchmark."""
     return all(c in configs and configs[c]["solving"].get("status") != "missing" for c in (a, b))
+
+
+#Names used in the table, the configs themselves keep their names from solveAndCheck.sh
+DISPLAY_NAMES = {"verit": "veriT"}
 
 
 def total_time(result):
@@ -44,36 +47,17 @@ def compare(results, a, b):
     rec_b = {p for p, r in results.items() if reconstructed(r.get(b))}
     both = rec_a & rec_b
 
-    #Only compare times on benchmarks both configs reconstructed, otherwise the sets differ
-    times_a = [total_time(results[p][a]) for p in both]
-    times_b = [total_time(results[p][b]) for p in both]
-    avg_a = sum(times_a) / len(both) if both else None
-    avg_b = sum(times_b) / len(both) if both else None
-    #Geometric mean of the per benchmark ratios, less dominated by a few long running benchmarks
-    ratios = [ta / tb for ta, tb in zip(times_a, times_b) if ta > 0 and tb > 0]
-    geo_ratio = math.exp(sum(map(math.log, ratios)) / len(ratios)) if ratios else None
+    #Only compare times on benchmarks both configs reconstructed, otherwise the sets differ.
+    #Ratio of the total (equivalently average) times: how many times slower a is than b
+    time_a = sum(total_time(results[p][a]) for p in both)
+    time_b = sum(total_time(results[p][b]) for p in both)
 
     return {
         "benchmarks": len(results),
         "rec_a": len(rec_a), "rec_b": len(rec_b), "diff": len(rec_a) - len(rec_b),
-        "only_a": len(rec_a - rec_b), "only_b": len(rec_b - rec_a), "both": len(both),
-        "avg_a": avg_a, "avg_b": avg_b,
-        "avg_ratio": avg_a / avg_b if both and avg_b else None,
-        "geo_ratio": geo_ratio,
+        "only_a": len(rec_a - rec_b), "only_b": len(rec_b - rec_a),
+        "slowdown": time_a / time_b if both and time_b > 0 else None,
     }
-
-
-def fmt(value, spec):
-    return "-" if value is None else format(value, spec)
-
-
-def speed(ratio):
-    """Describe ratio = time_a / time_b in words."""
-    if ratio is None:
-        return "-"
-    if ratio <= 1:
-        return f"{(1 - ratio) * 100:.1f}% faster"
-    return f"{(ratio - 1) * 100:.1f}% slower"
 
 
 def main():
@@ -84,6 +68,7 @@ def main():
     parser.add_argument("--latex", action="store_true", help="print a LaTeX table instead of a Markdown table")
     args = parser.parse_args()
     a, b = args.a, args.b
+    name_a, name_b = DISPLAY_NAMES.get(a, a), DISPLAY_NAMES.get(b, b)
 
     if not Path(args.result_file).is_file():
         print(f"Error: {args.result_file} is not a file", file=sys.stderr)
@@ -106,7 +91,7 @@ def main():
         for p in incomplete:
             del results[p]
     by_library = {lib: results for lib, results in by_library.items() if results}
-    print(f"Read {nr_tasks} tasks. Left out {excluded} benchmarks without a result for both {a} and {b}.",
+    print(f"Read {nr_tasks} tasks. Left out {excluded} benchmarks without a result for both {name_a} and {name_b}.",
           file=sys.stderr)
     if not by_library:
         print("No benchmarks with results for both configs", file=sys.stderr)
@@ -119,14 +104,13 @@ def main():
             everything.update({(lib, p): r for p, r in results.items()})
         rows.append(("Total", compare(everything, a, b)))
 
-    header = ["Library", "Benchmarks", f"Reconstructed {a}", f"Reconstructed {b}", f"{a} - {b}",
-              f"Only {a}", f"Only {b}", "Both",
-              f"Avg. time {a} (s)", f"Avg. time {b} (s)", f"{a} vs. {b} (avg.)", f"{a} vs. {b} (geo. mean)"]
+    header = ["Library", "Benchmarks", f"Reconstructed {name_a}", f"Reconstructed {name_b}",
+              f"Reconstructed {name_a} - {name_b}", f"Only {name_a}", f"Only {name_b}", f"Slowdown {name_a}"]
     lines = []
     for lib, c in rows:
         lines.append([lib, str(c["benchmarks"]), str(c["rec_a"]), str(c["rec_b"]), f"{c['diff']:+d}",
-                      str(c["only_a"]), str(c["only_b"]), str(c["both"]),
-                      fmt(c["avg_a"], ".2f"), fmt(c["avg_b"], ".2f"), speed(c["avg_ratio"]), speed(c["geo_ratio"])])
+                      str(c["only_a"]), str(c["only_b"]),
+                      "-" if c["slowdown"] is None else f"{c['slowdown']:.2f}x"])
 
     if args.latex:
         print("\\begin{tabular}{l" + "r" * (len(header) - 1) + "}")
@@ -136,7 +120,7 @@ def main():
         for line in lines:
             if line[0] == "Total":
                 print("\\midrule")
-            print(" & ".join(x.replace("%", "\\%") for x in line) + " \\\\")
+            print(" & ".join(line) + " \\\\")
         print("\\bottomrule")
         print("\\end{tabular}")
     else:
@@ -146,8 +130,8 @@ def main():
             print("| " + " | ".join(line) + " |")
 
     print()
-    print(f"Times are solving + reconstruction, averaged over the benchmarks solved and reconstructed by both "
-          f"{a} and {b}.", file=sys.stderr)
+    print(f"Slowdown {name_a}: time for solving and reconstruction of {name_a} divided by that of {name_b}, "
+          f"measured only on the benchmarks that both solved and reconstructed.")
 
 
 if __name__ == "__main__":
