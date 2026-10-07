@@ -2,7 +2,8 @@
 
 #Solve a benchmark and immediately reconstruct the proof in Isabelle.
 #Prints one line "RESULT_JSON: {...}" per solver config to stdout, everything else goes to stderr.
-#Proofs and logs are written to the current (slurm job) directory, with -r to a temporary directory that is deleted at the end.
+#Proofs and logs are written to a temporary directory that is deleted at the end. With -k they are kept in the
+#current (slurm job) directory, together with a copy of the problem.
 
 #Binaries (can be overridden from the environment for local testing)
 #CVC5_HOME=${CVC5_HOME:-~/Sources/cvc5/build/bin/cvc5}
@@ -25,7 +26,7 @@ check_timeout=350
 declare_options=""
 library="N/A"
 memory_limit=""
-cleanup=0
+keep=0
 #After the timeout, timeout sends SIGTERM. Processes still running kill_after seconds later get SIGKILL.
 kill_after=10
 
@@ -43,12 +44,12 @@ Help()
    echo "o     Set declare options for smt_check"
    echo "l     Set library name"
    echo "m     Set memory limit for the solver in MB (default: no limit)"
-   echo "r     Remove proofs and logs at the end (default: keep them in the current directory)"
+   echo "k     Keep proofs, logs and a copy of the problem in the current directory (default: delete them)"
    echo "h     Print this Help."
    echo
 }
 
-while getopts ":hrc:t:T:o:l:m:" option; do
+while getopts ":hkc:t:T:o:l:m:" option; do
    case $option in
       h) # display Help
          Help
@@ -66,7 +67,7 @@ while getopts ":hrc:t:T:o:l:m:" option; do
       o) declare_options=$OPTARG;;
       l) library=$OPTARG;;
       m) memory_limit=$OPTARG;;
-      r) cleanup=1;;
+      k) keep=1;;
      \?) # Invalid option
          echo "Error: Invalid option" >&2
          exit 1;;
@@ -118,13 +119,16 @@ on_signal() {
 trap 'on_signal 143' TERM
 trap 'on_signal 130' INT
 
-#Work in a temporary directory that is removed on exit. This is also needed if the current directory
-#is not writable, e.g. in a slurm sandbox that only gives write access to some directories.
-if [[ $cleanup -eq 0 ]] && ! [[ -w "$PWD" ]]; then
+#With -k, work in the current directory and copy the problem there, so problem and proofs are together.
+#Otherwise (or if the current directory is not writable, e.g. in a slurm sandbox) work in a temporary
+#directory that is removed on exit.
+if [[ $keep -eq 1 ]] && ! [[ -w "$PWD" ]]; then
   echo "Warning: $PWD is not writable, using a temporary directory that is removed at the end" >&2
-  cleanup=1
+  keep=0
 fi
-if [[ $cleanup -eq 1 ]]; then
+if [[ $keep -eq 1 ]]; then
+  cp "$input_file" . || echo "Warning: cannot copy $input_file to $PWD" >&2
+else
   work_dir=$(mktemp -d "${TMPDIR:-/tmp}/solveAndCheck.XXXXXX") || exit 1
   trap 'rm -rf "$work_dir"' EXIT
   cd "$work_dir" || exit 1
