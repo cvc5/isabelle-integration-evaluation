@@ -9,13 +9,18 @@ with -c but have no result (crash, slurm timeout, missing binary, ...) are added
 At the end it asks whether to save the benchmarks each config solved (unsat) to prev_solved_<config>.txt
 in the benchmark input directory. solveAndCheckWrapper.sh then offers to run only on those.
 
-Usage: evaluate.py [-o combined.json] [--csv results.csv] <results dir or file>...
+With --copy-failed DIR, the problems whose proof was checked by Isabelle but not reconstructed
+successfully are copied to DIR/<config>/<relative benchmark path>, together with a DIR/<config>/failures.csv
+listing status and error of each.
+
+Usage: evaluate.py [-o combined.json] [--csv results.csv] [--copy-failed DIR] <results dir or file>...
 """
 
 import argparse
 import csv
 import json
 import re
+import shutil
 import statistics
 import sys
 from collections import Counter, defaultdict
@@ -23,6 +28,8 @@ from pathlib import Path
 
 RESULT_PREFIX = "RESULT_JSON: "
 SEPARATOR = "-" * 80
+#Checking statuses meaning that Isabelle did not check a proof
+NOT_CHECKED = ("skipped", "missing", "no_heap")
 
 
 def read_json_objects(path):
@@ -171,7 +178,7 @@ def print_summary(results, nr_tasks):
     for (library, config), rs in sorted(groups.items()):
         solving = Counter(r["solving"].get("status") for r in rs)
         checking = Counter(r["checking"].get("status") for r in rs)
-        checked = [r for r in rs if r["checking"].get("status") not in ("skipped", "missing", "no_heap")]
+        checked = [r for r in rs if r["checking"].get("status") not in NOT_CHECKED]
         success = [r for r in checked if r["checking"].get("status") == "success"]
 
         print(f"=== {library} / {config}: {len(rs)} benchmarks")
@@ -214,6 +221,36 @@ def save_solved(results):
             print(f"Error: cannot write {out}: {e}", file=sys.stderr)
 
 
+def copy_failed(results, out_dir):
+    """Copy the problems whose proof Isabelle checked without success to out_dir/<config>/."""
+    failed = defaultdict(list)
+    for r in results:
+        status = r["checking"].get("status")
+        if status not in NOT_CHECKED and status != "success":
+            failed[r.get("config")].append(r)
+
+    for config, rs in sorted(failed.items()):
+        config_dir = Path(out_dir) / config
+        config_dir.mkdir(parents=True, exist_ok=True)
+        copied = 0
+        with open(config_dir / "failures.csv", "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["relative_benchmark_path", "status", "outcome", "error_rule", "error_msg", "benchmark_path"])
+            for r in sorted(rs, key=lambda r: r.get("relative_benchmark_path") or r.get("benchmark_path")):
+                c = r["checking"]
+                rel = r.get("relative_benchmark_path") or Path(r["benchmark_path"]).name
+                writer.writerow([rel, c.get("status"), c.get("outcome"), c.get("error_rule"), c.get("error_msg"),
+                                 r["benchmark_path"]])
+                target = config_dir / rel
+                try:
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(r["benchmark_path"], target)
+                    copied += 1
+                except OSError as e:
+                    print(f"Warning: cannot copy {r['benchmark_path']}: {e}", file=sys.stderr)
+        print(f"Copied {copied} of {len(rs)} failed problems of {config} to {config_dir}")
+
+
 def ask(question):
     try:
         return input(question).strip().lower() in ("y", "yes")
@@ -249,6 +286,8 @@ def main():
     parser.add_argument("inputs", nargs="+", help="results directories or files")
     parser.add_argument("-o", "--output", help="write all results as one JSON array to this file")
     parser.add_argument("--csv", help="write all results as CSV to this file")
+    parser.add_argument("--copy-failed", metavar="DIR",
+                        help="copy the problems whose proof was checked with an error to DIR/<config>/")
     args = parser.parse_args()
 
     results, nr_tasks = collect(args.inputs)
@@ -264,6 +303,8 @@ def main():
     if args.csv:
         write_csv(results, args.csv)
         print(f"Wrote {args.csv}")
+    if args.copy_failed:
+        copy_failed(results, args.copy_failed)
 
     if ask("Save the benchmarks each solver solved (unsat) to prev_solved_<config>.txt in the input directory? [y/N] "):
         save_solved(results)
