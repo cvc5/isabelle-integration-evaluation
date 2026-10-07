@@ -15,7 +15,7 @@ declare -a configs=()
 solve_timeout=300
 check_timeout=300
 library=""
-cleanup_str=""
+keep_str=""
 
 Help()
 {
@@ -29,12 +29,12 @@ Help()
    echo "t     Set timeout for solving and producing proof (default $solve_timeout)"
    echo "T     Set timeout for reconstruction in Isabelle (default $check_timeout)"
    echo "l     Set library name (default: name of input_dir)"
-   echo "r     Remove proofs and logs after each benchmark"
+   echo "k     Keep proofs, logs and a copy of the problem in each job's directory (default: delete them)"
    echo "h     Print this Help."
    echo
 }
 
-while getopts ":hrp:c:t:T:l:" option; do
+while getopts ":hkp:c:t:T:l:" option; do
    case $option in
       h) # display Help
          Help
@@ -44,7 +44,7 @@ while getopts ":hrp:c:t:T:l:" option; do
       t) solve_timeout=$OPTARG;;
       T) check_timeout=$OPTARG;;
       l) library=$OPTARG;;
-      r) cleanup_str="-r";;
+      k) keep_str="-k";;
      \?) # Invalid option
          echo "Error: Invalid option"
          exit 1;;
@@ -101,7 +101,7 @@ submit() {
   for c in "${job_configs[@]}"; do
     config_str="$config_str -c $c"
   done
-  local job_options="$cleanup_str$config_str -t $solve_timeout -T $check_timeout -l $library $input_dir"
+  local job_options="$keep_str$config_str -t $solve_timeout -T $check_timeout -l $library $input_dir"
 
   local name="solveAndCheck_${library}_$(IFS=_; echo "${job_configs[*]}")"
   echo "Submitting $name with $(wc -l < "$bench_file") benchmarks to partition $partition (slurm timeout ${slurm_timeout}s)"
