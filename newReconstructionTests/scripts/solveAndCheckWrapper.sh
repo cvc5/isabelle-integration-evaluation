@@ -13,7 +13,7 @@ SUBMIT_JOB=${SUBMIT_JOB:-/barrett/scratch/local/bin/submit-job.sh}
 partition="quad"
 declare -a configs=()
 solve_timeout=300
-check_timeout=600
+check_timeout=300
 library=""
 cleanup_str=""
 
@@ -108,7 +108,7 @@ submit() {
   echo "  $SCRIPT_DIR/solveAndCheck.sh $job_options <benchmark>"
 
   local output
-  output=$("$SUBMIT_JOB" --log-dirs --partition "$partition" --full-access-dir "$input_dir" -t $slurm_timeout -n "$name" -b "$bench_file" -d "$results_dir" -o "$job_options" "$SCRIPT_DIR/solveAndCheck.sh")
+  output=$("$SUBMIT_JOB" --log-dirs --partition "$partition" --full-access-dir "$input_dir" -t $slurm_timeout -n "$name" -b "$bench_set_name" -d "$results_dir" -o "$job_options" "$SCRIPT_DIR/solveAndCheck.sh")
   if [[ $? -ne 0 ]]; then
     echo "ERROR: Slurm could not be called"
     echo "$output"
@@ -143,6 +143,7 @@ fi
 if [[ $mode == "a" ]]; then
   #One line per benchmark
   bench_file="benchmark_set_$library"
+  bench_set_name="$library"
   find "$input_dir" -type f -name "*.smt2" | sort > "$bench_file"
   if [[ ! -s "$bench_file" ]]; then
     echo "No benchmarks found in $input_dir"
@@ -159,6 +160,7 @@ else
       continue
     fi
     bench_file="benchmark_set_${library}_$c"
+    bench_set_name="${library}_$c"
     #Only keep benchmarks that still exist
     while IFS= read -r bench; do
       [[ -f "$bench" ]] && echo "$bench"
