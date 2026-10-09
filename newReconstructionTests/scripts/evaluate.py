@@ -265,7 +265,8 @@ def print_summary(results, nr_tasks):
         print(f"=== {library} / {config}: {len(rs)} benchmarks")
         print("  run:      " + ", ".join(f"{s} {n}" for s, n in run.most_common()))
         print("  solving:  " + ", ".join(f"{s} {n}" for s, n in solving.most_common()))
-        print("  checking: " + ", ".join(f"{s} {n}" for s, n in checking.most_common()))
+        #Skipped are the benchmarks without a proof to check, they are already counted in the solving row
+        print("  checking: " + ", ".join(f"{s} {n}" for s, n in checking.most_common() if s != "skipped"))
         if checked:
             print(f"  reconstructed {len(success)}/{len(checked)} checked proofs "
                   f"({100 * len(success) / len(checked):.1f}%)")
