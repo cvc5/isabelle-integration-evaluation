@@ -170,8 +170,13 @@ def results_of_task(task):
                 #Solving finished, so checking ran out of memory (if the proof was checked at all)
                 solving = solved[config]
                 run_status = "memout"
+                print("BENCHNAME")
+                print(benchmark_path)
                 checking = {"status": "memout" if solving.get("outcome") == 0 else "skipped"}
             else:
+                print("BENCHNAME")
+                print(config)
+                print(benchmark_path)
                 run_status, solving, checking = "memout", {"status": "memout"}, {"status": "skipped"}
             killed_config_seen = killed_config_seen or run_status == "memout"
             results.append({
