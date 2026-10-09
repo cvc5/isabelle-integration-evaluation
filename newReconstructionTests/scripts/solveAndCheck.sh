@@ -2,6 +2,8 @@
 
 #Solve a benchmark and immediately reconstruct the proof in Isabelle.
 #Prints one line "RESULT_JSON: {...}" per solver config to stdout, everything else goes to stderr.
+#Before that it prints "SOLVING_START: <config>" and, once solving finished, "SOLVING_JSON: {...}". If the task
+#is killed (e.g. by the benchexec memory limit), evaluate.py can tell from these whether solving or checking was running.
 #Proofs and logs are written to a temporary directory that is deleted at the end. With -k they are kept in the
 #current (slurm job) directory, together with a copy of the problem.
 
@@ -359,6 +361,7 @@ for config in "${configs[@]}"; do
 done
 
 for config in "${configs[@]}"; do
+  echo "SOLVING_START: $config"
   if ! solve "$config"; then
     failed=1
     continue
@@ -370,6 +373,7 @@ for config in "${configs[@]}"; do
     '{status: $s, outcome: $o, time_s: (($t / 1e6 | round) / 1e3)}
      + (if $n == "" then {} else {nr_of_lines: ($n | tonumber)} end)
      + (if $g == "" then {} else {signal: ($g | tonumber)} end)')
+  echo "SOLVING_JSON: $(jq -cn --arg c "$config" --argjson solving "$solving_json" '{config: $c, solving: $solving}')"
 
   checking_json='{"status":"skipped"}'
   if [[ $solving_outcome -eq 0 ]] && [[ "$config" == "cvc5" || "$config" == "verit" ]] && [[ $heap_ok -eq 0 ]]; then

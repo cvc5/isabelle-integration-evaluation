@@ -6,8 +6,10 @@ either one object per file, one per line, or a JSON array) below the given direc
 "RESULT_JSON: {...}" line in a task's output_log becomes one result. Configs that were requested
 with -c but have no result (crash, slurm timeout, missing binary, ...) are added with status "missing".
 Each result also gets a run status: "finished" if it has a result, "memout" if benchexec killed the task
-for exceeding its memory limit while this config was running (solving and checking are then "interrupted",
-as it is not known which of them ran out of memory), "not_run" for the configs after it and "missing" otherwise.
+for exceeding its memory limit while this config was running, "not_run" for the configs after it and "missing"
+otherwise. For a memout, the SOLVING_START/SOLVING_JSON lines of solveAndCheck.sh tell whether solving or
+checking ran out of memory, that one gets the status "memout". Logs of older versions without these lines only
+allow to tell that the task ran out of memory, solving and checking are then "interrupted".
 
 At the end it asks whether to save the benchmarks each config solved (unsat) to prev_solved_<config>.txt
 in the benchmark input directory. solveAndCheckWrapper.sh then offers to run only on those.
@@ -36,6 +38,8 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 RESULT_PREFIX = "RESULT_JSON: "
+SOLVING_START_PREFIX = "SOLVING_START: "
+SOLVING_PREFIX = "SOLVING_JSON: "
 SEPARATOR = "-" * 80
 #Checking statuses meaning that Isabelle did not check a proof
 NOT_CHECKED = ("skipped", "missing", "no_heap", "interrupted", "not_run")
@@ -113,14 +117,25 @@ def results_of_task(task):
     body = output_log.split(SEPARATOR, 1)[1] if SEPARATOR in output_log else output_log
 
     results = []
+    #Configs whose solving started, and the solving results of configs whose solving finished
+    started = set()
+    solved = {}
     other_lines = []
     for line in body.splitlines():
-        if line.startswith(RESULT_PREFIX):
-            try:
+        if line.startswith(SOLVING_START_PREFIX):
+            started.add(line[len(SOLVING_START_PREFIX):].strip())
+            continue
+        try:
+            if line.startswith(RESULT_PREFIX):
                 results.append(json.loads(line[len(RESULT_PREFIX):]))
-            except json.JSONDecodeError:
-                other_lines.append(line)
-        elif line.strip():
+                continue
+            if line.startswith(SOLVING_PREFIX):
+                s = json.loads(line[len(SOLVING_PREFIX):])
+                solved[s.get("config")] = s.get("solving", {})
+                continue
+        except json.JSONDecodeError:
+            pass
+        if line.strip():
             other_lines.append(line)
 
     for r in results:
@@ -134,7 +149,9 @@ def results_of_task(task):
     #first config without a result is the one that ran out of memory, the following ones did not run.
     found = {r.get("config") for r in results}
     killed = run_info.get("terminationreason") == "memory"
-    run_status = "memout" if killed else "missing"
+    #Logs of older versions of solveAndCheck.sh have no SOLVING_START lines
+    old_log = not started
+    killed_config_seen = False
     benchmark_path = task.get("job_args", "").strip()
     #The last two arguments of solveAndCheck.sh are base_dir and the benchmark
     args = command.split()
@@ -142,7 +159,21 @@ def results_of_task(task):
     relative_path = benchmark_path[len(base_dir):] if benchmark_path.startswith(base_dir) else benchmark_path
     for config in requested_configs(command):
         if config not in found:
-            status = {"memout": "interrupted", "not_run": "not_run"}.get(run_status, "missing")
+            if not killed:
+                run_status, checking = "missing", {"status": "missing"}
+                solving = solved.get(config, {"status": "missing"})
+            elif killed_config_seen or (not old_log and config not in started):
+                run_status, solving, checking = "not_run", {"status": "not_run"}, {"status": "not_run"}
+            elif old_log:
+                run_status, solving, checking = "memout", {"status": "interrupted"}, {"status": "interrupted"}
+            elif config in solved:
+                #Solving finished, so checking ran out of memory (if the proof was checked at all)
+                solving = solved[config]
+                run_status = "memout"
+                checking = {"status": "memout" if solving.get("outcome") == 0 else "skipped"}
+            else:
+                run_status, solving, checking = "memout", {"status": "memout"}, {"status": "skipped"}
+            killed_config_seen = killed_config_seen or run_status == "memout"
             results.append({
                 "benchmark_name": Path(benchmark_path).stem,
                 "benchmark_path": benchmark_path,
@@ -150,13 +181,11 @@ def results_of_task(task):
                 "library_name": (re.search(r"(?:^|\s)-l\s+(\S+)", command) or [None, "N/A"])[1],
                 "config": config,
                 "run": {"status": run_status},
-                "solving": {"status": status},
-                "checking": {"status": status},
+                "solving": solving,
+                "checking": checking,
                 "job": job,
                 "job_messages": other_lines,
             })
-            if killed:
-                run_status = "not_run"
     return results
 
 
