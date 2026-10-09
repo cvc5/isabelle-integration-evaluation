@@ -10,7 +10,7 @@
 CVC5_HOME=${CVC5_HOME:-/barrett/scratch/lachnitt/Binaries/cvc5/build/bin/cvc5}
 VERIT_HOME=${VERIT_HOME:-/barrett/scratch/lachnitt/Binaries/verit/veriT}
 #smt_check runs $ISABELLE_HOME/bin/isabelle, so it has to be exported
-export ISABELLE_HOME=${ISABELLE_HOME:-/barrett/scratch/lachnitt/Binaries/dist-Isabelle_24-Sep-2026/Isabelle_24-Sep-2026/}
+export ISABELLE_HOME=${ISABELLE_HOME:-/barrett/scratch/lachnitt/Binaries/dist-Isabelle_07-Oct-2026/Isabelle_07-Oct-2026/}
 
 CHECK_SMT_PATH=${CHECK_SMT_PATH:-/barrett/scratch/lachnitt/Binaries/isabelle-integration-evaluation/IsabelleCheckExternal/lib/Tools/smt_check}
 #Isabelle keeps heaps, settings and registered components in $USER_HOME/.isabelle (for a distribution in
@@ -293,7 +293,7 @@ check() {
 
   local start_time end_time
   start_time=$(date +%s%N)
-  { run_child timeout -k "$kill_after" "$check_timeout" "$CHECK_SMT_PATH" "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$PWD/$proof_file" < /dev/null > "$log_file" 2>&1; } 2> /dev/null
+  { run_child timeout -k "$kill_after" "$check_timeout" "$CHECK_SMT_PATH" -t "Complex_Main" "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$PWD/$proof_file" < /dev/null > "$log_file" 2>&1; } 2> /dev/null
   local return_value=$?
   end_time=$(date +%s%N)
   checking_time=$((end_time - start_time))
