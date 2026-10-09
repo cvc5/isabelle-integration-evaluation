@@ -4,9 +4,10 @@
 Reads all task records written by submit-job (files containing JSON objects with "type": "task",
 either one object per file, one per line, or a JSON array) below the given directories. Every
 "RESULT_JSON: {...}" line in a task's output_log becomes one result. Configs that were requested
-with -c but have no result (crash, slurm timeout, missing binary, ...) are added with status "missing",
-or "memout" if benchexec killed the task for exceeding its memory limit (only the config that was running,
-the following ones did not run and stay "missing").
+with -c but have no result (crash, slurm timeout, missing binary, ...) are added with status "missing".
+Each result also gets a run status: "finished" if it has a result, "memout" if benchexec killed the task
+for exceeding its memory limit while this config was running (solving and checking are then "interrupted",
+as it is not known which of them ran out of memory), "not_run" for the configs after it and "missing" otherwise.
 
 At the end it asks whether to save the benchmarks each config solved (unsat) to prev_solved_<config>.txt
 in the benchmark input directory. solveAndCheckWrapper.sh then offers to run only on those.
@@ -37,7 +38,7 @@ from pathlib import Path
 RESULT_PREFIX = "RESULT_JSON: "
 SEPARATOR = "-" * 80
 #Checking statuses meaning that Isabelle did not check a proof
-NOT_CHECKED = ("skipped", "missing", "no_heap", "memout")
+NOT_CHECKED = ("skipped", "missing", "no_heap", "interrupted", "not_run")
 
 
 def read_json_objects(path):
@@ -123,6 +124,7 @@ def results_of_task(task):
             other_lines.append(line)
 
     for r in results:
+        r["run"] = {"status": "finished"}
         r["job"] = job
         if other_lines:
             r["job_messages"] = other_lines
@@ -131,7 +133,8 @@ def results_of_task(task):
     #task died and solveAndCheck.sh could not write a result. Configs run in the order given with -c, so the
     #first config without a result is the one that ran out of memory, the following ones did not run.
     found = {r.get("config") for r in results}
-    killed_status = "memout" if run_info.get("terminationreason") == "memory" else None
+    killed = run_info.get("terminationreason") == "memory"
+    run_status = "memout" if killed else "missing"
     benchmark_path = task.get("job_args", "").strip()
     #The last two arguments of solveAndCheck.sh are base_dir and the benchmark
     args = command.split()
@@ -139,18 +142,21 @@ def results_of_task(task):
     relative_path = benchmark_path[len(base_dir):] if benchmark_path.startswith(base_dir) else benchmark_path
     for config in requested_configs(command):
         if config not in found:
+            status = {"memout": "interrupted", "not_run": "not_run"}.get(run_status, "missing")
             results.append({
                 "benchmark_name": Path(benchmark_path).stem,
                 "benchmark_path": benchmark_path,
                 "relative_benchmark_path": relative_path,
                 "library_name": (re.search(r"(?:^|\s)-l\s+(\S+)", command) or [None, "N/A"])[1],
                 "config": config,
-                "solving": {"status": killed_status or "missing"},
-                "checking": {"status": killed_status or "missing"},
+                "run": {"status": run_status},
+                "solving": {"status": status},
+                "checking": {"status": status},
                 "job": job,
                 "job_messages": other_lines,
             })
-            killed_status = None
+            if killed:
+                run_status = "not_run"
     return results
 
 
@@ -221,12 +227,14 @@ def print_summary(results, nr_tasks):
         groups[(r.get("library_name", "N/A"), r.get("config"))].append(r)
 
     for (library, config), rs in sorted(groups.items()):
+        run = Counter(r.get("run", {}).get("status") for r in rs)
         solving = Counter(r["solving"].get("status") for r in rs)
         checking = Counter(r["checking"].get("status") for r in rs)
         checked = [r for r in rs if r["checking"].get("status") not in NOT_CHECKED]
         success = [r for r in checked if r["checking"].get("status") == "success"]
 
         print(f"=== {library} / {config}: {len(rs)} benchmarks")
+        print("  run:      " + ", ".join(f"{s} {n}" for s, n in run.most_common()))
         print("  solving:  " + ", ".join(f"{s} {n}" for s, n in solving.most_common()))
         print("  checking: " + ", ".join(f"{s} {n}" for s, n in checking.most_common()))
         if checked:
@@ -304,7 +312,7 @@ def ask(question):
 
 
 def write_csv(results, path):
-    fields = ["library_name", "config", "relative_benchmark_path", "benchmark_path",
+    fields = ["library_name", "config", "relative_benchmark_path", "benchmark_path", "run_status",
               "solving_status", "solving_outcome", "solving_time_s", "nr_of_lines",
               "checking_status", "checking_outcome", "checking_time_s", "error_rule", "error_msg",
               "host", "walltime_s", "memory_mb"]
@@ -316,7 +324,7 @@ def write_csv(results, path):
             writer.writerow({
                 "library_name": r.get("library_name"), "config": r.get("config"),
                 "relative_benchmark_path": r.get("relative_benchmark_path"),
-                "benchmark_path": r.get("benchmark_path"),
+                "benchmark_path": r.get("benchmark_path"), "run_status": r.get("run", {}).get("status"),
                 "solving_status": s.get("status"), "solving_outcome": s.get("outcome"),
                 "solving_time_s": s.get("time_s"), "nr_of_lines": s.get("nr_of_lines"),
                 "checking_status": c.get("status"), "checking_outcome": c.get("outcome"),
