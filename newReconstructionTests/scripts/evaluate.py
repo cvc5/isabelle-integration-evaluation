@@ -19,7 +19,7 @@ successfully are copied to DIR/<config>/<relative benchmark path>, together with
 listing status and error of each.
 
 If a directory is given and it contains a results.json, only that file is read. Otherwise all results.json.gz
-and results_<config>.json.gz files below it (written by submit-job) are decompressed with gunzip, merged and
+and results_<config>.json.gz files below it (written by submit-job) are decompressed, merged and
 saved as results.json in the directory, so later runs read that directly. Without any of these, all files
 below the directory are read.
 
@@ -28,11 +28,11 @@ Usage: evaluate.py [-o combined.json] [--csv results.csv] [--copy-failed DIR] <r
 
 import argparse
 import csv
+import gzip
 import json
 import re
 import shutil
 import statistics
-import subprocess
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -105,6 +105,27 @@ def requested_configs(command):
     return configs or ["cvc5", "verit"]
 
 
+def library_name(command):
+    """Library passed with -l to solveAndCheck.sh."""
+    match = re.search(r"(?:^|\s)-l\s+(\S+)", command)
+    return match[1] if match else "N/A"
+
+
+def missing_statuses(config, killed, old_log, started, solved, killed_config_seen):
+    """Return run status, solving and checking of a config without a result."""
+    if not killed:
+        return "missing", solved.get(config, {"status": "missing"}), {"status": "missing"}
+    if killed_config_seen or (not old_log and config not in started):
+        return "not_run", {"status": "not_run"}, {"status": "not_run"}
+    if old_log:
+        return "memout", {"status": "interrupted"}, {"status": "interrupted"}
+    if config in solved:
+        #Solving finished, so checking ran out of memory (if the proof was checked at all)
+        solving = solved[config]
+        return "memout", solving, {"status": "memout" if solving.get("outcome") == 0 else "skipped"}
+    return "memout", {"status": "memout"}, {"status": "skipped"}
+
+
 def results_of_task(task):
     """Return the result records of one task, including "missing" ones."""
     output_log = task.get("output_log", "")
@@ -158,34 +179,23 @@ def results_of_task(task):
     base_dir = args[-2].rstrip("/") + "/" if len(args) >= 2 else ""
     relative_path = benchmark_path[len(base_dir):] if benchmark_path.startswith(base_dir) else benchmark_path
     for config in requested_configs(command):
-        if config not in found:
-            if not killed:
-                run_status, checking = "missing", {"status": "missing"}
-                solving = solved.get(config, {"status": "missing"})
-            elif killed_config_seen or (not old_log and config not in started):
-                run_status, solving, checking = "not_run", {"status": "not_run"}, {"status": "not_run"}
-            elif old_log:
-                run_status, solving, checking = "memout", {"status": "interrupted"}, {"status": "interrupted"}
-            elif config in solved:
-                #Solving finished, so checking ran out of memory (if the proof was checked at all)
-                solving = solved[config]
-                run_status = "memout"
-                checking = {"status": "memout" if solving.get("outcome") == 0 else "skipped"}
-            else:
-                run_status, solving, checking = "memout", {"status": "memout"}, {"status": "skipped"}
-            killed_config_seen = killed_config_seen or run_status == "memout"
-            results.append({
-                "benchmark_name": Path(benchmark_path).stem,
-                "benchmark_path": benchmark_path,
-                "relative_benchmark_path": relative_path,
-                "library_name": (re.search(r"(?:^|\s)-l\s+(\S+)", command) or [None, "N/A"])[1],
-                "config": config,
-                "run": {"status": run_status},
-                "solving": solving,
-                "checking": checking,
-                "job": job,
-                "job_messages": other_lines,
-            })
+        if config in found:
+            continue
+        run_status, solving, checking = missing_statuses(config, killed, old_log, started, solved,
+                                                         killed_config_seen)
+        killed_config_seen = killed_config_seen or run_status == "memout"
+        results.append({
+            "benchmark_name": Path(benchmark_path).stem,
+            "benchmark_path": benchmark_path,
+            "relative_benchmark_path": relative_path,
+            "library_name": library_name(command),
+            "config": config,
+            "run": {"status": run_status},
+            "solving": solving,
+            "checking": checking,
+            "job": job,
+            "job_messages": other_lines,
+        })
     return results
 
 
@@ -197,16 +207,20 @@ def gunzip_results(directory):
     if not archives:
         return None
     objects = []
+    merged = []
     for archive in archives:
-        proc = subprocess.run(["gunzip", "-c", str(archive)], capture_output=True, text=True, errors="replace")
-        if proc.returncode != 0:
-            print(f"Warning: cannot gunzip {archive}: {proc.stderr.strip()}", file=sys.stderr)
+        try:
+            with gzip.open(archive, "rt", errors="replace") as f:
+                text = f.read()
+        except (OSError, EOFError) as e:
+            print(f"Warning: cannot decompress {archive}: {e}", file=sys.stderr)
             continue
-        objects.extend(parse_json_objects(proc.stdout))
+        objects.extend(parse_json_objects(text))
+        merged.append(archive)
     out = directory / "results.json"
     with open(out, "w") as f:
         json.dump(objects, f)
-    print(f"Merged {len(archives)} file(s) into {out}: " + ", ".join(str(a) for a in archives), file=sys.stderr)
+    print(f"Merged {len(merged)} file(s) into {out}: " + ", ".join(str(a) for a in merged), file=sys.stderr)
     return out
 
 
@@ -291,9 +305,10 @@ def save_solved(results):
         if not rel or not path.endswith(rel):
             continue
         input_dir = path[:-len(rel)].rstrip("/")
-        solved[(input_dir, r.get("config"))]
+        #Create the entry even if nothing is solved, so that an outdated file is overwritten
+        paths = solved[(input_dir, r.get("config"))]
         if r["solving"].get("status") == "unsat":
-            solved[(input_dir, r.get("config"))].add(path)
+            paths.add(path)
 
     for (input_dir, config), paths in sorted(solved.items()):
         out = Path(input_dir) / f"prev_solved_{config}.txt"
@@ -341,27 +356,27 @@ def ask(question):
         return False
 
 
+def csv_row(r):
+    s, c, j = r.get("solving", {}), r.get("checking", {}), r.get("job", {})
+    return {
+        "library_name": r.get("library_name"), "config": r.get("config"),
+        "relative_benchmark_path": r.get("relative_benchmark_path"),
+        "benchmark_path": r.get("benchmark_path"), "run_status": r.get("run", {}).get("status"),
+        "solving_status": s.get("status"), "solving_outcome": s.get("outcome"),
+        "solving_time_s": s.get("time_s"), "nr_of_lines": s.get("nr_of_lines"),
+        "checking_status": c.get("status"), "checking_outcome": c.get("outcome"),
+        "checking_time_s": c.get("time_s"), "error_rule": c.get("error_rule"),
+        "error_msg": c.get("error_msg"),
+        "host": j.get("host"), "walltime_s": j.get("walltime_s"), "memory_mb": j.get("memory_mb"),
+    }
+
+
 def write_csv(results, path):
-    fields = ["library_name", "config", "relative_benchmark_path", "benchmark_path", "run_status",
-              "solving_status", "solving_outcome", "solving_time_s", "nr_of_lines",
-              "checking_status", "checking_outcome", "checking_time_s", "error_rule", "error_msg",
-              "host", "walltime_s", "memory_mb"]
     with open(path, "w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fields)
+        #The column names are the keys of csv_row, so they are only listed there
+        writer = csv.DictWriter(f, fieldnames=list(csv_row({})))
         writer.writeheader()
-        for r in results:
-            s, c, j = r.get("solving", {}), r.get("checking", {}), r.get("job", {})
-            writer.writerow({
-                "library_name": r.get("library_name"), "config": r.get("config"),
-                "relative_benchmark_path": r.get("relative_benchmark_path"),
-                "benchmark_path": r.get("benchmark_path"), "run_status": r.get("run", {}).get("status"),
-                "solving_status": s.get("status"), "solving_outcome": s.get("outcome"),
-                "solving_time_s": s.get("time_s"), "nr_of_lines": s.get("nr_of_lines"),
-                "checking_status": c.get("status"), "checking_outcome": c.get("outcome"),
-                "checking_time_s": c.get("time_s"), "error_rule": c.get("error_rule"),
-                "error_msg": c.get("error_msg"),
-                "host": j.get("host"), "walltime_s": j.get("walltime_s"), "memory_mb": j.get("memory_mb"),
-            })
+        writer.writerows(map(csv_row, results))
 
 
 def main():
