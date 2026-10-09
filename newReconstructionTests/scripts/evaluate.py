@@ -4,7 +4,9 @@
 Reads all task records written by submit-job (files containing JSON objects with "type": "task",
 either one object per file, one per line, or a JSON array) below the given directories. Every
 "RESULT_JSON: {...}" line in a task's output_log becomes one result. Configs that were requested
-with -c but have no result (crash, slurm timeout, missing binary, ...) are added with status "missing".
+with -c but have no result (crash, slurm timeout, missing binary, ...) are added with status "missing",
+or "memout" if benchexec killed the task for exceeding its memory limit (only the config that was running,
+the following ones did not run and stay "missing").
 
 At the end it asks whether to save the benchmarks each config solved (unsat) to prev_solved_<config>.txt
 in the benchmark input directory. solveAndCheckWrapper.sh then offers to run only on those.
@@ -12,6 +14,11 @@ in the benchmark input directory. solveAndCheckWrapper.sh then offers to run onl
 With --copy-failed DIR, the problems whose proof was checked by Isabelle but not reconstructed
 successfully are copied to DIR/<config>/<relative benchmark path>, together with a DIR/<config>/failures.csv
 listing status and error of each.
+
+If a directory is given and it contains a results.json, only that file is read. Otherwise all results.json.gz
+and results_<config>.json.gz files below it (written by submit-job) are decompressed with gunzip, merged and
+saved as results.json in the directory, so later runs read that directly. Without any of these, all files
+below the directory are read.
 
 Usage: evaluate.py [-o combined.json] [--csv results.csv] [--copy-failed DIR] <results dir or file>...
 """
@@ -22,6 +29,7 @@ import json
 import re
 import shutil
 import statistics
+import subprocess
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -29,7 +37,7 @@ from pathlib import Path
 RESULT_PREFIX = "RESULT_JSON: "
 SEPARATOR = "-" * 80
 #Checking statuses meaning that Isabelle did not check a proof
-NOT_CHECKED = ("skipped", "missing", "no_heap")
+NOT_CHECKED = ("skipped", "missing", "no_heap", "memout")
 
 
 def read_json_objects(path):
@@ -39,6 +47,11 @@ def read_json_objects(path):
     except OSError as e:
         print(f"Warning: cannot read {path}: {e}", file=sys.stderr)
         return
+    yield from parse_json_objects(text)
+
+
+def parse_json_objects(text):
+    """Yield all JSON objects in a string (single object, JSON array, or JSON lines)."""
     try:
         data = json.loads(text)
         if isinstance(data, list):
@@ -76,6 +89,8 @@ def parse_run_log(run_log):
                 info["cputime_s"] = round(float(value.rstrip("s")), 3)
             elif key == "memory":
                 info["memory_mb"] = round(int(value.rstrip("B")) / 2**20, 1)
+            elif key == "terminationreason":
+                info["terminationreason"] = value.strip()
     return info
 
 
@@ -112,8 +127,11 @@ def results_of_task(task):
         if other_lines:
             r["job_messages"] = other_lines
 
-    #Add configs without a result
+    #Add configs without a result. If benchexec killed the task for exceeding its memory limit, the whole
+    #task died and solveAndCheck.sh could not write a result. Configs run in the order given with -c, so the
+    #first config without a result is the one that ran out of memory, the following ones did not run.
     found = {r.get("config") for r in results}
+    killed_status = "memout" if run_info.get("terminationreason") == "memory" else None
     benchmark_path = task.get("job_args", "").strip()
     #The last two arguments of solveAndCheck.sh are base_dir and the benchmark
     args = command.split()
@@ -127,19 +145,46 @@ def results_of_task(task):
                 "relative_benchmark_path": relative_path,
                 "library_name": (re.search(r"(?:^|\s)-l\s+(\S+)", command) or [None, "N/A"])[1],
                 "config": config,
-                "solving": {"status": "missing"},
-                "checking": {"status": "missing"},
+                "solving": {"status": killed_status or "missing"},
+                "checking": {"status": killed_status or "missing"},
                 "job": job,
                 "job_messages": other_lines,
             })
+            killed_status = None
     return results
+
+
+def gunzip_results(directory):
+    """Decompress all results.json.gz and results_<config>.json.gz files below directory and merge them into
+    directory/results.json. Return the path of that file or None if there are no such files."""
+    archives = sorted(f for f in directory.rglob("results*.json.gz")
+                      if f.is_file() and re.fullmatch(r"results(_.+)?\.json\.gz", f.name))
+    if not archives:
+        return None
+    objects = []
+    for archive in archives:
+        proc = subprocess.run(["gunzip", "-c", str(archive)], capture_output=True, text=True, errors="replace")
+        if proc.returncode != 0:
+            print(f"Warning: cannot gunzip {archive}: {proc.stderr.strip()}", file=sys.stderr)
+            continue
+        objects.extend(parse_json_objects(proc.stdout))
+    out = directory / "results.json"
+    with open(out, "w") as f:
+        json.dump(objects, f)
+    print(f"Merged {len(archives)} file(s) into {out}: " + ", ".join(str(a) for a in archives), file=sys.stderr)
+    return out
 
 
 def collect(paths):
     files = []
     for p in map(Path, paths):
         if p.is_dir():
-            files.extend(sorted(f for f in p.rglob("*") if f.is_file()))
+            if (p / "results.json").is_file():
+                files.append(p / "results.json")
+            elif (merged := gunzip_results(p)) is not None:
+                files.append(merged)
+            else:
+                files.extend(sorted(f for f in p.rglob("*") if f.is_file()))
         elif p.is_file():
             files.append(p)
         else:
