@@ -107,8 +107,14 @@ submit() {
   echo "Submitting $name with $(wc -l < "$bench_file") benchmarks to partition $partition (slurm timeout ${slurm_timeout}s)"
   echo "  $SCRIPT_DIR/solveAndCheck.sh $job_options <benchmark>"
 
+  #Only with -k solveAndCheck.sh keeps files in the job directory, otherwise it works in a temporary directory
+  local log_dirs=()
+  if [[ -n "$keep_str" ]]; then
+    log_dirs=(--log-dirs)
+  fi
+
   local output
-  output=$("$SUBMIT_JOB" --log-dirs --partition "$partition" --full-access-dir "$input_dir" -t $slurm_timeout -n "$name" -b "$bench_set_name" -d "$results_dir" -m 16000 -o "$job_options" "$SCRIPT_DIR/solveAndCheck.sh")
+  output=$("$SUBMIT_JOB" "${log_dirs[@]}" --partition "$partition" --full-access-dir "$input_dir" -t $slurm_timeout -n "$name" -b "$bench_set_name" -d "$results_dir" -m 16000 -o "$job_options" "$SCRIPT_DIR/solveAndCheck.sh")
   if [[ $? -ne 0 ]]; then
     echo "ERROR: Slurm could not be called"
     echo "$output"
