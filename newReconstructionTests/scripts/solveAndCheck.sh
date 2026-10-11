@@ -121,6 +121,26 @@ on_signal() {
 trap 'on_signal 143' TERM
 trap 'on_signal 130' INT
 
+#Like run_child, and sets cpu_time to the CPU time (user + sys, in s) used by the child and its children, or to ""
+#if it could not be measured. Unlike the wall time, this does not count time spent waiting, e.g. for the file system.
+#The first argument is a temporary file for the output of time.
+#The 2>/dev/null suppresses bash's message if the child is killed by a signal
+cpu_time=""
+run_child_cpu() {
+  local time_file=$1
+  shift
+  local TIMEFORMAT='%3U %3S' user sys
+  { time { run_child "$@"; } 2> /dev/null; } 2> "$time_file"
+  local return_value=$?
+  cpu_time=""
+  if read -r user sys < "$time_file" && [[ -n "$sys" ]]; then
+    #time uses the decimal separator of the locale
+    cpu_time=$(awk -v u="${user/,/.}" -v s="${sys/,/.}" 'BEGIN { printf "%.3f", u + s }')
+  fi
+  rm -f "$time_file"
+  return $return_value
+}
+
 #With -k, work in the current directory and copy the problem there, so problem and proofs are together.
 #Otherwise (or if the current directory is not writable, e.g. in a slurm sandbox) work in a temporary
 #directory that is removed on exit.
@@ -161,7 +181,8 @@ is_timeout() {
   [ "$1" -eq 124 ] || { [ "$1" -eq 137 ] && awk -v t="$2" -v limit="$3" 'BEGIN { exit !(t >= limit * 1e9) }'; }
 }
 
-#Sets: proof_file, proof_producing, solving_outcome, solving_status, solving_signal, solving_time, nr_of_lines
+#Sets: proof_file, proof_producing, solving_outcome, solving_status, solving_signal, solving_time, solving_cpu_time,
+#nr_of_lines
 solve() {
   local config=$1
   local stderr_file="${raw_name}_${config}.stderr"
@@ -203,11 +224,11 @@ solve() {
     return 1
   fi
 
-  #The 2>/dev/null suppresses bash's message if the solver is killed by a signal
-  { run_child run_solver "$stderr_file" "${cmd[@]}"; } 2> /dev/null
+  run_child_cpu "${raw_name}_${config}_solving.time" run_solver "$stderr_file" "${cmd[@]}"
   local return_value=$?
   end_time=$(date +%s%N)
   solving_time=$((end_time - start_time))
+  solving_cpu_time=$cpu_time
 
   #The solver has to print sat, unsat or unknown in the first line, everything else is an error
   local first_line
@@ -215,6 +236,8 @@ solve() {
   if is_timeout $return_value $solving_time "$solve_timeout"; then
     solving_outcome=-1
     solving_status="timeout"
+    #With 137 timeout killed itself together with the solver, so the CPU time of the solver is lost
+    if [ $return_value -eq 137 ]; then solving_cpu_time=""; fi
   elif grep -q -i -E "bad_alloc|out of memory|cannot allocate" "$stderr_file"; then
     solving_outcome=-1
     solving_status="memout"
@@ -282,7 +305,13 @@ check_heap() {
   fi
 }
 
-#Sets: checking_outcome, checking_status, checking_signal, checking_time, error_rule, error_msg
+#Run smt_check with timeout, stdout and stderr go to the log file
+#Arguments: config, log file
+run_checker() {
+  exec timeout -k "$kill_after" "$check_timeout" "$CHECK_SMT_PATH" -t "Complex_Main" "${declare_options_str[@]}" -s "$1" -i "$input_file" -p "$PWD/$proof_file" < /dev/null > "$2" 2>&1
+}
+
+#Sets: checking_outcome, checking_status, checking_signal, checking_time, checking_cpu_time, error_rule, error_msg
 check() {
   local config=$1
   local log_file="${raw_name}_${config}_isabelle.log"
@@ -295,10 +324,11 @@ check() {
 
   local start_time end_time
   start_time=$(date +%s%N)
-  { run_child timeout -k "$kill_after" "$check_timeout" "$CHECK_SMT_PATH" -t "Complex_Main" "${declare_options_str[@]}" -s "$config" -i "$input_file" -p "$PWD/$proof_file" < /dev/null > "$log_file" 2>&1; } 2> /dev/null
+  run_child_cpu "${raw_name}_${config}_checking.time" run_checker "$config" "$log_file"
   local return_value=$?
   end_time=$(date +%s%N)
   checking_time=$((end_time - start_time))
+  checking_cpu_time=$cpu_time
 
   local line tuple tmp
   while IFS= read -r line; do
@@ -338,6 +368,8 @@ check() {
     *)
       if is_timeout $return_value $checking_time "$check_timeout"; then
         checking_status="timeout"
+        #With 137 timeout killed itself together with Isabelle, so the CPU time of Isabelle is lost
+        if [ $return_value -eq 137 ]; then checking_cpu_time=""; fi
       elif [ $return_value -gt 128 ]; then
         checking_status="killed"
         checking_signal=$((return_value - 128))
@@ -367,10 +399,12 @@ for config in "${configs[@]}"; do
     continue
   fi
 
-  #Times are given in seconds, rounded to milliseconds
+  #Times are given in seconds, rounded to milliseconds. time_s is the wall time, cpu_time_s the CPU time
+  #(user + sys, Isabelle uses several threads so it can be larger than time_s)
   solving_json=$(jq -cn --arg s "$solving_status" --argjson o "$solving_outcome" --argjson t "$solving_time" \
-    --arg n "$nr_of_lines" --arg g "$solving_signal" \
+    --arg u "$solving_cpu_time" --arg n "$nr_of_lines" --arg g "$solving_signal" \
     '{status: $s, outcome: $o, time_s: (($t / 1e6 | round) / 1e3)}
+     + (if $u == "" then {} else {cpu_time_s: ($u | tonumber)} end)
      + (if $n == "" then {} else {nr_of_lines: ($n | tonumber)} end)
      + (if $g == "" then {} else {signal: ($g | tonumber)} end)')
   echo "SOLVING_JSON: $(jq -cn --arg c "$config" --argjson solving "$solving_json" '{config: $c, solving: $solving}')"
@@ -381,8 +415,9 @@ for config in "${configs[@]}"; do
   elif [[ $solving_outcome -eq 0 ]] && [[ "$config" == "cvc5" || "$config" == "verit" ]]; then
     check "$config"
     checking_json=$(jq -cn --arg s "$checking_status" --argjson o "$checking_outcome" --argjson t "$checking_time" \
-      --arg r "$error_rule" --arg m "$error_msg" --arg g "$checking_signal" \
+      --arg u "$checking_cpu_time" --arg r "$error_rule" --arg m "$error_msg" --arg g "$checking_signal" \
       '{status: $s, outcome: $o, time_s: (($t / 1e6 | round) / 1e3)}
+       + (if $u == "" then {} else {cpu_time_s: ($u | tonumber)} end)
        + (if $g == "" then {} else {signal: ($g | tonumber)} end)
        + (if $r == "" then {} else {error_rule: $r} end)
        + (if $m == "" then {} else {error_msg: $m} end)')

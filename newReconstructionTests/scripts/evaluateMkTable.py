@@ -5,6 +5,10 @@ For each set (library, e.g. SMT2_0016) and config it lists the number of benchma
 the total solving time on them, and the total solving time on the benchmarks of the set that all configs solved.
 The configs are the ones occurring in the results, sorted by name.
 
+The times are CPU times (cpu_time_s), which do not include time spent waiting, e.g. for the file system. Results of
+older versions of solveAndCheck.sh only have the wall time (time_s). If any solved benchmark lacks the CPU time,
+the wall time is used for all of them, with a warning.
+
 The inputs are read as by evaluate.py: results.json files of submit-job, or directories containing them.
 
 Usage: evaluateMkTable.py <results.json or results dir>...
@@ -17,16 +21,22 @@ from collections import defaultdict
 from evaluate import collect
 
 
-def solving_time(r):
-    return r["solving"].get("time_s") or 0
-
-
 def make_table(results):
     #library -> config -> benchmark path -> result
     sets = defaultdict(lambda: defaultdict(dict))
     for r in results:
         sets[r.get("library_name", "N/A")][r.get("config")][r.get("benchmark_path")] = r
     configs = sorted({r.get("config") for r in results})
+
+    unsat = [r for r in results if r["solving"].get("status") == "unsat"]
+    time_key = "cpu_time_s"
+    if not all(time_key in r["solving"] for r in unsat):
+        print("Warning: not all solved benchmarks have a CPU time (cpu_time_s), using the wall time (time_s)",
+              file=sys.stderr)
+        time_key = "time_s"
+
+    def solving_time(r):
+        return r["solving"].get(time_key) or 0
 
     rows = [
         ["Set", "Total", "Solving (Generating proof certificates)"] + [""] * (3 * len(configs) - 1),

@@ -284,9 +284,16 @@ def print_summary(results, nr_tasks):
         if checked:
             print(f"  reconstructed {len(success)}/{len(checked)} checked proofs "
                   f"({100 * len(success) / len(checked):.1f}%)")
-        print("  solving time (unsat):     " +
-              fmt_time([r["solving"]["time_s"] for r in rs if r["solving"].get("status") == "unsat"]))
+        unsat = [r for r in rs if r["solving"].get("status") == "unsat"]
+        print("  solving time (unsat):     " + fmt_time([r["solving"]["time_s"] for r in unsat]))
         print("  checking time (success):  " + fmt_time([r["checking"]["time_s"] for r in success]))
+        #The CPU time is only measured by newer versions of solveAndCheck.sh
+        if any("cpu_time_s" in r["solving"] for r in unsat):
+            print("  solving CPU time (unsat): " +
+                  fmt_time([r["solving"]["cpu_time_s"] for r in unsat if "cpu_time_s" in r["solving"]]))
+        if any("cpu_time_s" in r["checking"] for r in success):
+            print("  checking CPU time (success): " +
+                  fmt_time([r["checking"]["cpu_time_s"] for r in success if "cpu_time_s" in r["checking"]]))
 
         rules = Counter(r["checking"]["error_rule"] for r in checked if "error_rule" in r["checking"])
         if rules:
@@ -363,9 +370,11 @@ def csv_row(r):
         "relative_benchmark_path": r.get("relative_benchmark_path"),
         "benchmark_path": r.get("benchmark_path"), "run_status": r.get("run", {}).get("status"),
         "solving_status": s.get("status"), "solving_outcome": s.get("outcome"),
-        "solving_time_s": s.get("time_s"), "nr_of_lines": s.get("nr_of_lines"),
+        "solving_time_s": s.get("time_s"), "solving_cpu_time_s": s.get("cpu_time_s"),
+        "nr_of_lines": s.get("nr_of_lines"),
         "checking_status": c.get("status"), "checking_outcome": c.get("outcome"),
-        "checking_time_s": c.get("time_s"), "error_rule": c.get("error_rule"),
+        "checking_time_s": c.get("time_s"), "checking_cpu_time_s": c.get("cpu_time_s"),
+        "error_rule": c.get("error_rule"),
         "error_msg": c.get("error_msg"),
         "host": j.get("host"), "walltime_s": j.get("walltime_s"), "memory_mb": j.get("memory_mb"),
     }
