@@ -108,7 +108,7 @@ submit() {
   echo "  $SCRIPT_DIR/solveAndCheck.sh $job_options <benchmark>"
 
   local output
-  output=$("$SUBMIT_JOB" --log-dirs --partition "$partition" --full-access-dir "$input_dir" -t $slurm_timeout -n "$name" -b "$bench_set_name" -d "$results_dir" -o "$job_options" "$SCRIPT_DIR/solveAndCheck.sh")
+  output=$("$SUBMIT_JOB" --log-dirs --partition "$partition" --full-access-dir "$input_dir" -t $slurm_timeout -n "$name" -b "$bench_set_name" -d "$results_dir" -m 16000 -o "$job_options" "$SCRIPT_DIR/solveAndCheck.sh")
   if [[ $? -ne 0 ]]; then
     echo "ERROR: Slurm could not be called"
     echo "$output"
