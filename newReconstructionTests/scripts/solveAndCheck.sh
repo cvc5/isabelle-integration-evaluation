@@ -29,6 +29,7 @@ declare_options=""
 library="N/A"
 memory_limit=""
 keep=0
+only_solving=0
 #After the timeout, timeout sends SIGTERM. Processes still running kill_after seconds later get SIGKILL.
 kill_after=10
 
@@ -47,11 +48,12 @@ Help()
    echo "l     Set library name"
    echo "m     Set memory limit for the solver in MB (default: no limit)"
    echo "k     Keep proofs, logs and a copy of the problem in the current directory (default: delete them)"
+   echo "s     Only solve, do not reconstruct the proofs in Isabelle"
    echo "h     Print this Help."
    echo
 }
 
-while getopts ":hkc:t:T:o:l:m:" option; do
+while getopts ":hksc:t:T:o:l:m:" option; do
    case $option in
       h) # display Help
          Help
@@ -70,6 +72,7 @@ while getopts ":hkc:t:T:o:l:m:" option; do
       l) library=$OPTARG;;
       m) memory_limit=$OPTARG;;
       k) keep=1;;
+      s) only_solving=1;;
      \?) # Invalid option
          echo "Error: Invalid option" >&2
          exit 1;;
@@ -386,7 +389,7 @@ check() {
 failed=0
 heap_ok=1
 for config in "${configs[@]}"; do
-  if [[ "$config" == "cvc5" || "$config" == "verit" ]]; then
+  if [[ $only_solving -eq 0 ]] && [[ "$config" == "cvc5" || "$config" == "verit" ]]; then
     check_heap || { heap_ok=0; failed=1; }
     break
   fi
@@ -410,7 +413,9 @@ for config in "${configs[@]}"; do
   echo "SOLVING_JSON: $(jq -cn --arg c "$config" --argjson solving "$solving_json" '{config: $c, solving: $solving}')"
 
   checking_json='{"status":"skipped"}'
-  if [[ $solving_outcome -eq 0 ]] && [[ "$config" == "cvc5" || "$config" == "verit" ]] && [[ $heap_ok -eq 0 ]]; then
+  if [[ $only_solving -eq 1 ]]; then
+    :
+  elif [[ $solving_outcome -eq 0 ]] && [[ "$config" == "cvc5" || "$config" == "verit" ]] && [[ $heap_ok -eq 0 ]]; then
     checking_json='{"status":"no_heap"}'
   elif [[ $solving_outcome -eq 0 ]] && [[ "$config" == "cvc5" || "$config" == "verit" ]]; then
     check "$config"

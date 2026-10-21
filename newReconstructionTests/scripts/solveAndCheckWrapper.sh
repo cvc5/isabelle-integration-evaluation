@@ -16,6 +16,7 @@ solve_timeout=300
 check_timeout=300
 library=""
 keep_str=""
+only_solving_str=""
 
 Help()
 {
@@ -30,11 +31,22 @@ Help()
    echo "T     Set timeout for reconstruction in Isabelle (default $check_timeout)"
    echo "l     Set library name (default: name of input_dir)"
    echo "k     Keep proofs, logs and a copy of the problem in each job's directory (default: delete them)"
+   echo "s     Only solve, do not reconstruct the proofs in Isabelle (also --only-solving)"
    echo "h     Print this Help."
    echo
 }
 
-while getopts ":hkp:c:t:T:l:" option; do
+#getopts does not support long options, translate them to short ones
+args=()
+for arg in "$@"; do
+  case "$arg" in
+    --only-solving) args+=("-s");;
+    *) args+=("$arg");;
+  esac
+done
+set -- "${args[@]}"
+
+while getopts ":hksp:c:t:T:l:" option; do
    case $option in
       h) # display Help
          Help
@@ -44,7 +56,8 @@ while getopts ":hkp:c:t:T:l:" option; do
       t) solve_timeout=$OPTARG;;
       T) check_timeout=$OPTARG;;
       l) library=$OPTARG;;
-      k) keep_str="-k";;
+      k) keep_str="-k ";;
+      s) only_solving_str="-s ";;
      \?) # Invalid option
          echo "Error: Invalid option"
          exit 1;;
@@ -95,13 +108,18 @@ submit() {
 
   #Every job runs all configs one after the other, each can take up to solve + check timeout plus
   #10s each until timeout kills processes that ignore SIGTERM (kill_after in solveAndCheck.sh)
-  local slurm_timeout=$(( ${#job_configs[@]} * (solve_timeout + check_timeout + 20) + 100 ))
+  local slurm_timeout
+  if [[ -n "$only_solving_str" ]]; then
+    slurm_timeout=$(( ${#job_configs[@]} * (solve_timeout + 10) + 100 ))
+  else
+    slurm_timeout=$(( ${#job_configs[@]} * (solve_timeout + check_timeout + 20) + 100 ))
+  fi
 
   local config_str="" c
   for c in "${job_configs[@]}"; do
     config_str="$config_str -c $c"
   done
-  local job_options="$keep_str$config_str -t $solve_timeout -T $check_timeout -l $library $input_dir"
+  local job_options="$keep_str$only_solving_str${config_str# } -t $solve_timeout -T $check_timeout -l $library $input_dir"
 
   local name="solveAndCheck_${library}_$(IFS=_; echo "${job_configs[*]}")"
   echo "Submitting $name with $(wc -l < "$bench_file") benchmarks to partition $partition (slurm timeout ${slurm_timeout}s)"
