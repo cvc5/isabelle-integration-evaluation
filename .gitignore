@@ -5,6 +5,10 @@ certificates/data/**/*.proof
 certificates/data/**/*.smt_in
 RewriteReconstruction/
 reconstruction/data/*
+mirabelle/data/*
+*.thy~
+*.alethe~
+*.smt2~
 
 __pycache__/*
 
