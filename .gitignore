@@ -1,0 +1,10 @@
+certificates/data/**/*.alethe
+certificates/data/**/*.smt2
+certificates/data/**/*.cpc
+certificates/data/**/*.proof
+certificates/data/**/*.smt_in
+RewriteReconstruction/
+reconstruction/data/*
+
+__pycache__/*
+
