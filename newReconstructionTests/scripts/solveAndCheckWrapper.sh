@@ -4,8 +4,8 @@ trap "cd \"${PWD}\"" EXIT
 #Submit solveAndCheck.sh to slurm for all .smt2 benchmarks in a directory (including subdirectories).
 #All benchmarks are listed in a single benchmark_set_<name> file, every line becomes one call of solveAndCheck.sh.
 #If evaluate.py saved the benchmarks a solver solved (prev_solved_<config>.txt in the input directory), the
-#user is asked whether to run on all benchmarks or only on the previously solved ones. The latter submits one
-#job per config, each on the benchmarks that config solved.
+#user is asked whether to run on all benchmarks or only on the previously solved ones. The latter runs all configs
+#on the union of the benchmarks the given configs solved.
 
 SUBMIT_JOB=${SUBMIT_JOB:-/barrett/scratch/local/bin/submit-job.sh}
 
@@ -176,24 +176,26 @@ if [[ $mode == "a" ]]; then
   echo "Created $bench_file"
   submit "$bench_file" "Results" "${configs[@]}"
 else
-  #One job per config, each on the benchmarks this config solved before
+  #All configs on the union of the benchmarks the given configs solved before
+  bench_file="benchmark_set_${library}_prev"
+  bench_set_name="${library}_prev"
+  prev_files=()
   for c in "${configs[@]}"; do
     prev_file="$input_dir/prev_solved_$c.txt"
-    if ! [[ -f "$prev_file" ]]; then
-      echo "Skipping $c: no list of previously solved benchmarks"
-      continue
+    if [[ -f "$prev_file" ]]; then
+      prev_files+=("$prev_file")
+    else
+      echo "Warning: no list of previously solved benchmarks for $c, it only runs on the benchmarks of the other configs"
     fi
-    bench_file="benchmark_set_${library}_$c"
-    bench_set_name="${library}_$c"
-    #Only keep benchmarks that still exist
-    while IFS= read -r bench; do
-      [[ -f "$bench" ]] && echo "$bench"
-    done < "$prev_file" > "$bench_file"
-    if [[ ! -s "$bench_file" ]]; then
-      echo "Skipping $c: no previously solved benchmarks"
-      continue
-    fi
-    echo "Created $bench_file"
-    submit "$bench_file" "Results_$c" "$c"
   done
+  #Only keep benchmarks that still exist
+  sort -u "${prev_files[@]}" | while IFS= read -r bench; do
+    [[ -f "$bench" ]] && echo "$bench"
+  done > "$bench_file"
+  if [[ ! -s "$bench_file" ]]; then
+    echo "No previously solved benchmarks found"
+    exit 1
+  fi
+  echo "Created $bench_file"
+  submit "$bench_file" "Results" "${configs[@]}"
 fi

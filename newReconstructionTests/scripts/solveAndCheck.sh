@@ -124,6 +124,16 @@ on_signal() {
 trap 'on_signal 143' TERM
 trap 'on_signal 130' INT
 
+#Prints the current time in ns for measuring wall times. Uses the monotonic clock: unlike date +%s%N it does not
+#jump when the system time is adjusted (e.g. by NTP), which gives wrong (even negative) times.
+#Decided once, mixing both clocks in one measurement would be meaningless.
+if perl -MTime::HiRes=clock_gettime,CLOCK_MONOTONIC -e 1 2> /dev/null; then
+  now_ns() { perl -MTime::HiRes=clock_gettime,CLOCK_MONOTONIC -e 'printf "%.0f\n", clock_gettime(CLOCK_MONOTONIC) * 1e9'; }
+else
+  echo "Warning: perl with Time::HiRes not found, measuring wall times with date (not monotonic)" >&2
+  now_ns() { date +%s%N; }
+fi
+
 #Like run_child, and sets cpu_time to the CPU time (user + sys, in s) used by the child and its children, or to ""
 #if it could not be measured. Unlike the wall time, this does not count time spent waiting, e.g. for the file system.
 #The first argument is a temporary file for the output of time.
@@ -220,7 +230,7 @@ solve() {
   fi
 
   local start_time end_time
-  start_time=$(date +%s%N)
+  start_time=$(now_ns)
   #Check this here, the error would be hidden by the 2>/dev/null below
   if ! { : > "$proof_file" && : > "$stderr_file"; }; then
     echo "Error: cannot create output files in $PWD" >&2
@@ -229,7 +239,7 @@ solve() {
 
   run_child_cpu "${raw_name}_${config}_solving.time" run_solver "$stderr_file" "${cmd[@]}"
   local return_value=$?
-  end_time=$(date +%s%N)
+  end_time=$(now_ns)
   solving_time=$((end_time - start_time))
   solving_cpu_time=$cpu_time
 
@@ -326,10 +336,10 @@ check() {
   error_msg=""
 
   local start_time end_time
-  start_time=$(date +%s%N)
+  start_time=$(now_ns)
   run_child_cpu "${raw_name}_${config}_checking.time" run_checker "$config" "$log_file"
   local return_value=$?
-  end_time=$(date +%s%N)
+  end_time=$(now_ns)
   checking_time=$((end_time - start_time))
   checking_cpu_time=$cpu_time
 
