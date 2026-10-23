@@ -2,7 +2,7 @@
 """Collect the results of solveAndCheckWrapper.sh runs and print a summary.
 
 Reads all task records written by submit-job (files containing JSON objects with "type": "task",
-either one object per file, one per line, or a JSON array) below the given directories. Every
+either one object per file, one per line, or a JSON array) in the given files. Every
 "RESULT_JSON: {...}" line in a task's output_log becomes one result. Configs that were requested
 with -c but have no result (crash, slurm timeout, missing binary, ...) are added with status "missing".
 Each result also gets a run status: "finished" if it has a result, "memout" if benchexec killed the task
@@ -18,12 +18,10 @@ With --copy-failed DIR, the problems whose proof was checked by Isabelle but not
 successfully are copied to DIR/<config>/<relative benchmark path>, together with a DIR/<config>/failures.csv
 listing status and error of each.
 
-If a directory is given and it contains a results.json, only that file is read. Otherwise all results.json.gz
-and results_<config>.json.gz files below it (written by submit-job) are decompressed, merged and
-saved as results.json in the directory, so later runs read that directly. Without any of these, all files
-below the directory are read.
+Files ending in .gz (e.g. results.json.gz written by submit-job) are decompressed next to the archive
+(results.json), keeping the archive. Later runs reuse the decompressed file unless the archive is newer.
 
-Usage: evaluate.py [-o combined.json] [--csv results.csv] [--copy-failed DIR] <results dir or file>...
+Usage: evaluate.py [-o combined.json] [--csv results.csv] [--copy-failed DIR] <results file>...
 """
 
 import argparse
@@ -201,45 +199,33 @@ def results_of_task(task):
     return results
 
 
-def gunzip_results(directory):
-    """Decompress all results.json.gz and results_<config>.json.gz files below directory and merge them into
-    directory/results.json. Return the path of that file or None if there are no such files."""
-    archives = sorted(f for f in directory.rglob("results*.json.gz")
-                      if f.is_file() and re.fullmatch(r"results(_.+)?\.json\.gz", f.name))
-    if not archives:
+def gunzip(archive):
+    """Decompress archive next to it (without the .gz suffix), keeping the archive. An already decompressed
+    file that is at least as new as the archive is reused. Return the path of the decompressed file or None."""
+    out = archive.with_suffix("")
+    if out.is_file() and out.stat().st_mtime >= archive.stat().st_mtime:
+        return out
+    try:
+        with gzip.open(archive, "rb") as src, open(out, "wb") as dst:
+            shutil.copyfileobj(src, dst)
+    except (OSError, EOFError) as e:
+        print(f"Warning: cannot decompress {archive}: {e}", file=sys.stderr)
+        out.unlink(missing_ok=True)
         return None
-    objects = []
-    merged = []
-    for archive in archives:
-        try:
-            with gzip.open(archive, "rt", errors="replace") as f:
-                text = f.read()
-        except (OSError, EOFError) as e:
-            print(f"Warning: cannot decompress {archive}: {e}", file=sys.stderr)
-            continue
-        objects.extend(parse_json_objects(text))
-        merged.append(archive)
-    out = directory / "results.json"
-    with open(out, "w") as f:
-        json.dump(objects, f)
-    print(f"Merged {len(merged)} file(s) into {out}: " + ", ".join(str(a) for a in merged), file=sys.stderr)
+    print(f"Decompressed {archive} to {out}", file=sys.stderr)
     return out
 
 
 def collect(paths):
     files = []
     for p in map(Path, paths):
-        if p.is_dir():
-            if (p / "results.json").is_file():
-                files.append(p / "results.json")
-            elif (merged := gunzip_results(p)) is not None:
-                files.append(merged)
-            else:
-                files.extend(sorted(f for f in p.rglob("*") if f.is_file()))
-        elif p.is_file():
-            files.append(p)
+        if not p.is_file():
+            print(f"Warning: {p} does not exist or is not a file", file=sys.stderr)
+        elif p.suffix == ".gz":
+            if (out := gunzip(p)) is not None:
+                files.append(out)
         else:
-            print(f"Warning: {p} does not exist", file=sys.stderr)
+            files.append(p)
 
     results = []
     nr_tasks = 0
@@ -407,7 +393,7 @@ def write_csv(results, path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("inputs", nargs="+", help="results directories or files")
+    parser.add_argument("inputs", nargs="+", help="results files (.json or .json.gz)")
     parser.add_argument("-o", "--output", help="write all results as one JSON array to this file")
     parser.add_argument("--csv", help="write all results as CSV to this file")
     parser.add_argument("--copy-failed", metavar="DIR",
