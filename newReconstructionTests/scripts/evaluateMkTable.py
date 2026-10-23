@@ -11,7 +11,8 @@ For each set (library, e.g. SMT2_0016) and config it lists:
            Common (s)     total checking time on the benchmarks of the set that all configs reconstructed, without
                           the slowest 5% of them (by the maximal checking time over all configs, so the same
                           benchmarks are left out for every config)
-The configs are the ones occurring in the results, sorted by name.
+The configs are the ones occurring in the results, sorted by name. A second table below the legend shows the
+proofs, common times and checking results with the configs next to each other, for comparing them.
 
 The times are CPU times (cpu_time_s), which do not include time spent waiting, e.g. for the file system. Results of
 older versions of solveAndCheck.sh only have the wall time (time_s). If any solved or reconstructed benchmark lacks
@@ -91,48 +92,77 @@ def make_table(results):
                                       key=lambda p: max(checking_time(reconstructed[c][p]) for c in configs))
         common_reconstructed = common_reconstructed[:len(common_reconstructed) -
                                                     int(len(common_reconstructed) * CHECKING_TRIM)]
-        row = [library, str(len(benchmarks))]
+        row = {"Set": library, "Total": str(len(benchmarks))}
         for config in configs:
             s, c = solved[config], reconstructed[config]
             errors = [r for r in rs[config].values()
                       if r["checking"].get("status") not in NOT_CHECKED + ("success",)]
-            row += [str(len(s)),
-                    f"{sum(map(solving_time, s.values())):.1f}",
-                    f"{sum(solving_time(s[p]) for p in common_solved):.1f}",
-                    str(len(c)),
-                    str(len(errors)),
-                    f"{sum(trim_slowest(map(checking_time, c.values()))):.1f}",
-                    f"{sum(checking_time(c[p]) for p in common_reconstructed):.1f}"]
+            values = [str(len(s)),
+                      f"{sum(map(solving_time, s.values())):.1f}",
+                      f"{sum(solving_time(s[p]) for p in common_solved):.1f}",
+                      str(len(c)),
+                      str(len(errors)),
+                      f"{sum(trim_slowest(map(checking_time, c.values()))):.1f}",
+                      f"{sum(checking_time(c[p]) for p in common_reconstructed):.1f}"]
+            row.update({(config, section, name): v for (section, name), v in zip(COLUMNS, values)})
         rows.append(row)
     return configs, rows, legend(solving_key, checking_key)
 
 
-def format_text(configs, rows):
-    """Return the table as aligned plain text, with the configs and sections as spanning headers."""
-    names = ["Set", "Total"] + [name for _ in configs for _, name in COLUMNS]
-    widths = [max(len(names[i]), *(len(row[i]) for row in rows)) for i in range(len(names))]
-    #Spanning headers: (text, first column, number of columns)
-    nr = len(COLUMNS)
-    nr_solving = sum(1 for section, _ in COLUMNS if section == "Solving")
-    config_spans = [(config, 2 + i * nr, nr) for i, config in enumerate(configs)]
-    section_spans = [span for i in range(len(configs))
-                     for span in (("Solving", 2 + i * nr, nr_solving),
-                                  ("Checking", 2 + i * nr + nr_solving, nr - nr_solving))]
+#A table layout is a list of columns (key in the rows of make_table, three header levels, markdown name). Adjacent
+#columns with the same first (first two) header levels share a spanning header in the plain text output.
+def base_columns():
+    return [("Set", ("", "", "Set"), "Set"), ("Total", ("", "", "Total"), "Total")]
+
+
+def columns_by_config(configs):
+    """All COLUMNS of the first config, then of the second, ..."""
+    return base_columns() + [((config, section, name), (config, section, name), f"{config} {section.lower()} {name}")
+                             for config in configs for section, name in COLUMNS]
+
+
+def columns_by_value(configs):
+    """The number of proofs and the common times, with the configs next to each other."""
+    def column(config, section, name, header):
+        return (config, section, name), header, f"{config} {section.lower()} {name}"
+    return (base_columns() +
+            [column(c, "Solving", "Proofs", ("Solving", "Proofs", c)) for c in configs] +
+            [column(c, "Solving", "Common (s)", ("Solving", "Common (s)", c)) for c in configs] +
+            [column(c, "Checking", name, ("Checking", c, name)) for c in configs for name in ("Reconstructed", "Error")] +
+            [column(c, "Checking", "Common (s)", ("Checking", "Common (s)", c)) for c in configs])
+
+
+def format_text(columns, rows):
+    """Return the table as aligned plain text, with the first two header levels as spanning headers."""
+    headers = [header for _, header, _ in columns]
+    names = [header[2] for header in headers]
+    cells = [[row[key] for key, _, _ in columns] for row in rows]
+    widths = [max(len(names[i]), *(len(row[i]) for row in cells)) for i in range(len(columns))]
 
     def sep(i):
-        """Separator before column i: | between configs and sections, spaces otherwise."""
-        return " | " if i >= 2 and (i - 2) % nr in (0, nr_solving) else "  "
+        """Separator before column i: | where the spanning headers change, spaces otherwise."""
+        return " | " if i >= 2 and headers[i][:2] != headers[i - 1][:2] else "  "
+
+    def spans(level):
+        """Spanning headers of the level as (text, first column, number of columns)."""
+        result = []
+        for i in range(2, len(columns)):
+            if result and headers[i][:level + 1] == headers[i - 1][:level + 1]:
+                result[-1][2] += 1
+            else:
+                result.append([headers[i][level], i, 1])
+        return result
 
     def span_width(first, count):
         return sum(widths[first:first + count]) + sum(len(sep(i)) for i in range(first + 1, first + count))
 
     #Widen the last column of a span if its header does not fit
-    for text, first, count in config_spans + section_spans:
+    for text, first, count in spans(0) + spans(1):
         widths[first + count - 1] += max(0, len(text) - span_width(first, count))
 
-    def span_line(spans):
-        line = sep(0).join(" " * w for w in widths[:2])
-        for text, first, count in spans:
+    def span_line(level):
+        line = sep(1).join(" " * w for w in widths[:2])
+        for text, first, count in spans(level):
             line += sep(first) + text.center(span_width(first, count))
         return line.rstrip()
 
@@ -142,16 +172,16 @@ def format_text(configs, rows):
             out += (sep(i) if i else "") + (cell.ljust(widths[i]) if i < left_columns else cell.rjust(widths[i]))
         return out.rstrip()
 
-    lines = [span_line(config_spans), span_line(section_spans), line(names, len(names)),
-             line(["-" * w for w in widths], len(widths))]
-    lines += [line(row) for row in rows]
+    lines = [span_line(0), span_line(1), line(names, len(names)), line(["-" * w for w in widths], len(widths))]
+    lines += [line(row) for row in cells]
     return "\n".join(lines)
 
 
-def format_markdown(configs, rows):
+def format_markdown(columns, rows):
     """Return the table as markdown. Markdown has no spanning headers, so the config and section are part of
     each column name."""
-    names = ["Set", "Total"] + [f"{config} {section.lower()} {name}" for config in configs for section, name in COLUMNS]
+    names = [name for _, _, name in columns]
+    rows = [[row[key] for key, _, _ in columns] for row in rows]
     widths = [max(len(names[i]), *(len(row[i]) for row in rows), 3) for i in range(len(names))]
 
     def line(cells, left_columns=1):
@@ -173,14 +203,14 @@ def main():
         print("No task records found", file=sys.stderr)
         sys.exit(1)
     configs, rows, explanations = make_table(results)
-    if args.markdown:
-        print(format_markdown(configs, rows))
-        print()
-        print("\n".join(f"- {e}" for e in explanations))
-    else:
-        print(format_text(configs, rows))
-        print()
-        print("\n".join(explanations))
+    fmt = format_markdown if args.markdown else format_text
+    print(fmt(columns_by_config(configs), rows))
+    print()
+    print("\n".join(f"- {e}" if args.markdown else e for e in explanations))
+    print()
+    print("Proofs, common times and checking results with the configs next to each other (columns as above):")
+    print()
+    print(fmt(columns_by_value(configs), rows))
 
 
 if __name__ == "__main__":
