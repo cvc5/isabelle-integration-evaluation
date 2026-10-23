@@ -41,6 +41,8 @@ RESULT_PREFIX = "RESULT_JSON: "
 SOLVING_START_PREFIX = "SOLVING_START: "
 SOLVING_PREFIX = "SOLVING_JSON: "
 SEPARATOR = "-" * 80
+#Fraction of the slowest checking times that are left out of the checking time statistics
+CHECKING_TRIM = 0.05
 #Checking statuses meaning that Isabelle did not check a proof
 NOT_CHECKED = ("skipped", "missing", "no_heap", "interrupted", "not_run")
 
@@ -260,11 +262,26 @@ def collect(paths):
 def fmt_time(times):
     if not times:
         return "-"
-    return f"total {sum(times):.1f}s, median {statistics.median(times):.2f}s, max {max(times):.2f}s"
+    return (f"total {sum(times):.1f}s, mean {statistics.mean(times):.2f}s, "
+            f"median {statistics.median(times):.2f}s, max {max(times):.2f}s")
+
+
+def trim_slowest(times):
+    """Remove the slowest CHECKING_TRIM fraction of times."""
+    times = sorted(times)
+    return times[:len(times) - int(len(times) * CHECKING_TRIM)]
+
+
+def fmt_checking_time(times):
+    trimmed = trim_slowest(times)
+    if not trimmed:
+        return "-"
+    return fmt_time(trimmed) + f" ({len(times) - len(trimmed)} slowest removed)"
 
 
 def print_summary(results, nr_tasks):
-    print(f"Read {nr_tasks} tasks with {len(results)} results\n")
+    print(f"Read {nr_tasks} tasks with {len(results)} results")
+    print(f"Note: checking times are computed without the slowest {100 * CHECKING_TRIM:g}% of the checked proofs\n")
     groups = defaultdict(list)
     for r in results:
         groups[(r.get("library_name", "N/A"), r.get("config"))].append(r)
@@ -286,14 +303,14 @@ def print_summary(results, nr_tasks):
                   f"({100 * len(success) / len(checked):.1f}%)")
         unsat = [r for r in rs if r["solving"].get("status") == "unsat"]
         print("  solving time (unsat):     " + fmt_time([r["solving"]["time_s"] for r in unsat]))
-        print("  checking time (success):  " + fmt_time([r["checking"]["time_s"] for r in success]))
+        print("  checking time (success):  " + fmt_checking_time([r["checking"]["time_s"] for r in success]))
         #The CPU time is only measured by newer versions of solveAndCheck.sh
         if any("cpu_time_s" in r["solving"] for r in unsat):
             print("  solving CPU time (unsat): " +
                   fmt_time([r["solving"]["cpu_time_s"] for r in unsat if "cpu_time_s" in r["solving"]]))
         if any("cpu_time_s" in r["checking"] for r in success):
             print("  checking CPU time (success): " +
-                  fmt_time([r["checking"]["cpu_time_s"] for r in success if "cpu_time_s" in r["checking"]]))
+                  fmt_checking_time([r["checking"]["cpu_time_s"] for r in success if "cpu_time_s" in r["checking"]]))
 
         rules = Counter(r["checking"]["error_rule"] for r in checked if "error_rule" in r["checking"])
         if rules:
