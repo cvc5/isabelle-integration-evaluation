@@ -5,8 +5,8 @@ For each set (library, e.g. SMT2_0016) and config it lists:
   Solving  Proofs         benchmarks solved with a proof (unsat)
            Time (s)       total solving time on them
            Common (s)     total solving time on the benchmarks of the set that all configs solved
-  Checking Checked        proofs checked by Isabelle
-           Reconstructed  proofs reconstructed successfully
+  Checking Reconstructed  proofs reconstructed successfully
+           Error          proofs checked by Isabelle without success (failure, timeout, memout, ...)
            Time (s)       total checking time of the reconstructed proofs, without the slowest 5% of them
            Common (s)     total checking time on the benchmarks of the set that all configs reconstructed, without
                           the slowest 5% of them (by the maximal checking time over all configs, so the same
@@ -30,7 +30,7 @@ from evaluate import CHECKING_TRIM, NOT_CHECKED, collect, trim_slowest
 
 #(section, column name) of the columns shown for each config
 COLUMNS = [("Solving", "Proofs"), ("Solving", "Time (s)"), ("Solving", "Common (s)"),
-           ("Checking", "Checked"), ("Checking", "Reconstructed"), ("Checking", "Time (s)"),
+           ("Checking", "Reconstructed"), ("Checking", "Error"), ("Checking", "Time (s)"),
            ("Checking", "Common (s)")]
 
 
@@ -51,8 +51,8 @@ def legend(solving_key, checking_key):
         "Solving Proofs: benchmarks solved with a proof (unsat)",
         f"Solving Time: total solving {kind[solving_key]} on these benchmarks",
         f"Solving Common: total solving {kind[solving_key]} on the benchmarks that all configs solved",
-        "Checking Checked: proofs checked by Isabelle",
         "Checking Reconstructed: proofs reconstructed successfully",
+        "Checking Error: proofs checked by Isabelle without success (failure, timeout, memout, ...)",
         f"Checking Time: total checking {kind[checking_key]} of the reconstructed proofs, "
         f"without the slowest {trim} of them",
         f"Checking Common: total checking {kind[checking_key]} on the benchmarks that all configs reconstructed, "
@@ -94,12 +94,13 @@ def make_table(results):
         row = [library, str(len(benchmarks))]
         for config in configs:
             s, c = solved[config], reconstructed[config]
-            checked = [r for r in rs[config].values() if r["checking"].get("status") not in NOT_CHECKED]
+            errors = [r for r in rs[config].values()
+                      if r["checking"].get("status") not in NOT_CHECKED + ("success",)]
             row += [str(len(s)),
                     f"{sum(map(solving_time, s.values())):.1f}",
                     f"{sum(solving_time(s[p]) for p in common_solved):.1f}",
-                    str(len(checked)),
                     str(len(c)),
+                    str(len(errors)),
                     f"{sum(trim_slowest(map(checking_time, c.values()))):.1f}",
                     f"{sum(checking_time(c[p]) for p in common_reconstructed):.1f}"]
         rows.append(row)
