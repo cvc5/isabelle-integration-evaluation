@@ -22,6 +22,9 @@
 #     refused (isa-poly.sh would not launch); code: isa-driver.ML's; replay_s: the replay alone,
 #     timed in ML; time is wall-clock, cpu user+sys and rss_kb the maximum, from GNU time;
 #     qd: whether quick_and_dirty was on
+#   *** check: result= rc=: <reason>  on failure, one line (failures before the check print a
+#                            "*** check: ..." line on stderr), for scripts that take the first
+#                            "*** " line as the error, e.g. solveAndCheck.sh
 #   === stderr isabelle ===  on failure: the message, the failing step and its rule, stderr
 # Exit status 0 if Isabelle checked the proof, 1 if not, 2 if the inputs or the set-up are missing.
 #
@@ -57,8 +60,8 @@ while getopts ":d:l:o:s:p:i:t:" option; do
     p) PROOF=$OPTARG ;;
     s) solver=$OPTARG ;;
     o) declare_options=$OPTARG ;;
-    \?) echo "check: invalid option -$OPTARG" >&2; usage ;;
-    :) echo "check: option -$OPTARG requires an argument" >&2; usage ;;
+    \?) echo "*** check: invalid option -$OPTARG" >&2; usage ;;
+    :) echo "*** check: option -$OPTARG requires an argument" >&2; usage ;;
   esac
 done
 shift $((OPTIND - 1))
@@ -66,7 +69,7 @@ shift $((OPTIND - 1))
 [ -n "$PROBLEM" ] && [ -n "$PROOF" ] || usage
 [ "$solver" = cvc5 ] && solver=cvc5_proof
 
-[ -n "${ISABELLE_HOME:-}" ] || { echo "check: ISABELLE_HOME is not set" >&2; exit 2; }
+[ -n "${ISABELLE_HOME:-}" ] || { echo "*** check: ISABELLE_HOME is not set" >&2; exit 2; }
 isabelle=$ISABELLE_HOME/bin/isabelle
 ISA_DRIVER=${ISA_DRIVER:-$here/isa-driver.ML}
 ISA_POLY=${ISA_POLY:-$here/isa-poly.sh}
@@ -77,8 +80,8 @@ ISA_TRACE=${ISA_TRACE:-}
 ISA_MAXHEAP=${ISA_MAXHEAP-9000}
 export ISABELLE_HOME ISA_MAXHEAP
 
-[ -r "$PROBLEM" ] || { echo "check: cannot read $PROBLEM" >&2; exit 2; }
-[ -r "$PROOF" ] || { echo "check: cannot read $PROOF" >&2; exit 2; }
+[ -r "$PROBLEM" ] || { echo "*** check: cannot read $PROBLEM" >&2; exit 2; }
+[ -r "$PROOF" ] || { echo "*** check: cannot read $PROOF" >&2; exit 2; }
 
 # the session directory, unless IsabelleCheckExternal is already a component (as smt_check makes it)
 if ! "$isabelle" components -l | grep -qF 'IsabelleCheckExternal'; then
@@ -104,7 +107,7 @@ if [ -z "$heap" ]; then
 fi
 if [ -z "$heap" ]; then
   echo "check: no $session heap, building it" >&2
-  "$isabelle" build "${dir_args[@]}" -b "$session" >&2 || { echo "check: building $session failed" >&2; exit 2; }
+  "$isabelle" build "${dir_args[@]}" -b "$session" >&2 || { echo "*** check: building $session failed" >&2; exit 2; }
   recapture=true
 fi
 if [ -n "${recapture:-}" ] || ! [ -s "$ISA_POLY_FILES/argv" ] || [ "$heap" -nt "$ISA_POLY_FILES/argv" ]; then
@@ -120,14 +123,15 @@ if [ -n "${recapture:-}" ] || ! [ -s "$ISA_POLY_FILES/argv" ] || [ "$heap" -nt "
   fi
 fi
 if ! [ -s "$ISA_POLY_FILES/argv" ]; then
-  echo "check: no Poly/ML capture in $ISA_POLY_FILES; run isa-poly-setup.sh $ISABELLE_HOME $ISA_POLY_FILES $session" >&2
+  echo "*** check: no Poly/ML capture in $ISA_POLY_FILES; run isa-poly-setup.sh $ISABELLE_HOME $ISA_POLY_FILES $session" >&2
   exit 2
 fi
 qd=$(grep -oP '^QUICK_AND_DIRTY=\K.*' "$ISA_POLY_FILES/env")
 
 ulimit -s unlimited 2>/dev/null || true
 PROBLEM=$(readlink -f "$PROBLEM"); PROOF=$(readlink -f "$PROOF")
-work=$(mktemp -d "${TMPDIR:-/tmp}/cisa.XXXXXX")
+work=$(mktemp -d "${TMPDIR:-/tmp}/cisa.XXXXXX") \
+  || { echo "*** check: cannot create a work directory in ${TMPDIR:-/tmp}" >&2; exit 2; }
 if [ -n "${KEEP_WORK:-}" ]; then
   trap 'mkdir -p "$KEEP_WORK" && rm -rf "$KEEP_WORK/$(basename "$PROOF")" && mv "$work" "$KEEP_WORK/$(basename "$PROOF")"' EXIT
 else
@@ -186,8 +190,14 @@ else isa_result=error; fi                            # 1: replay/type error, 6: 
 grep -E '^\("RESULT_(MSG|CODE)", ' isa.out
 echo "[cfg isabelle] rc=$isa_rc time=$(wall isa.stat) cpu=$(cpu isa.stat) result=$isa_result code=${code:-none} replay_s=${replay_s:-0} rss_kb=$(rss isa.stat) replay=$solver qd=$qd"
 if [ "$isa_result" != checked ]; then
-  echo "=== stderr isabelle ==="
   msg=$(grep -m1 '^ISA_RESULT_MSG ' isa.out | cut -c16- | tr -s ' ' | cut -c1-600)
+  #one line for scripts that take the first "*** " line as the error, e.g. solveAndCheck.sh: the
+  #driver's message, else (Poly/ML did not get to the driver) the first line of stderr or stdout
+  reason=$msg
+  [ -n "$reason" ] || reason=$(grep -m1 . isa.err | cut -c1-300)
+  [ -n "$reason" ] || reason=$(grep -v '^val it = ' isa.out | grep -m1 . | cut -c1-300)
+  echo "*** check: result=$isa_result rc=$isa_rc${reason:+: $reason}"
+  echo "=== stderr isabelle ==="
   echo "msg: $msg"
   step=$(echo "$msg" | grep -oE 'in step [^ ]+' | head -1 | awk '{print $3}')
   if [ -n "$step" ]; then
