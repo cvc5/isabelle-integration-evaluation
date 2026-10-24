@@ -11,8 +11,11 @@ For each set (library, e.g. SMT2_0016) and config it lists:
            Common (s)     total checking time on the benchmarks of the set that all configs reconstructed, without
                           the slowest 5% of them (by the maximal checking time over all configs, so the same
                           benchmarks are left out for every config)
+The slowest checking times are left out because Isabelle's garbage collector runs at random times and makes some
+checks slow. The solving times are not trimmed.
 The configs are the ones occurring in the results, sorted by name. A second table below the legend shows the
-proofs, common times and checking results with the configs next to each other, for comparing them.
+proofs, common times and checking results with the configs next to each other, for comparing them. Each table is
+followed by a legend of its columns.
 
 The times are CPU times (cpu_time_s), which do not include time spent waiting, e.g. for the file system. Results of
 older versions of solveAndCheck.sh only have the wall time (time_s). If any solved or reconstructed benchmark lacks
@@ -44,26 +47,42 @@ def time_key(records, step):
     return "time_s"
 
 
-def legend(solving_key, checking_key):
-    trim = f"{100 * CHECKING_TRIM:g}%"
+def explanations(solving_key, checking_key):
+    """Return the explanation of each column, by its key without the config ("Total" or (section, name))."""
     kind = {"cpu_time_s": "CPU time", "time_s": "wall time"}
-    return [
-        "Total: number of benchmarks in the set",
-        "Solving Proofs: benchmarks solved with a proof (unsat)",
-        f"Solving Time: total solving {kind[solving_key]} on these benchmarks",
-        f"Solving Common: total solving {kind[solving_key]} on the benchmarks that all configs solved",
-        "Checking Reconstructed: proofs reconstructed successfully",
-        "Checking Error: proofs checked by Isabelle without success (failure, timeout, memout, ...)",
-        f"Checking Time: total checking {kind[checking_key]} of the reconstructed proofs, "
-        f"without the slowest {trim} of them",
-        f"Checking Common: total checking {kind[checking_key]} on the benchmarks that all configs reconstructed, "
-        f"without the slowest {trim} of them (by the maximal time over all configs, the same benchmarks are left "
-        f"out for every config)",
-    ]
+    trim = f"{100 * CHECKING_TRIM:g}%"
+    return {
+        "Total": "number of benchmarks in the set",
+        ("Solving", "Proofs"): "benchmarks solved with a proof (unsat)",
+        ("Solving", "Time (s)"): f"total solving {kind[solving_key]} on these benchmarks",
+        ("Solving", "Common (s)"): f"total solving {kind[solving_key]} on the benchmarks that all configs solved",
+        ("Checking", "Reconstructed"): "proofs reconstructed successfully",
+        ("Checking", "Error"): "proofs checked by Isabelle without success (failure, timeout, memout, ...)",
+        ("Checking", "Time (s)"): f"total checking {kind[checking_key]} of the reconstructed proofs, "
+                                  f"without the slowest {trim} of them (garbage collection makes some checks slow)",
+        ("Checking", "Common (s)"): f"total checking {kind[checking_key]} on the benchmarks that all configs "
+                                    f"reconstructed, without the slowest {trim} of them (by the maximal time over all "
+                                    f"configs, the same benchmarks are left out for every config)",
+    }
+
+
+def legend(columns, explained):
+    """Return the explanations of the columns, each column name only once (in all configs it means the same)."""
+    lines = []
+    for key, _, _ in columns:
+        key = key if isinstance(key, str) else key[1:]
+        if key not in explained:
+            continue
+        line = f"{key}: " if isinstance(key, str) else f"{key[0]} {key[1].removesuffix(' (s)')}: "
+        line += explained[key]
+        if line not in lines:
+            lines.append(line)
+    return lines
 
 
 def make_table(results):
-    """Return the configs, the rows (set, total, then the COLUMNS for each config) and the legend."""
+    """Return the configs, the rows (set, total, then the COLUMNS for each config) and the explanations of the
+    columns."""
     #library -> config -> benchmark path -> result
     sets = defaultdict(lambda: defaultdict(dict))
     for r in results:
@@ -106,7 +125,7 @@ def make_table(results):
                       f"{sum(checking_time(c[p]) for p in common_reconstructed):.1f}"]
             row.update({(config, section, name): v for (section, name), v in zip(COLUMNS, values)})
         rows.append(row)
-    return configs, rows, legend(solving_key, checking_key)
+    return configs, rows, explanations(solving_key, checking_key)
 
 
 #A table layout is a list of columns (key in the rows of make_table, three header levels, markdown name). Adjacent
@@ -202,15 +221,16 @@ def main():
     if nr_tasks == 0:
         print("No task records found", file=sys.stderr)
         sys.exit(1)
-    configs, rows, explanations = make_table(results)
+    configs, rows, explained = make_table(results)
     fmt = format_markdown if args.markdown else format_text
-    print(fmt(columns_by_config(configs), rows))
-    print()
-    print("\n".join(f"- {e}" if args.markdown else e for e in explanations))
-    print()
-    print("Proofs, common times and checking results with the configs next to each other (columns as above):")
-    print()
-    print(fmt(columns_by_value(configs), rows))
+    for i, columns in enumerate((columns_by_config(configs), columns_by_value(configs))):
+        if i:
+            print()
+            print("Proofs, common times and checking results with the configs next to each other:")
+            print()
+        print(fmt(columns, rows))
+        print()
+        print("\n".join(f"- {e}" if args.markdown else e for e in legend(columns, explained)))
 
 
 if __name__ == "__main__":
